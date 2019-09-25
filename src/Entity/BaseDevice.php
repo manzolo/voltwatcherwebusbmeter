@@ -1,0 +1,156 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * App\Entity\Device
+ *
+ * @ORM\Entity()
+ * @ORM\Table(name="Device")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"base":"BaseDevice", "extended":"Device"})
+ */
+class BaseDevice
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $address;
+
+    /**
+     * @ORM\Column(name="`name`", type="string", length=255, nullable=true)
+     */
+    protected $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Log", mappedBy="device")
+     * @ORM\JoinColumn(name="id", referencedColumnName="device_id", nullable=false)
+     */
+    protected $logs;
+
+    public function __construct()
+    {
+        $this->logs = new ArrayCollection();
+    }
+
+    /**
+     * Set the value of id.
+     *
+     * @param integer $id
+     * @return \App\Entity\Device
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of address.
+     *
+     * @param string $address
+     * @return \App\Entity\Device
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of address.
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set the value of name.
+     *
+     * @param string $name
+     * @return \App\Entity\Device
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add Log entity to collection (one to many).
+     *
+     * @param \App\Entity\Log $log
+     * @return \App\Entity\Device
+     */
+    public function addLog(Log $log)
+    {
+        $this->logs[] = $log;
+
+        return $this;
+    }
+
+    /**
+     * Remove Log entity from collection (one to many).
+     *
+     * @param \App\Entity\Log $log
+     * @return \App\Entity\Device
+     */
+    public function removeLog(Log $log)
+    {
+        $this->logs->removeElement($log);
+
+        return $this;
+    }
+
+    /**
+     * Get Log entity collection (one to many).
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLogs()
+    {
+        return $this->logs;
+    }
+
+    public function __sleep()
+    {
+        return array('id', 'address', 'name');
+    }
+}

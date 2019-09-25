@@ -1,0 +1,21 @@
+App_Log:
+  resource: routes/log.yml
+  prefix: /Log
+
+App_Device:
+  resource: routes/device.yml
+  prefix: /Device
+
+# This file is the entry point to configure your own HTTP routes.
+# Files in the routes/ subdirectory configure the routes for your dependencies.
+
+fi_pannello_amministrazione:
+    resource: "@PannelloAmministrazioneBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fi_core:
+    resource: "@BiCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

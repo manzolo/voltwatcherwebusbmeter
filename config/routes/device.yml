@@ -1,0 +1,51 @@
+Device_container:
+    path:  /
+    controller: 'App\Controller\DeviceController::index'
+
+Device_lista:
+    path:  /lista
+    controller: 'App\Controller\DeviceController::lista'
+    options:
+        expose: true
+
+Device_indexdettaglio:
+    path:  /indexDettaglio
+    controller: 'App\Controller\DeviceController::indexDettaglio'
+    options:
+        expose: true
+
+Device_new:
+    path:  /new
+    controller: 'App\Controller\DeviceController::new'
+    methods:    GET|POST
+
+Device_edit:
+    path:  /{id}/edit
+    controller: 'App\Controller\DeviceController::edit'
+
+Device_update:
+    path:  /{id}/update
+    controller: 'App\Controller\DeviceController::update'
+    methods:    POST|PUT
+
+Device_aggiorna:
+    path:  /{id}/{token}/aggiorna
+    controller: 'App\Controller\DeviceController::aggiorna'
+    methods:    POST|PUT
+    options:
+        expose: true
+
+Device_delete:
+    path:  /{id}/{token}/delete
+    controller: 'App\Controller\DeviceController::delete'
+    methods:    POST|DELETE
+
+Device_deletemultiple:
+    path:  /{token}/delete
+    controller: 'App\Controller\DeviceController::delete'
+    methods:    POST|DELETE
+
+Device_tabella:
+    path:  /tabella
+    controller: 'App\Controller\DeviceController::tabella'
+    methods:    POST

@@ -1,0 +1,51 @@
+Log_container:
+    path:  /
+    controller: 'App\Controller\LogController::index'
+
+Log_lista:
+    path:  /lista
+    controller: 'App\Controller\LogController::lista'
+    options:
+        expose: true
+
+Log_indexdettaglio:
+    path:  /indexDettaglio
+    controller: 'App\Controller\LogController::indexDettaglio'
+    options:
+        expose: true
+
+Log_new:
+    path:  /new
+    controller: 'App\Controller\LogController::new'
+    methods:    GET|POST
+
+Log_edit:
+    path:  /{id}/edit
+    controller: 'App\Controller\LogController::edit'
+
+Log_update:
+    path:  /{id}/update
+    controller: 'App\Controller\LogController::update'
+    methods:    POST|PUT
+
+Log_aggiorna:
+    path:  /{id}/{token}/aggiorna
+    controller: 'App\Controller\LogController::aggiorna'
+    methods:    POST|PUT
+    options:
+        expose: true
+
+Log_delete:
+    path:  /{id}/{token}/delete
+    controller: 'App\Controller\LogController::delete'
+    methods:    POST|DELETE
+
+Log_deletemultiple:
+    path:  /{token}/delete
+    controller: 'App\Controller\LogController::delete'
+    methods:    POST|DELETE
+
+Log_tabella:
+    path:  /tabella
+    controller: 'App\Controller\LogController::tabella'
+    methods:    POST
