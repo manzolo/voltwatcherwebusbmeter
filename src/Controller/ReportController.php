@@ -33,10 +33,10 @@ class ReportController extends AbstractController
         $dettagliorows = $qb->getResult();
 
         $qb = $em->createQueryBuilder('l')
-                ->select("l, CONCAT(CONCAT(d.address,' '),d.name) as device, MAX(l.volt) maxvolt, MIN(l.volt) minvolt, SUBSTRING(l.data,1,10) AS grData")
+                ->select("CONCAT(CONCAT(d.address,' '),d.name) as device, MAX(l.volt) maxvolt, MIN(l.volt) minvolt, SUBSTRING(l.data,1,10) AS grData")
                 ->from('App:Log', 'l')
                 ->leftJoin('l.device', 'd')
-                ->groupBy('l, grData')
+                ->groupBy('l.device, grData')
                 ->orderBy('grData', "DESC")
                 ->getQuery();
         $riepilogorows = $qb->getResult();
