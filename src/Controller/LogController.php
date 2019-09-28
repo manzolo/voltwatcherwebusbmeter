@@ -50,7 +50,7 @@ class LogController extends FiController
                 "nometabella" => $controller,
                 "nomecampo" => $controller . ".data",
                 "etichetta" => "Rilevazione",
-                "ordine" => 20,
+                "ordine" => 10,
                 "larghezza" => 200,
                 "escluso" => false
             ),
@@ -58,7 +58,7 @@ class LogController extends FiController
                 "nometabella" => $controller,
                 "nomecampo" => $controller . ".volt",
                 "etichetta" => "Volt",
-                "ordine" => 30,
+                "ordine" => 20,
                 "larghezza" => 100,
                 "escluso" => false
             ),
@@ -66,7 +66,7 @@ class LogController extends FiController
                 "nometabella" => $controller,
                 "nomecampo" => $controller . ".device",
                 "etichetta" => "Rilevatore",
-                "ordine" => 10,
+                "ordine" => 30,
                 "larghezza" => 100,
                 "escluso" => false
             ),
