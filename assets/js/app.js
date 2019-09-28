@@ -17,9 +17,11 @@ $(document).ready(function () {
     GoogleCharts.load(function () {});
     $(document).on("click", "#tabLog3a-tab", function () {
         //setTimeout(function () {
+        if ($("#mygraph").hasClass("invisible")) {
             loadgraphs();
             $("#mygraph").removeClass("invisible");
-            //$("#mygraph").show();
+        }
+        //$("#mygraph").show();
         //}, 1000);
 
 
