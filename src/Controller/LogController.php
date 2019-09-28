@@ -51,7 +51,7 @@ class LogController extends FiController
                 "nomecampo" => $controller . ".data",
                 "etichetta" => "Rilevazione",
                 "ordine" => 10,
-                "larghezza" => 300,
+                "larghezza" => 200,
                 "escluso" => false
             ),
             $controller . ".volt" => array(
@@ -59,7 +59,7 @@ class LogController extends FiController
                 "nomecampo" => $controller . ".volt",
                 "etichetta" => "Volt",
                 "ordine" => 20,
-                "larghezza" => 100,
+                "larghezza" => 80,
                 "escluso" => false
             ),
             $controller . ".device" => array(
@@ -67,7 +67,7 @@ class LogController extends FiController
                 "nomecampo" => $controller . ".device",
                 "etichetta" => "Rilevatore",
                 "ordine" => 30,
-                "larghezza" => 100,
+                "larghezza" => 50,
                 "escluso" => false
             ),
             $controller . ".temp" => array(
@@ -75,8 +75,8 @@ class LogController extends FiController
                 "nomecampo" => "Log.temp",
                 "etichetta" => "Temperatura",
                 "ordine" => 100,
-                "larghezza" => 100,
-                "escluso" => false
+                "larghezza" => 30,
+                "escluso" => true
             ),
         );
 
