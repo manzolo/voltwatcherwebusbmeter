@@ -80,6 +80,49 @@ class LogController extends FiController
             ),
         );
 
+        $charts = array();
+
+        /* chart */
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder('d')
+                ->select("d")
+                ->from('App:Device', 'd')
+                ->getQuery();
+
+        $devicesrows = $qb->getResult();
+        foreach ($devicesrows as $device) {
+            /* chart */
+            $qb = $em->createQueryBuilder('l')
+                    ->select("l")
+                    ->from('App:Log', 'l')
+                    ->where('l.device = :device')
+                    ->andWhere('l.temp != 0')
+                    ->setParameter("device", $device->getId())
+                    ->orderBy('l.data', "DESC")
+                    ->getQuery();
+
+            $dettagliorows = $qb->getResult();
+            $dati = array();
+            $dati[] = ['Data', 'Volts', 'Temps'];
+            foreach ($dettagliorows as $row) {
+                $dati[] = [$row->getData(), floatval($row->getVolt()), floatval($row->getTemp())];
+            }
+            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
+            $chart->getData()->setArrayToDataTable($dati);
+
+            $chart->getOptions()->getChart()
+                    ->setTitle($device->getName());
+            $chart->getOptions()
+                    ->setHeight(400)
+                    ->setWidth(900)
+                    ->setSeries([['axis' => 'Volts'], ['axis' => 'Temps']])
+                    ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'Temps' => ['label' => 'Temps (Celsius)']]])
+            ;
+            $chart->setElementID($device->getId());
+            $charts[] = $chart;
+            /* chart */
+        }
+
         $filtri = array();
         $prefiltri = array();
         $entityutils = new EntityUtils($this->get('doctrine')->getManager());
@@ -108,9 +151,9 @@ class LogController extends FiController
             'colonneordinamento' => ParametriTabella::setParameter(json_encode($colonneordinamento)),
             'filtri' => ParametriTabella::setParameter(json_encode($filtri)),
             'prefiltri' => ParametriTabella::setParameter(json_encode($prefiltri)),
-            'traduzionefiltri' => ParametriTabella::setParameter(''),
+            'traduzionefiltri' => ParametriTabella::setParameter('')
         );
 
-        return $this->render($crudtemplate, array('parametritabella' => $parametritabella));
+        return $this->render($crudtemplate, array('charts' => $charts, 'parametritabella' => $parametritabella));
     }
 }

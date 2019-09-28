@@ -12,6 +12,17 @@
 {% endblock%}
 
 {% block content -%}
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    {% for chart in charts %}
+        <div id="div_chart{{chart.elementId}}"></div>
+        <script type="text/javascript">
+            {{ gc_draw(chart, 'div_chart'~chart.elementId) }}
+        </script>
+    {% endfor %}
+
+
     <div id="main-tabella" class="main-tabella" data-nomecontroller="{{parametritabella.nomecontroller|getparametrotabella}}"></div>
     <div class="tabella-container">
         {% set parametri= '' %}
