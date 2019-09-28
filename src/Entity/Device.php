@@ -13,7 +13,7 @@ use App\Entity\BaseDevice;
 class Device extends BaseDevice {
 
     public function __toString() {
-        return $this->getAddress() . " " . $this->getName();
+        return $this->getName();
     }
 
 }

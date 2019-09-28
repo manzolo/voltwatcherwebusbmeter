@@ -44,7 +44,7 @@ class LogController extends FiController
                 "etichetta" => "Id",
                 "ordine" => 5,
                 "larghezza" => 50,
-                "escluso" => false
+                "escluso" => true
             ),
             $controller . ".data" => array(
                 "nometabella" => $controller,
@@ -65,8 +65,8 @@ class LogController extends FiController
             $controller . ".device" => array(
                 "nometabella" => $controller,
                 "nomecampo" => $controller . ".device",
-                "etichetta" => "Device",
-                "ordine" => 40,
+                "etichetta" => "Rilevatore",
+                "ordine" => 10,
                 "larghezza" => 200,
                 "escluso" => false
             ),
@@ -76,7 +76,7 @@ class LogController extends FiController
                 "etichetta" => "Temperatura",
                 "ordine" => 100,
                 "larghezza" => 100,
-                "escluso" => true
+                "escluso" => false
             ),
         );
 
@@ -97,7 +97,7 @@ class LogController extends FiController
             'urltabella' => ParametriTabella::setParameter($assetsmanager->getUrl('/') . $controller . '/' . 'tabella'),
             'baseurl' => ParametriTabella::setParameter($assetsmanager->getUrl('/')),
             'idpassato' => ParametriTabella::setParameter($idpassato),
-            'titolotabella' => ParametriTabella::setParameter('Elenco ' . $controller),
+            'titolotabella' => ParametriTabella::setParameter($controller),
             'multiselezione' => ParametriTabella::setParameter('0'),
             'editinline' => ParametriTabella::setParameter('0'),
             'paginacorrente' => ParametriTabella::setParameter('1'),
