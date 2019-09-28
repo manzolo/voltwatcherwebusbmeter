@@ -1,0 +1,31 @@
+{% set isnew = (entity.id is defined and entity.id != 0) ? false : true %}
+{% set pathform = isnew ? path(nomecontroller|getparametrotabella ~ '_new') : path(nomecontroller|getparametrotabella ~ '_update', { 'id': entity.id }) %}
+{% set form = (edit_form is defined )?edit_form:form  %}
+
+{{ form_start(form,
+                {'id': 'formdati'~nomecontroller|getparametrotabella,
+                 'name': 'formdati'~nomecontroller|getparametrotabella, 
+                 'method': 'POST', 
+                 'action': pathform,
+                 'attr': {'class': 'bitabellaform'}
+                })
+}}
+
+{{ form_widget(form) }}
+
+{{ form_end(form) }}
+
+{%if not isnew %}
+    <div id="{{nomecontroller|getparametrotabella}}SubTabellaDettagliContainer">
+        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseStoricomodifiche" aria-label="Registro modifiche" aria-expanded="false" aria-controls="collapseStoricomodifiche">
+            Registro modifiche
+        </button>
+        <div class="collapse" id="collapseStoricomodifiche">
+            <div class="card card-body">
+                {% for modifica in elencomodifiche %}
+                    <li>{{modifica.giorno|date("d/m/Y H:i:s")}} modificato {{modifica.nomecampo|e}} da {{ modifica.operatori.username|e }}, prima era: {{modifica.valoreprecedente|e}} </li>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+{%endif %}
