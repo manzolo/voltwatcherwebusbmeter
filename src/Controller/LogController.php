@@ -113,8 +113,6 @@ class LogController extends FiController
             $chart->getOptions()->getChart()
                     ->setTitle($device->getName());
             $chart->getOptions()
-                    ->setHeight(400)
-                    ->setWidth(900)
                     ->setSeries([['axis' => 'Volts'], ['axis' => 'Temps']])
                     ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'Temps' => ['label' => 'Temps (Celsius)']]])
             ;
