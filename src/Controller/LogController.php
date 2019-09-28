@@ -103,7 +103,7 @@ class LogController extends FiController
             'paginacorrente' => ParametriTabella::setParameter('1'),
             'paginetotali' => ParametriTabella::setParameter(''),
             'righetotali' => ParametriTabella::setParameter('0'),
-            'righeperpagina' => ParametriTabella::setParameter('15'),
+            'righeperpagina' => ParametriTabella::setParameter('10'),
             'estraituttirecords' => ParametriTabella::setParameter('0'),
             'colonneordinamento' => ParametriTabella::setParameter(json_encode($colonneordinamento)),
             'filtri' => ParametriTabella::setParameter(json_encode($filtri)),
