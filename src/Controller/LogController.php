@@ -51,7 +51,7 @@ class LogController extends FiController
                 "nomecampo" => $controller . ".data",
                 "etichetta" => "Rilevazione",
                 "ordine" => 10,
-                "larghezza" => 200,
+                "larghezza" => 300,
                 "escluso" => false
             ),
             $controller . ".volt" => array(
