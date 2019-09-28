@@ -67,7 +67,7 @@ class LogController extends FiController
                 "nomecampo" => $controller . ".device",
                 "etichetta" => "Rilevatore",
                 "ordine" => 10,
-                "larghezza" => 200,
+                "larghezza" => 100,
                 "escluso" => false
             ),
             $controller . ".temp" => array(
