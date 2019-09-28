@@ -103,10 +103,10 @@ class LogController extends FiController
 
             $dettagliorows = $qb->getResult();
             $dati = array();
-            $dati[] = ['Data', 'Volts'/* , 'Temps' */];
+            $dati[] = ['Data', 'Volts', 'Temps'];
             foreach ($dettagliorows as $row) {
-                //$dati[] = [$row->getData(), floatval($row->getVolt()), floatval($row->getTemp())];
-                $dati[] = [$row->getData(), floatval($row->getVolt())];
+                $dati[] = [$row->getData(), floatval($row->getVolt()), floatval($row->getTemp())];
+                //$dati[] = [$row->getData(), floatval($row->getVolt())];
             }
             $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
             $chart->getData()->setArrayToDataTable($dati);
@@ -114,12 +114,11 @@ class LogController extends FiController
             $chart->getOptions()->getChart()
                     ->setTitle($device->getName());
             $chart->getOptions()
-                    ->setSeries([['axis' => 'Volts']/* , ['axis' => 'Temps'] */])
-                    ->setAxes(['y' => ['Volts' => ['label' => 'Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
-            //->setAxisTitlesPosition("none")
+                    ->setSeries([['axis' => 'Volts'], ['axis' => 'Temps']])
+                    ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'Temps' => ['label' => 'Temps (Celsius)']]])
             ;
             $chart->setElementID($device->getId());
-            
+            $chart->getOptions()->getLegend()->setPosition('none');
             $charts[] = $chart;
             /* chart */
         }
