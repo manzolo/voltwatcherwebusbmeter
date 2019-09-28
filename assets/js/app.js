@@ -16,14 +16,11 @@ import {GoogleCharts} from 'google-charts';
 $(document).ready(function () {
     GoogleCharts.load(function () {});
     $(document).on("click", "#tabLog3a-tab", function () {
-        //setTimeout(function () {
         if ($("#mygraph").hasClass("invisible")) {
-            loadgraphs();
+            setTimeout(function () {
+                loadgraphs();
+            }, 1000);
             $("#mygraph").removeClass("invisible");
         }
-        //$("#mygraph").show();
-        //}, 1000);
-
-
     });
 });
