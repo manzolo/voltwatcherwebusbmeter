@@ -14,9 +14,14 @@ require('../css/app.css');
 import {GoogleCharts} from 'google-charts';
 
 $(document).ready(function () {
-    GoogleCharts.load(function () {
-        setTimeout(function () {
+    GoogleCharts.load(function () {});
+    $(document).on("click", "#tabLog3a-tab", function () {
+        //setTimeout(function () {
             loadgraphs();
-        }, 1000);
+            $("#mygraph").removeClass("invisible");
+            //$("#mygraph").show();
+        //}, 1000);
+
+
     });
 });
