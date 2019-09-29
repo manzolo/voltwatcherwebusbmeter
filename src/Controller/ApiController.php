@@ -18,11 +18,19 @@ class ApiController extends AbstractController {
      * @Route("/api/sendvolt", name="sendvolt")
      */
     public function sendvolt(Request $request) {
-        $datavolt = json_decode($request->get("data"), true);
-        $device = $datavolt["device"];
-        $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
-        $volt = (float) $datavolt["volt"];
-        $temp = (float) $datavolt["temp"];
+        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+            $datavolt = json_decode($request->getContent(), true);
+            $device = $datavolt["device"];
+            $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
+            $volt = (float) $datavolt["volt"];
+            $temp = (float) $datavolt["temp"];
+        } else {
+            $datavolt = json_decode($request->get("data"), true);
+            $device = $datavolt["device"];
+            $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
+            $volt = (float) $datavolt["volt"];
+            $temp = (float) $datavolt["temp"];
+        }
 
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder()
