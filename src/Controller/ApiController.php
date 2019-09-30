@@ -62,4 +62,13 @@ class ApiController extends AbstractController {
         return new JsonResponse(array("errcode" => 0, "errmsg" => "OK"));
     }
 
+    /**
+     * Matches / exactly
+     *
+     * @Route("/api/appgetsettings", name="appgetsettings")
+     */
+    public function appGetSettings(Request $request) {
+        return new JsonResponse(array("seconds" => 10, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58"));
+    }
+
 }
