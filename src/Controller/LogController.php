@@ -16,13 +16,9 @@ use App\Form\LogType;
  * Log controller.
  *
  */
-class LogController extends FiController
-{
-    /**
-     * Lists all tables entities.
-     */
-    public function index(Request $request, Packages $assetsmanager)
-    {
+class LogController extends FiController {
+
+    public function index(Request $request, Packages $assetsmanager) {
         $bundle = $this->getBundle();
         $controller = $this->getController();
         $idpassato = $request->get('id');
@@ -121,6 +117,7 @@ class LogController extends FiController
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
+        $date = (new \DateTime())->modify('-24 hours');
         foreach ($devicesrows as $device) {
             /* chart */
             $qb = $em->createQueryBuilder('l')
@@ -128,7 +125,9 @@ class LogController extends FiController
                     ->from('App:Log', 'l')
                     ->where('l.device = :device')
                     ->andWhere('l.temp != 0')
+                    ->andWhere('l.data >= :data')
                     ->setParameter("device", $device->getId())
+                    ->setParameter("data", $date)
                     ->orderBy('l.data', "DESC")
                     ->getQuery();
 
@@ -156,8 +155,8 @@ class LogController extends FiController
 
         return $this->render($crudtemplate, array('charts' => $charts, 'parametritabella' => $parametritabella));
     }
-    public function tabella(Request $request)
-    {
+
+    public function tabella(Request $request) {
         if (!$this->permessi->canRead($this->getController())) {
             throw new AccessDeniedException('Non si hanno i permessi per visualizzare questo contenuto');
         }
@@ -235,4 +234,5 @@ class LogController extends FiController
                         array('parametri' => $parametri)
         );
     }
+
 }
