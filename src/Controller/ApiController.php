@@ -68,7 +68,18 @@ class ApiController extends AbstractController {
      * @Route("/api/appgetsettings", name="appgetsettings")
      */
     public function appGetSettings(Request $request) {
-        return new JsonResponse(array("seconds" => 300, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58"));
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder()
+                ->select('s')
+                ->from('App:Settings', 's')
+                ->getQuery();
+        $settings = $qb->getResult();
+        $newsettings = array();
+        foreach ($settings as $setting) {
+            $newsettings[$setting->getKey()] = $setting->getValue();
+        }
+        //array("seconds" => 300, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58")
+        return new JsonResponse($newsettings);
     }
 
 }

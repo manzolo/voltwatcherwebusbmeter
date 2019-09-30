@@ -1,0 +1,51 @@
+Settings_container:
+    path:  /
+    controller: 'App\Controller\SettingsController::index'
+
+Settings_lista:
+    path:  /lista
+    controller: 'App\Controller\SettingsController::lista'
+    options:
+        expose: true
+
+Settings_indexdettaglio:
+    path:  /indexDettaglio
+    controller: 'App\Controller\SettingsController::indexDettaglio'
+    options:
+        expose: true
+
+Settings_new:
+    path:  /new
+    controller: 'App\Controller\SettingsController::new'
+    methods:    GET|POST
+
+Settings_edit:
+    path:  /{id}/edit
+    controller: 'App\Controller\SettingsController::edit'
+
+Settings_update:
+    path:  /{id}/update
+    controller: 'App\Controller\SettingsController::update'
+    methods:    POST|PUT
+
+Settings_aggiorna:
+    path:  /{id}/{token}/aggiorna
+    controller: 'App\Controller\SettingsController::aggiorna'
+    methods:    POST|PUT
+    options:
+        expose: true
+
+Settings_delete:
+    path:  /{id}/{token}/delete
+    controller: 'App\Controller\SettingsController::delete'
+    methods:    POST|DELETE
+
+Settings_deletemultiple:
+    path:  /{token}/delete
+    controller: 'App\Controller\SettingsController::delete'
+    methods:    POST|DELETE
+
+Settings_tabella:
+    path:  /tabella
+    controller: 'App\Controller\SettingsController::tabella'
+    methods:    POST

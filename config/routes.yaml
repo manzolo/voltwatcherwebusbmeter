@@ -1,3 +1,7 @@
+App_Settings:
+  resource: routes/settings.yml
+  prefix: /Settings
+
 App_Log:
   resource: routes/log.yml
   prefix: /Log
