@@ -43,6 +43,11 @@ class BaseLog
     protected $temp;
 
     /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     */
+    protected $detectorperc;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Device", inversedBy="logs")
      * @ORM\JoinColumn(name="device_id", referencedColumnName="id", nullable=false)
      */
@@ -168,6 +173,29 @@ class BaseLog
     }
 
     /**
+     * Set the value of detectorperc.
+     *
+     * @param float $detectorperc
+     * @return \App\Entity\Log
+     */
+    public function setDetectorperc($detectorperc)
+    {
+        $this->detectorperc = $detectorperc;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of detectorperc.
+     *
+     * @return float
+     */
+    public function getDetectorperc()
+    {
+        return $this->detectorperc;
+    }
+
+    /**
      * Set Device entity (many to one).
      *
      * @param \App\Entity\Device $device
@@ -192,6 +220,6 @@ class BaseLog
 
     public function __sleep()
     {
-        return array('id', 'device_id', 'data', 'volt', 'temp');
+        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc');
     }
 }

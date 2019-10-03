@@ -24,12 +24,13 @@ class ApiController extends AbstractController {
             $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
             $volt = (float) $datavolt["volt"];
             $temp = (float) $datavolt["temp"];
+            $batteryperc = (float) $datavolt["batteryperc"];
         } else {
             $datavolt = json_decode($request->get("data"), true);
             $device = $datavolt["device"];
             $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
             $volt = (float) $datavolt["volt"];
-            $temp = (float) $datavolt["temp"];
+            $batteryperc = (float) $datavolt["batteryperc"];
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -55,6 +56,8 @@ class ApiController extends AbstractController {
         $newlog->setData($data);
         $newlog->setVolt($volt);
         $newlog->setTemp($temp);
+        $newlog->setDetectorperc($batteryperc);
+        
         $em->persist($newlog);
         $em->flush();
         $em->clear();
