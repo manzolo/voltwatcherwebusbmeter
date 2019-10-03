@@ -24,6 +24,8 @@ class LogType extends AbstractType
                 ->add('volt')
                 ->add('temp')
                 ->add('device')
+                ->add('detectorperc')
+                
         ;
     }
     public function configureOptions(OptionsResolver $resolver)
