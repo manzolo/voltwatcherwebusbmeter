@@ -40,7 +40,7 @@ class ReportController extends AbstractController
                 ->orderBy('grData', "DESC")
                 ->getQuery();
         $riepilogorows = $qb->getResult();
-
+        
         //Creare un nuovo file
         $spreadsheet = new Spreadsheet();
         $objPHPExcel = new Xls($spreadsheet);
