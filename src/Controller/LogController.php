@@ -269,7 +269,7 @@ class LogController extends FiController {
                     ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
                     ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]]);
 
-            $chart->getOptions()->setHeight(600);
+            $chart->getOptions()->setHeight(400);
 
             //$chart->getOptions()->getHAxis()->setFormat('dd/MM/Y HH:mm');
             $chart->getOptions()->getHAxis()->setFormat('dd/MM HH:mm');
