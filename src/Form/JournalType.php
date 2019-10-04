@@ -19,6 +19,7 @@ class JournalType extends AbstractType
             ->add('dal')
             ->add('al')
             ->add('volt')
+            ->add('avgvolt')
             ->add('temp')
             ->add('detectorperc')
             ->add('device')

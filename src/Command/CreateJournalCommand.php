@@ -73,10 +73,29 @@ class CreateJournalCommand extends Command {
             $newJournal->setDevice($device);
             $newJournal->setDal(clone $avgday["ora"]);
             $newJournal->setAl(clone $avgday["ora"]->modify("+599 seconds"));
-            $newJournal->setVolt($avgday["avgvolt"]);
+            $newJournal->setAvgvolt($avgday["avgvolt"]);
             $em->persist($newJournal);
             $em->flush();
+
+            $qb = $em->createQueryBuilder('l')
+                    ->select("l")
+                    ->from('App:Log', 'l')
+                    ->where('l.device = :device')
+                    ->andWhere('l.data between :dal and :al')
+                    ->setParameter("device", $device->getId())
+                    ->setParameter("dal", $newJournal->getDal())
+                    ->setParameter("al", $newJournal->getAl())
+                    ->getQuery();
+            
+            $dettagliorows = $qb->getResult();
+            if (count($qb->getResult()) == 1) {
+                $newJournal->setVolt($dettagliorows[0]->getVolt());
+                $newJournal->setDatarilevazione($dettagliorows[0]->getData());
+            }
+
         }
+
+
 
         $output->writeln('<info>Done</info>');
     }

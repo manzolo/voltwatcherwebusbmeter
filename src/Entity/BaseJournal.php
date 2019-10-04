@@ -38,7 +38,7 @@ class BaseJournal
     protected $al;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     protected $volt;
 
@@ -51,6 +51,16 @@ class BaseJournal
      * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     protected $detectorperc;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2)
+     */
+    protected $avgvolt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $datarilevazione;
 
     /**
      * @ORM\ManyToOne(targetEntity="Device", inversedBy="journals")
@@ -224,6 +234,52 @@ class BaseJournal
     }
 
     /**
+     * Set the value of avgvolt.
+     *
+     * @param float $avgvolt
+     * @return \App\Entity\Journal
+     */
+    public function setAvgvolt($avgvolt)
+    {
+        $this->avgvolt = $avgvolt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of avgvolt.
+     *
+     * @return float
+     */
+    public function getAvgvolt()
+    {
+        return $this->avgvolt;
+    }
+
+    /**
+     * Set the value of datarilevazione.
+     *
+     * @param \DateTime $datarilevazione
+     * @return \App\Entity\Journal
+     */
+    public function setDatarilevazione($datarilevazione)
+    {
+        $this->datarilevazione = $datarilevazione;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of datarilevazione.
+     *
+     * @return \DateTime
+     */
+    public function getDatarilevazione()
+    {
+        return $this->datarilevazione;
+    }
+
+    /**
      * Set Device entity (many to one).
      *
      * @param \App\Entity\Device $device
@@ -248,6 +304,6 @@ class BaseJournal
 
     public function __sleep()
     {
-        return array('id', 'device_id', 'dal', 'al', 'volt', 'temp', 'detectorperc');
+        return array('id', 'device_id', 'dal', 'al', 'volt', 'temp', 'detectorperc', 'avgvolt', 'datarilevazione');
     }
 }

@@ -196,7 +196,7 @@ class LogController extends FiController {
                     ->where('j.device = :device')
                     ->andWhere('j.dal <= :ora')
                     ->setParameter("device", $device->getId())
-                    ->setParameter("ora", new \DateTime())                    
+                    ->setParameter("ora", new \DateTime())
                     ->getQuery();
 
             $journalrows = $qb->getResult();
@@ -206,24 +206,7 @@ class LogController extends FiController {
             $dati[] = ['Data', 'Volts'/* , 'Temps' */, 'Avg'];
 
             foreach ($journalrows as $journalrows) {
-                $qb = $em->createQueryBuilder('l')
-                        ->select("l")
-                        ->from('App:Log', 'l')
-                        ->where('l.device = :device')
-                        ->andWhere('l.data between :dal and :al')
-                        ->setParameter("device", $device->getId())
-                        ->setParameter("dal", $journalrows->getDal())
-                        ->setParameter("al", $journalrows->getAl())
-                        ->getQuery();
-                
-                $dettagliorows = $qb->getResult();
-                //dump(count($dettagliorows));
-                if (count($dettagliorows) == 1) {
-                    $dettagliorow = $dettagliorows[0];
-                    $dati[] = [$dettagliorow->getData(), floatval($dettagliorow->getVolt()), round(floatval($journalrows->getVolt()), 2)];
-                } else {
-                    $dati[] = [$journalrows->getDal(), null, round(floatval($journalrows->getVolt()), 2)];
-                }
+                $dati[] = [$journalrows->getDatarilevazione(), floatval($journalrows->getVolt()), round(floatval($journalrows->getAvgvolt()), 2)];
             }
             if (count($dati) == 1) {
                 $dati[] = [new \DateTime(), 0, 0];
