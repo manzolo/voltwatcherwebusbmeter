@@ -16,10 +16,11 @@ use App\Form\LogType;
  * Log controller.
  *
  */
-class LogController extends FiController
-{
-    public function index(Request $request, Packages $assetsmanager)
-    {
+class LogController extends FiController {
+
+    private $chartdifftime = '-84 hours';
+
+    public function index(Request $request, Packages $assetsmanager) {
         $bundle = $this->getBundle();
         $controller = $this->getController();
         $idpassato = $request->get('id');
@@ -108,8 +109,6 @@ class LogController extends FiController
             'traduzionefiltri' => ParametriTabella::setParameter('')
         );
 
-        $charts = array();
-
         /* chart */
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
@@ -118,73 +117,12 @@ class LogController extends FiController
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
-        $date = (new \DateTime())->modify('-60 hours');
-        foreach ($devicesrows as $device) {
-
-            /* chart */
-            $qb = $em->createQueryBuilder('l')
-                    ->select("l")
-                    ->from('App:Log', 'l')
-                    ->where('l.device = :device')
-                    ->andWhere('l.temp != 0')
-                    ->andWhere('l.data >= :data')
-                    ->setParameter("device", $device->getId())
-                    ->setParameter("data", $date)
-                    ->orderBy('l.data', "DESC")
-                    ->getQuery();
-
-            $dettagliorows = $qb->getResult();
-
-            $qb = $em->createQueryBuilder('l')
-                    ->select("d.address as device, AVG(l.volt) avgvolt, CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
-                    ->from('App:Log', 'l')
-                    ->leftJoin('l.device', 'd')
-                    //->andWhere('l.data >= :data')
-                    //->setParameter("data", $date)
-                    ->groupBy('l.device, ora')
-                    ->orderBy('ora', "DESC")
-                    ->getQuery();
-            $riepilogorows = $qb->getResult();
-            //dump($riepilogorows);exit;
-            
-            $dati = array();
-            $dati[] = ['Data', 'Volts'/*, 'Temps'*/, 'Avg'];
-            
-            foreach ($dettagliorows as $row) {
-                $avgsearch = $this->searchInArray($riepilogorows,array("device"=>$row->getDevice()->getAddress(),"ora"=>substr($row->getData()->format("H:i"),0,4)."0"));
-                if (count($avgsearch)==1){
-                    $avg = $avgsearch[0]["avgvolt"];
-                }else{
-                    $avg = null;
-                }
-                $dati[] = [$row->getData(), floatval($row->getVolt()), /*floatval($row->getTemp()),*/round(floatval($avg),2)];
-            }
-            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
-            $chart->getData()->setArrayToDataTable($dati);
-            $chart->setElementID($device->getId());
-            
-            $chart->getOptions()->getChart()->setTitle($device->getName());
-            $chart->getOptions()
-                    ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/*, ['axis' => 'Temps']*/])
-                    ->setAxes(['y' => ['Volts' => ['label' => 'Volts'],'AvgVolts' => ['label' => 'Average Volts']/*, 'Temps' => ['label' => 'Temps (Celsius)']*/]]);
-            
-            $chart->getOptions()->setHeight(600);
-            
-            //$chart->getOptions()->getHAxis()->setFormat('dd/MM/Y HH:mm');
-            $chart->getOptions()->getHAxis()->setFormat('dd/MM HH:mm');
-            //$chart->getOptions()->getHAxis()->setFormat('HH:mm');
-            $chart->getOptions()->getVAxis()->setFormat('#0.00');
-            $chart->getOptions()->getVAxis()->setMinValue(11);
-            $chart->getOptions()->getVAxis()->setMaxValue(16);
-            $chart->getOptions()->getLegend()->setPosition('none');
-            $charts[] = $chart;
-            /* chart */
-        }
+        $charts = $this->getCharts($devicesrows);
 
         return $this->render($crudtemplate, array('charts' => $charts, 'parametritabella' => $parametritabella));
     }
-    public function tabella(Request $request)
-    {
+
+    public function tabella(Request $request) {
         if (!$this->permessi->canRead($this->getController())) {
             throw new AccessDeniedException('Non si hanno i permessi per visualizzare questo contenuto');
         }
@@ -209,9 +147,7 @@ class LogController extends FiController
                 )
         );
 
-        /* chart */
-        $charts = array();
-
+        
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
                 ->select("d")
@@ -219,38 +155,7 @@ class LogController extends FiController
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
-        foreach ($devicesrows as $device) {
-            /* chart */
-            $qb = $em->createQueryBuilder('l')
-                    ->select("l")
-                    ->from('App:Log', 'l')
-                    ->where('l.device = :device')
-                    ->andWhere('l.temp != 0')
-                    ->setParameter("device", $device->getId())
-                    ->orderBy('l.data', "DESC")
-                    ->getQuery();
-
-            $dettagliorows = $qb->getResult();
-            $dati = array();
-            $dati[] = ['Data', 'Volts', 'Temps'];
-            foreach ($dettagliorows as $row) {
-                $dati[] = [$row->getData(), floatval($row->getVolt()), floatval($row->getTemp())];
-                //$dati[] = [$row->getData(), floatval($row->getVolt())];
-            }
-            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
-            $chart->getData()->setArrayToDataTable($dati);
-
-            $chart->getOptions()->getChart()
-                    ->setTitle($device->getName());
-            $chart->getOptions()
-                    ->setSeries([['axis' => 'Volts'], ['axis' => 'Temps']])
-                    ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'Temps' => ['label' => 'Temps (Celsius)']]])
-            ;
-            $chart->setElementID($device->getId());
-            $chart->getOptions()->getLegend()->setPosition('none');
-            $charts[] = $chart;
-            /* chart */
-        }
+        $charts = $this->getCharts($devicesrows);
         $parametri = array_merge($parametripassati, $this->getParametriTabella($parametripassati));
         $parametri["charts"] = $charts;
         $parametri['form'] = $form->createView();
@@ -262,8 +167,8 @@ class LogController extends FiController
                         array('parametri' => $parametri)
         );
     }
-    private function searchInArray($array, $search_list)
-    {
+
+    private function searchInArray($array, $search_list) {
 
         // Create the result array 
         $result = array();
@@ -292,4 +197,84 @@ class LogController extends FiController
         // Return result  
         return $result;
     }
+
+    private function getCharts($devices) {
+        /* chart */
+        $charts = array();
+
+        $date = (new \DateTime())->modify($this->chartdifftime);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder('d')
+                ->select("d")
+                ->from('App:Device', 'd')
+                ->getQuery();
+
+        $devicesrows = $qb->getResult();
+        foreach ($devicesrows as $device) {
+
+            /* chart */
+            $qb = $em->createQueryBuilder('l')
+                    ->select("l")
+                    ->from('App:Log', 'l')
+                    ->where('l.device = :device')
+                    ->andWhere('l.temp != 0')
+                    ->andWhere('l.data >= :data')
+                    ->setParameter("device", $device->getId())
+                    ->setParameter("data", $date)
+                    ->orderBy('l.data', "DESC")
+                    ->getQuery();
+
+            $dettagliorows = $qb->getResult();
+
+            $qb = $em->createQueryBuilder('l')
+                    ->select("d.address as device, AVG(l.volt) avgvolt, SUBSTRING(l.data,12,2) AS ora")
+                    ->from('App:Log', 'l')
+                    ->leftJoin('l.device', 'd')
+                    //->andWhere('l.data >= :data')
+                    //->setParameter("data", $date)
+                    ->groupBy('l.device, ora')
+                    ->orderBy('ora', "DESC")
+                    ->getQuery();
+            $riepilogorows = $qb->getResult();
+            //dump($riepilogorows);exit;
+
+            $dati = array();
+            $dati[] = ['Data', 'Volts'/* , 'Temps' */, 'Avg'];
+
+            foreach ($dettagliorows as $row) {
+                $avgsearch = $this->searchInArray($riepilogorows, array("device" => $row->getDevice()->getAddress(), "ora" => $row->getData()->format("H")));
+                if (count($avgsearch) == 1) {
+                    $avg = $avgsearch[0]["avgvolt"];
+                } else {
+                    $avg = null;
+                }
+                $dati[] = [$row->getData(), floatval($row->getVolt()), /* floatval($row->getTemp()), */ round(floatval($avg), 2)];
+            }
+            if (count($dati) == 1) {
+                $dati[] = [new \DateTime(), 0, 0];
+            }
+            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
+            $chart->getData()->setArrayToDataTable($dati);
+            $chart->setElementID($device->getId());
+
+            $chart->getOptions()->getChart()->setTitle($device->getName());
+            $chart->getOptions()
+                    ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
+                    ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]]);
+
+            $chart->getOptions()->setHeight(600);
+
+            //$chart->getOptions()->getHAxis()->setFormat('dd/MM/Y HH:mm');
+            $chart->getOptions()->getHAxis()->setFormat('dd/MM HH:mm');
+            //$chart->getOptions()->getHAxis()->setFormat('HH:mm');
+            $chart->getOptions()->getVAxis()->setFormat('#0.00');
+            $chart->getOptions()->getVAxis()->setMinValue(11);
+            $chart->getOptions()->getVAxis()->setMaxValue(16);
+            $chart->getOptions()->getLegend()->setPosition('none');
+            $charts[] = $chart;
+            /* chart */
+        }
+        return $charts;
+    }
+
 }
