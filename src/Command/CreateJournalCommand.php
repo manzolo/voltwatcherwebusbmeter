@@ -13,9 +13,8 @@ use App\Entity\Log;
 use Exception;
 
 class CreateJournalCommand extends Command {
-    private $chartdifftime = '-5 days';
 
-
+    private $journaldiffdays = '-5 days';
     protected static $defaultName = 'voltwatcher:createjournal';
     private $em;
 
@@ -40,67 +39,42 @@ class CreateJournalCommand extends Command {
                 ->getQuery()
                 ->execute();
 
-        $date = (new \DateTime())->modify($this->chartdifftime);
-        $qb = $em->createQueryBuilder('d')
-                ->select("d")
-                ->from('App:Device', 'd')
-                ->getQuery();
+        $date = (new \DateTime())->modify($this->journaldiffdays);
 
-        $devicesrows = $qb->getResult();
-        foreach ($devicesrows as $device) {
+        $from_date = clone $date;
+        $to_date = clone (new \DateTime());
+
+        $avgdays = array();
+        for ($date = $from_date; $date <= $to_date; $date->modify("+1 days")) {
             $qb = $em->createQueryBuilder('l')
-                    ->select("l")
-                    ->from('App:Log', 'l')
-                    ->where('l.device = :device')
-                    ->andWhere('l.data >= :data')
-                    ->setParameter("device", $device->getId())
-                    ->setParameter("data", $date)
-                    ->orderBy('l.data', "DESC")
-                    ->getQuery();
-
-            $dettagliorows = $qb->getResult();
-
-            $qb = $em->createQueryBuilder('l')
-                    ->select("d.address as device, AVG(l.volt) avgvolt, CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
+                    ->select("d.id as deviceid, d.address as device, d.name as devicename, AVG(l.volt) avgvolt, CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
                     ->from('App:Log', 'l')
                     ->leftJoin('l.device', 'd')
-                    ->andWhere('l.data >= :data')
-                    ->setParameter("data", $date)
+                    //->andWhere('l.data >= :data')
+                    //->setParameter("data", $date)
                     ->groupBy('l.device, ora')
                     ->orderBy('ora', "DESC")
                     ->getQuery();
             $riepilogorows = $qb->getResult();
-            //dump($riepilogorows);exit;
-
-            $dati = array();
-            foreach ($dettagliorows as $row) {
-                $datej = substr($row->getData()->format("H:i"), 0, 4) . "0";
-                dump($datej);exit;
+            foreach ($riepilogorows as $row) {
+                $avgora = $row["ora"];
+                $avgdeviceid = $row["deviceid"];
+                $avgdevice = $row["device"];
+                $avgdevicename = $row["devicename"];
+                $avgvolt = $row["avgvolt"];
+                $datechk = \DateTime::createFromFormat("Y-m-d H:i", $date->format('Y-m-d') . " " . $avgora);
+                $avgdays[] = array("device" => $avgdevice, "deviceid" => $avgdeviceid, "devicename" => $avgdevicename, "ora" => $datechk, "avgvolt" => $avgvolt);
             }
-            if (count($dati) == 1) {
-                $dati[] = [new \DateTime(), 0, 0];
-            }
-            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart();
-            $chart->getData()->setArrayToDataTable($dati);
-            $chart->setElementID($device->getId());
+        }
+        foreach ($avgdays as $avgday) {
+            $device = $em->getRepository("App:Device")->find($avgday["deviceid"]);
 
-            $chart->getOptions()->setTitle($device->getName());
-            $chart->getOptions()
-                    ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
-            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
-            ;
-
-            $chart->getOptions()->setHeight(400);
-
-            //$chart->getOptions()->getHAxis()->setFormat('dd/MM/Y HH:mm');
-            $chart->getOptions()->getHAxis()->setFormat('dd/MM H:mm');
-            //$chart->getOptions()->getHAxis()->setFormat('HH:mm');
-            $chart->getOptions()->getVAxis()->setFormat('#0.00');
-            $chart->getOptions()->getVAxis()->setMinValue(11);
-            $chart->getOptions()->getVAxis()->setMaxValue(16);
-            $chart->getOptions()->getLegend()->setPosition('none');
-            $charts[] = $chart;
-            /* chart */
+            $newJournal = new \App\Entity\Journal();
+            $newJournal->setDevice($device);
+            $newJournal->setData($avgday["ora"]);
+            $newJournal->setVolt($avgday["avgvolt"]);
+            $em->persist($newJournal);
+            $em->flush();
         }
 
         $output->writeln('<info>Done</info>');
