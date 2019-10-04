@@ -106,7 +106,8 @@ class LogController extends FiController {
             'colonneordinamento' => ParametriTabella::setParameter(json_encode($colonneordinamento)),
             'filtri' => ParametriTabella::setParameter(json_encode($filtri)),
             'prefiltri' => ParametriTabella::setParameter(json_encode($prefiltri)),
-            'traduzionefiltri' => ParametriTabella::setParameter('')
+            'traduzionefiltri' => ParametriTabella::setParameter(''),
+            'graficodal' => ParametriTabella::setParameter((new \DateTime())->modify($this->chartdifftime)->format("d/m/Y H:i"))
         );
 
         /* chart */
