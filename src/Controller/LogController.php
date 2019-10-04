@@ -19,7 +19,7 @@ use App\Form\LogType;
  */
 class LogController extends FiController {
 
-    private $chartdifftime = '-84 hours';
+    private $chartdifftime = '-3 days';
 
     /**
      * Matches / exactly
@@ -154,7 +154,7 @@ class LogController extends FiController {
                 )
         );
 
-        
+
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
                 ->select("d")
@@ -190,42 +190,40 @@ class LogController extends FiController {
         foreach ($devicesrows as $device) {
 
             /* chart */
-            $qb = $em->createQueryBuilder('l')
-                    ->select("l")
-                    ->from('App:Log', 'l')
-                    ->where('l.device = :device')
-                    ->andWhere('l.temp != 0')
-                    ->andWhere('l.data >= :data')
+            $qb = $em->createQueryBuilder('j')
+                    ->select("j")
+                    ->from('App:Journal', 'j')
+                    ->where('j.device = :device')
+                    ->andWhere('j.dal <= :ora')
                     ->setParameter("device", $device->getId())
-                    ->setParameter("data", $date)
-                    ->orderBy('l.data', "DESC")
+                    ->setParameter("ora", new \DateTime())                    
                     ->getQuery();
 
-            $dettagliorows = $qb->getResult();
+            $journalrows = $qb->getResult();
 
-            $qb = $em->createQueryBuilder('l')
-                    ->select("d.address as device, AVG(l.volt) avgvolt, CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
-                    ->from('App:Log', 'l')
-                    ->leftJoin('l.device', 'd')
-                    //->andWhere('l.data >= :data')
-                    //->setParameter("data", $date)
-                    ->groupBy('l.device, ora')
-                    ->orderBy('ora', "DESC")
-                    ->getQuery();
-            $riepilogorows = $qb->getResult();
-            //dump($riepilogorows);exit;
 
             $dati = array();
             $dati[] = ['Data', 'Volts'/* , 'Temps' */, 'Avg'];
 
-            foreach ($dettagliorows as $row) {
-                $avgsearch = $this->searchInArray($riepilogorows, array("device" => $row->getDevice()->getAddress(), "ora"=>substr($row->getData()->format("H:i"),0,4)."0"));
-                if (count($avgsearch) == 1) {
-                    $avg = $avgsearch[0]["avgvolt"];
+            foreach ($journalrows as $journalrows) {
+                $qb = $em->createQueryBuilder('l')
+                        ->select("l")
+                        ->from('App:Log', 'l')
+                        ->where('l.device = :device')
+                        ->andWhere('l.data between :dal and :al')
+                        ->setParameter("device", $device->getId())
+                        ->setParameter("dal", $journalrows->getDal())
+                        ->setParameter("al", $journalrows->getAl())
+                        ->getQuery();
+                
+                $dettagliorows = $qb->getResult();
+                //dump(count($dettagliorows));
+                if (count($dettagliorows) == 1) {
+                    $dettagliorow = $dettagliorows[0];
+                    $dati[] = [$dettagliorow->getData(), floatval($dettagliorow->getVolt()), round(floatval($journalrows->getVolt()), 2)];
                 } else {
-                    $avg = null;
+                    $dati[] = [$journalrows->getDal(), null, round(floatval($journalrows->getVolt()), 2)];
                 }
-                $dati[] = [$row->getData(), floatval($row->getVolt()), /* floatval($row->getTemp()), */ round(floatval($avg), 2)];
             }
             if (count($dati) == 1) {
                 $dati[] = [new \DateTime(), 0, 0];
@@ -237,8 +235,8 @@ class LogController extends FiController {
             $chart->getOptions()->setTitle($device->getName());
             $chart->getOptions()
                     ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
-                    //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
-                    ;
+            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
+            ;
 
             $chart->getOptions()->setHeight(400);
 

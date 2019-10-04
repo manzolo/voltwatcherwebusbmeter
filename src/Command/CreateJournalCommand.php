@@ -14,7 +14,7 @@ use Exception;
 
 class CreateJournalCommand extends Command {
 
-    private $journaldiffdays = '-5 days';
+    private $journaldiffdays = '-3 days';
     protected static $defaultName = 'voltwatcher:createjournal';
     private $em;
 
@@ -71,7 +71,8 @@ class CreateJournalCommand extends Command {
 
             $newJournal = new \App\Entity\Journal();
             $newJournal->setDevice($device);
-            $newJournal->setData($avgday["ora"]);
+            $newJournal->setDal(clone $avgday["ora"]);
+            $newJournal->setAl(clone $avgday["ora"]->modify("+599 seconds"));
             $newJournal->setVolt($avgday["avgvolt"]);
             $em->persist($newJournal);
             $em->flush();

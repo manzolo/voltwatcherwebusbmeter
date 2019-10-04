@@ -28,9 +28,14 @@ class BaseJournal
     protected $device_id;
 
     /**
-     * @ORM\Column(name="`data`", type="datetime")
+     * @ORM\Column(type="datetime")
      */
-    protected $data;
+    protected $dal;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $al;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
@@ -104,26 +109,49 @@ class BaseJournal
     }
 
     /**
-     * Set the value of data.
+     * Set the value of dal.
      *
-     * @param \DateTime $data
+     * @param \DateTime $dal
      * @return \App\Entity\Journal
      */
-    public function setData($data)
+    public function setDal($dal)
     {
-        $this->data = $data;
+        $this->dal = $dal;
 
         return $this;
     }
 
     /**
-     * Get the value of data.
+     * Get the value of dal.
      *
      * @return \DateTime
      */
-    public function getData()
+    public function getDal()
     {
-        return $this->data;
+        return $this->dal;
+    }
+
+    /**
+     * Set the value of al.
+     *
+     * @param \DateTime $al
+     * @return \App\Entity\Journal
+     */
+    public function setAl($al)
+    {
+        $this->al = $al;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of al.
+     *
+     * @return \DateTime
+     */
+    public function getAl()
+    {
+        return $this->al;
     }
 
     /**
@@ -220,6 +248,6 @@ class BaseJournal
 
     public function __sleep()
     {
-        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc');
+        return array('id', 'device_id', 'dal', 'al', 'volt', 'temp', 'detectorperc');
     }
 }

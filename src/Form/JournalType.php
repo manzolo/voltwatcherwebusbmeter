@@ -16,7 +16,8 @@ class JournalType extends AbstractType
         $builder
             ->add('submit', SubmitType::class, $submitparms)
             ->add('device_id')
-            ->add('data')
+            ->add('dal')
+            ->add('al')
             ->add('volt')
             ->add('temp')
             ->add('detectorperc')
