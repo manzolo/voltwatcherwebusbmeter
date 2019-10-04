@@ -227,7 +227,7 @@ class LogController extends FiController {
             $dettagliorows = $qb->getResult();
 
             $qb = $em->createQueryBuilder('l')
-                    ->select("d.address as device, AVG(l.volt) avgvolt, SUBSTRING(l.data,12,2) AS ora")
+                    ->select("d.address as device, AVG(l.volt) avgvolt, CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
                     ->from('App:Log', 'l')
                     ->leftJoin('l.device', 'd')
                     //->andWhere('l.data >= :data')
@@ -242,7 +242,7 @@ class LogController extends FiController {
             $dati[] = ['Data', 'Volts'/* , 'Temps' */, 'Avg'];
 
             foreach ($dettagliorows as $row) {
-                $avgsearch = $this->searchInArray($riepilogorows, array("device" => $row->getDevice()->getAddress(), "ora" => $row->getData()->format("H")));
+                $avgsearch = $this->searchInArray($riepilogorows, array("device" => $row->getDevice()->getAddress(), "ora"=>substr($row->getData()->format("H:i"),0,4)."0"));
                 if (count($avgsearch) == 1) {
                     $avg = $avgsearch[0]["avgvolt"];
                 } else {
