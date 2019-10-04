@@ -12,11 +12,6 @@ use App\Entity\Log;
 
 class DefaultController extends AbstractController
 {
-    /**
-     * Matches / exactly
-     *
-     * @Route("/", name="welcome")
-     */
     public function index(Request $request)
     {
         return new Response("Welcome!");

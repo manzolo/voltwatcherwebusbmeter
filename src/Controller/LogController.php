@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Routing\Annotation\Route;
 use Cdf\BiCoreBundle\Controller\FiController;
 use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
 use Cdf\BiCoreBundle\Utils\Entity\EntityUtils;
@@ -20,6 +21,11 @@ class LogController extends FiController {
 
     private $chartdifftime = '-84 hours';
 
+    /**
+     * Matches / exactly
+     *
+     * @Route("/", name="welcome")
+     */
     public function index(Request $request, Packages $assetsmanager) {
         $bundle = $this->getBundle();
         $controller = $this->getController();
