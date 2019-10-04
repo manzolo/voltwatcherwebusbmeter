@@ -1,0 +1,51 @@
+Journal_container:
+    path:  /
+    controller: 'App\Controller\JournalController::index'
+
+Journal_lista:
+    path:  /lista
+    controller: 'App\Controller\JournalController::lista'
+    options:
+        expose: true
+
+Journal_indexdettaglio:
+    path:  /indexDettaglio
+    controller: 'App\Controller\JournalController::indexDettaglio'
+    options:
+        expose: true
+
+Journal_new:
+    path:  /new
+    controller: 'App\Controller\JournalController::new'
+    methods:    GET|POST
+
+Journal_edit:
+    path:  /{id}/edit
+    controller: 'App\Controller\JournalController::edit'
+
+Journal_update:
+    path:  /{id}/update
+    controller: 'App\Controller\JournalController::update'
+    methods:    POST|PUT
+
+Journal_aggiorna:
+    path:  /{id}/{token}/aggiorna
+    controller: 'App\Controller\JournalController::aggiorna'
+    methods:    POST|PUT
+    options:
+        expose: true
+
+Journal_delete:
+    path:  /{id}/{token}/delete
+    controller: 'App\Controller\JournalController::delete'
+    methods:    POST|DELETE
+
+Journal_deletemultiple:
+    path:  /{token}/delete
+    controller: 'App\Controller\JournalController::delete'
+    methods:    POST|DELETE
+
+Journal_tabella:
+    path:  /tabella
+    controller: 'App\Controller\JournalController::tabella'
+    methods:    POST

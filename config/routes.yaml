@@ -1,3 +1,7 @@
+App_Journal:
+  resource: routes/journal.yml
+  prefix: /Journal
+
 App_Settings:
   resource: routes/settings.yml
   prefix: /Settings

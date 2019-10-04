@@ -34,6 +34,12 @@ class BaseDevice
     protected $name;
 
     /**
+     * @ORM\OneToMany(targetEntity="Journal", mappedBy="device")
+     * @ORM\JoinColumn(name="id", referencedColumnName="device_id", nullable=false)
+     */
+    protected $journals;
+
+    /**
      * @ORM\OneToMany(targetEntity="Log", mappedBy="device")
      * @ORM\JoinColumn(name="id", referencedColumnName="device_id", nullable=false)
      */
@@ -41,6 +47,7 @@ class BaseDevice
 
     public function __construct()
     {
+        $this->journals = new ArrayCollection();
         $this->logs = new ArrayCollection();
     }
 
@@ -111,6 +118,42 @@ class BaseDevice
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add Journal entity to collection (one to many).
+     *
+     * @param \App\Entity\Journal $journal
+     * @return \App\Entity\Device
+     */
+    public function addJournal(Journal $journal)
+    {
+        $this->journals[] = $journal;
+
+        return $this;
+    }
+
+    /**
+     * Remove Journal entity from collection (one to many).
+     *
+     * @param \App\Entity\Journal $journal
+     * @return \App\Entity\Device
+     */
+    public function removeJournal(Journal $journal)
+    {
+        $this->journals->removeElement($journal);
+
+        return $this;
+    }
+
+    /**
+     * Get Journal entity collection (one to many).
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getJournals()
+    {
+        return $this->journals;
     }
 
     /**

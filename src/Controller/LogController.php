@@ -175,36 +175,6 @@ class LogController extends FiController {
         );
     }
 
-    private function searchInArray($array, $search_list) {
-
-        // Create the result array 
-        $result = array();
-
-        // Iterate over each array element 
-        foreach ($array as $key => $value) {
-
-            // Iterate over each search condition 
-            foreach ($search_list as $k => $v) {
-
-                // If the array element does not meet 
-                // the search condition then continue 
-                // to the next element 
-                if (!isset($value[$k]) || $value[$k] != $v) {
-
-                    // Skip two loops 
-                    continue 2;
-                }
-            }
-
-            // Append array element's key to the 
-            //result array 
-            $result[] = $value;
-        }
-
-        // Return result  
-        return $result;
-    }
-
     private function getCharts($devices) {
         /* chart */
         $charts = array();
@@ -260,19 +230,20 @@ class LogController extends FiController {
             if (count($dati) == 1) {
                 $dati[] = [new \DateTime(), 0, 0];
             }
-            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
+            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart();
             $chart->getData()->setArrayToDataTable($dati);
             $chart->setElementID($device->getId());
 
-            $chart->getOptions()->getChart()->setTitle($device->getName());
+            $chart->getOptions()->setTitle($device->getName());
             $chart->getOptions()
                     ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
-                    ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]]);
+                    //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
+                    ;
 
             $chart->getOptions()->setHeight(400);
 
             //$chart->getOptions()->getHAxis()->setFormat('dd/MM/Y HH:mm');
-            $chart->getOptions()->getHAxis()->setFormat('dd/MM HH:mm');
+            $chart->getOptions()->getHAxis()->setFormat('dd/MM H:mm');
             //$chart->getOptions()->getHAxis()->setFormat('HH:mm');
             $chart->getOptions()->getVAxis()->setFormat('#0.00');
             $chart->getOptions()->getVAxis()->setMinValue(11);
@@ -282,6 +253,36 @@ class LogController extends FiController {
             /* chart */
         }
         return $charts;
+    }
+
+    private function searchInArray($array, $search_list) {
+
+        // Create the result array 
+        $result = array();
+
+        // Iterate over each array element 
+        foreach ($array as $key => $value) {
+
+            // Iterate over each search condition 
+            foreach ($search_list as $k => $v) {
+
+                // If the array element does not meet 
+                // the search condition then continue 
+                // to the next element 
+                if (!isset($value[$k]) || $value[$k] != $v) {
+
+                    // Skip two loops 
+                    continue 2;
+                }
+            }
+
+            // Append array element's key to the 
+            //result array 
+            $result[] = $value;
+        }
+
+        // Return result  
+        return $result;
     }
 
 }
