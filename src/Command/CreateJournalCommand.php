@@ -68,26 +68,34 @@ class CreateJournalCommand extends Command {
         }
         foreach ($avgdays as $avgday) {
             $device = $em->getRepository("App:Device")->find($avgday["deviceid"]);
-
+            $dal = clone $avgday["ora"];
+            $al = clone $avgday["ora"]->modify("+599 seconds");
             $newJournal = new \App\Entity\Journal();
             $newJournal->setDevice($device);
-            $newJournal->setDal(clone $avgday["ora"]);
-            $newJournal->setAl(clone $avgday["ora"]->modify("+599 seconds"));
+            $newJournal->setDal($dal);
+            $newJournal->setAl($al);
             $newJournal->setAvgvolt($avgday["avgvolt"]);
             $em->persist($newJournal);
-            $em->flush();
 
             $qb = $em->createQueryBuilder('l')
                     ->select("l")
                     ->from('App:Log', 'l')
                     ->where('l.device = :device')
                     ->andWhere('l.data between :dal and :al')
-                    ->setParameter("device", $device->getId())
+                    ->setParameter("device", $device)
                     ->setParameter("dal", $newJournal->getDal())
                     ->setParameter("al", $newJournal->getAl())
                     ->getQuery();
 
             $dettagliorows = $qb->getResult();
+            /*if ($avgday["deviceid"] == 1 && $dal->format("Y-m-d H:i") == '2019-10-05 00:00'){
+                dump(count($dettagliorows));
+                dump($newJournal->getDal());
+                dump($newJournal->getAl());
+                dump($dal);
+                dump($al);
+                exit;
+            }*/
             if (count($dettagliorows) > 0) {
                 $avg = 0;
                 for ($index = 0; $index < count($dettagliorows); $index++) {
@@ -97,8 +105,9 @@ class CreateJournalCommand extends Command {
                 $newJournal->setVolt($avg);
                 $newJournal->setDatarilevazione($dettagliorows[0]->getData());
             }
+            $em->flush();
         }
-        
+
         $output->writeln('<info>Done</info>');
     }
 
