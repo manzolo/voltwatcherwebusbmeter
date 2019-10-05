@@ -99,11 +99,12 @@ class CreateJournalCommand extends Command {
             if (count($dettagliorows) > 0) {
                 $avg = 0;
                 for ($index = 0; $index < count($dettagliorows); $index++) {
-                    $currvolt = $dettagliorows[$index]->getVolt();
-                    $avg = $avg + $currvolt;
+                    $currvolt = (float)$dettagliorows[$index]->getVolt();
+                    $avg = (float)$avg + $currvolt;
                 }
-                $newJournal->setVolt($avg);
+                $newJournal->setVolt(round($avg/$index,2));
                 $newJournal->setDatarilevazione($dettagliorows[0]->getData());
+                $em->persist($newJournal);
             }
             $em->flush();
         }
