@@ -88,24 +88,17 @@ class CreateJournalCommand extends Command {
                     ->getQuery();
 
             $dettagliorows = $qb->getResult();
-            if (count($dettagliorows) == 1) {
-                $newJournal->setVolt($dettagliorows[0]->getVolt());
-                $newJournal->setDatarilevazione($dettagliorows[0]->getData());
-            } else {
-                if (count($dettagliorows) > 1) {
-                    $avg = 0;
-                    for ($index = 0; $index < count($dettagliorows); $index++) {
-                        $currvolt = $dettagliorows[$index]->getVolt();
-                        $avg = $avg + $currvolt;
-                    }
-                    $newJournal->setVolt($avg);
-                    $newJournal->setDatarilevazione($dettagliorows[0]->getData());
+            if (count($dettagliorows) > 0) {
+                $avg = 0;
+                for ($index = 0; $index < count($dettagliorows); $index++) {
+                    $currvolt = $dettagliorows[$index]->getVolt();
+                    $avg = $avg + $currvolt;
                 }
+                $newJournal->setVolt($avg);
+                $newJournal->setDatarilevazione($dettagliorows[0]->getData());
             }
         }
-
-
-
+        
         $output->writeln('<info>Done</info>');
     }
 
