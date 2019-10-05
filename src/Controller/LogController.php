@@ -21,12 +21,17 @@ class LogController extends FiController {
 
     private $chartdifftime = '-3 days';
 
+    //private $batterystatus = array(
+    //    "perc"=>100,"volt"=>12.92,"perc"=>90,"volt"=>12.80,"perc"=>80,"volt"=>12.66,"perc"=>70,"volt"=>12.52,"perc"=>60,"volt"=>12.38,"perc"=>50,"volt"=>12.32,
+    //    "perc"=>40,"volt"=>12.06,"perc"=>30,"volt"=>12.00,"perc"=>80,"volt"=>12.66,"perc"=>70,"volt"=>12.52,"perc"=>60,"volt"=>12.38,"perc"=>10,"volt"=>11.50);
+
     /**
      * Matches / exactly
      *
      * @Route("/", name="welcome")
      */
     public function index(Request $request, Packages $assetsmanager) {
+
         $bundle = $this->getBundle();
         $controller = $this->getController();
         $idpassato = $request->get('id');
@@ -73,6 +78,14 @@ class LogController extends FiController {
                 "ordine" => 30,
                 "larghezza" => 50,
                 "escluso" => false
+            ),
+            $controller . ".detectorperc" => array(
+                "nometabella" => $controller,
+                "nomecampo" => "Log.detectorperc",
+                "etichetta" => "Temperatura",
+                "ordine" => 100,
+                "larghezza" => 30,
+                "escluso" => true
             ),
             $controller . ".temp" => array(
                 "nometabella" => $controller,
@@ -195,6 +208,7 @@ class LogController extends FiController {
                     ->from('App:Journal', 'j')
                     ->where('j.device = :device')
                     ->andWhere('j.dal <= :ora')
+                    ->andWhere('j.volt is not null')
                     ->setParameter("device", $device->getId())
                     ->setParameter("ora", new \DateTime())
                     ->getQuery();
