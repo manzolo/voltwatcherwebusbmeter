@@ -48,6 +48,16 @@ class BaseLog
     protected $detectorperc;
 
     /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    protected $longitude;
+
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    protected $latitude;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Device", inversedBy="logs")
      * @ORM\JoinColumn(name="device_id", referencedColumnName="id", nullable=false)
      */
@@ -196,6 +206,52 @@ class BaseLog
     }
 
     /**
+     * Set the value of longitude.
+     *
+     * @param string $longitude
+     * @return \App\Entity\Log
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of longitude.
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set the value of latitude.
+     *
+     * @param string $latitude
+     * @return \App\Entity\Log
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of latitude.
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
      * Set Device entity (many to one).
      *
      * @param \App\Entity\Device $device
@@ -220,6 +276,6 @@ class BaseLog
 
     public function __sleep()
     {
-        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc');
+        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc', 'longitude', 'latitude');
     }
 }
