@@ -35,8 +35,8 @@ import animation from './mapanimation.js';
 
 $(document).ready(function () {
     //$("#map").hide();
-
     var coordinate;
+    var map;
     var rome = fromLonLat([12.5, 41.9]);
     coordinate = rome;
 
@@ -45,34 +45,39 @@ $(document).ready(function () {
         zoom: 15
     });
 
-    var map = map = new Map({
-        view: view,
-        target: 'map',
-        projection: 'EPSG:4326',
-        layers: [new TileLayer({
-                preload: 4,
-                source: new OSM()
-            })],
-        /*interactions: defaultInteractions({
-         doubleClickZoom: false,
-         dragAndDrop: false,
-         dragPan: false,
-         keyboardPan: false,
-         keyboardZoom: false,
-         mouseWheelZoom: false,
-         pointer: false,
-         select: false,
-         
-         }),*/
-    });
+    var marker;
 
     $(document).on("click", "#showmap", function () {
 
+        map = new Map({
+            view: view,
+            target: 'map',
+            projection: 'EPSG:4326',
+            layers: [new TileLayer({
+                    preload: 4,
+                    source: new OSM()
+                })]
+                    /*interactions: defaultInteractions({
+                     doubleClickZoom: false,
+                     dragAndDrop: false,
+                     dragPan: false,
+                     keyboardPan: false,
+                     keyboardZoom: false,
+                     mouseWheelZoom: false,
+                     pointer: false,
+                     select: false,
+                     
+                     }),*/
+        });
+        
         var longitude = parseFloat($("#log_longitude").val());
         var latitude = parseFloat($("#log_latitude").val());
         if (longitude > 0 && latitude > 0) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
             coordinate = fromLonLat([longitude, latitude]);
-            var layer = new VectorLayer({
+            marker = new VectorLayer({
                 source: new VectorSource({
                     features: [
                         new Feature({
@@ -81,8 +86,9 @@ $(document).ready(function () {
                     ]
                 })
             });
-            map.addLayer(layer);
-            //$("#map").show();
+            map.addLayer(marker);
+            map.updateSize();
+            map.render();
             animation.flyTo(view, coordinate, function () {});
         }
     });

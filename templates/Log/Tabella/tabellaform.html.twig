@@ -17,10 +17,10 @@
 
 {%if not isnew %}
     <div id="{{nomecontroller|getparametrotabella}}SubTabellaDettagliContainer">
-        <button id="showmap" class="btn btn-outline-success" type="button" aria-label="Mappa">
+        <button id="showmap" class="btn btn-outline-success" type="button" aria-label="Map" data-toggle="collapse" data-target="#collapseMap" aria-label="Maps" aria-expanded="false" aria-controls="collapseMap">
             Find device
         </button>
-        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseStoricomodifiche" aria-label="Registro modifiche" aria-expanded="false" aria-controls="collapseStoricomodifiche">
+        <button class="btn btn-outline-primary"              type="button" data-toggle="collapse" data-target="#collapseStoricomodifiche" aria-label="Registro modifiche" aria-expanded="false" aria-controls="collapseStoricomodifiche">
             Registro modifiche
         </button>
         <div class="collapse" id="collapseStoricomodifiche">
@@ -29,6 +29,9 @@
                     <li>{{modifica.giorno|date("d/m/Y H:i:s")}} modificato {{modifica.nomecampo|e}} da {{ modifica.operatori.username|e }}, prima era: {{modifica.valoreprecedente|e}} </li>
                     {% endfor %}
             </div>
+        </div>
+        <div class="collapse" id="collapseMap">
+            <div id="map" class="map"></div>
         </div>
     </div>
 {%endif %}
