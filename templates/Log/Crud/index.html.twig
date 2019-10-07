@@ -4,6 +4,7 @@
     {{parent()}}
     {{ encore_entry_script_tags('bitabella') }}
     {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('maps') }}
     <script>
         function loadgraphs() {
         {% for chart in charts %}
@@ -16,8 +17,10 @@
 
 {% block stylesheets %}
     {{parent()}}
+    {{ encore_entry_link_tags('maps') }}
     {{ encore_entry_link_tags('bitabella') }}
     {{ encore_entry_link_tags('app') }}
+
 {% endblock%}
 
 {% block content -%}
@@ -31,5 +34,6 @@
         <div id="Parametri{{parametritabella.nomecontroller|getparametrotabella}}" class="parametri-tabella" {{parametri|raw}}></div>
         <div id="tabella{{parametritabella.nomecontroller|getparametrotabella}}"></div>
     </div>
+        <div id="map" class="map"></div>
 
 {% endblock %}

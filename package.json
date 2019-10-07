@@ -22,6 +22,7 @@
         "google-charts": "^2.0.0",
         "jquery-contextmenu": "^2.8.0",
         "moment": "^2.24.0",
+        "ol": "^6.0.1",
         "sweetalert2": "^8.8.5"
     }
 }

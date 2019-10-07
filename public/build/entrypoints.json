@@ -10,15 +10,26 @@
         "/build/app.472590ca.css"
       ]
     },
+    "maps": {
+      "js": [
+        "/build/runtime.63f040c0.js",
+        "/build/0.3b45c99e.js",
+        "/build/2.d7a5776e.js",
+        "/build/maps.ef0a3caf.js"
+      ],
+      "css": [
+        "/build/maps.da3348b7.css"
+      ]
+    },
     "bootstrapitalia": {
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/2.7fc8912d.js",
-        "/build/bootstrapitalia.ad7bc6c5.js"
+        "/build/3.be703da8.js",
+        "/build/bootstrapitalia.4224ecc9.js"
       ],
       "css": [
-        "/build/2.8bbd7b2b.css"
+        "/build/3.1e914b4c.css"
       ]
     },
     "bicore": {
@@ -33,10 +44,10 @@
     "login": {
       "js": [
         "/build/runtime.63f040c0.js",
-        "/build/login.f09d8429.js"
+        "/build/login.ff7b5947.js"
       ],
       "css": [
-        "/build/login.5417b838.css"
+        "/build/login.9c788aed.css"
       ]
     },
     "bitabella": {
@@ -66,10 +77,10 @@
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
         "/build/1.1f4e2fe0.js",
-        "/build/adminpanel.edb3a1e2.js"
+        "/build/adminpanel.685ff050.js"
       ],
       "css": [
-        "/build/adminpanel.afd1c739.css"
+        "/build/adminpanel.9b7f2405.css"
       ]
     }
   }

@@ -25,6 +25,7 @@ Encore
          * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
          */
         .addEntry('app', './assets/js/app.js')
+        .addEntry('maps', './assets/js/maps.js')
 
         .addEntry('bootstrapitalia', './vendor/comunedifirenze/bicorebundle/assets/js/bootstrapitalia.js')
         .addEntry('bicore', './vendor/comunedifirenze/bicorebundle/assets/js/bicore.js')
