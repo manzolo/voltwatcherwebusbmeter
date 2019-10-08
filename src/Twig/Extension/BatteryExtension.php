@@ -34,7 +34,7 @@ class BatteryExtension extends AbstractExtension {
                 ->getQuery();
         $bsrows = $qb->getResult();
         if (count($bsrows) == 1) {
-            return $bsrows[0]->getPerc();
+            return round($bsrows[0]->getPerc(),0);
         } else {
             //Carica %	99	90	80  	70	60	50	40	30	20	10
             //Tensione	12,91 12,80 V	12,66 12,52  12,38           12,06   12,06  11,90 V 11,70 V
