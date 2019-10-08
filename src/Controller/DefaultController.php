@@ -92,14 +92,14 @@ class DefaultController extends AbstractController {
             if (count($dati) == 1) {
                 $dati[] = [new \DateTime(), 0, 0];
             }
-            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart();
+            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
             $chart->getData()->setArrayToDataTable($dati);
             $chart->setElementID($device->getId());
 
-            $chart->getOptions()->setTitle($device->getName());
+            $chart->getOptions()->getChart()->setTitle($device->getName());
             $chart->getOptions()
                     ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
-            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
+            ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
             ;
 
             $chart->getOptions()->setHeight(400);

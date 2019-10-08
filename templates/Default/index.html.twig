@@ -2,22 +2,23 @@
 
 {% block javascripts %}
     {{parent()}}
-    {{ encore_entry_script_tags('bitabella') }}
     {{ encore_entry_script_tags('maps') }}
+    {{ encore_entry_script_tags('chart') }}
     <script>
-        function loadgraphs() {
-        {#% for chart in charts %}
-            {#{ gc_draw(chart,'div_chart'~chart.elementId) }#}
-        {#% endfor %#}
+        function loadChart() {
+        {% for chart in charts %}
+            {{ gc_draw(chart,'div_chart'~chart.elementId) }}
+        {% endfor %}
             }
     </script>
+
 {% endblock%}
 
 
 {% block stylesheets %}
     {{parent()}}
     {{ encore_entry_link_tags('maps') }}
-    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('chart') }}
 
 {% endblock%}
 
@@ -45,6 +46,12 @@
         {% endfor %}
     </div>
 
-
-
+    <div id="mygraph" class="row invisible">
+        <div class="clearfix"></div>
+        {% for chart in charts %}
+            <div class="col-md-12">
+                <div id="div_chart{{chart.elementId}}" class="chart"></div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

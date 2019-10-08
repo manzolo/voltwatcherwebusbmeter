@@ -4,10 +4,20 @@
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/app.93858f54.js"
+        "/build/app.aa930698.js"
       ],
       "css": [
-        "/build/app.80f219a3.css"
+        "/build/app.cee50df0.css"
+      ]
+    },
+    "chart": {
+      "js": [
+        "/build/runtime.63f040c0.js",
+        "/build/0.3b45c99e.js",
+        "/build/chart.75fa2e0c.js"
+      ],
+      "css": [
+        "/build/chart.cee50df0.css"
       ]
     },
     "maps": {
@@ -55,10 +65,10 @@
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
         "/build/1.1f4e2fe0.js",
-        "/build/bitabella.95f351e9.js"
+        "/build/bitabella.1a516d3e.js"
       ],
       "css": [
-        "/build/bitabella.43c3358f.css"
+        "/build/bitabella.35338d43.css"
       ]
     },
     "bidemo": {
@@ -66,10 +76,10 @@
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
         "/build/1.1f4e2fe0.js",
-        "/build/bidemo.3aaf1597.js"
+        "/build/bidemo.a6640246.js"
       ],
       "css": [
-        "/build/bidemo.3412bc9d.css"
+        "/build/bidemo.18d274da.css"
       ]
     },
     "adminpanel": {
