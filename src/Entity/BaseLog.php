@@ -48,12 +48,12 @@ class BaseLog
     protected $detectorperc;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=13, scale=10, nullable=true)
      */
     protected $longitude;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=13, scale=10, nullable=true)
      */
     protected $latitude;
 
