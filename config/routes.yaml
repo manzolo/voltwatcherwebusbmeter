@@ -1,3 +1,7 @@
+App_Batterystatus:
+  resource: routes/batterystatus.yml
+  prefix: /Batterystatus
+
 App_Journal:
   resource: routes/journal.yml
   prefix: /Journal

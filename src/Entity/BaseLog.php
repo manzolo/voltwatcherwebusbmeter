@@ -48,12 +48,12 @@ class BaseLog
     protected $detectorperc;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     protected $longitude;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     protected $latitude;
 
@@ -208,7 +208,7 @@ class BaseLog
     /**
      * Set the value of longitude.
      *
-     * @param string $longitude
+     * @param float $longitude
      * @return \App\Entity\Log
      */
     public function setLongitude($longitude)
@@ -221,7 +221,7 @@ class BaseLog
     /**
      * Get the value of longitude.
      *
-     * @return string
+     * @return float
      */
     public function getLongitude()
     {
@@ -231,7 +231,7 @@ class BaseLog
     /**
      * Set the value of latitude.
      *
-     * @param string $latitude
+     * @param float $latitude
      * @return \App\Entity\Log
      */
     public function setLatitude($latitude)
@@ -244,7 +244,7 @@ class BaseLog
     /**
      * Get the value of latitude.
      *
-     * @return string
+     * @return float
      */
     public function getLatitude()
     {

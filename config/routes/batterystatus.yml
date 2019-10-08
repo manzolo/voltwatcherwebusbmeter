@@ -1,0 +1,51 @@
+Batterystatus_container:
+    path:  /
+    controller: 'App\Controller\BatterystatusController::index'
+
+Batterystatus_lista:
+    path:  /lista
+    controller: 'App\Controller\BatterystatusController::lista'
+    options:
+        expose: true
+
+Batterystatus_indexdettaglio:
+    path:  /indexDettaglio
+    controller: 'App\Controller\BatterystatusController::indexDettaglio'
+    options:
+        expose: true
+
+Batterystatus_new:
+    path:  /new
+    controller: 'App\Controller\BatterystatusController::new'
+    methods:    GET|POST
+
+Batterystatus_edit:
+    path:  /{id}/edit
+    controller: 'App\Controller\BatterystatusController::edit'
+
+Batterystatus_update:
+    path:  /{id}/update
+    controller: 'App\Controller\BatterystatusController::update'
+    methods:    POST|PUT
+
+Batterystatus_aggiorna:
+    path:  /{id}/{token}/aggiorna
+    controller: 'App\Controller\BatterystatusController::aggiorna'
+    methods:    POST|PUT
+    options:
+        expose: true
+
+Batterystatus_delete:
+    path:  /{id}/{token}/delete
+    controller: 'App\Controller\BatterystatusController::delete'
+    methods:    POST|DELETE
+
+Batterystatus_deletemultiple:
+    path:  /{token}/delete
+    controller: 'App\Controller\BatterystatusController::delete'
+    methods:    POST|DELETE
+
+Batterystatus_tabella:
+    path:  /tabella
+    controller: 'App\Controller\BatterystatusController::tabella'
+    methods:    POST
