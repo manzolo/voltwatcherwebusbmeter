@@ -95,6 +95,22 @@ class LogController extends FiController {
                 "larghezza" => 30,
                 "escluso" => true
             ),
+            $controller . ".longitude" => array(
+                "nometabella" => $controller,
+                "nomecampo" => "Log.longitude",
+                "etichetta" => "Longitudine",
+                "ordine" => 100,
+                "larghezza" => 30,
+                "escluso" => true
+            ),
+            $controller . ".latitude" => array(
+                "nometabella" => $controller,
+                "nomecampo" => "Log.latitude",
+                "etichetta" => "Latitudine",
+                "ordine" => 100,
+                "larghezza" => 30,
+                "escluso" => true
+            ),
         );
 
         $filtri = array();

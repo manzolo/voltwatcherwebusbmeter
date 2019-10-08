@@ -34,19 +34,22 @@
                         {%if (parametri.editinline|getparametrotabella == true)%}
                             <input type="text" class="form-control" value="{{fieldvalue}}" disabled/>
                         {%else%}
-                            {{fieldvalue}}
+                            {% if (colonnatabella.nomecampo=='Log.volt') %}
+                                <div class="battery vertical-battery" title="{{ record.volt }}">
+                                    <div class="battery-level {{battery_class(record.volt)}}" style="height:{{battery_level(record.volt)}}%;"></div>
+                                    <div class="vertical-text">
+                                        {{fieldvalue}} ({{battery_level(record.volt)}}%)
+                                    </div>
+                                </div>
+                            {%else%}
+                                {{fieldvalue}}
+                            {%endif%}
                         {%endif%}
                     </td>
                 {%endif%}
             {% endfor%} 
 
             <td class="colonnazionitabella biw-5">
-                <div class="battery" title="{{ record.volt }}">
-                    <div class="vertical-text">
-                    {{battery_level(record.volt)}}%
-                    </div>
-                    <div class="battery-level {{battery_class(record.volt)}}" style="height:{{battery_level(record.volt)}}%;"></div>
-                </div>
                 <!--<a href="#" class="bibottonimodificatabella{{parametri.nomecontroller|getparametrotabella}}" data-biid="{{record.id}}" data-toggle="confirmation-popout" data-singleton="true"><svg class="icon icon-sm"><use xlink:href="{{asset('build/svg/sprite.svg#it-settings')}}"></use></svg></a>-->
                 <a href="#" class="bibottonieditinline sr-only" data-azione="conferma" data-biid="{{record.id}}" data-tabella="{{parametri.nomecontroller|getparametrotabella}}"><svg class="icon icon-sm"><use xlink:href="{{asset('build/svg/sprite.svg#it-check')}}"></use></svg></a>
                 <a href="#" class="bibottonieditinline sr-only" data-azione="annulla" data-biid="{{record.id}}" data-tabella="{{parametri.nomecontroller|getparametrotabella}}"><svg class="icon icon-sm"><use xlink:href="{{asset('build/svg/sprite.svg#it-close')}}"></use></svg></span></a>
