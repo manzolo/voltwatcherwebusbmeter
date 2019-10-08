@@ -70,24 +70,23 @@ class DefaultController extends AbstractController {
         foreach ($devicesrows as $device) {
 
             /* chart */
-            $qb = $em->createQueryBuilder('j')
-                    ->select("j")
-                    ->from('App:Journal', 'j')
-                    ->where('j.device = :device')
-                    ->andWhere('j.dal <= :ora')
-                    ->andWhere('j.volt is not null')
+            $qb = $em->createQueryBuilder('l')
+                    ->select("l")
+                    ->from('App:Log', 'l')
+                    ->where('l.device = :device')
+                    ->andWhere('l.data >= :data')
                     ->setParameter("device", $device->getId())
-                    ->setParameter("ora", new \DateTime())
+                    ->setParameter("data", $date)
                     ->getQuery();
 
-            $journalrows = $qb->getResult();
+            $devicerows = $qb->getResult();
 
 
             $dati = array();
-            $dati[] = ['Data', 'Volts'/* , 'Temps' */, 'Avg'];
+            $dati[] = ['Data', 'Volts'];
 
-            foreach ($journalrows as $journalrows) {
-                $dati[] = [$journalrows->getDatarilevazione(), floatval($journalrows->getVolt()), round(floatval($journalrows->getAvgvolt()), 2)];
+            foreach ($devicerows as $devicerows) {
+                $dati[] = [$devicerows->getData(), floatval($devicerows->getVolt())];
             }
             if (count($dati) == 1) {
                 $dati[] = [new \DateTime(), 0, 0];
@@ -98,8 +97,8 @@ class DefaultController extends AbstractController {
 
             $chart->getOptions()->getChart()->setTitle($device->getName());
             $chart->getOptions()
-                    ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
-            ->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
+                    ->setSeries([['axis' => 'Volts']])
+            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
             ;
 
             $chart->getOptions()->setHeight(400);
