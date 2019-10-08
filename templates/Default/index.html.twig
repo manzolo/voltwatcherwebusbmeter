@@ -1,6 +1,50 @@
 {% extends "BiCoreBundle::layout.html.twig" %}
 
-{% block content %}
+{% block javascripts %}
+    {{parent()}}
+    {{ encore_entry_script_tags('bitabella') }}
+    {{ encore_entry_script_tags('maps') }}
+    <script>
+        function loadgraphs() {
+        {#% for chart in charts %}
+            {#{ gc_draw(chart,'div_chart'~chart.elementId) }#}
+        {#% endfor %#}
+            }
+    </script>
+{% endblock%}
 
-    <h1>Benvenuto {{app.user.username}}<h1>
-        {% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    {{ encore_entry_link_tags('maps') }}
+    {{ encore_entry_link_tags('app') }}
+
+{% endblock%}
+
+{% block content %}
+    <div class="row">
+        {% for device, infodevice in infodevices %}
+            <div class="col-6 col-lg-3">
+                <!--start card-->
+                <div class="card-wrapper">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="categoryicon-top">
+                                <div class="battery" title="{{ infodevice.volt }}">
+
+                                    <div class="battery-level {{battery_class(infodevice.volt)}}" style="height:{{battery_level(infodevice.volt)}}%;"></div>
+                                </div>
+                            </div>
+                            <h5 class="card-title"> {{infodevice.volt}} {{ infodevice.deviceinfo }} {{battery_level(infodevice.volt)}}%</h5>
+                            <p class="card-text">{{ infodevice.data|date('d/m/Y H:i:s') }}</p>
+                        </div>
+                    </div>
+                </div>
+                <!--end card-->
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}

@@ -28,7 +28,7 @@ class LogController extends FiController {
     /**
      * Matches / exactly
      *
-     * @Route("/", name="welcome")
+     * @Route("/Log", name="Log_container")
      */
     public function index(Request $request, Packages $assetsmanager) {
 
