@@ -30,9 +30,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="categoryicon-top">
-                                <div class="battery" title="{{ infodevice.volt }}">
-
-                                    <div class="battery-level {{battery_class(infodevice.volt)}}" style="height:{{battery_level(infodevice.volt)}}%;"></div>
+                                <div class="battery-big" title="{{ infodevice.volt }}">
+                                    {#% set infodevicevolt = 10.8 %#}
+                                    <div class="battery-level-big {{battery_class(infodevice.volt)}}" style="height:{{battery_level(infodevice.volt)}}%;"></div>
                                 </div>
                             </div>
                             <h5 class="card-title"> {{infodevice.volt}} {{ infodevice.deviceinfo }} {{battery_level(infodevice.volt)}}%</h5>
