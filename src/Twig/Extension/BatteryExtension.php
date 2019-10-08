@@ -22,6 +22,7 @@ class BatteryExtension extends AbstractExtension {
         return array(
             new Twig_SimpleFunction('battery_level', array($this, 'batteryLevel', 'is_safe' => array('html'))),
             new Twig_SimpleFunction('battery_class', array($this, 'batteryClass', 'is_safe' => array('html'))),
+            new Twig_SimpleFunction('battery_color', array($this, 'batteryColor', 'is_safe' => array('html'))),
         );
     }
 
@@ -64,7 +65,7 @@ class BatteryExtension extends AbstractExtension {
     }
 
     function batteryClass($volt) {
-        if (($this->batteryLevel($volt)) >= 50) {
+        if (($this->batteryLevel($volt)) >= 40) {
             return "";
         }
         if (($this->batteryLevel($volt)) >= 30 && $this->batteryLevel($volt) < 40) {
@@ -72,6 +73,18 @@ class BatteryExtension extends AbstractExtension {
         }
         if (($this->batteryLevel($volt)) < 30) {
             return "batteryalert";
+        }
+    }
+    
+    function batteryColor($volt) {
+        if (($this->batteryLevel($volt)) >= 40) {
+            return "battery-normal-color";
+        }
+        if (($this->batteryLevel($volt)) >= 30 && $this->batteryLevel($volt) < 40) {
+            return "battery-warning-color";
+        }
+        if (($this->batteryLevel($volt)) < 30) {
+            return "battery-alert-color";
         }
     }
 

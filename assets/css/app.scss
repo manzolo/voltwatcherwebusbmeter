@@ -134,3 +134,15 @@ $lightning-big-size: 50px;
         }
     }    
 }
+.battery-normal-color{
+     color: #30b455;
+     font-weight: bold;
+}
+.battery-warning-color{
+     color: #EFAF13;
+     font-weight: bold;
+}
+.battery-alert-color{
+     color: #e81309;
+     font-weight: bold;
+}
