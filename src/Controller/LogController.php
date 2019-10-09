@@ -117,7 +117,7 @@ class LogController extends FiController {
         $prefiltri = array();
         $entityutils = new EntityUtils($this->get('doctrine')->getManager());
         $tablenamefromentity = $entityutils->getTableFromEntity($entityclass);
-        $colonneordinamento = array($tablenamefromentity . '.id' => 'DESC');
+        $colonneordinamento = array($tablenamefromentity . '.data' => 'DESC',$tablenamefromentity . '.device_id' => 'ASC');
         $parametritabella = array('em' => ParametriTabella::setParameter('default'),
             'tablename' => ParametriTabella::setParameter($tablenamefromentity),
             'nomecontroller' => ParametriTabella::setParameter($controller),
