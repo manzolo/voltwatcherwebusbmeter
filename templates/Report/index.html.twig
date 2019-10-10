@@ -1,0 +1,28 @@
+<div>
+    <p>Weekly report</p>
+    <table border="1">
+        <tr>
+            <th>Device</th><th>Min volt</th><th>Avg voltay</th><th>Max volt</th>
+        </tr>
+        {% for row in weeklyrows %}
+            <tr>
+                <td>{{ row.devicename }}</td><td>{{ row.minvolt|round(2) }}</td><td>{{ row.avgvolt|round(2) }}</td><td>{{ row.maxvolt|round(2) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<br/>
+<div>
+    <p>Dayly report</p>
+    <table border="1">
+        <tr>
+            <th>Day</th><th>Device</th><th>Min volt</th><th>Avg voltay</th><th>Max volt</th>
+        </tr>
+        {% for row in rows %}
+            <tr>
+                <td>{{ row.day|date('d/m/Y')  }}</td><td>{{ row.devicename }}</td><td>{{ row.minvolt|round(2) }}</td><td>{{ row.avgvolt|round(2) }}</td><td>{{ row.maxvolt|round(2) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
