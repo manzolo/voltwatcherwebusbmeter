@@ -10,14 +10,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Device;
 use App\Entity\Log;
 
-class ApiController extends AbstractController {
-
+class ApiController extends AbstractController
+{
     /**
      * Matches / exactly
      *
      * @Route("/api/sendvolt", name="sendvolt")
      */
-    public function sendvolt(Request $request) {
+    public function sendvolt(Request $request, \Swift_Mailer $mailer)
+    {
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $datavolt = json_decode($request->getContent(), true);
             $device = $datavolt["device"];
@@ -63,20 +64,35 @@ class ApiController extends AbstractController {
         $newlog->setDetectorperc($batteryperc);
         $newlog->setLongitude($longitude);
         $newlog->setLatitude($latitude);
-        
+
         $em->persist($newlog);
         $em->flush();
         $em->clear();
 
+        $threshold = $newlog->getDevice()->getThreshold();
+        $recipient = getenv("mailer_user");
+        if ($threshold && $recipient && $newlog->getVolt() < $threshold) {
+            $message = (new \Swift_Message("WARNING from " . $newlog->getDevice() . " *** " . $newlog->getVolt() ." volt ***"))
+                    ->setFrom("voltwatcheralert@manzolo.it")
+                    ->setTo($recipient)
+                    ->setBody("WARNING from " . $newlog->getDevice() . "! Received " . $newlog->getVolt() . " (less of " . $threshold . " threshold) ", 'text/html')
+                    // you can remove the following code if you don't define a text version for your emails
+                    ->addPart("WARNING from " . $newlog->getDevice() . "! Received " . $newlog->getVolt() . " (less of " . $threshold . " threshold) ", 'text/plain')
+            ;
+
+            $mailer->send($message);
+        }
+
+
         return new JsonResponse(array("errcode" => 0, "errmsg" => "OK"));
     }
-
     /**
      * Matches / exactly
      *
      * @Route("/api/appgetsettings", name="appgetsettings")
      */
-    public function appGetSettings(Request $request) {
+    public function appGetSettings(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder()
                 ->select('s')
@@ -90,5 +106,4 @@ class ApiController extends AbstractController {
         //array("seconds" => 300, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58")
         return new JsonResponse($newsettings);
     }
-
 }
