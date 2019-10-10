@@ -75,9 +75,9 @@ class ApiController extends AbstractController
             $message = (new \Swift_Message("WARNING from " . $newlog->getDevice() . " *** " . $newlog->getVolt() ." volt ***"))
                     ->setFrom("voltwatcheralert@manzolo.it")
                     ->setTo($recipient)
-                    ->setBody("WARNING from " . $newlog->getDevice() . "! Received " . $newlog->getVolt() . " (less of " . $threshold . " threshold) ", 'text/html')
+                    ->setBody("WARNING from " . $newlog->getDevice() . "! Received " . $newlog->getVolt() . " (less of " . $threshold . " threshold) at " . $newlog->getData()->format("d/m/Y H:i:s"), 'text/html')
                     // you can remove the following code if you don't define a text version for your emails
-                    ->addPart("WARNING from " . $newlog->getDevice() . "! Received " . $newlog->getVolt() . " (less of " . $threshold . " threshold) ", 'text/plain')
+                    ->addPart("WARNING from " . $newlog->getDevice() . "! Received " . $newlog->getVolt() . " (less of " . $threshold . " threshold) at " . $newlog->getData()->format("d/m/Y H:i:s"), 'text/plain')
             ;
 
             $mailer->send($message);
