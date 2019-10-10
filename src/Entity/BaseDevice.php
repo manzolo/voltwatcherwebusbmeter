@@ -34,6 +34,11 @@ class BaseDevice
     protected $name;
 
     /**
+     * @ORM\Column(type="decimal", precision=7, scale=2, nullable=true)
+     */
+    protected $threshold;
+
+    /**
      * @ORM\OneToMany(targetEntity="Journal", mappedBy="device")
      * @ORM\JoinColumn(name="id", referencedColumnName="device_id", nullable=false)
      */
@@ -121,6 +126,29 @@ class BaseDevice
     }
 
     /**
+     * Set the value of threshold.
+     *
+     * @param float $threshold
+     * @return \App\Entity\Device
+     */
+    public function setThreshold($threshold)
+    {
+        $this->threshold = $threshold;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of threshold.
+     *
+     * @return float
+     */
+    public function getThreshold()
+    {
+        return $this->threshold;
+    }
+
+    /**
      * Add Journal entity to collection (one to many).
      *
      * @param \App\Entity\Journal $journal
@@ -194,6 +222,6 @@ class BaseDevice
 
     public function __sleep()
     {
-        return array('id', 'address', 'name');
+        return array('id', 'address', 'name', 'threshold');
     }
 }

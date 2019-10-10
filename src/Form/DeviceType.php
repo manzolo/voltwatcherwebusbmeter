@@ -17,6 +17,7 @@ class DeviceType extends AbstractType
             ->add('submit', SubmitType::class, $submitparms)
             ->add('name')
             ->add('address')
+            ->add('threshold')
         ;
     }
 
