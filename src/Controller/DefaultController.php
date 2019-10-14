@@ -16,7 +16,7 @@ use App\Entity\Log;
 
 class DefaultController extends AbstractController {
 
-    private $chartdifftime = '-3 days';
+    private $chartdifftime = '-2 days';
 
     /**
      * Matches / exactly
