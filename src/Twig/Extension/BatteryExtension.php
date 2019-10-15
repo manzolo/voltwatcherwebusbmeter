@@ -39,9 +39,9 @@ class BatteryExtension extends AbstractExtension {
         } else {
             //Carica %	99	90	80  	70	60	50	40	30	20	10
             //Tensione	12,91 12,80 V	12,66 12,52  12,38           12,06   12,06  11,90 V 11,70 V
-            if ($volt >= 12.92)
+            if ($volt >= 12.91)
                 return 100; //12,91
-            if ($volt >= 12.80 && $volt < 12.92) // 12,80
+            if ($volt >= 12.80 && $volt < 12.91) // 12,80
                 return 90;
             if ($volt >= 12.66 && $volt < 12.80) //12,66
                 return 80;
@@ -49,17 +49,17 @@ class BatteryExtension extends AbstractExtension {
                 return 70;
             if ($volt >= 12.38 && $volt < 12.52) //12,38
                 return 60;
-            if ($volt >= 12.17 && $volt < 12.38)
+            if ($volt >= 12.22 && $volt < 12.38)
                 return 50;
-            if ($volt >= 12.06 && $volt < 12.17)
+            if ($volt >= 12.06 && $volt < 12.22)
                 return 40;
             if ($volt >= 11.90 && $volt < 12.06)
                 return 30;
-            if ($volt >= 11.80 && $volt < 11.90)
+            if ($volt >= 11.70 && $volt < 11.90)
                 return 20;
-            if ($volt >= 11.70 && $volt < 11.80)
+            if ($volt >= 11.42 && $volt < 11.70)
                 return 10;
-            if ($volt < 11.70)
+            if ($volt < 11.42)
                 return 0;
         }
     }
