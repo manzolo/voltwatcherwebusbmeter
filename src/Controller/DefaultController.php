@@ -14,7 +14,8 @@ use \Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Device;
 use App\Entity\Log;
 
-class DefaultController extends AbstractController {
+class DefaultController extends AbstractController
+{
 
     private $chartdifftime = '-2 days';
 
@@ -23,7 +24,8 @@ class DefaultController extends AbstractController {
      *
      * @Route("/", name="welcome")
      */
-    public function index(Request $request, Packages $assetsmanager) {
+    public function index(Request $request, Packages $assetsmanager)
+    {
 
         /* chart */
         $em = $this->getDoctrine()->getManager();
@@ -46,16 +48,28 @@ class DefaultController extends AbstractController {
             $resultrows = $qb->getResult();
             if (count($resultrows) == 1) {
                 $infodevice = $resultrows[0];
-                $infodevices[$device->getAddress()] = array("deviceinfo" => $infodevice->getDevice(), "volt" => $infodevice->getVolt(), "data" => $infodevice->getData());
+                $hour = $infodevice->getData()->format("H:i:s");
+                $qb = $em->createQueryBuilder('l')
+                        ->select("l")
+                        ->from('App:Log', 'l')
+                        ->where("l.device = :device")
+                        ->andWhere("l.data < :data")
+                        ->andWhere("substring(l.data,12,8) = :ora")
+                        ->setParameter(":device", $device)
+                        ->setParameter(":data", $infodevice->getData())
+                        ->setParameter(":ora", $hour)
+                        ->orderBy("l.data", "DESC")
+                        ->getQuery();
+                $resultoldrows = $qb->getResult();
+                $infodevices[$device->getAddress()] = array("deviceinfo" => $infodevice->getDevice(), "volt" => $infodevice->getVolt(), "data" => $infodevice->getData(), "oldrows" => $resultoldrows);
             }
         }
-
         $charts = $this->getCharts($devicesrows);
         $crudtemplate = "Default/index.html.twig";
         return $this->render($crudtemplate, array("infodevices" => $infodevices, 'charts' => $charts));
     }
-
-    private function getCharts($devices) {
+    private function getCharts($devices)
+    {
         /* chart */
         $charts = array();
 
@@ -115,5 +129,4 @@ class DefaultController extends AbstractController {
         }
         return $charts;
     }
-
 }

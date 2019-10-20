@@ -38,6 +38,14 @@
                             </div>
                             <h5 class="card-title"> {{infodevice.volt}} {{ infodevice.deviceinfo }} {{battery_level(infodevice.volt)}}%</h5>
                             <p class="card-text">{{ infodevice.data|date('d/m/Y H:i:s') }}</p>
+                            <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseStorico" aria-label="Storico modifiche" aria-expanded="false" aria-controls="collapseStorico">
+                                Storico
+                            </button>
+                            <div class="collapse" id="collapseStorico">
+                                {% for oldrow in infodevice.oldrows %}
+                                    <p class="card-text">{{oldrow.volt}} {{ oldrow.data|date('d/m/Y H:i:s') }}</p>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
