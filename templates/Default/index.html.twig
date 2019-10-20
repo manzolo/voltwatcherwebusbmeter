@@ -43,7 +43,7 @@
                             </button>
                             <div class="collapse" id="collapseStorico">
                                 {% for oldrow in infodevice.oldrows %}
-                                    <p class="card-text">{{oldrow.volt}} {{ oldrow.data|date('d/m/Y H:i:s') }}</p>
+                                    <p class="card-text">{{oldrow.volt}} {{ oldrow.data|date('d/m/Y') }}</p>
                                 {% endfor %}
                             </div>
                         </div>
