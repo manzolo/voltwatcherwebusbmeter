@@ -49,14 +49,17 @@ class DefaultController extends AbstractController
             if (count($resultrows) == 1) {
                 $infodevice = $resultrows[0];
                 $hour = $infodevice->getData()->format("H:i:s");
+                $lastweek = clone $infodevice->getData();
                 $qb = $em->createQueryBuilder('l')
                         ->select("l")
                         ->from('App:Log', 'l')
                         ->where("l.device = :device")
                         ->andWhere("l.data < :data")
+                        ->andWhere("l.data > :datachk")
                         ->andWhere("substring(l.data,12,8) = :ora")
                         ->setParameter(":device", $device)
                         ->setParameter(":data", $infodevice->getData())
+                        ->setParameter(":datachk", $lastweek->modify("- 7 days"))
                         ->setParameter(":ora", $hour)
                         ->orderBy("l.data", "DESC")
                         ->getQuery();
