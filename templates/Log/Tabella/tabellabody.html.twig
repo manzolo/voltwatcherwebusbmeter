@@ -36,6 +36,7 @@
                         {%else%}
                             {% if (colonnatabella.nomecampo=='Log.volt') %}
                                 {{fieldvalue}} ({{battery_level(record.volt)}}%)
+                                <img src="http://openweathermap.org/img/wn/{{ record.weathericon }}@2x.png" width=32px; heigth=32px; alt="Weather icon">
                             {%else%}
                                 {{fieldvalue}}
                             {%endif%}
