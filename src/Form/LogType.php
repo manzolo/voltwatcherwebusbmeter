@@ -27,6 +27,10 @@ class LogType extends AbstractType
                 ->add('detectorperc')
                 ->add('longitude')
                 ->add('latitude')
+                ->add('weather')
+                ->add('externaltemp')
+                ->add('cloudiness')
+                ->add('location')
                 
                 
         ;

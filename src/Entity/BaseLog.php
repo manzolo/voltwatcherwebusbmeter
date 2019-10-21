@@ -58,6 +58,26 @@ class BaseLog
     protected $latitude;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $weather;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     */
+    protected $externaltemp;
+
+    /**
+     * @ORM\Column(name="`location`", type="string", length=255, nullable=true)
+     */
+    protected $location;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     */
+    protected $cloudiness;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Device", inversedBy="logs")
      * @ORM\JoinColumn(name="device_id", referencedColumnName="id", nullable=false)
      */
@@ -252,6 +272,98 @@ class BaseLog
     }
 
     /**
+     * Set the value of weather.
+     *
+     * @param string $weather
+     * @return \App\Entity\Log
+     */
+    public function setWeather($weather)
+    {
+        $this->weather = $weather;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of weather.
+     *
+     * @return string
+     */
+    public function getWeather()
+    {
+        return $this->weather;
+    }
+
+    /**
+     * Set the value of externaltemp.
+     *
+     * @param float $externaltemp
+     * @return \App\Entity\Log
+     */
+    public function setExternaltemp($externaltemp)
+    {
+        $this->externaltemp = $externaltemp;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of externaltemp.
+     *
+     * @return float
+     */
+    public function getExternaltemp()
+    {
+        return $this->externaltemp;
+    }
+
+    /**
+     * Set the value of location.
+     *
+     * @param string $location
+     * @return \App\Entity\Log
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of location.
+     *
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set the value of cloudiness.
+     *
+     * @param float $cloudiness
+     * @return \App\Entity\Log
+     */
+    public function setCloudiness($cloudiness)
+    {
+        $this->cloudiness = $cloudiness;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of cloudiness.
+     *
+     * @return float
+     */
+    public function getCloudiness()
+    {
+        return $this->cloudiness;
+    }
+
+    /**
      * Set Device entity (many to one).
      *
      * @param \App\Entity\Device $device
@@ -276,6 +388,6 @@ class BaseLog
 
     public function __sleep()
     {
-        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc', 'longitude', 'latitude');
+        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc', 'longitude', 'latitude', 'weather', 'externaltemp', 'location', 'cloudiness');
     }
 }

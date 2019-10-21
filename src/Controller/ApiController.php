@@ -33,6 +33,7 @@ class ApiController extends AbstractController
             $device = $datavolt["device"];
             $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
             $volt = (float) $datavolt["volt"];
+            $temp = (float) $datavolt["temp"];
             $batteryperc = (float) $datavolt["batteryperc"];
             $longitude = (float) $datavolt["longitude"];
             $latitude = (float) $datavolt["latitude"];
@@ -67,12 +68,11 @@ class ApiController extends AbstractController
 
         $em->persist($newlog);
         $em->flush();
-        $em->clear();
 
         $threshold = $newlog->getDevice()->getThreshold();
         $recipient = getenv("mailer_user");
         if ($threshold && $recipient && $newlog->getVolt() < $threshold) {
-            $message = (new \Swift_Message("WARNING from " . $newlog->getDevice() . " *** " . $newlog->getVolt() ." volt ***"))
+            $message = (new \Swift_Message("WARNING from " . $newlog->getDevice() . " *** " . $newlog->getVolt() . " volt ***"))
                     ->setFrom("voltwatcheralert@manzolo.it")
                     ->setTo($recipient)
                     ->setBody("WARNING from " . $newlog->getDevice() . "! Received " . $newlog->getVolt() . " (less of " . $threshold . " threshold) at " . $newlog->getData()->format("d/m/Y H:i:s"), 'text/html')
@@ -83,6 +83,28 @@ class ApiController extends AbstractController
             $mailer->send($message);
         }
 
+        $owmappid = getenv("openweathermap_apikey");
+        if ($owmappid && ($longitude || $latitude)) {
+            try {
+                $owmurl = "http://api.openweathermap.org/data/2.5/weather?lon=" . $longitude . "&lat=" . $latitude . "&APPID=" . $owmappid;
+                $weatherjson = \json_decode(file_get_contents($owmurl), true);
+
+                $weather = $weatherjson["weather"][0]["main"];
+                $externaltemp = $weatherjson["main"]["temp"] - 273.15;
+                $cloudiness = $weatherjson["clouds"]["all"];
+                $location = $weatherjson["name"];
+
+                $newlog->setWeather($weather);
+                $newlog->setExternaltemp($externaltemp);
+                $newlog->setCloudiness($cloudiness);
+                $newlog->setLocation($location);
+                $em->persist($newlog);
+                $em->flush();
+                
+            } catch (\Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
+        }
 
         return new JsonResponse(array("errcode" => 0, "errmsg" => "OK"));
     }
