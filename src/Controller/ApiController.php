@@ -93,11 +93,13 @@ class ApiController extends AbstractController
                 $externaltemp = $weatherjson["main"]["temp"] - 273.15;
                 $cloudiness = $weatherjson["clouds"]["all"];
                 $location = $weatherjson["name"];
+                $weathericon = $weatherjson["weather"][0]["icon"];
 
                 $newlog->setWeather($weather);
                 $newlog->setExternaltemp($externaltemp);
                 $newlog->setCloudiness($cloudiness);
                 $newlog->setLocation($location);
+                $newlog->setWeathericon($weathericon);
                 $em->persist($newlog);
                 $em->flush();
                 

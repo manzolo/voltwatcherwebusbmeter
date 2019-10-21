@@ -78,6 +78,11 @@ class BaseLog
     protected $cloudiness;
 
     /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    protected $weathericon;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Device", inversedBy="logs")
      * @ORM\JoinColumn(name="device_id", referencedColumnName="id", nullable=false)
      */
@@ -364,6 +369,29 @@ class BaseLog
     }
 
     /**
+     * Set the value of weathericon.
+     *
+     * @param string $weathericon
+     * @return \App\Entity\Log
+     */
+    public function setWeathericon($weathericon)
+    {
+        $this->weathericon = $weathericon;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of weathericon.
+     *
+     * @return string
+     */
+    public function getWeathericon()
+    {
+        return $this->weathericon;
+    }
+
+    /**
      * Set Device entity (many to one).
      *
      * @param \App\Entity\Device $device
@@ -388,6 +416,6 @@ class BaseLog
 
     public function __sleep()
     {
-        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc', 'longitude', 'latitude', 'weather', 'externaltemp', 'location', 'cloudiness');
+        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc', 'longitude', 'latitude', 'weather', 'externaltemp', 'location', 'cloudiness', 'weathericon');
     }
 }

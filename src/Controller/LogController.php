@@ -143,6 +143,14 @@ class LogController extends FiController {
                 "larghezza" => 30,
                 "escluso" => true
             ),
+            $controller . ".weathericon" => array(
+                "nometabella" => $controller,
+                "nomecampo" => "Log.weathericon",
+                "etichetta" => "Weather Icon",
+                "ordine" => 240,
+                "larghezza" => 30,
+                "escluso" => true
+            ),
         );
 
         $filtri = array();
