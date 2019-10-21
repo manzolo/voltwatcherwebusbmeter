@@ -35,7 +35,7 @@
                                     {#% set infodevicevolt = 10.8 %#}
                                     <div class="battery-level-big {{battery_class(infodevice.volt)}}" style="height:{{battery_level(infodevice.volt)}}%;"></div>
                                 </div>
-                                {% if infodevice.weathericon is defined %}
+                                {% if infodevice.weathericon is defined and infodevice.weathericon %}
                                     <img src="http://openweathermap.org/img/wn/{{ infodevice.weathericon }}@2x.png">
                                 {% endif %}
                             </div>
