@@ -111,6 +111,38 @@ class LogController extends FiController {
                 "larghezza" => 30,
                 "escluso" => true
             ),
+            $controller . ".weather" => array(
+                "nometabella" => $controller,
+                "nomecampo" => "Log.weather",
+                "etichetta" => "Weather",
+                "ordine" => 200,
+                "larghezza" => 30,
+                "escluso" => true
+            ),
+            $controller . ".externaltemp" => array(
+                "nometabella" => $controller,
+                "nomecampo" => "Log.externaltemp",
+                "etichetta" => "External temp",
+                "ordine" => 210,
+                "larghezza" => 30,
+                "escluso" => true
+            ),
+            $controller . ".location" => array(
+                "nometabella" => $controller,
+                "nomecampo" => "Log.location",
+                "etichetta" => "Location",
+                "ordine" => 220,
+                "larghezza" => 50,
+                "escluso" => true
+            ),
+            $controller . ".cloudiness" => array(
+                "nometabella" => $controller,
+                "nomecampo" => "Log.cloudiness",
+                "etichetta" => "Cloudiness %",
+                "ordine" => 230,
+                "larghezza" => 30,
+                "escluso" => true
+            ),
         );
 
         $filtri = array();
