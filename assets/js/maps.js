@@ -54,6 +54,7 @@ $(document).ready(function () {
             target: 'map',
             projection: 'EPSG:4326',
             layers: [new TileLayer({
+                    preload: 4,
                     source: new OSM()
                 })]
         });
