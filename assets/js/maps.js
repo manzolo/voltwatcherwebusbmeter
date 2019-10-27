@@ -10,6 +10,7 @@ require('../css/maps.css');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
+import 'ol/ol.css';
 import Feature from 'ol/Feature.js';
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
@@ -34,7 +35,6 @@ import zoom from 'ol/control/Zoom.js';
 import animation from './mapanimation.js';
 
 $(document).ready(function () {
-    //$("#map").hide();
     var coordinate;
     var map;
     var rome = fromLonLat([12.5, 41.9]);
@@ -48,28 +48,16 @@ $(document).ready(function () {
     var marker;
 
     $(document).on("click", "#showmap", function () {
-
+        $("#map").html("");
         map = new Map({
             view: view,
             target: 'map',
             projection: 'EPSG:4326',
             layers: [new TileLayer({
-                    preload: 4,
                     source: new OSM()
                 })]
-                    /*interactions: defaultInteractions({
-                     doubleClickZoom: false,
-                     dragAndDrop: false,
-                     dragPan: false,
-                     keyboardPan: false,
-                     keyboardZoom: false,
-                     mouseWheelZoom: false,
-                     pointer: false,
-                     select: false,
-                     
-                     }),*/
         });
-        
+
         var longitude = parseFloat($("#log_longitude").val());
         var latitude = parseFloat($("#log_latitude").val());
         if (longitude > 0 && latitude > 0) {
