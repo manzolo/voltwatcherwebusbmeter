@@ -35,54 +35,57 @@ import zoom from 'ol/control/Zoom.js';
 import animation from './mapanimation.js';
 
 $(document).ready(function () {
-    var coordinate;
-    var map;
-    var rome = fromLonLat([12.5, 41.9]);
-    coordinate = rome;
-
-    var view = new View({
-        center: rome,
-        zoom: 15
-    });
-
-    var marker;
+    /*var coordinate;
+     var rome = fromLonLat([12.5, 41.9]);
+     coordinate = rome;*/
 
     $(document).on("click", "#showmap", function () {
-        $("#map").html("");
-        map = new Map({
-            view: view,
-            target: 'map',
-            projection: 'EPSG:4326',
-            layers: [new TileLayer({
-                    preload: 4,
-                    source: new OSM()
-                })]
-        });
+        //$("#map").html("");
 
         var longitude = parseFloat($("#log_longitude").val());
         var latitude = parseFloat($("#log_latitude").val());
         if (longitude > 0 && latitude > 0) {
-            if (marker) {
-                map.removeLayer(marker);
-            }
-            coordinate = fromLonLat([longitude, latitude]);
-            marker = new VectorLayer({
-                source: new VectorSource({
-                    features: [
-                        new Feature({
-                            geometry: new Point(coordinate)
-                        })
-                    ]
+
+            var layer = new TileLayer({
+                source: new OSM()
+            });
+
+            var pos = fromLonLat([longitude, latitude]);
+
+            var map = new Map({
+                layers: [layer],
+                target: 'map',
+                view: new View({
+                    center: pos,
+                    zoom: 15
                 })
             });
-            map.addLayer(marker);
-            map.updateSize();
-            map.render();
-            animation.flyTo(view, coordinate, function () {});
+
+            var marker = new Overlay({
+                position: pos,
+                positioning: 'center-center',
+                element: document.getElementById('marker'),
+                stopEvent: false
+            });
+            //map.removeOverlay(marker);
+            map.addOverlay(marker);
+
+            var device = new Overlay({
+                position: pos,
+                element: document.getElementById('device')
+            });
+            //map.removeOverlay(device);
+            map.addOverlay(device);
+
+            //map.updateSize();
+            //map.render();
+
+            //animation.flyTo(view, coordinate, function () {});
         }
     });
 
 
 
 });
+
 
