@@ -40,7 +40,7 @@ $(document).ready(function () {
      coordinate = rome;*/
 
     $(document).on("click", "#showmap", function () {
-        //$("#map").html("");
+        $("#map").html("");
 
         var longitude = parseFloat($("#log_longitude").val());
         var latitude = parseFloat($("#log_latitude").val());
