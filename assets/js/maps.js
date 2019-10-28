@@ -41,6 +41,7 @@ $(document).ready(function () {
 
     $(document).on("click", "#showmap", function () {
         $("#map").html("");
+        $("#mapmarker").html('<a class="overlay" id="device"></a><div id="marker" title="Marker"></div>');
 
         var longitude = parseFloat($("#log_longitude").val());
         var latitude = parseFloat($("#log_latitude").val());
