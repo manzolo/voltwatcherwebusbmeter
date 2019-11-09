@@ -112,8 +112,8 @@ private $templating;
         $table->render();
         $sendmail = ($input->getOption('sendmail') !== false);
         if ($sendmail) {
-
             $recipient = getenv("mailer_user");
+            $output->writeln('<info>send mail to '.$recipient.'</info>');
 
             $message = (new \Swift_Message("Energy report from " . $date->format("d/m/Y H:i:s") . " to " . (new \DateTime)->format("d/m/Y H:i:s")))
                     ->setFrom("voltwatcheralert@manzolo.it")
