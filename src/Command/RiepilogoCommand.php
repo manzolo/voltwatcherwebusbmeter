@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,7 +17,7 @@ class RiepilogoCommand extends Command
     private $em;
     private $logger;
     private $mailer;
-private $templating;
+    private $templating;
 
     protected function configure()
     {
@@ -33,7 +32,7 @@ private $templating;
                         false
         );
     }
-    public function __construct(ObjectManager $em, LoggerInterface $logger, \Swift_Mailer $mailer, \Twig_Environment $templating)
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, \Swift_Mailer $mailer, \Twig_Environment $templating)
     {
         $this->em = $em;
         $this->logger = $logger;
@@ -113,7 +112,7 @@ private $templating;
         $sendmail = ($input->getOption('sendmail') !== false);
         if ($sendmail) {
             $recipient = getenv("mailer_user");
-            $output->writeln('<info>send mail to '.$recipient.'</info>');
+            $output->writeln('<info>send mail to ' . $recipient . '</info>');
 
             $message = (new \Swift_Message("Energy report from " . $date->format("d/m/Y H:i:s") . " to " . (new \DateTime)->format("d/m/Y H:i:s")))
                     ->setFrom("voltwatcheralert@manzolo.it")
@@ -121,7 +120,7 @@ private $templating;
                     ->setBody($this->templating->render(
                                     // templates/emails/registration.html.twig
                                     'Report/index.html.twig',
-                                    ['rows' => $riepilogodayrows, "weeklyrows"=>$riepilogorows]
+                                    ['rows' => $riepilogodayrows, "weeklyrows" => $riepilogorows]
                             ),
                             'text/html')
                     // you can remove the following code if you don't define a text version for your emails

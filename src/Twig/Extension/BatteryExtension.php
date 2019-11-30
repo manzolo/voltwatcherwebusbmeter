@@ -4,15 +4,14 @@ namespace App\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
 use Twig_SimpleFilter;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Twig_SimpleFunction;
 
 class BatteryExtension extends AbstractExtension {
 
     protected $em;
 
-    public function __construct(RegistryInterface $em) {
-        $this->em = $em->getManager();
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em) {
+        $this->em = $em;
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,7 +24,7 @@ class CreateJournalCommand extends Command {
         ;
     }
 
-    public function __construct(ObjectManager $em, LoggerInterface $logger) {
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger) {
         $this->em = $em;
         $this->logger = $logger;
         // you *must* call the parent constructor
