@@ -4,7 +4,7 @@
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/app.aa930698.js"
+        "/build/app.cdf18f21.js"
       ],
       "css": [
         "/build/app.cee50df0.css"
@@ -14,7 +14,7 @@
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/chart.75fa2e0c.js"
+        "/build/chart.2fde4a8d.js"
       ],
       "css": [
         "/build/chart.cee50df0.css"
@@ -24,8 +24,8 @@
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/2.474e0409.js",
-        "/build/maps.feeba39f.js"
+        "/build/2.dec98fd5.js",
+        "/build/maps.9e4628fc.js"
       ],
       "css": [
         "/build/2.d2fdea3b.css",
@@ -36,11 +36,11 @@
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/3.9f3a0499.js",
+        "/build/3.5fd21bd1.js",
         "/build/bootstrapitalia.4224ecc9.js"
       ],
       "css": [
-        "/build/3.b2027b04.css"
+        "/build/3.b543852e.css"
       ]
     },
     "bicore": {
@@ -65,30 +65,30 @@
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/1.1f4e2fe0.js",
-        "/build/bitabella.1a516d3e.js"
+        "/build/1.eed8e6e7.js",
+        "/build/bitabella.918242a2.js"
       ],
       "css": [
-        "/build/bitabella.35338d43.css"
+        "/build/bitabella.ce896dff.css"
       ]
     },
     "bidemo": {
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/1.1f4e2fe0.js",
-        "/build/bidemo.a6640246.js"
+        "/build/1.eed8e6e7.js",
+        "/build/bidemo.15ea4680.js"
       ],
       "css": [
-        "/build/bidemo.18d274da.css"
+        "/build/bidemo.ce896dff.css"
       ]
     },
     "adminpanel": {
       "js": [
         "/build/runtime.63f040c0.js",
         "/build/0.3b45c99e.js",
-        "/build/1.1f4e2fe0.js",
-        "/build/adminpanel.4481913a.js"
+        "/build/1.eed8e6e7.js",
+        "/build/adminpanel.4830dca2.js"
       ],
       "css": [
         "/build/adminpanel.156d861a.css"
