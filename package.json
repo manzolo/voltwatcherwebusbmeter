@@ -23,6 +23,7 @@
         "jquery-contextmenu": "^2.9.0",
         "moment": "^2.24.0",
         "ol": "^6.0.1",
+        "serialize-javascript": "2.1.1",
         "sweetalert2": "^8.18.5"
     }
 }
