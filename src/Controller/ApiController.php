@@ -102,7 +102,6 @@ class ApiController extends AbstractController
                 $newlog->setWeathericon($weathericon);
                 $em->persist($newlog);
                 $em->flush();
-                
             } catch (\Exception $exc) {
                 echo $exc->getTraceAsString();
             }
@@ -129,5 +128,15 @@ class ApiController extends AbstractController
         }
         //array("seconds" => 300, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58")
         return new JsonResponse($newsettings);
+    }
+    /**
+     * Matches / exactly
+     *
+     * @Route("/api/getserverdatetime", name="getserverdatetime")
+     */
+    public function appServerDatetime(Request $request)
+    {
+
+        return new Response(\DateTime::createFromFormat("Y-m-d_H:i:s", new \DateTime()));
     }
 }
