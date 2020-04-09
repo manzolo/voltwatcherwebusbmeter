@@ -137,6 +137,6 @@ class ApiController extends AbstractController
     public function appServerDatetime(Request $request)
     {
 
-        return new Response(\DateTime::createFromFormat("Y-m-d_H:i:s", new \DateTime()));
+        return new Response((new \DateTime())->format("Y-m-d_H:i:s"));
     }
 }
