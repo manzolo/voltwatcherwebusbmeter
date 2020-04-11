@@ -137,25 +137,6 @@ class ApiController extends AbstractController
     public function appServerDatetime(Request $request)
     {
         $now = (new \DateTime());
-        //return new JsonResponse(array("datetime" => $now->format("Y-m-d H:i:s"), "date" => $now->format("Y-m-d"), "time" => $now->format("H:i:s")));
-        return new Response("La locuzione Ipse dixit, tradotta letteralmente, significa l'ha detto egli stesso. Di fatto viene per lo più intesa e usata nel senso che, avendolo detto egli stesso, vale a dire una persona famosa e autorevole, non si può più discutere.
-
-Il detto compare nel De natura deorum (I, 5, 10) di Marco Tullio Cicerone, il quale, parlando dei pitagorici, ricorda come fossero soliti citare la loro somma autorità, Pitagora, con la frase Ipse dixit, per poi criticare tale formula in quanto elimina la capacità di giudizio dello studente.
-
-Nel medioevo la 'somma autorità' in questione non è più Pitagora, ma Aristotele: il detto, infatti, è attribuito ad Averroè, il più importante studioso arabo del filosofo. Secondo una sua interpretazione, Aristotele afferma in forma scientifica le stesse verità esposte nel Corano e, pertanto, il pensiero aristotelico non va interpretato ma accettato, perché Ipse dixit.[senza fonte]
-
-Simile modo di presentare la verità viene definita dagli scolastici sophisma auctoritatis: una tesi viene accettata solo in virtù dell'autorità di chi la presenta.
-
-L'espressione è oggi utilizzata quando, in un discorso, si vuole evidenziare la bontà delle proprie opinioni in quanto sostenute anche da una persona comunemente riconosciuta come autorità in materia. A volte viene usata anche in senso ironico, per deridere chi si considera autorevole senza esserlo realmente, o chi si sottomette acriticamente a una simile autorità. 
-
-La locuzione Ipse dixit, tradotta letteralmente, significa l'ha detto egli stesso. Di fatto viene per lo più intesa e usata nel senso che, avendolo detto egli stesso, vale a dire una persona famosa e autorevole, non si può più discutere.
-
-Il detto compare nel De natura deorum (I, 5, 10) di Marco Tullio Cicerone, il quale, parlando dei pitagorici, ricorda come fossero soliti citare la loro somma autorità, Pitagora, con la frase Ipse dixit, per poi criticare tale formula in quanto elimina la capacità di giudizio dello studente.
-
-Nel medioevo la 'somma autorità' in questione non è più Pitagora, ma Aristotele: il detto, infatti, è attribuito ad Averroè, il più importante studioso arabo del filosofo. Secondo una sua interpretazione, Aristotele afferma in forma scientifica le stesse verità esposte nel Corano e, pertanto, il pensiero aristotelico non va interpretato ma accettato, perché Ipse dixit.[senza fonte]
-
-Simile modo di presentare la verità viene definita dagli scolastici sophisma auctoritatis: una tesi viene accettata solo in virtù dell'autorità di chi la presenta.
-
-L'espressione è oggi utilizzata quando, in un discorso, si vuole evidenziare la bontà delle proprie opinioni in quanto sostenute anche da una persona comunemente riconosciuta come autorità in materia. A volte viene usata anche in senso ironico, per deridere chi si considera autorevole senza esserlo realmente, o chi si sottomette acriticamente a una simile autorità. ");
+        return new JsonResponse(array("datetime" => $now->format("Y-m-d H:i:s"), "date" => $now->format("Y-m-d"), "time" => $now->format("H:i:s")));
     }
 }
