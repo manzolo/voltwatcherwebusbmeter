@@ -137,6 +137,6 @@ class ApiController extends AbstractController
     public function appServerDatetime(Request $request)
     {
         $now = (new \DateTime());
-        return new JsonResponse(array("datetime" => $now->format("Y-m-d_H:i:s"), "date" => $now->format("Y-m-d"), "time" => $now->format("H:i:s")));
+        return new JsonResponse(array("datetime" => $now->format("Y-m-d H:i:s"), "date" => $now->format("Y-m-d"), "time" => $now->format("H:i:s")));
     }
 }
