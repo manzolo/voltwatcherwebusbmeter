@@ -137,7 +137,7 @@ class ApiController extends AbstractController
     public function appServerDatetime(Request $request)
     {
         $now = (new \DateTime());
-        return new JsonResponse(array("datetime" => $now->format("Y-m-d H:i:s"), "date" => $now->format("Y-m-d"), "time" => $now->format("H:i:s")));
+        //return new JsonResponse(array("datetime" => $now->format("Y-m-d H:i:s"), "date" => $now->format("Y-m-d"), "time" => $now->format("H:i:s")));
         return new Response("La locuzione Ipse dixit, tradotta letteralmente, significa l'ha detto egli stesso. Di fatto viene per lo più intesa e usata nel senso che, avendolo detto egli stesso, vale a dire una persona famosa e autorevole, non si può più discutere.
 
 Il detto compare nel De natura deorum (I, 5, 10) di Marco Tullio Cicerone, il quale, parlando dei pitagorici, ricorda come fossero soliti citare la loro somma autorità, Pitagora, con la frase Ipse dixit, per poi criticare tale formula in quanto elimina la capacità di giudizio dello studente.
