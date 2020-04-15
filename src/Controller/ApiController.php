@@ -22,7 +22,11 @@ class ApiController extends AbstractController
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $datavolt = json_decode($request->getContent(), true);
             $device = $datavolt["device"];
-            $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
+            if ($datavolt["data"]){
+              $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
+            }else{
+              $data = new \DateTime();
+            }
             $volt = (float) $datavolt["volt"];
             $temp = (float) $datavolt["temp"];
             $batteryperc = (float) $datavolt["batteryperc"];
@@ -31,7 +35,11 @@ class ApiController extends AbstractController
         } else {
             $datavolt = json_decode($request->get("data"), true);
             $device = $datavolt["device"];
-            $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
+            if ($datavolt["data"]){
+              $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
+            }else{
+              $data = new \DateTime();
+            }
             $volt = (float) $datavolt["volt"];
             $temp = (float) $datavolt["temp"];
             $batteryperc = (float) $datavolt["batteryperc"];
