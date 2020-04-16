@@ -27,7 +27,7 @@ class ApiController extends AbstractController
               $datepost = $datavolt["data"];
               if (strlen($datepost)==18){
                 $data = \Datetime::createFromFormat("YmdHis.000", $datepost);
-                $data->setTimeZone(new DateTimeZone('Europe/Rome'));
+                $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
               }else{
                 $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
               }
@@ -46,7 +46,7 @@ class ApiController extends AbstractController
             $datepost = $datavolt["data"];
             if (strlen($datepost)==18){
               $data = \Datetime::createFromFormat("YmdHis.000", $datepost);
-              $data->setTimeZone(new DateTimeZone('Europe/Rome'));
+              $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
             }else{
               $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
             }
