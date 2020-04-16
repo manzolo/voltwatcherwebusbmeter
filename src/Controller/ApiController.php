@@ -23,7 +23,14 @@ class ApiController extends AbstractController
             $datavolt = json_decode($request->getContent(), true);
             $device = $datavolt["device"];
             if ($datavolt["data"]){
-              $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
+              //20200416201917.000
+              $datepost = $datavolt["data"];
+              if (strlen($datepost)==18){
+                $data = \Datetime::createFromFormat("YmdHis.000", $datepost);
+                $data->setTimeZone(new DateTimeZone('Europe/Rome'));
+              }else{
+                $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
+              }
             }else{
               $data = new \DateTime();
             }
@@ -35,10 +42,13 @@ class ApiController extends AbstractController
         } else {
             $datavolt = json_decode($request->get("data"), true);
             $device = $datavolt["device"];
-            if ($datavolt["data"]){
-              $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datavolt["data"]);
+            //20200416201917.000
+            $datepost = $datavolt["data"];
+            if (strlen($datepost)==18){
+              $data = \Datetime::createFromFormat("YmdHis.000", $datepost);
+              $data->setTimeZone(new DateTimeZone('Europe/Rome'));
             }else{
-              $data = new \DateTime();
+              $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
             }
             $volt = (float) $datavolt["volt"];
             $temp = (float) $datavolt["temp"];
