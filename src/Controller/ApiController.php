@@ -45,7 +45,7 @@ class ApiController extends AbstractController
             //20200416201917.000
             $datepost = $datavolt["data"];
             if (strlen($datepost)==18){
-              $data = \Datetime::createFromFormat("YmdHis.v", s$datepost);
+              $data = \Datetime::createFromFormat("YmdHis.v", $datepost);
               $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
             }else{
               $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
