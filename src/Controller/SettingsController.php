@@ -8,12 +8,12 @@ use Cdf\BiCoreBundle\Controller\FiController;
 use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
 use App\Entity\Settings;
 use App\Form\SettingsType;
-                
+
 /**
 * Settings controller.
 *
 */
 
-class SettingsController extends FiController {
-
+class SettingsController extends FiController
+{
 }

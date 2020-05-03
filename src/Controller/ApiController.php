@@ -22,17 +22,17 @@ class ApiController extends AbstractController
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $datavolt = json_decode($request->getContent(), true);
             $device = $datavolt["device"];
-            if ($datavolt["data"]){
-              //20200416201917.000
-              $datepost = $datavolt["data"];
-              if (strlen($datepost)==18){
-                $data = \Datetime::createFromFormat("YmdHis.000", $datepost, new \DateTimeZone('UTC'));
-                $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
-              }else{
-                $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
-              }
-            }else{
-              $data = new \DateTime();
+            if ($datavolt["data"]) {
+                //20200416201917.000
+                $datepost = $datavolt["data"];
+                if (strlen($datepost) == 18) {
+                    $data = \Datetime::createFromFormat("YmdHis.000", $datepost, new \DateTimeZone('UTC'));
+                    $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
+                } else {
+                    $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
+                }
+            } else {
+                $data = new \DateTime();
             }
             $volt = (float) $datavolt["volt"];
             $temp = (float) $datavolt["temp"];
@@ -44,11 +44,11 @@ class ApiController extends AbstractController
             $device = $datavolt["device"];
             //20200416201917.000
             $datepost = $datavolt["data"];
-            if (strlen($datepost)==18){
-              $data = \Datetime::createFromFormat("YmdHis.000", $datepost, new \DateTimeZone('UTC'));
-              $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
-            }else{
-              $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
+            if (strlen($datepost) == 18) {
+                $data = \Datetime::createFromFormat("YmdHis.000", $datepost, new \DateTimeZone('UTC'));
+                $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
+            } else {
+                $data = \Datetime::createFromFormat("Y-m-d H:i:s", $datepost);
             }
             $volt = (float) $datavolt["volt"];
             $temp = (float) $datavolt["temp"];

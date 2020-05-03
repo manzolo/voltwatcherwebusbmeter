@@ -17,8 +17,8 @@ use App\Form\LogType;
  * Log controller.
  *
  */
-class LogController extends FiController {
-
+class LogController extends FiController
+{
     private $chartdifftime = '-3 days';
 
     //private $batterystatus = array(
@@ -30,8 +30,8 @@ class LogController extends FiController {
      *
      * @Route("/Log", name="Log_container")
      */
-    public function index(Request $request, Packages $assetsmanager) {
-
+    public function index(Request $request, Packages $assetsmanager)
+    {
         $bundle = $this->getBundle();
         $controller = $this->getController();
         $idpassato = $request->get('id');
@@ -198,7 +198,8 @@ class LogController extends FiController {
         return $this->render($crudtemplate, array('charts' => $charts, 'parametritabella' => $parametritabella));
     }
 
-    public function tabella(Request $request) {
+    public function tabella(Request $request)
+    {
         if (!$this->permessi->canRead($this->getController())) {
             throw new AccessDeniedException('Non si hanno i permessi per visualizzare questo contenuto');
         }
@@ -212,18 +213,7 @@ class LogController extends FiController {
 
         $entity = new $classbundle();
         $controller = ParametriTabella::getParameter($parametripassati['nomecontroller']);
-        $form = $this->createForm(
-                $formType,
-                $entity,
-                array('attr' => array(
-                        'id' => 'formdati' . $controller,
-                    ),
-                    'action' => $this->generateUrl($controller . '_new'),
-                    'parametriform' => $parametriform,
-                )
-        );
-
-
+        $form = $this->createForm($formType, $entity, array('attr' => array('id' => 'formdati' . $controller,),'action' => $this->generateUrl($controller . '_new'),'parametriform' => $parametriform));
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
                 ->select("d")
@@ -238,13 +228,11 @@ class LogController extends FiController {
         $templateobj = $this->getTabellaTemplateInformations($controller);
         $parametri['templatelocation'] = $templateobj["path"];
 
-        return $this->render(
-                        $templateobj["template"],
-                        array('parametri' => $parametri)
-        );
+        return $this->render($templateobj["template"], array('parametri' => $parametri));
     }
 
-    private function getCharts($devices) {
+    private function getCharts($devices)
+    {
         /* chart */
         $charts = array();
 
@@ -256,8 +244,8 @@ class LogController extends FiController {
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
-        foreach ($devicesrows as $device) {
 
+        foreach ($devicesrows as $device) {
             /* chart */
             $qb = $em->createQueryBuilder('j')
                     ->select("j")
@@ -306,34 +294,30 @@ class LogController extends FiController {
         return $charts;
     }
 
-    private function searchInArray($array, $search_list) {
+    private function searchInArray($array, $search_list)
+    {
 
-        // Create the result array 
+        // Create the result array
         $result = array();
 
-        // Iterate over each array element 
+        // Iterate over each array element
         foreach ($array as $key => $value) {
-
-            // Iterate over each search condition 
+            // Iterate over each search condition
             foreach ($search_list as $k => $v) {
-
-                // If the array element does not meet 
-                // the search condition then continue 
-                // to the next element 
+                // If the array element does not meet
+                // the search condition then continue
+                // to the next element
                 if (!isset($value[$k]) || $value[$k] != $v) {
-
-                    // Skip two loops 
+                    // Skip two loops
                     continue 2;
                 }
             }
-
-            // Append array element's key to the 
-            //result array 
+            // Append array element's key to the
+            //result array
             $result[] = $value;
         }
 
-        // Return result  
+        // Return result
         return $result;
     }
-
 }

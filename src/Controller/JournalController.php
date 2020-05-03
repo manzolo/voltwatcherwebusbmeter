@@ -8,12 +8,12 @@ use Cdf\BiCoreBundle\Controller\FiController;
 use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
 use App\Entity\Journal;
 use App\Form\JournalType;
-                
+
 /**
 * Journal controller.
 *
 */
 
-class JournalController extends FiController {
-
+class JournalController extends FiController
+{
 }

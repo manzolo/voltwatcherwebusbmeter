@@ -40,7 +40,7 @@ class ReportController extends AbstractController
                 ->orderBy('grData', "DESC")
                 ->getQuery();
         $riepilogorows = $qb->getResult();
-        
+
         //Creare un nuovo file
         $spreadsheet = new Spreadsheet();
         $objPHPExcel = new Xls($spreadsheet);
@@ -154,9 +154,9 @@ class ReportController extends AbstractController
         $objPHPExcel->save($filename);
 
         return new Response(
-                file_get_contents($filename),
-                200,
-                array(
+            file_get_contents($filename),
+            200,
+            array(
             'Content-Type' => 'application/vnd.ms-excel',
             'Content-Disposition' => 'attachment; filename="Estrazione.xls"')
         );

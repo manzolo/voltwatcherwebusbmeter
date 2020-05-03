@@ -11,27 +11,30 @@ use App\Entity\Device;
 use App\Entity\Log;
 use Exception;
 
-class CreateJournalCommand extends Command {
-
+class CreateJournalCommand extends Command
+{
     private $journaldiffdays = '-3 days';
     protected static $defaultName = 'voltwatcher:createjournal';
     private $em;
 
-    protected function configure() {
+    protected function configure()
+    {
         $this
                 ->setDescription('Journal creation')
                 ->setHelp('Store journal')
         ;
     }
 
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger) {
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger)
+    {
         $this->em = $em;
         $this->logger = $logger;
         // you *must* call the parent constructor
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $em = $this->em;
         $query = $em->createQueryBuilder()
                 ->delete('App:Journal', 'd')
@@ -101,7 +104,7 @@ class CreateJournalCommand extends Command {
                     $currvolt = (float)$dettagliorows[$index]->getVolt();
                     $avg = (float)$avg + $currvolt;
                 }
-                $newJournal->setVolt(round($avg/$index,2));
+                $newJournal->setVolt(round($avg/$index, 2));
                 $newJournal->setDatarilevazione($dettagliorows[0]->getData());
                 $em->persist($newJournal);
             }
@@ -110,5 +113,4 @@ class CreateJournalCommand extends Command {
 
         $output->writeln('<info>Done</info>');
     }
-
 }

@@ -8,12 +8,12 @@ use Cdf\BiCoreBundle\Controller\FiController;
 use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
 use App\Entity\Device;
 use App\Form\DeviceType;
-                
+
 /**
 * Device controller.
 *
 */
 
-class DeviceController extends FiController {
-
+class DeviceController extends FiController
+{
 }

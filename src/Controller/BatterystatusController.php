@@ -8,12 +8,12 @@ use Cdf\BiCoreBundle\Controller\FiController;
 use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
 use App\Entity\Batterystatus;
 use App\Form\BatterystatusType;
-                
+
 /**
 * Batterystatus controller.
 *
 */
 
-class BatterystatusController extends FiController {
-
+class BatterystatusController extends FiController
+{
 }

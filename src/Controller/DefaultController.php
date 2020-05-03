@@ -16,7 +16,6 @@ use App\Entity\Log;
 
 class DefaultController extends AbstractController
 {
-
     private $chartdifftime = '-2 days';
 
     /**
@@ -48,7 +47,7 @@ class DefaultController extends AbstractController
             $resultrows = $qb->getResult();
             if (count($resultrows) == 1) {
                 $infodevice = $resultrows[0];
-                $hour = $infodevice->getData()->format("H:i:s");
+                $hour = substr($infodevice->getData()->format("H:i:s"), 0, 4);
                 $lastweek = clone $infodevice->getData();
                 $qb = $em->createQueryBuilder('l')
                         ->select("l")
@@ -56,7 +55,7 @@ class DefaultController extends AbstractController
                         ->where("l.device = :device")
                         ->andWhere("l.data < :data")
                         ->andWhere("l.data > :datachk")
-                        ->andWhere("substring(l.data,12,8) = :ora")
+                        ->andWhere("substring(l.data,12,4) = :ora")
                         ->setParameter(":device", $device)
                         ->setParameter(":data", $infodevice->getData())
                         ->setParameter(":datachk", $lastweek->modify("- 7 days"))
@@ -84,8 +83,8 @@ class DefaultController extends AbstractController
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
-        foreach ($devicesrows as $device) {
 
+        foreach ($devicesrows as $device) {
             /* chart */
             $qb = $em->createQueryBuilder('l')
                     ->select("l")
