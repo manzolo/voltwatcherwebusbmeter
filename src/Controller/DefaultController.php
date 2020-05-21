@@ -6,9 +6,9 @@ use App\Entity\Device;
 use App\Entity\Log;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends AbstractController
 {
@@ -243,5 +243,38 @@ class DefaultController extends AbstractController
         }
 
         return new JsonResponse(['errcode' => 0, 'errmsg' => 'OK']);
+    }
+
+    /**
+     * Matches / exactly.
+     *
+     * @Route("/api/appgetsettings", name="appgetsettings")
+     */
+    public function appGetSettings(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder()
+                ->select('s')
+                ->from('App:Settings', 's')
+                ->getQuery();
+        $settings = $qb->getResult();
+        $newsettings = [];
+        foreach ($settings as $setting) {
+            $newsettings[$setting->getKey()] = $setting->getValue();
+        }
+        //array("seconds" => 300, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58")
+        return new JsonResponse($newsettings);
+    }
+
+    /**
+     * Matches / exactly.
+     *
+     * @Route("/api/getserverdatetime", name="getserverdatetime")
+     */
+    public function appServerDatetime(Request $request)
+    {
+        $now = (new \DateTime());
+
+        return new JsonResponse(['datetime' => $now->format('Y-m-d H:i:s'), 'date' => $now->format('Y-m-d'), 'time' => $now->format('H:i:s')]);
     }
 }

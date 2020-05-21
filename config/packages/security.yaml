@@ -79,6 +79,9 @@ security:
         - { path: ^/adminpanel, role: [ROLE_SUPER_ADMIN] }
 
         - { path: ^/api/sendvolt, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/appgetsettings, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/getserverdatetime, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         #Con questa configurazione se l'utente non è censito in SSO oppure non ha ruoli in FOS VIENE BLOCCATO CON Error 403
