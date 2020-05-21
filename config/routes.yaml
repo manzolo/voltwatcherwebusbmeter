@@ -34,3 +34,7 @@ fos_js_routing:
 
 api_login_check:
     path: /api/login_check
+
+resources:
+    type: rest
+    resource: App\Controller\ApiController

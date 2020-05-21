@@ -2,9 +2,9 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/0.b34707ae.js",
-        "/build/app.4d8b91ba.js"
+        "/build/runtime.420770e4.js",
+        "/build/0.fdf904a5.js",
+        "/build/app.f61462df.js"
       ],
       "css": [
         "/build/app.cee50df0.css"
@@ -12,9 +12,9 @@
     },
     "chart": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/0.b34707ae.js",
-        "/build/chart.cc06c936.js"
+        "/build/runtime.420770e4.js",
+        "/build/0.fdf904a5.js",
+        "/build/chart.ebe9659a.js"
       ],
       "css": [
         "/build/chart.cee50df0.css"
@@ -22,10 +22,10 @@
     },
     "maps": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/0.b34707ae.js",
-        "/build/2.52cfb12c.js",
-        "/build/maps.be191e73.js"
+        "/build/runtime.420770e4.js",
+        "/build/0.fdf904a5.js",
+        "/build/2.7d140a9a.js",
+        "/build/maps.7d9e3e2a.js"
       ],
       "css": [
         "/build/2.ae08a338.css",
@@ -34,10 +34,10 @@
     },
     "bootstrapitalia": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/0.b34707ae.js",
-        "/build/1.ac313568.js",
-        "/build/bootstrapitalia.90f39674.js"
+        "/build/runtime.420770e4.js",
+        "/build/0.fdf904a5.js",
+        "/build/1.e048fbd1.js",
+        "/build/bootstrapitalia.3312dd4e.js"
       ],
       "css": [
         "/build/bootstrapitalia.8a07c7ee.css"
@@ -45,8 +45,8 @@
     },
     "bicore": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/bicore.18ae710c.js"
+        "/build/runtime.420770e4.js",
+        "/build/bicore.5609cf72.js"
       ],
       "css": [
         "/build/bicore.0bccd34a.css"
@@ -54,8 +54,8 @@
     },
     "login": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/login.3e5d8ac9.js"
+        "/build/runtime.420770e4.js",
+        "/build/login.ad8a4e76.js"
       ],
       "css": [
         "/build/login.f7af9df2.css"
@@ -63,10 +63,10 @@
     },
     "bitabella": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/0.b34707ae.js",
-        "/build/1.ac313568.js",
-        "/build/bitabella.2304f32e.js"
+        "/build/runtime.420770e4.js",
+        "/build/0.fdf904a5.js",
+        "/build/1.e048fbd1.js",
+        "/build/bitabella.21fb5b6c.js"
       ],
       "css": [
         "/build/bitabella.3c751b2a.css"
@@ -74,10 +74,10 @@
     },
     "bidemo": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/0.b34707ae.js",
-        "/build/1.ac313568.js",
-        "/build/bidemo.f926d633.js"
+        "/build/runtime.420770e4.js",
+        "/build/0.fdf904a5.js",
+        "/build/1.e048fbd1.js",
+        "/build/bidemo.355e3cce.js"
       ],
       "css": [
         "/build/bidemo.3c751b2a.css"
@@ -85,10 +85,10 @@
     },
     "adminpanel": {
       "js": [
-        "/build/runtime.518d4a5c.js",
-        "/build/0.b34707ae.js",
-        "/build/3.35f1cc00.js",
-        "/build/adminpanel.0a816519.js"
+        "/build/runtime.420770e4.js",
+        "/build/0.fdf904a5.js",
+        "/build/3.ae072008.js",
+        "/build/adminpanel.fa096bdd.js"
       ],
       "css": [
         "/build/adminpanel.156d861a.css"

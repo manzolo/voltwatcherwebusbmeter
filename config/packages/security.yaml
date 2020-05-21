@@ -13,7 +13,7 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-      
+
         login:
             pattern:  ^/api/login
             stateless: true
@@ -25,6 +25,13 @@ security:
 
         api:
             pattern:   ^/api
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+        resources:
+            pattern:   ^/resources
             stateless: true
             guard:
                 authenticators:
@@ -71,6 +78,7 @@ security:
         - { path: ^/Tabelle/delete, role: ROLE_SUPER_ADMIN }
         - { path: ^/adminpanel, role: [ROLE_SUPER_ADMIN] }
 
+        - { path: ^/api/sendvolt, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         #Con questa configurazione se l'utente non è censito in SSO oppure non ha ruoli in FOS VIENE BLOCCATO CON Error 403
