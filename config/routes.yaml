@@ -31,3 +31,6 @@ fi_core:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+api_login_check:
+    path: /api/login_check
