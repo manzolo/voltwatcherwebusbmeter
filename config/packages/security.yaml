@@ -12,7 +12,19 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
 
+
     firewalls:
+        legacyapi_sendvolt:
+            pattern: ^/api/sendvolt
+            security: false
+
+        legacyapi_appgetsettings:
+            pattern: ^/api/appgetsettings
+            security: false
+
+        legacyapi_getserverdatetime:
+            pattern: ^/api/getserverdatetime
+            security: false
 
         login:
             pattern:  ^/api/login
@@ -40,6 +52,7 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
 
         main:
           pattern: ^/
