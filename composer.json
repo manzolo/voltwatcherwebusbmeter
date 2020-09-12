@@ -4,7 +4,7 @@
     "require": {
         "php": "^7.2",
         "cmen/google-charts-bundle": "^3.1",
-        "comunedifirenze/bicorebundle": "^1.0",
+        "comunedifirenze/bicorebundle": "^2.0",
         "friendsofsymfony/rest-bundle": "^2.7",
         "jms/serializer-bundle": "^3.5",
         "lexik/jwt-authentication-bundle": "^2.6",
