@@ -1,5 +1,5 @@
 ARG app_env=prod
-ARG database_url=mysql://root:@172.17.0.1:3306/voltwatcher
+ARG database_url=mysql://root:manzolo@172.17.0.1:3306/voltwatcher
 ARG default_locale=it
 
 # Dockerfile
@@ -39,7 +39,7 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
 
 WORKDIR /app
 COPY --from=build /app /app
-COPY --from=build /app/docker/init.sh /usr/local/bin/init.sh
+COPY --from=build /app/docker/nodb/init.sh /usr/local/bin/init.sh
 
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
