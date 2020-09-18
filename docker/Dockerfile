@@ -1,5 +1,5 @@
 ARG app_env=prod
-ARG database_url=mysql://root:manzolo@172.17.0.1:3306/voltwatcher
+ARG database_url=mysql://root:@172.17.0.1:3306/voltwatcher
 ARG default_locale=it
 
 # Dockerfile
