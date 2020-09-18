@@ -1,0 +1,12 @@
+version: '3'
+services:
+  app:
+    image: manzolo/voltwatcher
+    container_name: manzolo_voltwatcher
+    build: 
+      context: ../../.
+      dockerfile: docker/nodb/Dockerfile
+    ports:
+      - "8010:8010"
+    env_file:
+      - ../../.env
