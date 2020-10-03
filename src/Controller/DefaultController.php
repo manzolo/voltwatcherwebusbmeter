@@ -134,7 +134,7 @@ class DefaultController extends AbstractController
      *
      * @Route("/api/sendvolt", name="sendvolt")
      */
-    public function sendvolt(Request $request, \Swift_Mailer $mailer)
+/*    public function sendvolt(Request $request, \Swift_Mailer $mailer)
     {
         if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $datavolt = json_decode($request->getContent(), true);
@@ -244,7 +244,7 @@ class DefaultController extends AbstractController
 
         return new JsonResponse(['errcode' => 0, 'errmsg' => 'OK']);
     }
-
+*/
     /**
      * Matches / exactly.
      *
@@ -271,10 +271,11 @@ class DefaultController extends AbstractController
      *
      * @Route("/api/getserverdatetime", name="getserverdatetime")
      */
-    public function appServerDatetime(Request $request)
+/*    public function appServerDatetime(Request $request)
     {
         $now = (new \DateTime());
 
         return new JsonResponse(['datetime' => $now->format('Y-m-d H:i:s'), 'date' => $now->format('Y-m-d'), 'time' => $now->format('H:i:s')]);
     }
+*/
 }

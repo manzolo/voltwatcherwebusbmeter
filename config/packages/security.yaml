@@ -14,16 +14,8 @@ security:
 
 
     firewalls:
-        legacyapi_sendvolt:
-            pattern: ^/api/sendvolt
-            security: false
-
         legacyapi_appgetsettings:
             pattern: ^/api/appgetsettings
-            security: false
-
-        legacyapi_getserverdatetime:
-            pattern: ^/api/getserverdatetime
             security: false
 
         login:
