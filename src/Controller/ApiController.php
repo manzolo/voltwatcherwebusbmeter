@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @RouteResource("resources", pluralize=false)
+ * @RouteResource("api", pluralize=false)
  */
 class ApiController extends FOSRestController
 {
