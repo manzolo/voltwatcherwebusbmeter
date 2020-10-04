@@ -14,10 +14,6 @@ security:
 
 
     firewalls:
-        legacyapi_appgetsettings:
-            pattern: ^/api/appgetsettings
-            security: false
-
         login:
             pattern:  ^/api/login
             stateless: true
