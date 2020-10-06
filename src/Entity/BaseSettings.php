@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Settings")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"base":"BaseSettings", "extended":"Settings"})
+ * @ORM\DiscriminatorMap({"base": "BaseSettings", "extended": "Settings"})
  */
 class BaseSettings
 {
@@ -28,7 +28,7 @@ class BaseSettings
     protected $key;
 
     /**
-     * @ORM\Column(name="`value`", type="string", length=255, nullable=true)
+     * @ORM\Column(name="`value`", type="string", length=4000)
      */
     protected $value;
 
