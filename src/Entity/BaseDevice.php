@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="Device")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"base":"BaseDevice", "extended":"Device"})
+ * @ORM\DiscriminatorMap({"base": "BaseDevice", "extended": "Device"})
  */
 class BaseDevice
 {

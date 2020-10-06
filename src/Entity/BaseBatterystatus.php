@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Batterystatus")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"base":"BaseBatterystatus", "extended":"Batterystatus"})
+ * @ORM\DiscriminatorMap({"base": "BaseBatterystatus", "extended": "Batterystatus"})
  */
 class BaseBatterystatus
 {

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Log", indexes={@ORM\Index(name="Log_Device_fk_idx", columns={"device_id"})})
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"base":"BaseLog", "extended":"Log"})
+ * @ORM\DiscriminatorMap({"base": "BaseLog", "extended": "Log"})
  */
 class BaseLog
 {
