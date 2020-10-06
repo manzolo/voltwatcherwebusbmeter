@@ -1,7 +1,7 @@
 # Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
 fos_rest:
     body_converter:
-        enabled: true
+        enabled: false
     param_fetcher_listener:  true
     allowed_methods_listener:  true
     routing_loader: true
@@ -15,6 +15,7 @@ fos_rest:
             json: ['application/json', 'application/x-json']
     exception:
         enabled: true
+        exception_listener: false
     format_listener:
         rules:
             - { path: ^/, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }
