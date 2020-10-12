@@ -1,6 +1,9 @@
 # Batteries volt watcher
 
+## Homepage
 ![img](doc/images/homepage.jpg)
+
+## Log detail
 ![img](doc/images/logdetail.jpg)
 
 ## Hardware Prerequisites
