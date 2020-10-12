@@ -43,7 +43,7 @@ Put password in JWT_PASSPHRASE env (see below)
 	#http://nux.net/secret
 	APP_SECRET=yoursecretkeybyhttp://nux.net/secret
 	DATABASE_URL="sqlite:///%kernel.project_dir%/var/cache/database.sqlite"
-	#https://openweathermap.org/api/one-call-api?gclid=CjwKCAjw_Y_8BRBiEiwA5MCBJiDy96IitiR_ct7RXRGTdu7RAC3evkv0VxJs3B6Zw2GQO42EwrzYMhoCepUQAvD_BwE
+	#https://openweathermap.org/api/one-call-api
 	openweathermap_apikey=""
 	COMPOSER_HOME=/tmp
 	MAILER_URL=smtp://username:password@smtp.host.com:25
