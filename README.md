@@ -1,6 +1,7 @@
 # Batteries volt watcher
 
 ![img](doc/images/homepage.jpg)
+![img](doc/images/logdetail.jpg)
 
 ## Hardware Prerequisites
 Usb bluetooth volt meter like https://sigrok.org/wiki/RDTech_UM_series
