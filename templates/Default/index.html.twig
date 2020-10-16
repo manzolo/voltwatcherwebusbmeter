@@ -47,7 +47,7 @@
                     {% endfor %}
                   </div>
                   {% if infodevice.weathericon is defined and infodevice.weathericon %}
-                    <img src="http://openweathermap.org/img/wn/{{ infodevice.weathericon }}@2x.png" alt="Weather icon">
+                    <img src="http://openweathermap.org/img/wn/{{ infodevice.weathericon }}@2x.png" alt="Weather icon" title="{{ infodevice.location }}">
                   {% endif %}
                 </div>
               </div>
