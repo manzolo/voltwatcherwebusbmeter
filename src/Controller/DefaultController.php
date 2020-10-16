@@ -59,7 +59,7 @@ class DefaultController extends AbstractController
                         ->orderBy('l.data', 'DESC')
                         ->getQuery();
                 $resultoldrows = $qb->getResult();
-                $infodevices[$device->getAddress()] = ['deviceinfo' => $infodevice->getDevice(), 'volt' => $infodevice->getVolt(), 'data' => $infodevice->getData(), 'weathericon' => $infodevice->getWeathericon(), 'oldrows' => $resultoldrows];
+                $infodevices[$device->getAddress()] = ['deviceinfo' => $infodevice->getDevice(), 'volt' => $infodevice->getVolt(), 'data' => $infodevice->getData(), 'weathericon' => $infodevice->getWeathericon(), 'location' => $infodevice->getLocation(), 'oldrows' => $resultoldrows];
             }
         }
         $charts = $this->getCharts($devicesrows);
