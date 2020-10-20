@@ -54,6 +54,8 @@
 
                             {% if infodevice.weathericon is defined and infodevice.weathericon %}
                                 <img src="http://openweathermap.org/img/wn/{{ infodevice.weathericon }}@2x.png" alt="Weather icon" title="{{ infodevice.location }}">
+                                <br />
+                                {{ infodevice.location }}
                             {% endif %}
                         </div>
 
