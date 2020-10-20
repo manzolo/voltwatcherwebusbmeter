@@ -70,7 +70,7 @@ class ApiController extends FOSRestController
             $newdevice->setAddress($device);
             $em->persist($newdevice);
             $em->flush();
-            $em->clear();
+            //$em->clear();
         } else {
             $newdevice = $devices[0];
         }
