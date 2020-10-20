@@ -27,6 +27,7 @@ Encore
         .addEntry('app', './assets/js/app.js')
         .addEntry('chart', './assets/js/chart.js')
         .addEntry('maps', './assets/js/maps.js')
+        .addEntry('battery', './assets/js/battery.js')
 
         .addEntry('bootstrapitalia', './vendor/comunedifirenze/bicorebundle/assets/js/bootstrapitalia.js')
         .addEntry('bicore', './vendor/comunedifirenze/bicorebundle/assets/js/bicore.js')
