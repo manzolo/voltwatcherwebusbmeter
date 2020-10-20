@@ -31,7 +31,7 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <div class="categoryicon-top">
+                            <div class="categoryicon-top" title="{{battery_level(infodevice.volt)}}%">
 
                                 <i class="fa fa-battery-empty font-70px fa-battery-filling" aria-hidden="true">
                                     <span id="{{infodevice.deviceinfo}}_icon" style="width:calc({{battery_level(infodevice.volt)}}% * 0.73)"></span>
@@ -42,9 +42,10 @@
                             </div>-->
                             </div>
                             <h6 class="card-title">
-                                {{infodevice.volt}}
-                                {{ infodevice.deviceinfo }}
+                                {{ infodevice.deviceinfo }}<br/>
+                                {{infodevice.volt}} v<br/>
                                 {{battery_level(infodevice.volt)}}%
+                                
                             </h6>
                             
                             <p class="card-text" data-toggle="collapse" data-target="#collapseStorico" aria-label="Storico modifiche" aria-expanded="false" aria-controls="collapseStorico">{{ infodevice.data|date('d/m/Y H:i:s') }}</p>
