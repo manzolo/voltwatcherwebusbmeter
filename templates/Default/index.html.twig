@@ -32,35 +32,31 @@
                         <div class="card-body">
 
                             <div class="categoryicon-top" title="{{battery_level(infodevice.volt)}}%">
-
                                 <i class="fa fa-battery-empty font-70px fa-battery-filling" aria-hidden="true">
-                                    <span id="{{infodevice.deviceinfo}}_icon" style="width:calc({{battery_level(infodevice.volt)}}% * 0.73)"></span>
+                                    <span id="{{infodevice.deviceinfo}}_battery_status" style="width:calc({{battery_level(infodevice.volt)}}% * 0.73)"></span>
                                 </i>
-                                    <!--<div class="battery-big" title="{{ infodevice.volt }}">
-                                {#% set infodevicevolt = 10.8 %#}
-                                <div class="battery-level-big {{battery_class(infodevice.volt)}}" style="height:{{battery_level(infodevice.volt)}}%;"></div>
-                            </div>-->
                             </div>
+
                             <h6 class="card-title">
                                 {{ infodevice.deviceinfo }}<br/>
                                 {{infodevice.volt}} v<br/>
                                 {{battery_level(infodevice.volt)}}%
-                                
                             </h6>
-                            
+
                             <p class="card-text" data-toggle="collapse" data-target="#collapseStorico" aria-label="Storico modifiche" aria-expanded="false" aria-controls="collapseStorico">{{ infodevice.data|date('d/m/Y H:i:s') }}</p>
                             <div class="collapse" id="collapseStorico">
                                 {% for oldrow in infodevice.oldrows %}
                                     <p class="card-text">{{oldrow.volt}}
-                                        {{ oldrow.data|date('d/m/Y') }}</p>
-                                    {% endfor %}
+                                        {{ oldrow.data|date('d/m/Y') }}
+                                    </p>
+                                {% endfor %}
                             </div>
-                            
+
                             {% if infodevice.weathericon is defined and infodevice.weathericon %}
                                 <img src="http://openweathermap.org/img/wn/{{ infodevice.weathericon }}@2x.png" alt="Weather icon" title="{{ infodevice.location }}">
                             {% endif %}
                         </div>
-                        
+
                     </div>
                 </div>
                 <!--end card-->
