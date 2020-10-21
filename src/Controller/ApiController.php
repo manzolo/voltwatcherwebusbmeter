@@ -16,10 +16,15 @@ use Symfony\Component\Mime\Email;
  */
 class ApiController extends FOSRestController
 {
+    private $mailer;
+    public function __construct(MailerInterface $mailer)
+    {
+        $this->mailer = $mailer;
+    }
     /**
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
      */
-    public function putVoltRecordAction(array $datavolt, MailerInterface $mailer)
+    public function putVoltRecordAction(array $datavolt)
     {
         //if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $device = $datavolt['device'];
@@ -103,7 +108,7 @@ class ApiController extends FOSRestController
                     ->text('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'))
                     ->html('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
 
-            $mailer->send($email);
+            $this->mailer->send($email);
         }
 
         $owmappid = getenv('openweathermap_apikey');
