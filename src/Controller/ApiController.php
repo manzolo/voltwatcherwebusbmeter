@@ -8,6 +8,8 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 /**
  * @RouteResource("api", pluralize=false)
@@ -17,7 +19,7 @@ class ApiController extends FOSRestController
     /**
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
      */
-    public function putVoltRecordAction(array $datavolt)
+    public function putVoltRecordAction(array $datavolt, MailerInterface $mailer)
     {
         //if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $device = $datavolt['device'];
@@ -89,21 +91,25 @@ class ApiController extends FOSRestController
         $threshold = $newlog->getDevice()->getThreshold();
         $recipient = getenv('mailer_user');
         if ($threshold && $recipient && $newlog->getVolt() < $threshold) {
-            $message = (new \Swift_Message('WARNING from '.$newlog->getDevice().' *** '.$newlog->getVolt().' volt ***'))
-                    ->setFrom('voltwatcheralert@manzolo.it')
-                    ->setTo($recipient)
-                    ->setBody('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'), 'text/html')
-                    // you can remove the following code if you don't define a text version for your emails
-                    ->addPart('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'), 'text/plain')
-            ;
 
-            $this->get("mailer")->send($message);
+            $email = (new Email())
+                    ->from('voltwatcheralert@manzolo.it')
+                    ->to($recipient)
+                    //->cc('cc@example.com')
+                    //->bcc('bcc@example.com')
+                    //->replyTo('fabien@example.com')
+                    ->priority(Email::PRIORITY_HIGH)
+                    ->subject('WARNING from ' . $newlog->getDevice() . ' *** ' . $newlog->getVolt() . ' volt ***')
+                    ->text('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'))
+                    ->html('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
+
+            $mailer->send($email);
         }
 
         $owmappid = getenv('openweathermap_apikey');
         if ($owmappid && ($longitude || $latitude)) {
             try {
-                $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon='.$longitude.'&lat='.$latitude.'&APPID='.$owmappid;
+                $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon=' . $longitude . '&lat=' . $latitude . '&APPID=' . $owmappid;
                 $weatherjson = \json_decode(file_get_contents($owmurl), true);
 
                 $weather = $weatherjson['weather'][0]['main'];
@@ -126,7 +132,6 @@ class ApiController extends FOSRestController
 
         return $this->view(['errcode' => 0, 'errmsg' => 'OK'], Response::HTTP_OK);
     }
-
     public function appGetSettingsAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -142,7 +147,6 @@ class ApiController extends FOSRestController
         //array("seconds" => 300, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58")
         return $this->view($newsettings);
     }
-
     public function appServerDatetimeAction()
     {
         $now = (new \DateTime());
