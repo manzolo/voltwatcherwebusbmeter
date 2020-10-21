@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
 
 /**
  * @RouteResource("api", pluralize=false)
@@ -17,9 +19,11 @@ use Symfony\Component\Mime\Email;
 class ApiController extends FOSRestController
 {
     private $mailer;
-    public function __construct(MailerInterface $mailer)
+    private $params;
+    public function __construct(MailerInterface $mailer, ParameterBagInterface $params)
     {
         $this->mailer = $mailer;
+        $this->params = $params;
     }
     /**
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
@@ -94,7 +98,7 @@ class ApiController extends FOSRestController
         $em->flush();
 
         $threshold = $newlog->getDevice()->getThreshold();
-        $recipient = getenv('mailer_user');
+        $recipient = $this->params->get('mailer_user');
         if ($threshold && $recipient && $newlog->getVolt() < $threshold) {
 
             $email = (new Email())
@@ -111,7 +115,7 @@ class ApiController extends FOSRestController
             $this->mailer->send($email);
         }
 
-        $owmappid = getenv('openweathermap_apikey');
+        $owmappid = $this->params->get('openweathermap_apikey');
         if ($owmappid && ($longitude || $latitude)) {
             try {
                 $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon=' . $longitude . '&lat=' . $latitude . '&APPID=' . $owmappid;
