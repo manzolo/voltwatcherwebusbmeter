@@ -5,7 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: "%env(resolve:locale)%"
-
+    openweathermap_apikey: "%env(resolve:openweathermap_apikey)%"
+    mailer_user: "%env(resolve:mailer_user)%"
+    
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
