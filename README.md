@@ -44,11 +44,11 @@ Put password in JWT_PASSPHRASE env (see below)
 	APP_SECRET=yoursecretkeybyhttp://nux.net/secret
 	DATABASE_URL="sqlite:///%kernel.project_dir%/var/cache/database.sqlite"
 	#https://openweathermap.org/api/one-call-api
-	openweathermap_apikey=""
+	OPENWEATHERMAP_APIKEY=""
 	COMPOSER_HOME=/tmp
 	MAILER_URL=smtp://username:password@smtp.host.com:25
-	mailer_user=admin@email.com
-	locale=en
+	MAILER_USER=admin@email.com
+	LOCALE=en
 	###> lexik/jwt-authentication-bundle ###
 	JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
 	JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
