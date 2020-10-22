@@ -10,6 +10,7 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class RiepilogoCommand extends Command
 {
@@ -20,6 +21,7 @@ class RiepilogoCommand extends Command
     private $logger;
     private $mailer;
     private $templating;
+    private $params;
 
     protected function configure()
     {
@@ -34,12 +36,13 @@ class RiepilogoCommand extends Command
                         false
         );
     }
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, MailerInterface $mailer, \Twig\Environment $templating)
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, MailerInterface $mailer, \Twig\Environment $templating, ParameterBagInterface $params)
     {
         $this->em = $em;
         $this->logger = $logger;
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->params = $params;
         // you *must* call the parent constructor
         parent::__construct();
     }
@@ -113,7 +116,7 @@ class RiepilogoCommand extends Command
         $table->render();
         $sendmail = ($input->getOption('sendmail') !== false);
         if ($sendmail) {
-            $recipient = getenv("mailer_user");
+            $recipient = $this->params->get("mailer_user");
             $output->writeln('<info>send mail to ' . $recipient . '</info>');
             
             $email = (new Email())
@@ -122,7 +125,7 @@ class RiepilogoCommand extends Command
                     //->cc('cc@example.com')
                     //->bcc('bcc@example.com')
                     //->replyTo('fabien@example.com')
-                    ->priority(Email::PRIORITY_HIGH)
+                    //->priority(Email::PRIORITY_HIGH)
                     ->subject("Energy report from " . $date->format("d/m/Y H:i:s") . " to " . (new \DateTime)->format("d/m/Y H:i:s"))
                     ->setBody($this->templating->render(
                                     // templates/emails/registration.html.twig
