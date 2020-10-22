@@ -8,6 +8,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class RiepilogoCommand extends Command
 {
@@ -32,7 +34,7 @@ class RiepilogoCommand extends Command
                         false
         );
     }
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, \Swift_Mailer $mailer, \Twig_Environment $templating)
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, MailerInterface $mailer, \Twig\Environment $templating)
     {
         $this->em = $em;
         $this->logger = $logger;
@@ -113,21 +115,23 @@ class RiepilogoCommand extends Command
         if ($sendmail) {
             $recipient = getenv("mailer_user");
             $output->writeln('<info>send mail to ' . $recipient . '</info>');
-
-            $message = (new \Swift_Message("Energy report from " . $date->format("d/m/Y H:i:s") . " to " . (new \DateTime)->format("d/m/Y H:i:s")))
-                    ->setFrom("voltwatcheralert@manzolo.it")
-                    ->setTo($recipient)
+            
+            $email = (new Email())
+                    ->from('voltwatcheralert@manzolo.it')
+                    ->to($recipient)
+                    //->cc('cc@example.com')
+                    //->bcc('bcc@example.com')
+                    //->replyTo('fabien@example.com')
+                    ->priority(Email::PRIORITY_HIGH)
+                    ->subject("Energy report from " . $date->format("d/m/Y H:i:s") . " to " . (new \DateTime)->format("d/m/Y H:i:s"))
                     ->setBody($this->templating->render(
                                     // templates/emails/registration.html.twig
                                     'Report/index.html.twig',
                                     ['rows' => $riepilogodayrows, "weeklyrows" => $riepilogorows]
                             ),
-                            'text/html')
-                    // you can remove the following code if you don't define a text version for your emails
-                    ->addPart($body, 'text/plain')
-            ;
-
-            $this->mailer->send($message);
+                            'text/html');
+            
+            $this->mailer->send($email);
         }
 
         $output->writeln('<info>Done</info>');
