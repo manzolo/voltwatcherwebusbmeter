@@ -3,8 +3,8 @@
 namespace App\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class BatteryExtension extends AbstractExtension {
 
@@ -19,9 +19,9 @@ class BatteryExtension extends AbstractExtension {
      */
     public function getFunctions() {
         return array(
-            new Twig_SimpleFunction('battery_level', array($this, 'batteryLevel', 'is_safe' => array('html'))),
-            new Twig_SimpleFunction('battery_class', array($this, 'batteryClass', 'is_safe' => array('html'))),
-            new Twig_SimpleFunction('battery_color', array($this, 'batteryColor', 'is_safe' => array('html'))),
+            new TwigFunction('battery_level', array($this, 'batteryLevel', 'is_safe' => array('html'))),
+            new TwigFunction('battery_class', array($this, 'batteryClass', 'is_safe' => array('html'))),
+            new TwigFunction('battery_color', array($this, 'batteryColor', 'is_safe' => array('html'))),
         );
     }
 
