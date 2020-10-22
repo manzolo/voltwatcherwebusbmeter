@@ -12,8 +12,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class RiepilogoCommand extends Command
-{
+class RiepilogoCommand extends Command {
 
     private $journaldiffdays = '-7 days';
     protected static $defaultName = 'voltwatcher:weeklyreport';
@@ -23,8 +22,7 @@ class RiepilogoCommand extends Command
     private $templating;
     private $params;
 
-    protected function configure()
-    {
+    protected function configure() {
         $this
                 ->setDescription('Weekly report')
                 ->setHelp('Report generator')
@@ -36,8 +34,8 @@ class RiepilogoCommand extends Command
                         false
         );
     }
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, MailerInterface $mailer, \Twig\Environment $templating, ParameterBagInterface $params)
-    {
+
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, MailerInterface $mailer, \Twig\Environment $templating, ParameterBagInterface $params) {
         $this->em = $em;
         $this->logger = $logger;
         $this->mailer = $mailer;
@@ -46,8 +44,8 @@ class RiepilogoCommand extends Command
         // you *must* call the parent constructor
         parent::__construct();
     }
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $date = (new \DateTime())->modify($this->journaldiffdays);
         $em = $this->em;
 
@@ -118,7 +116,7 @@ class RiepilogoCommand extends Command
         if ($sendmail) {
             $recipient = $this->params->get("mailer_user");
             $output->writeln('<info>send mail to ' . $recipient . '</info>');
-            
+
             $email = (new Email())
                     ->from('voltwatcheralert@manzolo.it')
                     ->to($recipient)
@@ -127,16 +125,24 @@ class RiepilogoCommand extends Command
                     //->replyTo('fabien@example.com')
                     //->priority(Email::PRIORITY_HIGH)
                     ->subject("Energy report from " . $date->format("d/m/Y H:i:s") . " to " . (new \DateTime)->format("d/m/Y H:i:s"))
-                    ->setBody($this->templating->render(
+                    ->text($this->templating->render(
                                     // templates/emails/registration.html.twig
                                     'Report/index.html.twig',
                                     ['rows' => $riepilogodayrows, "weeklyrows" => $riepilogorows]
                             ),
-                            'text/html');
-            
+                            'text/html')
+                    ->html($this->templating->render(
+                            // templates/emails/registration.html.twig
+                            'Report/index.html.twig',
+                            ['rows' => $riepilogodayrows, "weeklyrows" => $riepilogorows]
+                    ),
+                    'text/html')
+            ;
+
             $this->mailer->send($email);
         }
 
         $output->writeln('<info>Done</info>');
     }
+
 }
