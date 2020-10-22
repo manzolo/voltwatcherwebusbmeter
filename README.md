@@ -46,7 +46,7 @@ Put password in JWT_PASSPHRASE env (see below)
 	#https://openweathermap.org/api/one-call-api
 	OPENWEATHERMAP_APIKEY=""
 	COMPOSER_HOME=/tmp
-	MAILER_URL=smtp://username:password@smtp.host.com:25
+	MAILER_DNS=smtp://username:password@smtp.host.com:25
 	MAILER_USER=admin@email.com
 	LOCALE=en
 	###> lexik/jwt-authentication-bundle ###
