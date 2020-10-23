@@ -35,11 +35,11 @@
     "battery": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/4.c624688b.js",
+        "/build/4.00453113.js",
         "/build/battery.881c27d3.js"
       ],
       "css": [
-        "/build/4.20dd0d3e.css",
+        "/build/4.4b1421e7.css",
         "/build/battery.95b54a3a.css"
       ]
     },
@@ -77,10 +77,10 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.b9e94bd1.js",
         "/build/1.a3c6589e.js",
-        "/build/bitabella.931c19f6.js"
+        "/build/bitabella.bd3d754e.js"
       ],
       "css": [
-        "/build/bitabella.f5e7276a.css"
+        "/build/bitabella.fde0d809.css"
       ]
     },
     "bidemo": {
@@ -88,17 +88,17 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.b9e94bd1.js",
         "/build/1.a3c6589e.js",
-        "/build/bidemo.c9bf7e8e.js"
+        "/build/bidemo.f1bdfb61.js"
       ],
       "css": [
-        "/build/bidemo.f5e7276a.css"
+        "/build/bidemo.fde0d809.css"
       ]
     },
     "adminpanel": {
       "js": [
         "/build/runtime.d94b3b43.js",
         "/build/0.b9e94bd1.js",
-        "/build/3.e10c8b70.js",
+        "/build/3.17f133e1.js",
         "/build/adminpanel.8e243051.js"
       ],
       "css": [
