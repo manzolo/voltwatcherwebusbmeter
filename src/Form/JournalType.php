@@ -4,15 +4,15 @@ namespace App\Form;
 
 use App\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class JournalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $submitparms = array('label' => 'Salva','attr' => array("class" => "btn-outline-primary bisubmit", "aria-label" => "Salva"));
+        $submitparms = ['label' => 'Salva', 'attr' => ['class' => 'btn-outline-primary bisubmit', 'aria-label' => 'Salva']];
         $builder
             ->add('submit', SubmitType::class, $submitparms)
             ->add('device_id')
@@ -30,7 +30,7 @@ class JournalType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Journal::class,
-            'parametriform' => array()
+            'parametriform' => [],
         ]);
     }
 }

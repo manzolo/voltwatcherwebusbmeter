@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * App\Entity\Device
+ * App\Entity\Device.
  *
  * @ORM\Entity()
  * @ORM\Table(name="Device")
@@ -59,7 +59,8 @@ class BaseDevice
     /**
      * Set the value of id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return \App\Entity\Device
      */
     public function setId($id)
@@ -72,7 +73,7 @@ class BaseDevice
     /**
      * Get the value of id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -83,6 +84,7 @@ class BaseDevice
      * Set the value of address.
      *
      * @param string $address
+     *
      * @return \App\Entity\Device
      */
     public function setAddress($address)
@@ -106,6 +108,7 @@ class BaseDevice
      * Set the value of name.
      *
      * @param string $name
+     *
      * @return \App\Entity\Device
      */
     public function setName($name)
@@ -129,6 +132,7 @@ class BaseDevice
      * Set the value of threshold.
      *
      * @param float $threshold
+     *
      * @return \App\Entity\Device
      */
     public function setThreshold($threshold)
@@ -152,6 +156,7 @@ class BaseDevice
      * Add Journal entity to collection (one to many).
      *
      * @param \App\Entity\Journal $journal
+     *
      * @return \App\Entity\Device
      */
     public function addJournal(Journal $journal)
@@ -165,6 +170,7 @@ class BaseDevice
      * Remove Journal entity from collection (one to many).
      *
      * @param \App\Entity\Journal $journal
+     *
      * @return \App\Entity\Device
      */
     public function removeJournal(Journal $journal)
@@ -188,6 +194,7 @@ class BaseDevice
      * Add Log entity to collection (one to many).
      *
      * @param \App\Entity\Log $log
+     *
      * @return \App\Entity\Device
      */
     public function addLog(Log $log)
@@ -201,6 +208,7 @@ class BaseDevice
      * Remove Log entity from collection (one to many).
      *
      * @param \App\Entity\Log $log
+     *
      * @return \App\Entity\Device
      */
     public function removeLog(Log $log)
@@ -222,6 +230,6 @@ class BaseDevice
 
     public function __sleep()
     {
-        return array('id', 'address', 'name', 'threshold');
+        return ['id', 'address', 'name', 'threshold'];
     }
 }

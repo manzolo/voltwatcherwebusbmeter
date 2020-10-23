@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-
     private $chartdifftime = '-2 days';
 
     /**
@@ -67,6 +66,7 @@ class DefaultController extends AbstractController
 
         return $this->render($crudtemplate, ['infodevices' => $infodevices, 'charts' => $charts]);
     }
+
     private function getCharts($devices)
     {
         /* chart */
@@ -128,7 +128,8 @@ class DefaultController extends AbstractController
 
         return $charts;
     }
-    /**
+
+    /*
      * Matches / exactly.
      *
      * @Route("/api/sendvolt", name="sendvolt")
@@ -245,7 +246,7 @@ class DefaultController extends AbstractController
       return new JsonResponse(['errcode' => 0, 'errmsg' => 'OK']);
       }
      */
-    /**
+    /*
      * Matches / exactly.
      *
      * @Route("/api/appgetsettings", name="appgetsettings")
@@ -268,7 +269,7 @@ class DefaultController extends AbstractController
       }
 
      */
-    /**
+    /*
      * Matches / exactly.
      *
      * @Route("/api/getserverdatetime", name="getserverdatetime")

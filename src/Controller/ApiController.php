@@ -7,11 +7,10 @@ use App\Entity\Log;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-
 
 /**
  * @RouteResource("api", pluralize=false)
@@ -20,11 +19,13 @@ class ApiController extends FOSRestController
 {
     private $mailer;
     private $params;
+
     public function __construct(MailerInterface $mailer, ParameterBagInterface $params)
     {
         $this->mailer = $mailer;
         $this->params = $params;
     }
+
     /**
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
      */
@@ -81,7 +82,7 @@ class ApiController extends FOSRestController
             $newdevice->setAddress($device);
             $em->persist($newdevice);
             $em->flush();
-            //$em->clear();
+        //$em->clear();
         } else {
             $newdevice = $devices[0];
         }
@@ -100,7 +101,6 @@ class ApiController extends FOSRestController
         $threshold = $newlog->getDevice()->getThreshold();
         $recipient = $this->params->get('mailer_user');
         if ($threshold && $recipient && $newlog->getVolt() < $threshold) {
-
             $email = (new Email())
                     ->from('voltwatcheralert@manzolo.it')
                     ->to($recipient)
@@ -108,9 +108,9 @@ class ApiController extends FOSRestController
                     //->bcc('bcc@example.com')
                     //->replyTo('fabien@example.com')
                     ->priority(Email::PRIORITY_HIGH)
-                    ->subject('WARNING from ' . $newlog->getDevice() . ' *** ' . $newlog->getVolt() . ' volt ***')
-                    ->text('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'))
-                    ->html('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
+                    ->subject('WARNING from '.$newlog->getDevice().' *** '.$newlog->getVolt().' volt ***')
+                    ->text('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'))
+                    ->html('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'));
 
             $this->mailer->send($email);
         }
@@ -118,7 +118,7 @@ class ApiController extends FOSRestController
         $owmappid = $this->params->get('openweathermap_apikey');
         if ($owmappid && ($longitude || $latitude)) {
             try {
-                $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon=' . $longitude . '&lat=' . $latitude . '&APPID=' . $owmappid;
+                $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon='.$longitude.'&lat='.$latitude.'&APPID='.$owmappid;
                 $weatherjson = \json_decode(file_get_contents($owmurl), true);
 
                 $weather = $weatherjson['weather'][0]['main'];
@@ -141,6 +141,7 @@ class ApiController extends FOSRestController
 
         return $this->view(['errcode' => 0, 'errmsg' => 'OK'], Response::HTTP_OK);
     }
+
     public function appGetSettingsAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -156,6 +157,7 @@ class ApiController extends FOSRestController
         //array("seconds" => 300, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58")
         return $this->view($newsettings);
     }
+
     public function appServerDatetimeAction()
     {
         $now = (new \DateTime());
