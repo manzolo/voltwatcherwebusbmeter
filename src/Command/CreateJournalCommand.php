@@ -21,10 +21,9 @@ class CreateJournalCommand extends Command
         ;
     }
 
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger)
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->logger = $logger;
         // you *must* call the parent constructor
         parent::__construct();
     }
