@@ -139,6 +139,15 @@
     "kimai/user-bundle": {
         "version": "1.2.2"
     },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.3.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
     "lcobucci/jwt": {
         "version": "3.3.1"
     },
@@ -188,7 +197,7 @@
         "version": "2.2.2"
     },
     "php": {
-        "version": "7.2"
+        "version": "7.4"
     },
     "php-coveralls/php-coveralls": {
         "version": "v2.1.0"
@@ -553,16 +562,13 @@
     "twig/twig": {
         "version": "v2.5.0"
     },
+    "webimpress/safe-writer": {
+        "version": "2.1.0"
+    },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
     },
     "willdurand/negotiation": {
         "version": "v2.3.1"
-    },
-    "zendframework/zend-code": {
-        "version": "3.3.1"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.1"
     }
 }
