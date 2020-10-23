@@ -197,7 +197,7 @@
         "version": "2.2.2"
     },
     "php": {
-        "version": "7.4"
+        "version": "7.2"
     },
     "php-coveralls/php-coveralls": {
         "version": "v2.1.0"
@@ -561,9 +561,6 @@
     },
     "twig/twig": {
         "version": "v2.5.0"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.1.0"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
