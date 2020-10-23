@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * App\Entity\Batterystatus
+ * App\Entity\Batterystatus.
  *
  * @ORM\Entity()
  * @ORM\Table(name="Batterystatus")
@@ -44,7 +44,8 @@ class BaseBatterystatus
     /**
      * Set the value of id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return \App\Entity\Batterystatus
      */
     public function setId($id)
@@ -57,7 +58,7 @@ class BaseBatterystatus
     /**
      * Get the value of id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -68,6 +69,7 @@ class BaseBatterystatus
      * Set the value of fromvolt.
      *
      * @param float $fromvolt
+     *
      * @return \App\Entity\Batterystatus
      */
     public function setFromvolt($fromvolt)
@@ -91,6 +93,7 @@ class BaseBatterystatus
      * Set the value of tovolt.
      *
      * @param float $tovolt
+     *
      * @return \App\Entity\Batterystatus
      */
     public function setTovolt($tovolt)
@@ -114,6 +117,7 @@ class BaseBatterystatus
      * Set the value of perc.
      *
      * @param float $perc
+     *
      * @return \App\Entity\Batterystatus
      */
     public function setPerc($perc)
@@ -135,6 +139,6 @@ class BaseBatterystatus
 
     public function __sleep()
     {
-        return array('id', 'fromvolt', 'tovolt', 'perc');
+        return ['id', 'fromvolt', 'tovolt', 'perc'];
     }
 }

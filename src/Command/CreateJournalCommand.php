@@ -2,14 +2,10 @@
 
 namespace App\Command;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Psr\Log\LoggerInterface;
-use App\Entity\Device;
-use App\Entity\Log;
-use Exception;
 
 class CreateJournalCommand extends Command
 {
@@ -44,10 +40,10 @@ class CreateJournalCommand extends Command
         $date = (new \DateTime())->modify($this->journaldiffdays);
 
         $from_date = clone $date;
-        $to_date = clone (new \DateTime());
+        $to_date = clone new \DateTime();
 
-        $avgdays = array();
-        for ($date = $from_date; $date <= $to_date; $date->modify("+1 days")) {
+        $avgdays = [];
+        for ($date = $from_date; $date <= $to_date; $date->modify('+1 days')) {
             $qb = $em->createQueryBuilder('l')
                     ->select("d.id as deviceid, d.address as device, d.name as devicename, AVG(l.volt) avgvolt, CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
                     ->from('App:Log', 'l')
@@ -55,38 +51,38 @@ class CreateJournalCommand extends Command
                     //->andWhere('l.data >= :data')
                     //->setParameter("data", $date)
                     ->groupBy('l.device, ora')
-                    ->orderBy('ora', "DESC")
+                    ->orderBy('ora', 'DESC')
                     ->getQuery();
             $riepilogorows = $qb->getResult();
             foreach ($riepilogorows as $row) {
-                $avgora = $row["ora"];
-                $avgdeviceid = $row["deviceid"];
-                $avgdevice = $row["device"];
-                $avgdevicename = $row["devicename"];
-                $avgvolt = $row["avgvolt"];
-                $datechk = \DateTime::createFromFormat("Y-m-d H:i", $date->format('Y-m-d') . " " . $avgora);
-                $avgdays[] = array("device" => $avgdevice, "deviceid" => $avgdeviceid, "devicename" => $avgdevicename, "ora" => $datechk, "avgvolt" => $avgvolt);
+                $avgora = $row['ora'];
+                $avgdeviceid = $row['deviceid'];
+                $avgdevice = $row['device'];
+                $avgdevicename = $row['devicename'];
+                $avgvolt = $row['avgvolt'];
+                $datechk = \DateTime::createFromFormat('Y-m-d H:i', $date->format('Y-m-d').' '.$avgora);
+                $avgdays[] = ['device' => $avgdevice, 'deviceid' => $avgdeviceid, 'devicename' => $avgdevicename, 'ora' => $datechk, 'avgvolt' => $avgvolt];
             }
         }
         foreach ($avgdays as $avgday) {
-            $device = $em->getRepository("App:Device")->find($avgday["deviceid"]);
-            $dal = clone $avgday["ora"];
-            $al = clone $avgday["ora"]->modify("+599 seconds");
+            $device = $em->getRepository('App:Device')->find($avgday['deviceid']);
+            $dal = clone $avgday['ora'];
+            $al = clone $avgday['ora']->modify('+599 seconds');
             $newJournal = new \App\Entity\Journal();
             $newJournal->setDevice($device);
             $newJournal->setDal($dal);
             $newJournal->setAl($al);
-            $newJournal->setAvgvolt($avgday["avgvolt"]);
+            $newJournal->setAvgvolt($avgday['avgvolt']);
             $em->persist($newJournal);
 
             $qb = $em->createQueryBuilder('l')
-                    ->select("l")
+                    ->select('l')
                     ->from('App:Log', 'l')
                     ->where('l.device = :device')
                     ->andWhere('l.data between :dal and :al')
-                    ->setParameter("device", $device)
-                    ->setParameter("dal", $newJournal->getDal())
-                    ->setParameter("al", $newJournal->getAl())
+                    ->setParameter('device', $device)
+                    ->setParameter('dal', $newJournal->getDal())
+                    ->setParameter('al', $newJournal->getAl())
                     ->getQuery();
 
             $dettagliorows = $qb->getResult();
@@ -100,11 +96,11 @@ class CreateJournalCommand extends Command
             }*/
             if (count($dettagliorows) > 0) {
                 $avg = 0;
-                for ($index = 0; $index < count($dettagliorows); $index++) {
-                    $currvolt = (float)$dettagliorows[$index]->getVolt();
-                    $avg = (float)$avg + $currvolt;
+                for ($index = 0; $index < count($dettagliorows); ++$index) {
+                    $currvolt = (float) $dettagliorows[$index]->getVolt();
+                    $avg = (float) $avg + $currvolt;
                 }
-                $newJournal->setVolt(round($avg/$index, 2));
+                $newJournal->setVolt(round($avg / $index, 2));
                 $newJournal->setDatarilevazione($dettagliorows[0]->getData());
                 $em->persist($newJournal);
             }

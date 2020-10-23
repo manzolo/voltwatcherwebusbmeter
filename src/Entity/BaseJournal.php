@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * App\Entity\Journal
+ * App\Entity\Journal.
  *
  * @ORM\Entity()
  * @ORM\Table(name="Journal", indexes={@ORM\Index(name="Journal_Device_fk1_idx", columns={"device_id"})})
@@ -75,7 +75,8 @@ class BaseJournal
     /**
      * Set the value of id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return \App\Entity\Journal
      */
     public function setId($id)
@@ -88,7 +89,7 @@ class BaseJournal
     /**
      * Get the value of id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -98,7 +99,8 @@ class BaseJournal
     /**
      * Set the value of device_id.
      *
-     * @param integer $device_id
+     * @param int $device_id
+     *
      * @return \App\Entity\Journal
      */
     public function setDeviceId($device_id)
@@ -111,7 +113,7 @@ class BaseJournal
     /**
      * Get the value of device_id.
      *
-     * @return integer
+     * @return int
      */
     public function getDeviceId()
     {
@@ -122,6 +124,7 @@ class BaseJournal
      * Set the value of dal.
      *
      * @param \DateTime $dal
+     *
      * @return \App\Entity\Journal
      */
     public function setDal($dal)
@@ -145,6 +148,7 @@ class BaseJournal
      * Set the value of al.
      *
      * @param \DateTime $al
+     *
      * @return \App\Entity\Journal
      */
     public function setAl($al)
@@ -168,6 +172,7 @@ class BaseJournal
      * Set the value of volt.
      *
      * @param float $volt
+     *
      * @return \App\Entity\Journal
      */
     public function setVolt($volt)
@@ -191,6 +196,7 @@ class BaseJournal
      * Set the value of temp.
      *
      * @param float $temp
+     *
      * @return \App\Entity\Journal
      */
     public function setTemp($temp)
@@ -214,6 +220,7 @@ class BaseJournal
      * Set the value of detectorperc.
      *
      * @param float $detectorperc
+     *
      * @return \App\Entity\Journal
      */
     public function setDetectorperc($detectorperc)
@@ -237,6 +244,7 @@ class BaseJournal
      * Set the value of avgvolt.
      *
      * @param float $avgvolt
+     *
      * @return \App\Entity\Journal
      */
     public function setAvgvolt($avgvolt)
@@ -260,6 +268,7 @@ class BaseJournal
      * Set the value of datarilevazione.
      *
      * @param \DateTime $datarilevazione
+     *
      * @return \App\Entity\Journal
      */
     public function setDatarilevazione($datarilevazione)
@@ -283,6 +292,7 @@ class BaseJournal
      * Set Device entity (many to one).
      *
      * @param \App\Entity\Device $device
+     *
      * @return \App\Entity\Journal
      */
     public function setDevice(Device $device = null)
@@ -304,6 +314,6 @@ class BaseJournal
 
     public function __sleep()
     {
-        return array('id', 'device_id', 'dal', 'al', 'volt', 'temp', 'detectorperc', 'avgvolt', 'datarilevazione');
+        return ['id', 'device_id', 'dal', 'al', 'volt', 'temp', 'detectorperc', 'avgvolt', 'datarilevazione'];
     }
 }

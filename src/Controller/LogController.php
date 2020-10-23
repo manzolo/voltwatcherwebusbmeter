@@ -2,20 +2,17 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Routing\Annotation\Route;
-use Cdf\BiCoreBundle\Controller\FiController;
-use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
-use Cdf\BiCoreBundle\Utils\Entity\EntityUtils;
 use App\Entity\Log;
-use App\Form\LogType;
+use Cdf\BiCoreBundle\Controller\FiController;
+use Cdf\BiCoreBundle\Utils\Entity\EntityUtils;
+use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Log controller.
- *
  */
 class LogController extends FiController
 {
@@ -26,7 +23,7 @@ class LogController extends FiController
     //    "perc"=>40,"volt"=>12.06,"perc"=>30,"volt"=>12.00,"perc"=>80,"volt"=>12.66,"perc"=>70,"volt"=>12.52,"perc"=>60,"volt"=>12.38,"perc"=>10,"volt"=>11.50);
 
     /**
-     * Matches / exactly
+     * Matches / exactly.
      *
      * @Route("/Log", name="Log_container")
      */
@@ -46,119 +43,119 @@ class LogController extends FiController
 
         $formclass = str_replace('Entity', 'Form', $entityclass);
 
-        $modellocolonne = array(
-            $controller . ".id" => array(
-                "nometabella" => $controller,
-                "nomecampo" => $controller . ".id",
-                "etichetta" => "Id",
-                "ordine" => 5,
-                "larghezza" => 50,
-                "escluso" => true
-            ),
-            $controller . ".data" => array(
-                "nometabella" => $controller,
-                "nomecampo" => $controller . ".data",
-                "etichetta" => "Rilevazione",
-                "ordine" => 10,
-                "larghezza" => 200,
-                "escluso" => false
-            ),
-            $controller . ".volt" => array(
-                "nometabella" => $controller,
-                "nomecampo" => $controller . ".volt",
-                "etichetta" => "Volt",
-                "ordine" => 20,
-                "larghezza" => 80,
-                "escluso" => false
-            ),
-            $controller . ".device" => array(
-                "nometabella" => $controller,
-                "nomecampo" => $controller . ".device",
-                "etichetta" => "Rilevatore",
-                "ordine" => 30,
-                "larghezza" => 50,
-                "escluso" => false
-            ),
-            $controller . ".detectorperc" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.detectorperc",
-                "etichetta" => "Temperatura",
-                "ordine" => 100,
-                "larghezza" => 30,
-                "escluso" => true
-            ),
-            $controller . ".temp" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.temp",
-                "etichetta" => "Temperatura",
-                "ordine" => 100,
-                "larghezza" => 30,
-                "escluso" => true
-            ),
-            $controller . ".longitude" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.longitude",
-                "etichetta" => "Longitudine",
-                "ordine" => 100,
-                "larghezza" => 30,
-                "escluso" => true
-            ),
-            $controller . ".latitude" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.latitude",
-                "etichetta" => "Latitudine",
-                "ordine" => 100,
-                "larghezza" => 30,
-                "escluso" => true
-            ),
-            $controller . ".weather" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.weather",
-                "etichetta" => "Weather",
-                "ordine" => 200,
-                "larghezza" => 30,
-                "escluso" => true
-            ),
-            $controller . ".externaltemp" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.externaltemp",
-                "etichetta" => "External temp",
-                "ordine" => 210,
-                "larghezza" => 30,
-                "escluso" => true
-            ),
-            $controller . ".location" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.location",
-                "etichetta" => "Location",
-                "ordine" => 220,
-                "larghezza" => 50,
-                "escluso" => true
-            ),
-            $controller . ".cloudiness" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.cloudiness",
-                "etichetta" => "Cloudiness %",
-                "ordine" => 230,
-                "larghezza" => 30,
-                "escluso" => true
-            ),
-            $controller . ".weathericon" => array(
-                "nometabella" => $controller,
-                "nomecampo" => "Log.weathericon",
-                "etichetta" => "Weather Icon",
-                "ordine" => 240,
-                "larghezza" => 30,
-                "escluso" => true
-            ),
-        );
+        $modellocolonne = [
+            $controller.'.id' => [
+                'nometabella' => $controller,
+                'nomecampo' => $controller.'.id',
+                'etichetta' => 'Id',
+                'ordine' => 5,
+                'larghezza' => 50,
+                'escluso' => true,
+            ],
+            $controller.'.data' => [
+                'nometabella' => $controller,
+                'nomecampo' => $controller.'.data',
+                'etichetta' => 'Rilevazione',
+                'ordine' => 10,
+                'larghezza' => 200,
+                'escluso' => false,
+            ],
+            $controller.'.volt' => [
+                'nometabella' => $controller,
+                'nomecampo' => $controller.'.volt',
+                'etichetta' => 'Volt',
+                'ordine' => 20,
+                'larghezza' => 80,
+                'escluso' => false,
+            ],
+            $controller.'.device' => [
+                'nometabella' => $controller,
+                'nomecampo' => $controller.'.device',
+                'etichetta' => 'Rilevatore',
+                'ordine' => 30,
+                'larghezza' => 50,
+                'escluso' => false,
+            ],
+            $controller.'.detectorperc' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.detectorperc',
+                'etichetta' => 'Temperatura',
+                'ordine' => 100,
+                'larghezza' => 30,
+                'escluso' => true,
+            ],
+            $controller.'.temp' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.temp',
+                'etichetta' => 'Temperatura',
+                'ordine' => 100,
+                'larghezza' => 30,
+                'escluso' => true,
+            ],
+            $controller.'.longitude' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.longitude',
+                'etichetta' => 'Longitudine',
+                'ordine' => 100,
+                'larghezza' => 30,
+                'escluso' => true,
+            ],
+            $controller.'.latitude' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.latitude',
+                'etichetta' => 'Latitudine',
+                'ordine' => 100,
+                'larghezza' => 30,
+                'escluso' => true,
+            ],
+            $controller.'.weather' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.weather',
+                'etichetta' => 'Weather',
+                'ordine' => 200,
+                'larghezza' => 30,
+                'escluso' => true,
+            ],
+            $controller.'.externaltemp' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.externaltemp',
+                'etichetta' => 'External temp',
+                'ordine' => 210,
+                'larghezza' => 30,
+                'escluso' => true,
+            ],
+            $controller.'.location' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.location',
+                'etichetta' => 'Location',
+                'ordine' => 220,
+                'larghezza' => 50,
+                'escluso' => true,
+            ],
+            $controller.'.cloudiness' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.cloudiness',
+                'etichetta' => 'Cloudiness %',
+                'ordine' => 230,
+                'larghezza' => 30,
+                'escluso' => true,
+            ],
+            $controller.'.weathericon' => [
+                'nometabella' => $controller,
+                'nomecampo' => 'Log.weathericon',
+                'etichetta' => 'Weather Icon',
+                'ordine' => 240,
+                'larghezza' => 30,
+                'escluso' => true,
+            ],
+        ];
 
-        $filtri = array();
-        $prefiltri = array();
+        $filtri = [];
+        $prefiltri = [];
         $entityutils = new EntityUtils($this->get('doctrine')->getManager());
         $tablenamefromentity = $entityutils->getTableFromEntity($entityclass);
-        $colonneordinamento = array($tablenamefromentity . '.data' => 'DESC',$tablenamefromentity . '.device_id' => 'ASC');
-        $parametritabella = array('em' => ParametriTabella::setParameter('default'),
+        $colonneordinamento = [$tablenamefromentity.'.data' => 'DESC', $tablenamefromentity.'.device_id' => 'ASC'];
+        $parametritabella = ['em' => ParametriTabella::setParameter('default'),
             'tablename' => ParametriTabella::setParameter($tablenamefromentity),
             'nomecontroller' => ParametriTabella::setParameter($controller),
             'bundle' => ParametriTabella::setParameter($bundle),
@@ -167,7 +164,7 @@ class LogController extends FiController
             'formclass' => ParametriTabella::setParameter($formclass),
             'modellocolonne' => ParametriTabella::setParameter(json_encode($modellocolonne)),
             'permessi' => ParametriTabella::setParameter(json_encode($this->getPermessi()->toJson($controller))),
-            'urltabella' => ParametriTabella::setParameter($assetsmanager->getUrl('/') . $controller . '/' . 'tabella'),
+            'urltabella' => ParametriTabella::setParameter($assetsmanager->getUrl('/').$controller.'/'.'tabella'),
             'baseurl' => ParametriTabella::setParameter($assetsmanager->getUrl('/')),
             'idpassato' => ParametriTabella::setParameter($idpassato),
             'titolotabella' => ParametriTabella::setParameter($controller),
@@ -182,20 +179,20 @@ class LogController extends FiController
             'filtri' => ParametriTabella::setParameter(json_encode($filtri)),
             'prefiltri' => ParametriTabella::setParameter(json_encode($prefiltri)),
             'traduzionefiltri' => ParametriTabella::setParameter(''),
-            'graficodal' => ParametriTabella::setParameter((new \DateTime())->modify($this->chartdifftime)->format("d/m/Y H:i"))
-        );
+            'graficodal' => ParametriTabella::setParameter((new \DateTime())->modify($this->chartdifftime)->format('d/m/Y H:i')),
+        ];
 
         /* chart */
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
-                ->select("d")
+                ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
         $charts = $this->getCharts($devicesrows);
 
-        return $this->render($crudtemplate, array('charts' => $charts, 'parametritabella' => $parametritabella));
+        return $this->render($crudtemplate, ['charts' => $charts, 'parametritabella' => $parametritabella]);
     }
 
     public function tabella(Request $request)
@@ -204,42 +201,42 @@ class LogController extends FiController
             throw new AccessDeniedException('Non si hanno i permessi per visualizzare questo contenuto');
         }
 
-        $parametripassati = array_merge($request->get('parametri'), array('user' => $this->getUser()));
+        $parametripassati = array_merge($request->get('parametri'), ['user' => $this->getUser()]);
         $parametriform = isset($parametripassati['parametriform']) ?
-                json_decode(ParametriTabella::getParameter($parametripassati['parametriform']), true) : array();
+                json_decode(ParametriTabella::getParameter($parametripassati['parametriform']), true) : [];
         $classbundle = ParametriTabella::getParameter($parametripassati['entityclass']);
         $formbundle = ParametriTabella::getParameter($parametripassati['formclass']);
-        $formType = $formbundle . 'Type';
+        $formType = $formbundle.'Type';
 
         $entity = new $classbundle();
         $controller = ParametriTabella::getParameter($parametripassati['nomecontroller']);
-        $form = $this->createForm($formType, $entity, array('attr' => array('id' => 'formdati' . $controller,),'action' => $this->generateUrl($controller . '_new'),'parametriform' => $parametriform));
+        $form = $this->createForm($formType, $entity, ['attr' => ['id' => 'formdati'.$controller], 'action' => $this->generateUrl($controller.'_new'), 'parametriform' => $parametriform]);
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
-                ->select("d")
+                ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
         $charts = $this->getCharts($devicesrows);
         $parametri = array_merge($parametripassati, $this->getParametriTabella($parametripassati));
-        $parametri["charts"] = $charts;
+        $parametri['charts'] = $charts;
         $parametri['form'] = $form->createView();
         $templateobj = $this->getTabellaTemplateInformations($controller);
-        $parametri['templatelocation'] = $templateobj["path"];
+        $parametri['templatelocation'] = $templateobj['path'];
 
-        return $this->render($templateobj["template"], array('parametri' => $parametri));
+        return $this->render($templateobj['template'], ['parametri' => $parametri]);
     }
 
     private function getCharts($devices)
     {
         /* chart */
-        $charts = array();
+        $charts = [];
 
         $date = (new \DateTime())->modify($this->chartdifftime);
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
-                ->select("d")
+                ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
 
@@ -248,25 +245,24 @@ class LogController extends FiController
         foreach ($devicesrows as $device) {
             /* chart */
             $qb = $em->createQueryBuilder('j')
-                    ->select("j")
+                    ->select('j')
                     ->from('App:Journal', 'j')
                     ->where('j.device = :device')
                     ->andWhere('j.dal <= :ora')
                     ->andWhere('j.volt is not null')
-                    ->setParameter("device", $device->getId())
-                    ->setParameter("ora", new \DateTime())
+                    ->setParameter('device', $device->getId())
+                    ->setParameter('ora', new \DateTime())
                     ->getQuery();
 
             $journalrows = $qb->getResult();
 
-
-            $dati = array();
+            $dati = [];
             $dati[] = ['Data', 'Volts'/* , 'Temps' */, 'Avg'];
 
             foreach ($journalrows as $journalrows) {
                 $dati[] = [$journalrows->getDatarilevazione(), floatval($journalrows->getVolt()), round(floatval($journalrows->getAvgvolt()), 2)];
             }
-            if (count($dati) == 1) {
+            if (1 == count($dati)) {
                 $dati[] = [new \DateTime(), 0, 0];
             }
             $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart();
@@ -291,14 +287,14 @@ class LogController extends FiController
             $charts[] = $chart;
             /* chart */
         }
+
         return $charts;
     }
 
     private function searchInArray($array, $search_list)
     {
-
         // Create the result array
-        $result = array();
+        $result = [];
 
         // Iterate over each array element
         foreach ($array as $key => $value) {

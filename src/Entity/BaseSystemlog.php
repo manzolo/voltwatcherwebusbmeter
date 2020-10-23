@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * App\Entity\Systemlog
+ * App\Entity\Systemlog.
  *
  * @ORM\Entity()
  * @ORM\Table(name="Systemlog")
@@ -54,7 +54,8 @@ class BaseSystemlog
     /**
      * Set the value of id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return \App\Entity\Systemlog
      */
     public function setId($id)
@@ -67,7 +68,7 @@ class BaseSystemlog
     /**
      * Get the value of id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -78,6 +79,7 @@ class BaseSystemlog
      * Set the value of datelog.
      *
      * @param \DateTime $datelog
+     *
      * @return \App\Entity\Systemlog
      */
     public function setDatelog($datelog)
@@ -101,6 +103,7 @@ class BaseSystemlog
      * Set the value of typelog.
      *
      * @param string $typelog
+     *
      * @return \App\Entity\Systemlog
      */
     public function setTypelog($typelog)
@@ -124,6 +127,7 @@ class BaseSystemlog
      * Set the value of agent.
      *
      * @param string $agent
+     *
      * @return \App\Entity\Systemlog
      */
     public function setAgent($agent)
@@ -147,6 +151,7 @@ class BaseSystemlog
      * Set the value of ip.
      *
      * @param string $ip
+     *
      * @return \App\Entity\Systemlog
      */
     public function setIp($ip)
@@ -170,6 +175,7 @@ class BaseSystemlog
      * Set the value of message.
      *
      * @param string $message
+     *
      * @return \App\Entity\Systemlog
      */
     public function setMessage($message)
@@ -191,6 +197,6 @@ class BaseSystemlog
 
     public function __sleep()
     {
-        return array('id', 'datelog', 'typelog', 'agent', 'ip', 'message');
+        return ['id', 'datelog', 'typelog', 'agent', 'ip', 'message'];
     }
 }

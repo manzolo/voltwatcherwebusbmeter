@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * App\Entity\Settings
+ * App\Entity\Settings.
  *
  * @ORM\Entity()
  * @ORM\Table(name="Settings")
@@ -39,7 +39,8 @@ class BaseSettings
     /**
      * Set the value of id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return \App\Entity\Settings
      */
     public function setId($id)
@@ -52,7 +53,7 @@ class BaseSettings
     /**
      * Get the value of id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -63,6 +64,7 @@ class BaseSettings
      * Set the value of key.
      *
      * @param string $key
+     *
      * @return \App\Entity\Settings
      */
     public function setKey($key)
@@ -86,6 +88,7 @@ class BaseSettings
      * Set the value of value.
      *
      * @param string $value
+     *
      * @return \App\Entity\Settings
      */
     public function setValue($value)
@@ -107,6 +110,6 @@ class BaseSettings
 
     public function __sleep()
     {
-        return array('id', 'key', 'value');
+        return ['id', 'key', 'value'];
     }
 }

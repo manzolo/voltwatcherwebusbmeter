@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * App\Entity\Log
+ * App\Entity\Log.
  *
  * @ORM\Entity()
  * @ORM\Table(name="Log", indexes={@ORM\Index(name="Log_Device_fk_idx", columns={"device_id"})})
@@ -95,7 +95,8 @@ class BaseLog
     /**
      * Set the value of id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return \App\Entity\Log
      */
     public function setId($id)
@@ -108,7 +109,7 @@ class BaseLog
     /**
      * Get the value of id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -118,7 +119,8 @@ class BaseLog
     /**
      * Set the value of device_id.
      *
-     * @param integer $device_id
+     * @param int $device_id
+     *
      * @return \App\Entity\Log
      */
     public function setDeviceId($device_id)
@@ -131,7 +133,7 @@ class BaseLog
     /**
      * Get the value of device_id.
      *
-     * @return integer
+     * @return int
      */
     public function getDeviceId()
     {
@@ -142,6 +144,7 @@ class BaseLog
      * Set the value of data.
      *
      * @param \DateTime $data
+     *
      * @return \App\Entity\Log
      */
     public function setData($data)
@@ -165,6 +168,7 @@ class BaseLog
      * Set the value of volt.
      *
      * @param float $volt
+     *
      * @return \App\Entity\Log
      */
     public function setVolt($volt)
@@ -188,6 +192,7 @@ class BaseLog
      * Set the value of temp.
      *
      * @param float $temp
+     *
      * @return \App\Entity\Log
      */
     public function setTemp($temp)
@@ -211,6 +216,7 @@ class BaseLog
      * Set the value of detectorperc.
      *
      * @param float $detectorperc
+     *
      * @return \App\Entity\Log
      */
     public function setDetectorperc($detectorperc)
@@ -234,6 +240,7 @@ class BaseLog
      * Set the value of longitude.
      *
      * @param float $longitude
+     *
      * @return \App\Entity\Log
      */
     public function setLongitude($longitude)
@@ -257,6 +264,7 @@ class BaseLog
      * Set the value of latitude.
      *
      * @param float $latitude
+     *
      * @return \App\Entity\Log
      */
     public function setLatitude($latitude)
@@ -280,6 +288,7 @@ class BaseLog
      * Set the value of weather.
      *
      * @param string $weather
+     *
      * @return \App\Entity\Log
      */
     public function setWeather($weather)
@@ -303,6 +312,7 @@ class BaseLog
      * Set the value of externaltemp.
      *
      * @param float $externaltemp
+     *
      * @return \App\Entity\Log
      */
     public function setExternaltemp($externaltemp)
@@ -326,6 +336,7 @@ class BaseLog
      * Set the value of location.
      *
      * @param string $location
+     *
      * @return \App\Entity\Log
      */
     public function setLocation($location)
@@ -349,6 +360,7 @@ class BaseLog
      * Set the value of cloudiness.
      *
      * @param float $cloudiness
+     *
      * @return \App\Entity\Log
      */
     public function setCloudiness($cloudiness)
@@ -372,6 +384,7 @@ class BaseLog
      * Set the value of weathericon.
      *
      * @param string $weathericon
+     *
      * @return \App\Entity\Log
      */
     public function setWeathericon($weathericon)
@@ -395,6 +408,7 @@ class BaseLog
      * Set Device entity (many to one).
      *
      * @param \App\Entity\Device $device
+     *
      * @return \App\Entity\Log
      */
     public function setDevice(Device $device = null)
@@ -416,6 +430,6 @@ class BaseLog
 
     public function __sleep()
     {
-        return array('id', 'device_id', 'data', 'volt', 'temp', 'detectorperc', 'longitude', 'latitude', 'weather', 'externaltemp', 'location', 'cloudiness', 'weathericon');
+        return ['id', 'device_id', 'data', 'volt', 'temp', 'detectorperc', 'longitude', 'latitude', 'weather', 'externaltemp', 'location', 'cloudiness', 'weathericon'];
     }
 }

@@ -3,10 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\BaseSystemlog;
 
 /**
- * App\Entity\Systemlog
+ * App\Entity\Systemlog.
  *
  * @ORM\Entity()
  */
