@@ -69,20 +69,20 @@ Navigate to
     
 ## Docker
 ### First time
-        docker pull manzolo/voltwatcher_apache
-        docker pull manzolo/voltwatcher_php
-        git clone https://github.com/manzolo/voltwatcherwebusbmeter
-        mkdir -p var/log
-        mkdir -p var/cache
-        chmod 777 -R var/ 
-        cp .env.dist .env
-        docker-compose up -d
-	docker exec -it voltwatcher_php /bin/bash
-	cd voltwatcher
-	mkdir -p config/jwt
-	openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-	openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-	APACHEUSER=www-data
-	setfacl -R -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
-	setfacl -dR -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
-	bin/console bicorebundle:install adminuser adminpassword admin@email.com
+    docker pull manzolo/voltwatcher_apache
+    docker pull manzolo/voltwatcher_php
+    git clone https://github.com/manzolo/voltwatcherwebusbmeter
+    mkdir -p var/log
+    mkdir -p var/cache
+    chmod 777 -R var/ 
+    cp .env.dist .env
+    docker-compose up -d
+    docker exec -it voltwatcher_php /bin/bash
+    cd voltwatcher
+    mkdir -p config/jwt
+    openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+    openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+    APACHEUSER=www-data
+    setfacl -R -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
+    setfacl -dR -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
+    bin/console bicorebundle:install adminuser adminpassword admin@email.com
