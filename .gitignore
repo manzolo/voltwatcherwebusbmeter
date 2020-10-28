@@ -23,3 +23,5 @@ yarn-error.log
 ###< lexik/jwt-authentication-bundle ###
 /.php_cs.cache
 /version.properties
+
+.docker/data
