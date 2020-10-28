@@ -32,7 +32,7 @@ services:
         volumes:
           - .:/home/wwwroot/voltwatcher
         environment:
-          APP_ENV: dev
+          APP_ENV: ${APP_ENV}
           DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@voltwatcher_mysql:3306/${MYSQL_DATABASE}
           JWT_PASSPHRASE: ${JWT_PASSPHRASE}
           MAILER_USER: ${MAILER_USER}
