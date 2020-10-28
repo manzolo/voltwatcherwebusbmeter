@@ -2,6 +2,7 @@ version: '3'
 services:
     mysql:
         image: mysql
+        restart: always
         command: "--default-authentication-plugin=mysql_native_password"
         container_name: voltwatcher_mysql
         volumes:
@@ -13,6 +14,7 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     app:
         image: manzolo/voltwatcher_app
+        restart: always
         build: 
           context: .
           dockerfile: .docker/full/php/Dockerfile
@@ -32,6 +34,7 @@ services:
           - mysql
 
     phpmyadmin:
+        restart: always
         image: phpmyadmin/phpmyadmin
         container_name: voltwatcher_phpmyadmin
         environment:
