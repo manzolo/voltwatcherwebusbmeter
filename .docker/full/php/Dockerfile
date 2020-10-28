@@ -28,6 +28,8 @@ RUN	echo "deb https://deb.nodesource.com/node_6.x jessie main" >> /etc/apt/sourc
 	apt-get install -y --force-yes nodejs && \
 	rm -f /etc/apt/sources.list.d/nodejs.list
 
+RUN apt-get install -y netcat
+
 RUN groupadd dev -g 999
 RUN useradd dev -g dev -d /home/dev -m
 RUN passwd -d dev
@@ -40,19 +42,26 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 RUN echo "dev ALL=(ALL) ALL" > /etc/sudoers
 
 WORKDIR /home/wwwroot/voltwatcher
+
 COPY . .
+
 RUN rm -rf .git && \
     rm -rf config/jwt && \
     rm -rf node_modules && \
     rm -rf var && \
     rm -rf .env.local && \
     rm -rf .env && \
+    cp .docker/full/php/init.sh /usr/local/bin/init.sh && \
     cp .env.dist .env && \
     mkdir var && \ 
     chmod 777 -R var && \ 
     composer install
     
-WORKDIR /home/wwwroot
+RUN curl -sS https://get.symfony.com/cli/installer | bash
+RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
-EXPOSE 9000
-CMD ["php-fpm"]
+RUN chmod +x /usr/local/bin/init.sh
+
+EXPOSE 8001
+CMD ["/usr/local/bin/init.sh"]
+

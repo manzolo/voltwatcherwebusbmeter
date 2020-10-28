@@ -70,11 +70,9 @@ Navigate to
 ## Docker
 ### First time
 
-    docker pull manzolo/voltwatcher_apache
-    docker pull manzolo/voltwatcher_php
+    docker pull manzolo/voltwatcher_app
     docker-compose up -d
-    docker exec -it voltwatcher_php /bin/bash
-    cd voltwatcher
+    docker exec -it voltwatcher_app /bin/bash
     mkdir -p config/jwt
     openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
     openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
