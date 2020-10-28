@@ -75,6 +75,12 @@ Navigate to
     docker pull manzolo/voltwatcher_app
     wget https://raw.githubusercontent.com/manzolo/voltwatcherwebusbmeter/master/docker-compose.yml
 
+    mkdir -p config/jwt
+
+    # Api Password certificate (set password in JWT_PASSPHRASE .env entry)
+    openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+    openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+
     # Create .env file
     APP_ENV=prod
     # http://nux.net/secret
@@ -98,18 +104,15 @@ Navigate to
     MAILER_DNS=smtp://username:password@smtp.host.com:25
     MAILER_USER=admin@email.com
     LOCALE=en
-    # Api Password certificate (see below)
+    # Api Password certificate
     JWT_PASSPHRASE=jwtpassword
 
+    # Start containers
     docker-compose up --no-build -d
 
     # Inside container
     docker exec -it voltwatcher_app /bin/bash
-    mkdir -p config/jwt
-    # Api Password certificate
-    openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-    openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-    
+        
     bin/console bicorebundle:install adminuser adminpassword admin@email.com
     bin/console voltwatcher:install
     
