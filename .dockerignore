@@ -1,0 +1,5 @@
+**/node_modules
+**/data
+**/var/cache
+**/var/log
+**/vendor
