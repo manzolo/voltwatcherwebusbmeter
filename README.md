@@ -60,6 +60,7 @@ Put password in JWT_PASSPHRASE env (see below)
 
 ### Create database
     bin/console bicorebundle:install adminusername adminpassword admin@email.com
+    bin/console voltwatcher:install
     
 ## Test on local server
     symfony server:start --no-tls
@@ -111,3 +112,4 @@ Navigate to
     setfacl -R -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
     setfacl -dR -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
     bin/console bicorebundle:install adminuser adminpassword admin@email.com
+    bin/console voltwatcher:install
