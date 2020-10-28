@@ -1,4 +1,4 @@
-FROM php:7.4.10-fpm
+FROM php:7.4.10-fpm as build
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
@@ -28,8 +28,6 @@ RUN	echo "deb https://deb.nodesource.com/node_6.x jessie main" >> /etc/apt/sourc
 	apt-get install -y --force-yes nodejs && \
 	rm -f /etc/apt/sources.list.d/nodejs.list
 
-RUN apt-get install -y netcat
-
 RUN groupadd dev -g 999
 RUN useradd dev -g dev -d /home/dev -m
 RUN passwd -d dev
@@ -56,7 +54,17 @@ RUN rm -rf .git && \
     mkdir var && \ 
     chmod 777 -R var && \ 
     composer install
-    
+
+FROM php:7.4-cli-alpine
+
+RUN apk update && apk add libmcrypt-dev netcat-openbsd oniguruma-dev zlib-dev libpng-dev libzip-dev bash
+#RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev libpng-dev libzip-dev netcat
+RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
+
+WORKDIR /app
+COPY --from=build /home/wwwroot/voltwatcher /app
+COPY --from=build /home/wwwroot/voltwatcher/.docker/full/php/init.sh /usr/local/bin/init.sh
+
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
@@ -64,4 +72,3 @@ RUN chmod +x /usr/local/bin/init.sh
 
 EXPOSE 8001
 CMD ["/usr/local/bin/init.sh"]
-
