@@ -67,3 +67,16 @@ Navigate to
     http://localhost:8000
     
     
+## Docker
+### First time
+        cp .env.dist .env
+        docker-compose up -d
+	docker exec -it voltwatcher_php /bin/bash
+	cd voltwatcher
+	mkdir -p config/jwt
+	openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+	openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+	APACHEUSER=www-data
+	setfacl -R -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
+	setfacl -dR -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
+	bin/console bicorebundle:install admin admin admin@admin.it

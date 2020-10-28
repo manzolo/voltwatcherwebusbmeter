@@ -11,26 +11,27 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * @RouteResource("api", pluralize=false)
  */
-class ApiController extends FOSRestController
-{
+class ApiController extends FOSRestController {
+
     private $mailer;
     private $params;
+    private $client;
 
-    public function __construct(MailerInterface $mailer, ParameterBagInterface $params)
-    {
+    public function __construct(MailerInterface $mailer, ParameterBagInterface $params, HttpClientInterface $client) {
         $this->mailer = $mailer;
         $this->params = $params;
+        $this->client = $client;
     }
 
     /**
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
      */
-    public function putVoltRecordAction(array $datavolt)
-    {
+    public function putVoltRecordAction(array $datavolt) {
         //if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $device = $datavolt['device'];
         if ($datavolt['data']) {
@@ -82,7 +83,7 @@ class ApiController extends FOSRestController
             $newdevice->setAddress($device);
             $em->persist($newdevice);
             $em->flush();
-        //$em->clear();
+            //$em->clear();
         } else {
             $newdevice = $devices[0];
         }
@@ -108,9 +109,9 @@ class ApiController extends FOSRestController
                     //->bcc('bcc@example.com')
                     //->replyTo('fabien@example.com')
                     ->priority(Email::PRIORITY_HIGH)
-                    ->subject('WARNING from '.$newlog->getDevice().' *** '.$newlog->getVolt().' volt ***')
-                    ->text('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'))
-                    ->html('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'));
+                    ->subject('WARNING from ' . $newlog->getDevice() . ' *** ' . $newlog->getVolt() . ' volt ***')
+                    ->text('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'))
+                    ->html('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
 
             $this->mailer->send($email);
         }
@@ -118,9 +119,14 @@ class ApiController extends FOSRestController
         $owmappid = $this->params->get('openweathermap_apikey');
         if ($owmappid && ($longitude || $latitude)) {
             try {
-                $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon='.$longitude.'&lat='.$latitude.'&APPID='.$owmappid;
-                $weatherjson = \json_decode(file_get_contents($owmurl), true);
+                $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon=' . $longitude . '&lat=' . $latitude . '&APPID=' . $owmappid;
+                //$weatherjson = \json_decode(file_get_contents($owmurl), true);
+                $response = $this->client->request(
+                        'GET',
+                        $owmurl
+                );
 
+                $weatherjson = \json_decode($response->getContent(), true);
                 $weather = $weatherjson['weather'][0]['main'];
                 $externaltemp = $weatherjson['main']['temp'] - 273.15;
                 $cloudiness = $weatherjson['clouds']['all'];
@@ -142,8 +148,7 @@ class ApiController extends FOSRestController
         return $this->view(['errcode' => 0, 'errmsg' => 'OK'], Response::HTTP_OK);
     }
 
-    public function appGetSettingsAction()
-    {
+    public function appGetSettingsAction() {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder()
                 ->select('s')
@@ -158,10 +163,10 @@ class ApiController extends FOSRestController
         return $this->view($newsettings);
     }
 
-    public function appServerDatetimeAction()
-    {
+    public function appServerDatetimeAction() {
         $now = (new \DateTime());
 
         return $this->view(['datetime' => $now->format('Y-m-d H:i:s'), 'date' => $now->format('Y-m-d'), 'time' => $now->format('H:i:s')]);
     }
+
 }
