@@ -60,6 +60,7 @@ Put password in JWT_PASSPHRASE env (see below)
 
 ### Create database
     bin/console bicorebundle:install adminusername adminpassword admin@email.com
+    bin/console voltwatcher:install
     
 ## Test on local server
     symfony server:start --no-tls
@@ -67,3 +68,48 @@ Navigate to
     http://localhost:8000
     
     
+## Docker
+### First time
+
+    # From bash
+    docker pull manzolo/voltwatcher_app
+    wget https://raw.githubusercontent.com/manzolo/voltwatcherwebusbmeter/master/docker-compose.yml
+    docker-compose up --no-build -d
+
+    # Create .env file
+    APP_ENV=prod
+    # http://nux.net/secret
+
+    APP_SECRET=yoursecretkeybyhttp://nux.net/secret
+
+    # DATABASE INFORMATION
+    MYSQL_DATABASE=voltwatcher
+    MYSQL_USER=voltwatcher
+    MYSQL_PASSWORD=voltwatcherpassword
+    MYSQL_ROOT_PASSWORD=mysqlrootpasswordsecret
+
+    # WEB SERVER LISTEN PORT
+    APACHE_PORT=8001
+    # PHPMYADMIN LISTEN PORT
+    PHPMYADMIN_PORT=8002
+
+    # https://openweathermap.org/api/one-call-api
+    OPENWEATHERMAP_APIKEY=""
+
+    MAILER_DNS=smtp://username:password@smtp.host.com:25
+    MAILER_USER=admin@email.com
+    LOCALE=en
+    # Api Password certificate (see below)
+    JWT_PASSPHRASE=jwtpassword
+
+    # Inside container
+    docker exec -it voltwatcher_app /bin/bash
+    mkdir -p config/jwt
+    # Api Password certificate
+    openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+    openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+    APACHEUSER=www-data
+    setfacl -R -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
+    setfacl -dR -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX config/jwt
+    bin/console bicorebundle:install adminuser adminpassword admin@email.com
+    bin/console voltwatcher:install
