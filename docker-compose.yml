@@ -27,10 +27,10 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     php:
         image: manzolo/voltwatcher_php
-        build: .docker/full/php
+        build: 
+          context: .
+          dockerfile: .docker/full/php/Dockerfile
         container_name: voltwatcher_php
-        volumes:
-          - .:/home/wwwroot/voltwatcher
         environment:
           APP_ENV: ${APP_ENV}
           DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@voltwatcher_mysql:3306/${MYSQL_DATABASE}

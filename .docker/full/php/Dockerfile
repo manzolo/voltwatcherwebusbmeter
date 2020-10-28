@@ -10,8 +10,8 @@ RUN apt-get update \
 
 RUN docker-php-ext-install pdo pdo_mysql zip gd
 
-COPY php.ini /usr/local/etc/php/php.ini
-COPY php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
+COPY .docker/full/php/php.ini /usr/local/etc/php/php.ini
+COPY .docker/full/php/php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 	mv composer.phar /usr/local/bin/composer
@@ -39,8 +39,20 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
 
 RUN echo "dev ALL=(ALL) ALL" > /etc/sudoers
 
-WORKDIR /home/wwwroot/
-##</romaricp>##
+WORKDIR /home/wwwroot/voltwatcher
+COPY . .
+RUN rm -rf .git && \
+    rm -rf config/jwt && \
+    rm -rf node_modules && \
+    rm -rf var && \
+    rm -rf .env.local && \
+    rm -rf .env && \
+    cp .env.dist .env && \
+    mkdir var && \ 
+    chmod 777 -R var && \ 
+    composer install
+    
+WORKDIR /home/wwwroot
 
 EXPOSE 9000
 CMD ["php-fpm"]

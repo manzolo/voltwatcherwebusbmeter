@@ -72,11 +72,6 @@ Navigate to
 
     docker pull manzolo/voltwatcher_apache
     docker pull manzolo/voltwatcher_php
-    git clone https://github.com/manzolo/voltwatcherwebusbmeter
-    mkdir -p var/log
-    mkdir -p var/cache
-    chmod 777 -R var/ 
-    cp .env.dist .env
     docker-compose up -d
     docker exec -it voltwatcher_php /bin/bash
     cd voltwatcher
