@@ -17,6 +17,8 @@ services:
           context: .
           dockerfile: .docker/full/php/Dockerfile
         container_name: voltwatcher_app
+        volumes:
+            - ./config/jwt:/app/config/jwt
         environment:
           APP_ENV: ${APP_ENV}
           DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@voltwatcher_mysql:3306/${MYSQL_DATABASE}
