@@ -41,6 +41,3 @@ services:
             - ${PHPMYADMIN_PORT}:80
         depends_on:
           - mysql
-
-    
-    

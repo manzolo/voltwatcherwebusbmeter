@@ -70,8 +70,12 @@ Navigate to
 ## Docker
 ### First time
 
+    # From bash
     docker pull manzolo/voltwatcher_app
+    wget https://raw.githubusercontent.com/manzolo/voltwatcherwebusbmeter/master/docker-compose.yml
     docker-compose up -d
+
+    # Inside container
     docker exec -it voltwatcher_app /bin/bash
     mkdir -p config/jwt
     openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
