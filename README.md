@@ -69,6 +69,9 @@ Navigate to
     
 ## Docker
 ### First time
+        docker pull manzolo/voltwatcher_apache
+        docker pull manzolo/voltwatcher_php
+        git clone https://github.com/manzolo/voltwatcherwebusbmeter
         cp .env.dist .env
         docker-compose up -d
 	docker exec -it voltwatcher_php /bin/bash
