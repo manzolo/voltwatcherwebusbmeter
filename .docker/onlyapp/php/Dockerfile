@@ -1,4 +1,5 @@
 ARG MYSQL_HOST
+ARG MYSQL_PORT
 
 FROM php:7.4.10-fpm as build
 
@@ -73,6 +74,7 @@ RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 RUN chmod +x /usr/local/bin/init.sh
 
 ENV MYSQL_HOST=mysqlhost
+ENV MYSQL_PORT=3306
 
 EXPOSE 8001
 CMD ["/usr/local/bin/init.sh"]
