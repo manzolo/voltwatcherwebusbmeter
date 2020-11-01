@@ -10,4 +10,4 @@ done
 echo "mysql started"
 
 bin/console cache:warm
-symfony server:stop && symfony server:start --no-tls --port=8001
+symfony server:stop && rm ~/.symfony/var/*.pid && symfony server:start --no-tls --port=8001
