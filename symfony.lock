@@ -559,6 +559,9 @@
     "twig/twig": {
         "version": "v2.5.0"
     },
+    "webimpress/safe-writer": {
+        "version": "2.1.0"
+    },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
     },
