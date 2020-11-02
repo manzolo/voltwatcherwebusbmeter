@@ -65,9 +65,6 @@ WORKDIR /app
 COPY --from=build /home/wwwroot/voltwatcher /app
 COPY --from=build /home/wwwroot/voltwatcher/.docker/full/php/init.sh /usr/local/bin/init.sh
 
-#Per reverse proxy
-RUN ln -s /app/public /app/public/assicurazioni
-
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
