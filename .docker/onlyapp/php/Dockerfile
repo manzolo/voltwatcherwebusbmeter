@@ -58,23 +58,26 @@ RUN rm -rf .git && \
     chmod 777 -R var && \ 
     composer install
 
-FROM php:7.4-cli-alpine
+FROM php:7-apache
 
-RUN apk update && apk add libmcrypt-dev netcat-openbsd oniguruma-dev zlib-dev libpng-dev libzip-dev bash
-#RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev libpng-dev libzip-dev netcat
+#RUN apk update && apk add libmcrypt-dev netcat-openbsd oniguruma-dev zlib-dev libpng-dev libzip-dev bash
+RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev libpng-dev libzip-dev netcat acl
+
 RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
 
-WORKDIR /app
-COPY --from=build /home/wwwroot/voltwatcher /app
-COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/php/init.sh /usr/local/bin/init.sh
-
-RUN curl -sS https://get.symfony.com/cli/installer | bash
-RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
-
-RUN chmod +x /usr/local/bin/init.sh
+WORKDIR /var/www
+COPY --from=build /home/wwwroot/voltwatcher /var/www/
+COPY --from=build /home/wwwroot/voltwatcher /var/www/
+RUN chown -R www-data:www-data /var/www/
 
 ENV MYSQL_HOST=mysqlhost
 ENV MYSQL_PORT=3306
 
-EXPOSE 8001
-CMD ["/usr/local/bin/init.sh"]
+COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/start-apache /usr/local/bin/
+RUN chmod +x /usr/local/bin/start-apache
+RUN a2enmod rewrite
+
+EXPOSE 80
+
+CMD ["/usr/local/bin/start-apache"]
