@@ -8,7 +8,7 @@ services:
           dockerfile: .docker/onlyapp/php/Dockerfile
         container_name: voltwatcher_app
         volumes:
-            - ./var:/app/var
+            - ./var/log:/var/www/var/log
             - ./config/jwt:/app/config/jwt
         environment:
           APP_ENV: ${APP_ENV}

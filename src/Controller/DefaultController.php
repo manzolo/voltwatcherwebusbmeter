@@ -101,7 +101,7 @@ class DefaultController extends AbstractController
                 $dati[] = [$devicerows->getData(), floatval($devicerows->getVolt())];
             }
             if (1 == count($dati)) {
-                $dati[] = [new \DateTime(), 0, 0];
+                $dati[] = [new \DateTime(), 0];
             }
             $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
             $chart->getData()->setArrayToDataTable($dati);

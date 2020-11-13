@@ -14,7 +14,7 @@ RUN apt-get update \
 RUN docker-php-ext-install pdo pdo_mysql zip gd
 
 COPY .docker/onlyapp/php/php.ini /usr/local/etc/php/php.ini
-COPY .docker/onlyapp/php/php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
+#COPY .docker/onlyapp/php/php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 	mv composer.phar /usr/local/bin/composer
@@ -52,7 +52,6 @@ RUN rm -rf .git && \
     rm -rf var && \
     rm -rf .env.local && \
     rm -rf .env && \
-    cp .docker/onlyapp/php/init.sh /usr/local/bin/init.sh && \
     cp .env.dist .env && \
     mkdir var && \ 
     chmod 777 -R var && \ 
@@ -66,7 +65,6 @@ RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev
 RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
 
 WORKDIR /var/www
-COPY --from=build /home/wwwroot/voltwatcher /var/www/
 COPY --from=build /home/wwwroot/voltwatcher /var/www/
 RUN chown -R www-data:www-data /var/www/
 
