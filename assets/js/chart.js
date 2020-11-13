@@ -14,11 +14,12 @@ require('../css/app.scss');
 import {GoogleCharts} from 'google-charts';
 
 $(document).ready(function () {
-    GoogleCharts.load(function () {});
+    GoogleCharts.load(function () {
         if ($("#mygraph").hasClass("invisible")) {
-            setTimeout(function () {
-                loadChart();
-            }, 1000);
+            //setTimeout(function () {
+            loadChart();
             $("#mygraph").removeClass("invisible");
+            //}, 1000);
         }
+    });
 });

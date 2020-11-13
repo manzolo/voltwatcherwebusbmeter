@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf
+sed -i "s/:80/:${PORT:-80}/g" /etc/apache2/sites-enabled/*
+
+APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data' | grep -v root | head -1 | cut -d\  -f1`
+setfacl -R -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX /var/www/var/log
+setfacl -dR -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX /var/www/var/cache
+/var/www/bin/console cache:clear --env=prod
+apache2-foreground
