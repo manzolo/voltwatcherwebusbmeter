@@ -9,7 +9,7 @@ services:
         container_name: voltwatcher_app
         volumes:
             - ./var/log:/var/www/var/log
-            - ./config/jwt:/app/config/jwt
+            - ./config/jwt:/var/www/config/jwt
         environment:
           APP_ENV: ${APP_ENV}
           DATABASE_URL: ${DATABASE_URL}
