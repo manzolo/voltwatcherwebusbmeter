@@ -148,6 +148,13 @@ class ApiController extends FOSRestController {
         return $this->view(['errcode' => 0, 'errmsg' => 'OK'], Response::HTTP_OK);
     }
 
+/**
+     * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
+     */
+    public function postVoltRecordAction(array $datavolt) {
+        return $this->putVoltRecordAction($datavolt);
+    }    
+
     public function appGetSettingsAction() {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder()
