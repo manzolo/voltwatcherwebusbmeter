@@ -45,6 +45,7 @@ class ApiController extends FOSRestController {
             }
         } else {
             $data = new \DateTime();
+            $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
         }
         $volt = (float) $datavolt['volt'];
         $temp = (float) $datavolt['temp'];
