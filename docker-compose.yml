@@ -21,4 +21,3 @@ services:
           MYSQL_PORT: ${MYSQL_PORT}
         ports:
             - ${HTTP_PORT}:80
-

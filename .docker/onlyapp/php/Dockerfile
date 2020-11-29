@@ -55,7 +55,7 @@ RUN rm -rf .git && \
     cp .env.dist .env && \
     mkdir var && \ 
     chmod 777 -R var && \ 
-    composer install
+    composer install --no-dev --optimize-autoloader
 
 FROM ubuntu:20.04
 
