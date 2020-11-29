@@ -57,16 +57,17 @@ RUN rm -rf .git && \
     chmod 777 -R var && \ 
     composer install
 
-FROM php:7-apache
+FROM ubuntu:20.04
 
-#RUN apk update && apk add libmcrypt-dev netcat-openbsd oniguruma-dev zlib-dev libpng-dev libzip-dev bash
-RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev libpng-dev libzip-dev netcat acl
+RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev \
+apache2 php7.4 php7.4-mysql libapache2-mod-php7.4 php-mbstring php-intl php-pdo php-mysql php-pdo-mysql php-gd php-zip php-xml curl \
+libpng-dev libzip-dev acl
+#RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev libpng-dev libzip-dev netcat acl
+#RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
 
-RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
-
-WORKDIR /var/www
-COPY --from=build /home/wwwroot/voltwatcher /var/www/
-RUN chown -R www-data:www-data /var/www/
+WORKDIR /var/www/html
+COPY --from=build /home/wwwroot/voltwatcher /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 
 ENV MYSQL_HOST=mysqlhost
 ENV MYSQL_PORT=3306
@@ -74,7 +75,23 @@ ENV MYSQL_PORT=3306
 COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/start-apache /usr/local/bin/
 RUN chmod +x /usr/local/bin/start-apache
+RUN apachectl configtest
+RUN a2enmod php7.4
 RUN a2enmod rewrite
+RUN a2enmod env
+#RUN phpenmod pdo_mysql
+RUN rm /var/www/html/index.html
+RUN rm -rf /var/www/html/.env
+RUN rm -rf /var/www/html/.env.docker.local
+RUN rm -rf /var/www/html/.env.dist
+RUN rm -rf /var/www/html/.env.local
+RUN echo "APP_ENV=prod" > .env
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
 
 EXPOSE 80
 

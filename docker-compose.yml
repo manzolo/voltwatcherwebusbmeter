@@ -8,8 +8,8 @@ services:
           dockerfile: .docker/onlyapp/php/Dockerfile
         container_name: voltwatcher_app
         volumes:
-            - ./var/log:/var/www/var/log
-            - ./config/jwt:/var/www/config/jwt
+            - ./var/log:/var/www/html/var/log
+            - ./config/jwt:/var/www/html/config/jwt
         environment:
           APP_ENV: ${APP_ENV}
           DATABASE_URL: ${DATABASE_URL}
@@ -21,3 +21,4 @@ services:
           MYSQL_PORT: ${MYSQL_PORT}
         ports:
             - ${HTTP_PORT}:80
+
