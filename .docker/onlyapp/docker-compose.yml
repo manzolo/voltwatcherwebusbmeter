@@ -5,17 +5,19 @@ services:
         restart: always
         build: 
           context: .
-          dockerfile: .docker/full/php/Dockerfile
+          dockerfile: .docker/onlyapp/php/Dockerfile
         container_name: voltwatcher_app
         volumes:
-            - ./var:/app/var
-            - ./config/jwt:/app/config/jwt
+            - ./var/log:/var/www/html/var/log
+            - ./config/jwt:/var/www/html/config/jwt
         environment:
           APP_ENV: ${APP_ENV}
-          DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@voltwatcher_mysql:3306/${MYSQL_DATABASE}
+          DATABASE_URL: ${DATABASE_URL}
           JWT_PASSPHRASE: ${JWT_PASSPHRASE}
           MAILER_USER: ${MAILER_USER}
           OPENWEATHERMAP_APIKEY: ${OPENWEATHERMAP_APIKEY}
           MAILER_DSN: ${MAILER_DSN}
+          MYSQL_HOST: ${MYSQL_HOST}
+          MYSQL_PORT: ${MYSQL_PORT}
         ports:
-            - ${HTTP_PORT}:8001
+            - ${HTTP_PORT}:80
