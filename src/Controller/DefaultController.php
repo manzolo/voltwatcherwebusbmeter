@@ -222,7 +222,7 @@ class DefaultController extends AbstractController
       $owmappid = getenv('openweathermap_apikey');
       if ($owmappid && ($longitude || $latitude)) {
       try {
-      $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon='.$longitude.'&lat='.$latitude.'&APPID='.$owmappid;
+      $owmurl = 'https://api.openweathermap.org/data/2.5/weather?lon='.$longitude.'&lat='.$latitude.'&APPID='.$owmappid;
       $weatherjson = \json_decode(file_get_contents($owmurl), true);
 
       $weather = $weatherjson['weather'][0]['main'];

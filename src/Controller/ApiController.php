@@ -120,7 +120,7 @@ class ApiController extends FOSRestController {
         $owmappid = $this->params->get('openweathermap_apikey');
         if ($owmappid && ($longitude || $latitude)) {
             try {
-                $owmurl = 'http://api.openweathermap.org/data/2.5/weather?lon=' . $longitude . '&lat=' . $latitude . '&APPID=' . $owmappid;
+                $owmurl = 'https://api.openweathermap.org/data/2.5/weather?lon=' . $longitude . '&lat=' . $latitude . '&APPID=' . $owmappid;
                 //$weatherjson = \json_decode(file_get_contents($owmurl), true);
                 $response = $this->client->request(
                         'GET',
