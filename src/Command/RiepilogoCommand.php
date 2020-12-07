@@ -121,7 +121,7 @@ class RiepilogoCommand extends Command
             $output->writeln('<info>send mail to '.$recipient.'</info>');
 
             $email = (new Email())
-                    ->from('voltwatcheralert@manzolo.it')
+                    ->from($recipient)
                     ->to($recipient)
                     //->cc('cc@example.com')
                     //->bcc('bcc@example.com')
