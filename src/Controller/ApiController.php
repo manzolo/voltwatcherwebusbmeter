@@ -50,25 +50,8 @@ class ApiController extends FOSRestController {
         $volt = (float) $datavolt['volt'];
         $temp = (float) $datavolt['temp'];
         $batteryperc = (float) $datavolt['batteryperc'];
-        $longitude = (float) $datavolt['longitude'];
-        $latitude = (float) $datavolt['latitude'];
-        // } else {
-        //     $datavolt = json_decode($request->get('data'), true);
-        //     $device = $datavolt['device'];
-        //     //20200416201917.000
-        //     $datepost = $datavolt['data'];
-        //     if (18 == strlen($datepost)) {
-        //         $data = \Datetime::createFromFormat('YmdHis.000', $datepost, new \DateTimeZone('UTC'));
-        //         $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
-        //     } else {
-        //         $data = \Datetime::createFromFormat('Y-m-d H:i:s', $datepost);
-        //     }
-        //     $volt = (float) $datavolt['volt'];
-        //     $temp = (float) $datavolt['temp'];
-        //     $batteryperc = (float) $datavolt['batteryperc'];
-        //     $longitude = (float) $datavolt['longitude'];
-        //     $latitude = (float) $datavolt['latitude'];
-        // }
+        $longitude = floatval($datavolt['longitude']);
+        $latitude = floatval($datavolt['latitude']);
 
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder()

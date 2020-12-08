@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Log;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,8 +26,8 @@ class LogType extends AbstractType
                 ->add('temp')
                 ->add('device')
                 ->add('detectorperc')
-                ->add('longitude')
-                ->add('latitude')
+                ->add('longitude', NumberType::class, ['scale'=>8])
+                ->add('latitude', NumberType::class, ['scale'=>8])
                 ->add('weather')
                 ->add('externaltemp')
                 ->add('cloudiness')
