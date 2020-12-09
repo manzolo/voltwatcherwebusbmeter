@@ -43,8 +43,8 @@ $(document).ready(function () {
         $("#map").html("");
         $("#mapmarker").html('<a class="overlay" id="device"></a><div id="marker" title="Marker"></div>');
 
-        var longitude = parseFloat($("#log_longitude").val());
-        var latitude = parseFloat($("#log_latitude").val());
+        var longitude = parseFloat($("#log_longitude").val().replace(/,/g, '.'));
+        var latitude = parseFloat($("#log_latitude").val().replace(/,/g, '.'));
         if (longitude > 0 && latitude > 0) {
 
             var layer = new TileLayer({
