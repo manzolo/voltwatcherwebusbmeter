@@ -87,7 +87,7 @@ class ApiController extends FOSRestController {
         $recipient = $this->params->get('mailer_user');
         if ($threshold && $recipient && $newlog->getVolt() < $threshold) {
             $email = (new Email())
-                    ->from('voltwatcheralert@manzolo.it')
+                    ->from($recipient)
                     ->to($recipient)
                     //->cc('cc@example.com')
                     //->bcc('bcc@example.com')
@@ -96,8 +96,11 @@ class ApiController extends FOSRestController {
                     ->subject('WARNING from ' . $newlog->getDevice() . ' *** ' . $newlog->getVolt() . ' volt ***')
                     ->text('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'))
                     ->html('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
-
-            $this->mailer->send($email);
+            try {
+                $this->mailer->send($email);
+            } catch (\Exception $exc) {
+                //echo $exc->getTraceAsString();
+            }
         }
 
         $owmappid = $this->params->get('openweathermap_apikey');
@@ -132,12 +135,12 @@ class ApiController extends FOSRestController {
         return $this->view(['errcode' => 0, 'errmsg' => 'OK'], Response::HTTP_OK);
     }
 
-/**
+    /**
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
      */
     public function postVoltRecordAction(array $datavolt) {
         return $this->putVoltRecordAction($datavolt);
-    }    
+    }
 
     public function appGetSettingsAction() {
         $em = $this->getDoctrine()->getManager();
