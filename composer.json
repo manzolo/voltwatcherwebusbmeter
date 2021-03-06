@@ -5,7 +5,7 @@
         "php": "^8.0",
         "cmen/google-charts-bundle": "^4.0",
         "comunedifirenze/bicorebundle": "^2.0",
-        "friendsofsymfony/rest-bundle": "^2.7",
+        "friendsofsymfony/rest-bundle": "^3.0",
         "jms/serializer-bundle": "^3.5",
         "lexik/jwt-authentication-bundle": "^2.6",
         "sensio/framework-extra-bundle": "^5.5",

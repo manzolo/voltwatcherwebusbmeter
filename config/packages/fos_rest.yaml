@@ -4,7 +4,7 @@ fos_rest:
         enabled: true
     param_fetcher_listener:  true
     allowed_methods_listener:  true
-    routing_loader: true
+    routing_loader: false
     view:
         view_response_listener: 'force'
         formats:
