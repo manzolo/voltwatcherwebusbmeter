@@ -36,5 +36,5 @@ api_login_check:
     path: /api/login_check
 
 resources:
-    type: rest
+    type: annotation
     resource: App\Controller\ApiController

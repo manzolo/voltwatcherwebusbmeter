@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["battery"],{V89o:function(n,o,w){},x9kY:function(n,o,w){w("V89o"),w("vs8Z"),w("cFE2")}},[["x9kY","runtime",4]]]);

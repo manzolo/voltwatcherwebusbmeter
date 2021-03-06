@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Device;
 use App\Entity\Log;
-use FOS\RestBundle\Controller\Annotations\RouteResource;
-use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Controller\Annotations as RestAnnotations;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,25 +13,25 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-/**
- * @RouteResource("api", pluralize=false)
- */
-class ApiController extends FOSRestController {
+class ApiController extends AbstractFOSRestController
+{
 
     private $mailer;
     private $params;
     private $client;
 
-    public function __construct(MailerInterface $mailer, ParameterBagInterface $params, HttpClientInterface $client) {
+    public function __construct(MailerInterface $mailer, ParameterBagInterface $params, HttpClientInterface $client)
+    {
         $this->mailer = $mailer;
         $this->params = $params;
         $this->client = $client;
     }
-
     /**
+     * @RestAnnotations\Put("api/volt/record.json")
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
      */
-    public function putVoltRecordAction(array $datavolt) {
+    public function putVoltRecordAction(array $datavolt)
+    {
         //if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $device = $datavolt['device'];
         if ($datavolt['data']) {
@@ -134,15 +134,19 @@ class ApiController extends FOSRestController {
 
         return $this->view(['errcode' => 0, 'errmsg' => 'OK'], Response::HTTP_OK);
     }
-
     /**
+     * @RestAnnotations\Post("api/volt/record.json")
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
      */
-    public function postVoltRecordAction(array $datavolt) {
+    public function postVoltRecordAction(array $datavolt)
+    {
         return $this->putVoltRecordAction($datavolt);
     }
-
-    public function appGetSettingsAction() {
+    /**
+     * @RestAnnotations\Get("api/get/settings/app.json")
+     */
+    public function appGetSettingsAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder()
                 ->select('s')
@@ -156,11 +160,13 @@ class ApiController extends FOSRestController {
         //array("seconds" => 300, "enabled" => "1", devices => "44:44:09:04:01:CC, 34:43:0B:07:0F:58")
         return $this->view($newsettings);
     }
-
-    public function appServerDatetimeAction() {
+    /**
+     * @RestAnnotations\Get("api/get/server/datetime.json")
+     */
+    public function appServerDatetimeAction()
+    {
         $now = (new \DateTime());
 
         return $this->view(['datetime' => $now->format('Y-m-d H:i:s'), 'date' => $now->format('Y-m-d'), 'time' => $now->format('H:i:s')]);
     }
-
 }
