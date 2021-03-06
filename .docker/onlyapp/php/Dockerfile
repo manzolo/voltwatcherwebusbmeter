@@ -59,8 +59,15 @@ RUN rm -rf .git && \
 
 FROM ubuntu:20.04
 
+RUN apt update && apt install -y \
+    apt-transport-https \
+    software-properties-common \
+    ca-certificates \
+    curl \
+    gnupg
+RUN add-apt-repository ppa:ondrej/php
 RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev \
-apache2 php8.0 php8.0-mysql libapache2-mod-php8.0 php-mbstring php-intl php-pdo php-mysql php-pdo-mysql php-gd php-zip php-xml curl \
+apache2 php8.0 php8.0-mysql libapache2-mod-php8.0 php-mbstring php-intl php-mysql php-gd php-zip php-xml curl \
 libpng-dev libzip-dev acl
 #RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev libpng-dev libzip-dev netcat acl
 #RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
