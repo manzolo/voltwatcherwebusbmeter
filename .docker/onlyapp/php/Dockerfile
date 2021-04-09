@@ -85,6 +85,7 @@ RUN chmod +x /usr/local/bin/start-apache
 RUN apachectl configtest
 RUN a2enmod php8.0
 RUN a2enmod rewrite
+RUN a2enmod remoteip
 RUN a2enmod env
 #RUN phpenmod pdo_mysql
 RUN rm /var/www/html/index.html
