@@ -142,6 +142,9 @@
             "config/packages/prod/jms_serializer.yaml"
         ]
     },
+    "kimai/user-bundle": {
+        "version": "2.0"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
