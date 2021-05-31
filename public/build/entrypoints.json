@@ -4,7 +4,7 @@
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.0a958027.js",
+        "/build/818.fd3aa308.js",
         "/build/app.32c831be.js"
       ],
       "css": [
@@ -25,12 +25,12 @@
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.0a958027.js",
-        "/build/194.9d888d4a.js",
+        "/build/818.fd3aa308.js",
+        "/build/194.df27fd16.js",
         "/build/maps.9a5e2343.js"
       ],
       "css": [
-        "/build/maps.0718510a.css"
+        "/build/maps.937ee1e6.css"
       ]
     },
     "battery": {
@@ -40,7 +40,7 @@
         "/build/battery.7db92908.js"
       ],
       "css": [
-        "/build/803.b45effc4.css",
+        "/build/803.1577d998.css",
         "/build/battery.27338f2e.css"
       ]
     },
@@ -53,7 +53,7 @@
         "/build/bootstrapitalia.4be4dee4.js"
       ],
       "css": [
-        "/build/234.341a9214.css"
+        "/build/234.bcb179b5.css"
       ]
     },
     "bicore": {
@@ -62,7 +62,7 @@
         "/build/bicore.009ae177.js"
       ],
       "css": [
-        "/build/bicore.adb420ed.css"
+        "/build/bicore.b8275134.css"
       ]
     },
     "login": {
@@ -78,44 +78,44 @@
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.0a958027.js",
+        "/build/818.fd3aa308.js",
         "/build/981.51afc3c7.js",
-        "/build/994.d00c123d.js",
-        "/build/351.3486a7df.js",
+        "/build/994.f73eed7c.js",
+        "/build/351.03c42245.js",
         "/build/919.bede4e9a.js",
         "/build/bitabella.72a25d75.js"
       ],
       "css": [
-        "/build/803.b45effc4.css",
-        "/build/919.1cd5a388.css"
+        "/build/803.1577d998.css",
+        "/build/919.df60ed23.css"
       ]
     },
     "bidemo": {
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.0a958027.js",
+        "/build/818.fd3aa308.js",
         "/build/981.51afc3c7.js",
-        "/build/994.d00c123d.js",
-        "/build/351.3486a7df.js",
+        "/build/994.f73eed7c.js",
+        "/build/351.03c42245.js",
         "/build/919.bede4e9a.js",
         "/build/bidemo.3aa7cd20.js"
       ],
       "css": [
-        "/build/803.b45effc4.css",
-        "/build/919.1cd5a388.css"
+        "/build/803.1577d998.css",
+        "/build/919.df60ed23.css"
       ]
     },
     "adminpanel": {
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.0a958027.js",
-        "/build/994.d00c123d.js",
+        "/build/818.fd3aa308.js",
+        "/build/994.f73eed7c.js",
         "/build/adminpanel.3f30b793.js"
       ],
       "css": [
-        "/build/adminpanel.159bde85.css"
+        "/build/adminpanel.feba0325.css"
       ]
     }
   }
