@@ -4,7 +4,7 @@
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.fd3aa308.js",
+        "/build/818.73389918.js",
         "/build/app.32c831be.js"
       ],
       "css": [
@@ -25,7 +25,7 @@
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.fd3aa308.js",
+        "/build/818.73389918.js",
         "/build/194.df27fd16.js",
         "/build/maps.9a5e2343.js"
       ],
@@ -59,10 +59,12 @@
     "bicore": {
       "js": [
         "/build/runtime.67092438.js",
-        "/build/bicore.009ae177.js"
+        "/build/755.f5cf308f.js",
+        "/build/818.73389918.js",
+        "/build/bicore.34097758.js"
       ],
       "css": [
-        "/build/bicore.b8275134.css"
+        "/build/bicore.e7c900e9.css"
       ]
     },
     "login": {
@@ -78,39 +80,39 @@
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.fd3aa308.js",
+        "/build/818.73389918.js",
         "/build/981.51afc3c7.js",
         "/build/994.f73eed7c.js",
-        "/build/351.03c42245.js",
+        "/build/351.553746d9.js",
         "/build/919.bede4e9a.js",
         "/build/bitabella.72a25d75.js"
       ],
       "css": [
         "/build/803.1577d998.css",
-        "/build/919.df60ed23.css"
+        "/build/919.28033ba2.css"
       ]
     },
     "bidemo": {
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.fd3aa308.js",
+        "/build/818.73389918.js",
         "/build/981.51afc3c7.js",
         "/build/994.f73eed7c.js",
-        "/build/351.03c42245.js",
+        "/build/351.553746d9.js",
         "/build/919.bede4e9a.js",
         "/build/bidemo.3aa7cd20.js"
       ],
       "css": [
         "/build/803.1577d998.css",
-        "/build/919.df60ed23.css"
+        "/build/919.28033ba2.css"
       ]
     },
     "adminpanel": {
       "js": [
         "/build/runtime.67092438.js",
         "/build/755.f5cf308f.js",
-        "/build/818.fd3aa308.js",
+        "/build/818.73389918.js",
         "/build/994.f73eed7c.js",
         "/build/adminpanel.3f30b793.js"
       ],
