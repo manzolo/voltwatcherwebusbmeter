@@ -59,6 +59,8 @@ RUN rm -rf .git && \
 
 FROM ubuntu:20.04
 
+RUN rm -rf /var/lib/apt/lists
+
 RUN apt update && apt install -y \
     apt-transport-https \
     software-properties-common \
