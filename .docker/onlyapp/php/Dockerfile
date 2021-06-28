@@ -1,7 +1,7 @@
 ARG MYSQL_HOST
 ARG MYSQL_PORT
 
-FROM php:8.0.3-fpm as build
+FROM php:8.0.7-fpm as build
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
@@ -58,8 +58,6 @@ RUN rm -rf .git && \
     composer install --no-dev --optimize-autoloader
 
 FROM ubuntu:20.04
-
-RUN rm -rf /var/lib/apt/lists
 
 RUN apt update && apt install -y \
     apt-transport-https \
