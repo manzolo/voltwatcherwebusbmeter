@@ -4,8 +4,8 @@
       "js": [
         "/build/runtime.6d5e52f1.js",
         "/build/755.5a8586e9.js",
-        "/build/109.76a12635.js",
-        "/build/app.b9e1c9b7.js"
+        "/build/109.fe1a7cb6.js",
+        "/build/app.2d709710.js"
       ],
       "css": [
         "/build/app.2eea1a51.css"
@@ -25,12 +25,12 @@
       "js": [
         "/build/runtime.6d5e52f1.js",
         "/build/755.5a8586e9.js",
-        "/build/109.76a12635.js",
-        "/build/146.2d30da12.js",
+        "/build/109.fe1a7cb6.js",
+        "/build/146.67116297.js",
         "/build/maps.346cc3e9.js"
       ],
       "css": [
-        "/build/maps.1089a6bc.css"
+        "/build/maps.9dd3dc4e.css"
       ]
     },
     "battery": {
@@ -60,8 +60,8 @@
       "js": [
         "/build/runtime.6d5e52f1.js",
         "/build/755.5a8586e9.js",
-        "/build/109.76a12635.js",
-        "/build/bicore.ab19a9f7.js"
+        "/build/109.fe1a7cb6.js",
+        "/build/bicore.91351a95.js"
       ],
       "css": [
         "/build/bicore.e7c900e9.css"
@@ -80,11 +80,11 @@
       "js": [
         "/build/runtime.6d5e52f1.js",
         "/build/755.5a8586e9.js",
-        "/build/109.76a12635.js",
+        "/build/109.fe1a7cb6.js",
         "/build/981.65633466.js",
-        "/build/994.e9267a64.js",
-        "/build/351.91c41e86.js",
-        "/build/919.e2ee0978.js",
+        "/build/994.955c5b03.js",
+        "/build/351.35749035.js",
+        "/build/919.9e1d4cb8.js",
         "/build/bitabella.0acf9f57.js"
       ],
       "css": [
@@ -96,12 +96,12 @@
       "js": [
         "/build/runtime.6d5e52f1.js",
         "/build/755.5a8586e9.js",
-        "/build/109.76a12635.js",
+        "/build/109.fe1a7cb6.js",
         "/build/981.65633466.js",
-        "/build/994.e9267a64.js",
-        "/build/351.91c41e86.js",
-        "/build/919.e2ee0978.js",
-        "/build/bidemo.beb21e6e.js"
+        "/build/994.955c5b03.js",
+        "/build/351.35749035.js",
+        "/build/919.9e1d4cb8.js",
+        "/build/bidemo.9c02b84b.js"
       ],
       "css": [
         "/build/803.069aa3e8.css",
@@ -112,8 +112,8 @@
       "js": [
         "/build/runtime.6d5e52f1.js",
         "/build/755.5a8586e9.js",
-        "/build/109.76a12635.js",
-        "/build/994.e9267a64.js",
+        "/build/109.fe1a7cb6.js",
+        "/build/994.955c5b03.js",
         "/build/adminpanel.ee310fd0.js"
       ],
       "css": [

@@ -5,6 +5,12 @@
     "comunedifirenze/bicorebundle": {
         "version": "v0.1.0"
     },
+    "comunedifirenze/doctrine2-exporter": {
+        "version": "3.0.5"
+    },
+    "comunedifirenze/mysql-workbench-schema-exporter": {
+        "version": "v3.1.4.1"
+    },
     "comunedifirenze/user-bundle": {
         "version": "1.2.2.2"
     },
