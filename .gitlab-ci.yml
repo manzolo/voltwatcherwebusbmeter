@@ -37,13 +37,14 @@ create_database:
     script:
       - echo "SELECT 'OK';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
       - echo "CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
-      - echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
+      - echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
     when: on_success
 
 check_project:
     image: docker/compose:latest
     stage: build
     script:
+      - composer config cache-files-dir .composer_cache
       - composer install --no-dev --optimize-autoloader --no-interaction
       - ./bin/console lint:yaml config --parse-tags
       # this checks that the Twig template files contain no syntax errors
