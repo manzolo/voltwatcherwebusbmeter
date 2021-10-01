@@ -41,7 +41,7 @@ create_database:
     when: on_success
 
 check_project:
-    image: docker/compose:latest
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
     stage: build
     script:
       - composer config cache-files-dir .composer_cache
