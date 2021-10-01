@@ -33,7 +33,7 @@ before_script:
     - composer config cache-files-dir .composer_cache
 
 create_database:
-    image: mysql/5.7
+    image: mysql:5.7
     stage: createdb
     script:
       - echo "SELECT 'OK';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
