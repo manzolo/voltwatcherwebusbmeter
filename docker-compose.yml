@@ -1,7 +1,7 @@
 version: '3'
 services:
     app:
-        image: manzolo/voltwatcher
+        image: $CI_REGISTRY/manzolo/voltwatcher
         restart: always
         build: 
           context: .
