@@ -57,6 +57,9 @@ check_project:
       # this checks that the application doesn't use dependencies with known security vulnerabilities
       - symfony security:check
       # this checks that Doctrine's mapping configurations are valid
+      - ./bin/console bicorebundle:install admin admin admin@admin.it
+      - ./bin/console voltwatcher:install
+      # this checks that Doctrine's mapping configurations are valid
       - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
     when: on_success
     #artifacts:
