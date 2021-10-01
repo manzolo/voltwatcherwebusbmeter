@@ -44,8 +44,9 @@ check_project:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
     stage: build
     script:
+      - env
       - composer config cache-files-dir .composer_cache
-      - composer install --no-dev --optimize-autoloader --no-interaction
+      - APP_ENV=prod composer install --no-dev --optimize-autoloader --no-interaction
       - ./bin/console lint:yaml config --parse-tags
       # this checks that the Twig template files contain no syntax errors
       - ./bin/console lint:twig templates --env=prod
@@ -82,7 +83,7 @@ deploy_project:
     - docker push $TAG_COMMIT
     #- ssh $USER_AT_DOCKER "sed -i \"s/APP_IMAGE_TAG=.*/APP_IMAGE_TAG=$CI_COMMIT_TAG/\" /home/manzolo/$CI_PROJECT_NAME/.env"
     #- ssh $USER_AT_DOCKER "cd /home/manzolo/$CI_PROJECT_NAME && docker-compose pull && docker-compose down && docker-compose up -d"
-  when: manual
+  #when: manual
   #environment:
   #  name: prod
   only:
