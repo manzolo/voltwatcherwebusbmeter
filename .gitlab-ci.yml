@@ -44,6 +44,7 @@ check_project:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
     stage: build
     script:
+      - env
       - composer config cache-files-dir .composer_cache
       - composer install --no-dev --optimize-autoloader --no-interaction
       - ./bin/console lint:yaml config --parse-tags
