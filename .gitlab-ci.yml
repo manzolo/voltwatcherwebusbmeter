@@ -1,0 +1,37 @@
+services:
+  - mysql:5.7
+
+stages:
+    - build
+    
+variables:
+  DATABASE_URL: $DATABASE_URL
+  MAILER_DSN: $MAILER_DSN
+  DISPLAY: ":0.0"
+  MYSQL_DATABASE: $MYSQL_DATABASE
+  MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+    - .composer_cache
+
+before_script:
+    - php -m
+    - apt-get update && apt-get install -y xvfb fontconfig pcregrep
+    - Xvfb :0 -ac -screen 0 1024x768x24 &
+    - composer config cache-files-dir .composer_cache
+
+build_php8.0:
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-xdebug-apache
+    stage: build
+    script:
+      - docker-compose build --no-cache
+
+    when: on_success
+    #artifacts:
+    #  paths:
+    #    - build/logs/clover.xml
+    #  expire_in: 1 week      
