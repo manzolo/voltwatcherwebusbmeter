@@ -12,7 +12,9 @@ variables:
   
   MYSQL_DATABASE: $MYSQL_DATABASE
   MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-  
+  MYSQL_USER: $MYSQL_USER
+  MYSQL_PASSWORD: $MYSQL_PASSWORD
+      
   TAG_COMMIT: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
   TAG_LATEST: $CI_REGISTRY_IMAGE:latest
 
@@ -28,10 +30,13 @@ before_script:
     - Xvfb :0 -ac -screen 0 1024x768x24 &
     - composer config cache-files-dir .composer_cache
 
-build_php8.0:
+check_project:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
     stage: build
     script:
+      - service mysql start
+      - echo "SET PASSWORD FOR 'root'@'$MYSQL_HOST' = PASSWORD('$MYSQL_ROOT_PASSWORD');" | mysql -u root
+      - echo "SELECT 'OK';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
       - composer install --no-dev --optimize-autoloader --no-interaction
       - ./bin/console lint:yaml config --parse-tags
       # this checks that the Twig template files contain no syntax errors
@@ -51,7 +56,7 @@ build_php8.0:
     #    - build/logs/clover.xml
     #  expire_in: 1 week      
     
-deploy_prod_job:
+deploy_project:
   stage: deploy
   image: docker/compose
   before_script:
@@ -60,7 +65,7 @@ deploy_prod_job:
     - echo "Latest image tag:"$TAG_LATEST
     - echo "Deploy image tag:"$TAG_COMMIT
   script:
-    - docker-compose build
+    - docker-compose build --no-cache
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY      
     - docker tag $TAG_LATEST $TAG_COMMIT
     - docker push $TAG_COMMIT
