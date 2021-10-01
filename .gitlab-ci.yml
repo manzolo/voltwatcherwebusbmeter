@@ -38,15 +38,15 @@ create_database:
       - echo "SELECT 'OK';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
       - echo "CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
       - echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
-    when: on_success
+    #when: on_success
 
 check_project:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
     stage: build
     script:
-      - env
+      #- env
       - composer config cache-files-dir .composer_cache
-      - APP_ENV=prod composer install --no-dev --optimize-autoloader --no-interaction
+      - composer install --no-dev --optimize-autoloader --no-interaction
       - ./bin/console lint:yaml config --parse-tags
       # this checks that the Twig template files contain no syntax errors
       - ./bin/console lint:twig templates --env=prod
@@ -62,7 +62,7 @@ check_project:
       - ./bin/console voltwatcher:install
       # this checks that Doctrine's mapping configurations are valid
       - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-    when: on_success
+    #when: on_success
     #artifacts:
     #  paths:
     #    - build/logs/clover.xml
