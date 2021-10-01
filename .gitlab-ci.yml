@@ -34,8 +34,8 @@ check_project:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
     stage: build
     script:
-      - echo "SET PASSWORD FOR 'root'@'$MYSQL_HOST' = PASSWORD('$MYSQL_ROOT_PASSWORD');" | mysql -u root
       - echo "SELECT 'OK';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
+      - echo "CREATE DATABASE '$MYSQL_DATABASE';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
       - composer install --no-dev --optimize-autoloader --no-interaction
       - ./bin/console lint:yaml config --parse-tags
       # this checks that the Twig template files contain no syntax errors
