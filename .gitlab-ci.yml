@@ -11,6 +11,7 @@ variables:
   DISPLAY: ":0.0"
   
   MYSQL_DATABASE: $MYSQL_DATABASE
+  MYSQL_HOST: $MYSQL_HOST
   MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
   MYSQL_USER: $MYSQL_USER
   MYSQL_PASSWORD: $MYSQL_PASSWORD
@@ -35,7 +36,9 @@ check_project:
     stage: build
     script:
       - echo "SELECT 'OK';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
-      - echo "CREATE DATABASE '$MYSQL_DATABASE';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
+      - echo "CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
+      - echo "CREATE DATABASE IF NOT EXISTS `$MYSQL_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
+
       - composer install --no-dev --optimize-autoloader --no-interaction
       - ./bin/console lint:yaml config --parse-tags
       # this checks that the Twig template files contain no syntax errors
