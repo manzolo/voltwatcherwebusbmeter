@@ -26,11 +26,10 @@ cache:
     - vendor/
     - .composer_cache
 
-before_script:
-    - php -m
-    - apt-get update && apt-get install -y xvfb fontconfig pcregrep docker-compose default-mysql-client
-    - Xvfb :0 -ac -screen 0 1024x768x24 &
-    - composer config cache-files-dir .composer_cache
+#before_script:
+#    - apt-get update && apt-get install -y xvfb fontconfig pcregrep docker-compose default-mysql-client
+#    - Xvfb :0 -ac -screen 0 1024x768x24 &
+#    - composer config cache-files-dir .composer_cache
 
 create_database:
     image: mysql:5.7
