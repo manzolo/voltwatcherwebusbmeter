@@ -46,7 +46,7 @@ check_project:
     script:
       - env
       - composer config cache-files-dir .composer_cache
-      - composer install --no-dev --optimize-autoloader --no-interaction
+      - APP_ENV=prod composer install --no-dev --optimize-autoloader --no-interaction
       - ./bin/console lint:yaml config --parse-tags
       # this checks that the Twig template files contain no syntax errors
       - ./bin/console lint:twig templates --env=prod
