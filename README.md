@@ -61,7 +61,7 @@
     # Api Password certificate
     JWT_PASSPHRASE=jwtpassword
 
-    # Start containers
+    # Start container
     docker-compose up --no-build -d
 
     # Inside container
@@ -69,6 +69,12 @@
         
     bin/console bicorebundle:install adminuser adminpassword admin@email.com
     bin/console voltwatcher:install
+    
+    #remove build section from docker-compose.yml
+
+#### How to start container
+    # Start container (after removing build section from docker-compose.yml)
+    docker-compose up -d
 
 
 ## Hardware suggested
