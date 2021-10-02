@@ -4,13 +4,11 @@
 /public/bundles/
 /var/
 /vendor/
+bin/*
+!bin/console
+
 ###< symfony/framework-bundle ###
 /nbproject/private/
-###> symfony/phpunit-bridge ###
-.phpunit
-/phpunit.xml
-###< symfony/phpunit-bridge ###
-
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 #/public/build/
@@ -30,3 +28,8 @@ data
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
