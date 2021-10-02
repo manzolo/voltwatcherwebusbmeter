@@ -3,6 +3,7 @@ services:
 
 stages:
     - createdb
+    - test
     - build
     - deploy
     
@@ -41,22 +42,33 @@ check_project:
       #- env
       - composer config cache-files-dir .composer_cache
       - composer install --no-dev --optimize-autoloader --no-interaction
-      - ./bin/console lint:yaml config --parse-tags
+      - bin/console lint:yaml config --parse-tags
       # this checks that the Twig template files contain no syntax errors
-      - ./bin/console lint:twig templates --env=prod
+      - bin/console lint:twig templates --env=prod
       # this checks that the XLIFF translations contain no syntax errors
-      - ./bin/console lint:xliff translations
+      - bin/console lint:xliff translations
       # this checks that arguments injected into services match type declarations
-      - ./bin/console lint:container
+      - bin/console lint:container
       # TODO: replace the old security checker by the new checker provided by the 'symfony' binary
       # this checks that the application doesn't use dependencies with known security vulnerabilities
       - symfony security:check
       # this checks that Doctrine's mapping configurations are valid
-      - ./bin/console bicorebundle:install admin admin admin@admin.it
-      - ./bin/console voltwatcher:install
+      - bin/console bicorebundle:install admin admin admin@admin.it
+      - bin/console voltwatcher:install
       # this checks that Doctrine's mapping configurations are valid
-      - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+      - bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
     
+test_project:
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
+    stage: test
+    script:
+      #- env
+      - composer config cache-files-dir .composer_cache
+      - composer install
+      - bin/console bicorebundle:install admin admin admin@admin.it
+      - bin/console voltwatcher:install
+      - bin/simple-phpunit
+
 deploy_project:
   stage: deploy
   image: docker/compose:latest
