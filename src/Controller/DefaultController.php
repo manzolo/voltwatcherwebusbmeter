@@ -106,7 +106,7 @@ class DefaultController extends AbstractController
             $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
             $chart->getData()->setArrayToDataTable($dati);
             $chart->setElementID($device->getId());
-            $deviceName = $device->getName() ? $device->getName() : $device->getName();
+            $deviceName = $device->getName() ? $device->getName() : $device->getAddress();
             $chart->getOptions()->getChart()->setTitle($deviceName);
             $chart->getOptions()
                     ->setSeries([['axis' => 'Volts']])
