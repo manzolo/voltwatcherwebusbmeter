@@ -3,3 +3,5 @@ bi_core:
     appname: BiCoreTemplate
     appid: 9999
     solosso: false
+    admin4test: admin
+    adminpwd4test: amin

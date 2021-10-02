@@ -39,5 +39,35 @@ class HomepageTest extends WebTestCase
         $this->getAdminClient();
         $crawler = $this->client->request('GET', '/');
         $this->assertResponseIsSuccessful();
+        $this->assertStringContainsString('San Piero a Sieve', $crawler->html());
+        //
+    }
+    private function getToken()
+    {
+        $username = $this->client->getContainer()->getParameter("bi_core.admin4test");
+        $password = $this->client->getContainer()->getParameter("bi_core.adminpwd4test");
+        $this->client->request('POST', '/api/login_check', [], [],
+                ['CONTENT_TYPE' => 'application/json',
+                    'Accept' => 'application/json'],
+                json_encode(["username" => $username, "password" => $password])
+        );
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+
+        $response = $this->client->getResponse();
+
+        $contenuto = json_decode($response->getContent());
+
+        return $contenuto->token;
+    }
+    public function testApi(): void
+    {
+        $tokem = $this->getToken();
+        $now = (new \DateTime())->format("Y-m-d H:i:s");
+        $data = '{"device":"44:44:09:04:01:CC","data":"' . $now . '","volt":"12","temp":"18","batteryperc":"100","longitude":"11.3447","latitude":"43.9614"}';
+        $crawler = $this->client->request('PUT', '/api/volt/record.json', [], [], ['CONTENT_TYPE' => 'application/json',
+            'Accept' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer ' . $tokem], $data);
+
+        $this->assertResponseIsSuccessful();
     }
 }
