@@ -94,6 +94,7 @@ deploy_project:
 restart_container:
   stage: restart_container
   script:
+    - ls -al $NAMEDPIPE
     - echo $RESTART_CONTAINER_CMD
     - echo $NAMEDPIPE
     - echo "$RESTART_CONTAINER_CMD" > $NAMEDPIPE
