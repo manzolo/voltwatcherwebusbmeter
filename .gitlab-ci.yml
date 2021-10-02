@@ -56,7 +56,7 @@ check_project:
       - bin/console voltwatcher:install
       # this checks that Doctrine's mapping configurations are valid
       - bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-      - vendor/bin/simple-phpunit
+      - bin/simple-phpunit
     
 deploy_project:
   stage: deploy
