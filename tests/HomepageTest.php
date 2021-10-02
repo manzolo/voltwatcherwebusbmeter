@@ -24,7 +24,7 @@ class HomepageTest extends WebTestCase
                     'Accept' => 'application/json'],
                 json_encode(["username" => $username, "password" => $password])
         );
-
+echo $this->client->getResponse();
         $this->assertTrue($this->client->getResponse()->isSuccessful());
 
         $response = $this->client->getResponse();
