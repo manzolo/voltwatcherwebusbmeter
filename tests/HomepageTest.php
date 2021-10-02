@@ -15,6 +15,24 @@ class HomepageTest extends WebTestCase
     {
         $this->client = static::createClient();
     }
+    private function getToken()
+    {
+        $username = $this->client->getContainer()->getParameter("bi_core.admin4test");
+        $password = $this->client->getContainer()->getParameter("bi_core.adminpwd4test");
+        $this->client->request('POST', '/api/login_check', [], [],
+                ['CONTENT_TYPE' => 'application/json',
+                    'Accept' => 'application/json'],
+                json_encode(["username" => $username, "password" => $password])
+        );
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+
+        $response = $this->client->getResponse();
+
+        $contenuto = json_decode($response->getContent());
+
+        return $contenuto->token;
+    }
     private function getAdminClient()
     {
         $container = $this->client->getContainer();
@@ -34,32 +52,6 @@ class HomepageTest extends WebTestCase
         $container->get('session')->save();
         $this->client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));
     }
-    public function testHomepage(): void
-    {
-        $this->getAdminClient();
-        $crawler = $this->client->request('GET', '/');
-        $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('San Piero a Sieve', $crawler->html());
-        //
-    }
-    private function getToken()
-    {
-        $username = $this->client->getContainer()->getParameter("bi_core.admin4test");
-        $password = $this->client->getContainer()->getParameter("bi_core.adminpwd4test");
-        $this->client->request('POST', '/api/login_check', [], [],
-                ['CONTENT_TYPE' => 'application/json',
-                    'Accept' => 'application/json'],
-                json_encode(["username" => $username, "password" => $password])
-        );
-
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
-
-        $response = $this->client->getResponse();
-
-        $contenuto = json_decode($response->getContent());
-
-        return $contenuto->token;
-    }
     public function testApi(): void
     {
         $tokem = $this->getToken();
@@ -69,5 +61,13 @@ class HomepageTest extends WebTestCase
             'Accept' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer ' . $tokem], $data);
 
         $this->assertResponseIsSuccessful();
+    }
+    public function testHomepage(): void
+    {
+        $this->getAdminClient();
+        $crawler = $this->client->request('GET', '/');
+        $this->assertResponseIsSuccessful();
+        $this->assertStringContainsString('San Piero a Sieve', $crawler->html());
+        //
     }
 }
