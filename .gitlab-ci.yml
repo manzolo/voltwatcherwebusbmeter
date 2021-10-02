@@ -91,14 +91,14 @@ deploy_project:
   rules:
     - if: '$CI_COMMIT_TAG != null'
 
-restart_container:
-  stage: restart_container
-  script:
-    - ls -al $NAMEDPIPE
-    - echo $RESTART_CONTAINER_CMD
-    - echo $NAMEDPIPE
-    - echo "$RESTART_CONTAINER_CMD" > $NAMEDPIPE
-  rules:
-    - if: '$CI_COMMIT_TAG != null'
-      when: manual    
+#restart_container:
+#  stage: restart_container
+#  script:
+#    - ls -al $NAMEDPIPE
+#    - echo $RESTART_CONTAINER_CMD
+#    - echo $NAMEDPIPE
+#    - echo "$RESTART_CONTAINER_CMD" > $NAMEDPIPE
+#  rules:
+#    - if: '$CI_COMMIT_TAG != null'
+#      when: manual    
 
