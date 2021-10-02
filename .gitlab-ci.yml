@@ -3,6 +3,7 @@ services:
 
 stages:
     - createdb
+    - test
     - build
     - deploy
     
@@ -56,8 +57,16 @@ check_project:
       - bin/console voltwatcher:install
       # this checks that Doctrine's mapping configurations are valid
       - bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-      - bin/simple-phpunit
     
+test_project:
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
+    stage: test
+    script:
+      #- env
+      - composer config cache-files-dir .composer_cache
+      - composer install
+      - bin/simple-phpunit
+
 deploy_project:
   stage: deploy
   image: docker/compose:latest
