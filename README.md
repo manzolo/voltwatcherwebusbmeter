@@ -6,16 +6,32 @@
 ## Log detail
 ![img](doc/images/logdetail.jpg)
 
-## Hardware Prerequisites
+
+## Send record to webserver
+    
+    #Login to get token
+    curl --request POST \
+      --url https://webserver/api/login_check \
+      --header 'Content-Type: application/json' \
+      --data '{"username":"admin", "password":"userpassword"}'
+
+    #Send data to webserver
+    curl --request PUT \
+      --url https://webserver/api/volt/record.json \
+      --header 'Authorization: Bearer HERE_TOKEN_FROM_LOGIN' \
+      --header 'Content-Type: application/json' \
+      --data '{"device":"XX:YY:ZZ:99:88:77","data":"2021-10-02 14:29:00","volt":"12.56","temp":"18.3","batteryperc":"100","longitude":"11.333","latitude":"43.555"}'
+
+## Hardware suggested
 Usb bluetooth volt meter like https://sigrok.org/wiki/RDTech_UM_series
 
-## Software Prerequisites
+## Software suggested
 - Android App https://github.com/manzolo/bluetooth-watcher/releases
 - apache HTTP server 
 - Composer (https://getcomposer.org/) 
 - Symfony cli (https://symfony.com/download only for testing) 
 - git
-
+### Standalone
 Php modules
 
 - php7.*-xml  
@@ -27,18 +43,18 @@ Php modules
 - php7.*-curl 
 - php7.*-bz2 
 
-## Installation
+#### Installation
     git clone https://github.com/manzolo/voltwatcherwebusbmeter.git
     cd voltwatcherwebusbmeter
 
-### Create jwt certificates
+#### Create jwt certificates
     $ mkdir -p config/jwt
     $ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
     $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 
 Put password in JWT_PASSPHRASE env (see below)
 
-### Configure environments (creating .env.local file)
+#### Configure environments (creating .env.local file)
 	APP_ENV=prod
 	#http://nux.net/secret
 	APP_SECRET=yoursecretkeybyhttp://nux.net/secret
@@ -55,21 +71,21 @@ Put password in JWT_PASSPHRASE env (see below)
 	JWT_PASSPHRASE=jwtpassword
 	###< lexik/jwt-authentication-bundle ###
 
-### Continue installation
+#### Continue installation
     composer install
 
-### Create database
+#### Create database
     bin/console bicorebundle:install adminusername adminpassword admin@email.com
     bin/console voltwatcher:install
     
-## Test on local server
+#### Test on local server
     symfony server:start --no-tls
 Navigate to
     http://localhost:8000
     
     
-## Docker
-### First time
+### Docker
+#### First time
 
     # From bash
     docker pull manzolo/voltwatcher_app
@@ -115,5 +131,5 @@ Navigate to
         
     bin/console bicorebundle:install adminuser adminpassword admin@email.com
     bin/console voltwatcher:install
+
     
-    exit
