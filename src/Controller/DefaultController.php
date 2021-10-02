@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
+
     private $chartdifftime = '-2 days';
 
     /**
@@ -66,7 +67,6 @@ class DefaultController extends AbstractController
 
         return $this->render($crudtemplate, ['infodevices' => $infodevices, 'charts' => $charts]);
     }
-
     private function getCharts($devices)
     {
         /* chart */
@@ -106,8 +106,8 @@ class DefaultController extends AbstractController
             $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
             $chart->getData()->setArrayToDataTable($dati);
             $chart->setElementID($device->getId());
-
-            $chart->getOptions()->getChart()->setTitle($device->getName());
+            $deviceName = $device->getName() ? $device->getName() : $device->getName();
+            $chart->getOptions()->getChart()->setTitle($deviceName);
             $chart->getOptions()
                     ->setSeries([['axis' => 'Volts']])
             //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
@@ -128,7 +128,6 @@ class DefaultController extends AbstractController
 
         return $charts;
     }
-
     /*
      * Matches / exactly.
      *
