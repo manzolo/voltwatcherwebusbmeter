@@ -24,7 +24,7 @@ class HomepageTest extends WebTestCase
                     'Accept' => 'application/json'],
                 json_encode(["username" => $username, "password" => $password])
         );
-echo $this->client->getResponse();
+
         $this->assertTrue($this->client->getResponse()->isSuccessful());
 
         $response = $this->client->getResponse();
@@ -51,6 +51,18 @@ echo $this->client->getResponse();
         $container->get('session')->set('_security_' . $firewallName, serialize($container->get('security.token_storage')->getToken()));
         $container->get('session')->save();
         $this->client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));
+    }
+    public function testApiTokenWrongAuth()
+    {
+        $username = "test";
+        $password = "test";
+        $this->client->request('POST', '/api/login_check', [], [],
+                ['CONTENT_TYPE' => 'application/json',
+                    'Accept' => 'application/json'],
+                json_encode(["username" => $username, "password" => $password])
+        );
+
+        $this->assertTrue($this->client->getResponse()->getStatusCode() == 401);
     }
     public function testApi(): void
     {
