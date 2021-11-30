@@ -183,8 +183,7 @@ class LogController extends FiController
         ];
 
         /* chart */
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder('d')
+        $qb = $this->em->createQueryBuilder('d')
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
@@ -211,8 +210,8 @@ class LogController extends FiController
         $entity = new $classbundle();
         $controller = ParametriTabella::getParameter($parametripassati['nomecontroller']);
         $form = $this->createForm($formType, $entity, ['attr' => ['id' => 'formdati'.$controller], 'action' => $this->generateUrl($controller.'_new'), 'parametriform' => $parametriform]);
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder('d')
+        
+        $qb = $this->em->createQueryBuilder('d')
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
@@ -234,8 +233,7 @@ class LogController extends FiController
         $charts = [];
 
         $date = (new \DateTime())->modify($this->chartdifftime);
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder('d')
+        $qb = $this->em->createQueryBuilder('d')
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
@@ -244,7 +242,7 @@ class LogController extends FiController
 
         foreach ($devicesrows as $device) {
             /* chart */
-            $qb = $em->createQueryBuilder('j')
+            $qb = $this->em->createQueryBuilder('j')
                     ->select('j')
                     ->from('App:Journal', 'j')
                     ->where('j.device = :device')

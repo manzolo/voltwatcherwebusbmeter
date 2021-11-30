@@ -9,9 +9,9 @@ use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
-class DefaultController extends AbstractController
-{
+class DefaultController extends AbstractController {
 
     private $chartdifftime = '-2 days';
 
@@ -20,10 +20,8 @@ class DefaultController extends AbstractController
      *
      * @Route("/", name="welcome")
      */
-    public function index(Request $request, Packages $assetsmanager)
-    {
+    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em) {
         /* chart */
-        $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
                 ->select('d')
                 ->from('App:Device', 'd')
@@ -62,18 +60,17 @@ class DefaultController extends AbstractController
                 $infodevices[$device->getAddress()] = ['deviceinfo' => $infodevice->getDevice(), 'volt' => $infodevice->getVolt(), 'data' => $infodevice->getData(), 'weathericon' => $infodevice->getWeathericon(), 'location' => $infodevice->getLocation(), 'oldrows' => $resultoldrows];
             }
         }
-        $charts = $this->getCharts($devicesrows);
+        $charts = $this->getCharts( $em);
         $crudtemplate = 'Default/index.html.twig';
 
         return $this->render($crudtemplate, ['infodevices' => $infodevices, 'charts' => $charts]);
     }
-    private function getCharts($devices)
-    {
+
+    private function getCharts(EntityManagerInterface $em) {
         /* chart */
         $charts = [];
 
         $date = (new \DateTime())->modify($this->chartdifftime);
-        $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder('d')
                 ->select('d')
                 ->from('App:Device', 'd')
@@ -128,6 +125,7 @@ class DefaultController extends AbstractController
 
         return $charts;
     }
+
     /*
      * Matches / exactly.
      *
