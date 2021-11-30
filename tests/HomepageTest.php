@@ -79,7 +79,7 @@ class HomepageTest extends WebTestCase
         $this->getAdminClient();
         $crawler = $this->client->request('GET', '/');
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('San Piero a Sieve', $crawler->html());
-        //
+        $this->assertStringContainsString('San Piero a Sieve',  $this->client->getResponse()->getContent());
+        //$crawler->html()
     }
 }
