@@ -26,7 +26,7 @@ class CreateJournalCommand extends Command {
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): int {
         $em = $this->em;
         $query = $em->createQueryBuilder()
                 ->delete('App:Journal', 'd')
