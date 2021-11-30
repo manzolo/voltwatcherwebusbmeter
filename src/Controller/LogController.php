@@ -271,8 +271,8 @@ class LogController extends FiController
             $chart = new AreaChart();
             $chart->getData()->setArrayToDataTable($dati);
             $chart->setElementID($device->getId());
-
-            $chart->getOptions()->setTitle($device->getName());
+            $deviceName = $device->getName() ? $device->getName() : $device->getAddress();
+            $chart->getOptions()->setTitle($deviceName);
             
             $chart->getOptions()
                     ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
