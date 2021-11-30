@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xls;
+use \PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +39,7 @@ class ReportController extends AbstractController
 
         //Creare un nuovo file
         $spreadsheet = new Spreadsheet();
-        $objPHPExcel = new Xls($spreadsheet);
+        $objPHPExcel = new Xlsx($spreadsheet);
         $spreadsheet->setActiveSheetIndex(0);
 
         // Set properties
@@ -139,7 +139,7 @@ class ReportController extends AbstractController
 
         $filename = 'Exportazione';
         $filename = $filename . '-' . $todaydate . '-' . strtoupper(md5(uniqid((string)rand(), true)));
-        $filename = $filename . '.xls';
+        $filename = $filename . '.xlsx';
         $filename = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $filename;
 
         if (file_exists($filename)) {
@@ -153,7 +153,7 @@ class ReportController extends AbstractController
             200,
             [
             'Content-Type' => 'application/vnd.ms-excel',
-            'Content-Disposition' => 'attachment; filename="Estrazione.xls"',]
+            'Content-Disposition' => 'attachment; filename="Estrazione.xlsx"',]
         );
     }
 }
