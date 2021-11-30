@@ -12,8 +12,8 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
-class RiepilogoCommand extends Command
-{
+class RiepilogoCommand extends Command {
+
     private $journaldiffdays = '-7 days';
     protected static $defaultName = 'voltwatcher:weeklyreport';
     private $em;
@@ -22,22 +22,20 @@ class RiepilogoCommand extends Command
     private $templating;
     private $params;
 
-    protected function configure()
-    {
+    protected function configure() {
         $this
                 ->setDescription('Weekly report')
                 ->setHelp('Report generator')
                 ->addOption(
-                    'sendmail',
-                    null,
-                    InputOption::VALUE_OPTIONAL,
-                    'Should I send mail?',
-                    false
-                );
+                        'sendmail',
+                        null,
+                        InputOption::VALUE_OPTIONAL,
+                        'Should I send mail?',
+                        false
+        );
     }
 
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, MailerInterface $mailer, \Twig\Environment $templating, ParameterBagInterface $params)
-    {
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, LoggerInterface $logger, MailerInterface $mailer, \Twig\Environment $templating, ParameterBagInterface $params) {
         $this->em = $em;
         $this->logger = $logger;
         $this->mailer = $mailer;
@@ -47,8 +45,7 @@ class RiepilogoCommand extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $date = (new \DateTime())->modify($this->journaldiffdays);
         $em = $this->em;
 
@@ -70,7 +67,7 @@ class RiepilogoCommand extends Command
             $min = round($row['minvolt'], 2);
             $max = round($row['maxvolt'], 2);
             $device = $em->getRepository('App:Device')->find($deviceid);
-            $body = $body.$device->__toString().' Min:'.$min.' Avg:'.$avg.' Max:'.$max.'<br/><br/>';
+            $body = $body . $device->__toString() . ' Min:' . $min . ' Avg:' . $avg . ' Max:' . $max . '<br/><br/>';
             $rows[] = [$device->__toString(), $min, $avg, $max];
         }
 
@@ -104,7 +101,7 @@ class RiepilogoCommand extends Command
             $min = round($row['minvolt'], 2);
             $max = round($row['maxvolt'], 2);
             $device = $em->getRepository('App:Device')->find($deviceid);
-            $body = $body.$device->__toString().' Min:'.$min.' Avg:'.$avg.' Max:'.$max.'<br/><br/>';
+            $body = $body . $device->__toString() . ' Min:' . $min . ' Avg:' . $avg . ' Max:' . $max . '<br/><br/>';
             $rows[] = [$day->format('d/m/Y'), $device->__toString(), $min, $avg, $max];
         }
 
@@ -118,7 +115,7 @@ class RiepilogoCommand extends Command
         $sendmail = (false !== $input->getOption('sendmail'));
         if ($sendmail) {
             $recipient = $this->params->get('mailer_user');
-            $output->writeln('<info>send mail to '.$recipient.'</info>');
+            $output->writeln('<info>send mail to ' . $recipient . '</info>');
 
             $email = (new Email())
                     ->from($recipient)
@@ -127,22 +124,22 @@ class RiepilogoCommand extends Command
                     //->bcc('bcc@example.com')
                     //->replyTo('fabien@example.com')
                     //->priority(Email::PRIORITY_HIGH)
-                    ->subject('Energy report from '.$date->format('d/m/Y H:i:s').' to '.(new \DateTime())->format('d/m/Y H:i:s'))
+                    ->subject('Energy report from ' . $date->format('d/m/Y H:i:s') . ' to ' . (new \DateTime())->format('d/m/Y H:i:s'))
                     ->text(
-                        $this->templating->render(
+                            $this->templating->render(
                                     // templates/emails/registration.html.twig
-                            'Report/index.html.twig',
-                            ['rows' => $riepilogodayrows, 'weeklyrows' => $riepilogorows]
-                        ),
-                        'text/html'
+                                    'Report/index.html.twig',
+                                    ['rows' => $riepilogodayrows, 'weeklyrows' => $riepilogorows]
+                            ),
+                            'text/html'
                     )
                     ->html(
-                        $this->templating->render(
+                    $this->templating->render(
                             // templates/emails/registration.html.twig
                             'Report/index.html.twig',
                             ['rows' => $riepilogodayrows, 'weeklyrows' => $riepilogorows]
-                        ),
-                        'text/html'
+                    ),
+                    'text/html'
                     )
             ;
 
@@ -150,5 +147,7 @@ class RiepilogoCommand extends Command
         }
 
         $output->writeln('<info>Done</info>');
+        return 0;
     }
+
 }

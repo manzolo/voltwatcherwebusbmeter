@@ -99,5 +99,6 @@ class InstallCommand extends Command
         $this->em->flush();       
 
         $output->writeln('<info>Done</info>');
+        return 0;
     }
 }
