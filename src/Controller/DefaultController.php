@@ -10,8 +10,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart;
+use DateTime;
 
-class DefaultController extends AbstractController {
+class DefaultController extends AbstractController
+{
 
     private $chartdifftime = '-2 days';
 
@@ -20,9 +23,10 @@ class DefaultController extends AbstractController {
      *
      * @Route("/", name="welcome")
      */
-    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em) {
+    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em)
+    {
         /* chart */
-        $qb = $em->createQueryBuilder('d')
+        $qb = $em->createQueryBuilder()
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
@@ -30,7 +34,7 @@ class DefaultController extends AbstractController {
 
         $infodevices = [];
         foreach ($devicesrows as $device) {
-            $qb = $em->createQueryBuilder('l')
+            $qb = $em->createQueryBuilder()
                     ->select('l')
                     ->from('App:Log', 'l')
                     ->where('l.device = :device')
@@ -43,7 +47,7 @@ class DefaultController extends AbstractController {
                 $infodevice = $resultrows[0];
                 $hour = substr($infodevice->getData()->format('H:i:s'), 0, 4);
                 $lastweek = clone $infodevice->getData();
-                $qb = $em->createQueryBuilder('l')
+                $qb = $em->createQueryBuilder()
                         ->select('l')
                         ->from('App:Log', 'l')
                         ->where('l.device = :device')
@@ -57,21 +61,26 @@ class DefaultController extends AbstractController {
                         ->orderBy('l.data', 'DESC')
                         ->getQuery();
                 $resultoldrows = $qb->getResult();
-                $infodevices[$device->getAddress()] = ['deviceinfo' => $infodevice->getDevice(), 'volt' => $infodevice->getVolt(), 'data' => $infodevice->getData(), 'weathericon' => $infodevice->getWeathericon(), 'location' => $infodevice->getLocation(), 'oldrows' => $resultoldrows];
+                $infodevices[$device->getAddress()] = ['deviceinfo' => $infodevice->getDevice(),
+                    'volt' => $infodevice->getVolt(),
+                    'data' => $infodevice->getData(),
+                    'weathericon' => $infodevice->getWeathericon(),
+                    'location' => $infodevice->getLocation(),
+                    'oldrows' => $resultoldrows];
             }
         }
-        $charts = $this->getCharts( $em);
+        $charts = $this->getCharts($em);
         $crudtemplate = 'Default/index.html.twig';
 
         return $this->render($crudtemplate, ['infodevices' => $infodevices, 'charts' => $charts]);
     }
-
-    private function getCharts(EntityManagerInterface $em) {
+    private function getCharts(EntityManagerInterface $em)
+    {
         /* chart */
         $charts = [];
 
-        $date = (new \DateTime())->modify($this->chartdifftime);
-        $qb = $em->createQueryBuilder('d')
+        $date = (new DateTime())->modify($this->chartdifftime);
+        $qb = $em->createQueryBuilder()
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
@@ -80,7 +89,7 @@ class DefaultController extends AbstractController {
 
         foreach ($devicesrows as $device) {
             /* chart */
-            $qb = $em->createQueryBuilder('l')
+            $qb = $em->createQueryBuilder()
                     ->select('l')
                     ->from('App:Log', 'l')
                     ->where('l.device = :device')
@@ -98,16 +107,17 @@ class DefaultController extends AbstractController {
                 $dati[] = [$devicerows->getData(), floatval($devicerows->getVolt())];
             }
             if (1 == count($dati)) {
-                $dati[] = [new \DateTime(), 0];
+                $dati[] = [new DateTime(), 0];
             }
-            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart();
+            $chart = new LineChart();
             $chart->getData()->setArrayToDataTable($dati);
             $chart->setElementID($device->getId());
             $deviceName = $device->getName() ? $device->getName() : $device->getAddress();
             $chart->getOptions()->getChart()->setTitle($deviceName);
             $chart->getOptions()
                     ->setSeries([['axis' => 'Volts']])
-            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
+            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'],
+            //'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
             ;
 
             $chart->getOptions()->setHeight(400);
@@ -125,7 +135,6 @@ class DefaultController extends AbstractController {
 
         return $charts;
     }
-
     /*
      * Matches / exactly.
      *
@@ -141,13 +150,13 @@ class DefaultController extends AbstractController {
       //20200416201917.000
       $datepost = $datavolt['data'];
       if (18 == strlen($datepost)) {
-      $data = \Datetime::createFromFormat('YmdHis.000', $datepost, new \DateTimeZone('UTC'));
-      $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
+      $data = Datetime::createFromFormat('YmdHis.000', $datepost, new DateTimeZone('UTC'));
+      $data->setTimeZone(new DateTimeZone('Europe/Rome'));
       } else {
-      $data = \Datetime::createFromFormat('Y-m-d H:i:s', $datepost);
+      $data = Datetime::createFromFormat('Y-m-d H:i:s', $datepost);
       }
       } else {
-      $data = new \DateTime();
+      $data = new DateTime();
       }
       $volt = (float) $datavolt['volt'];
       $temp = (float) $datavolt['temp'];
@@ -160,10 +169,10 @@ class DefaultController extends AbstractController {
       //20200416201917.000
       $datepost = $datavolt['data'];
       if (18 == strlen($datepost)) {
-      $data = \Datetime::createFromFormat('YmdHis.000', $datepost, new \DateTimeZone('UTC'));
-      $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
+      $data = Datetime::createFromFormat('YmdHis.000', $datepost, new DateTimeZone('UTC'));
+      $data->setTimeZone(new DateTimeZone('Europe/Rome'));
       } else {
-      $data = \Datetime::createFromFormat('Y-m-d H:i:s', $datepost);
+      $data = Datetime::createFromFormat('Y-m-d H:i:s', $datepost);
       }
       $volt = (float) $datavolt['volt'];
       $temp = (float) $datavolt['temp'];
@@ -208,9 +217,11 @@ class DefaultController extends AbstractController {
       $message = (new \Swift_Message('WARNING from '.$newlog->getDevice().' *** '.$newlog->getVolt().' volt ***'))
       ->setFrom('voltwatcheralert@manzolo.it')
       ->setTo($recipient)
-      ->setBody('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'), 'text/html')
+      ->setBody('WARNING from '.$newlog->getDevice().'! Received '.
+      $newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'), 'text/html')
       // you can remove the following code if you don't define a text version for your emails
-      ->addPart('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'), 'text/plain')
+      ->addPart('WARNING from '.$newlog->getDevice().'! Received '.$newlog->getVolt().
+     * ' (less of '.$threshold.' threshold) at '.$newlog->getData()->format('d/m/Y H:i:s'), 'text/plain')
       ;
 
       $mailer->send($message);
@@ -273,7 +284,7 @@ class DefaultController extends AbstractController {
      */
     /*    public function appServerDatetime(Request $request)
       {
-      $now = (new \DateTime());
+      $now = (new DateTime());
 
       return new JsonResponse(['datetime' => $now->format('Y-m-d H:i:s'), 'date' => $now->format('Y-m-d'), 'time' => $now->format('H:i:s')]);
       }

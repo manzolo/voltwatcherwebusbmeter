@@ -65,10 +65,7 @@ test_project:
     script:
       #- env
       - composer config cache-files-dir .composer_cache
-      - composer install
-      - bin/console bicorebundle:install admin admin admin@admin.it
-      - bin/console voltwatcher:install
-      - bin/simple-phpunit
+      - ant
 
 deploy_project:
   stage: deploy

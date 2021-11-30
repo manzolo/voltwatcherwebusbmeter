@@ -6,42 +6,51 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use \Doctrine\ORM\EntityManagerInterface;
+use \App\Entity\Journal;
+use \DateTime;
 
-class CreateJournalCommand extends Command {
+class CreateJournalCommand extends Command
+{
 
     private $journaldiffdays = '-3 days';
     protected static $defaultName = 'voltwatcher:createjournal';
     private $em;
 
-    protected function configure() {
+    protected function configure()
+    {
         $this
                 ->setDescription('Journal creation')
                 ->setHelp('Store journal')
         ;
     }
-
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em)
+    {
         $this->em = $em;
         // you *must* call the parent constructor
         parent::__construct();
     }
-
-    protected function execute(InputInterface $input, OutputInterface $output): int {
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
         $em = $this->em;
-        $query = $em->createQueryBuilder()
+        $em->createQueryBuilder()
                 ->delete('App:Journal', 'd')
                 ->getQuery()
                 ->execute();
 
-        $date = (new \DateTime())->modify($this->journaldiffdays);
+        $date = (new DateTime())->modify($this->journaldiffdays);
 
         $from_date = clone $date;
-        $to_date = clone new \DateTime();
+        $to_date = clone new DateTime();
 
         $avgdays = [];
         for ($date = $from_date; $date <= $to_date; $date->modify('+1 days')) {
             $qb = $em->createQueryBuilder('l')
-                    ->select("d.id as deviceid, d.address as device, d.name as devicename, AVG(l.volt) avgvolt, CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
+                    ->select("d.id as deviceid, "
+                            . "d.address as device, "
+                            . "d.name as devicename, "
+                            . "AVG(l.volt) avgvolt, "
+                            . "CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
                     ->from('App:Log', 'l')
                     ->leftJoin('l.device', 'd')
                     //->andWhere('l.data >= :data')
@@ -57,14 +66,19 @@ class CreateJournalCommand extends Command {
                 $avgdevicename = $row['devicename'];
                 $avgvolt = $row['avgvolt'];
                 $datechk = \DateTime::createFromFormat('Y-m-d H:i', $date->format('Y-m-d') . ' ' . $avgora);
-                $avgdays[] = ['device' => $avgdevice, 'deviceid' => $avgdeviceid, 'devicename' => $avgdevicename, 'ora' => $datechk, 'avgvolt' => $avgvolt];
+                $avgdays[] = [
+                    'device' => $avgdevice,
+                    'deviceid' => $avgdeviceid,
+                    'devicename' => $avgdevicename,
+                    'ora' => $datechk, 'avgvolt' => $avgvolt
+                ];
             }
         }
         foreach ($avgdays as $avgday) {
             $device = $em->getRepository('App:Device')->find($avgday['deviceid']);
             $dal = clone $avgday['ora'];
             $al = clone $avgday['ora']->modify('+599 seconds');
-            $newJournal = new \App\Entity\Journal();
+            $newJournal = new Journal();
             $newJournal->setDevice($device);
             $newJournal->setDal($dal);
             $newJournal->setAl($al);
@@ -90,9 +104,9 @@ class CreateJournalCommand extends Command {
               dump($al);
               exit;
               } */
-            if (count($dettagliorows) > 0) {
+            if (\count($dettagliorows) > 0) {
                 $avg = 0;
-                for ($index = 0; $index < count($dettagliorows); ++$index) {
+                for ($index = 0; $index < \count($dettagliorows); ++$index) {
                     $currvolt = (float) $dettagliorows[$index]->getVolt();
                     $avg = (float) $avg + $currvolt;
                 }
@@ -106,5 +120,4 @@ class CreateJournalCommand extends Command {
         $output->writeln('<info>Done</info>');
         return 0;
     }
-
 }

@@ -13,6 +13,8 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use DateTime;
+use DateTimeZone;
 
 class ApiController extends AbstractFOSRestController
 {
@@ -41,14 +43,14 @@ class ApiController extends AbstractFOSRestController
             //20200416201917.000
             $datepost = $datavolt['data'];
             if (18 == strlen($datepost)) {
-                $data = \Datetime::createFromFormat('YmdHis.000', $datepost, new \DateTimeZone('UTC'));
-                $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
+                $data = Datetime::createFromFormat('YmdHis.000', $datepost, new DateTimeZone('UTC'));
+                $data->setTimeZone(new DateTimeZone('Europe/Rome'));
             } else {
-                $data = \Datetime::createFromFormat('Y-m-d H:i:s', $datepost);
+                $data = Datetime::createFromFormat('Y-m-d H:i:s', $datepost);
             }
         } else {
-            $data = new \DateTime();
-            $data->setTimeZone(new \DateTimeZone('Europe/Rome'));
+            $data = new DateTime();
+            $data->setTimeZone(new DateTimeZone('Europe/Rome'));
         }
         $volt = (float) $datavolt['volt'];
         $temp = (float) $datavolt['temp'];
@@ -96,8 +98,11 @@ class ApiController extends AbstractFOSRestController
                     //->replyTo('fabien@example.com')
                     ->priority(Email::PRIORITY_HIGH)
                     ->subject('WARNING from ' . $newlog->getDevice() . ' *** ' . $newlog->getVolt() . ' volt ***')
-                    ->text('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'))
-                    ->html('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() . ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
+                    ->text('WARNING from ' . $newlog->getDevice() .
+                            '! Received ' . $newlog->getVolt() .
+                            ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'))
+                    ->html('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() .
+                            ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
             try {
                 $this->mailer->send($email);
             } catch (\Exception $exc) {
@@ -111,8 +116,8 @@ class ApiController extends AbstractFOSRestController
                 $owmurl = 'https://api.openweathermap.org/data/2.5/weather?lon=' . $longitude . '&lat=' . $latitude . '&APPID=' . $owmappid;
                 //$weatherjson = \json_decode(file_get_contents($owmurl), true);
                 $response = $this->client->request(
-                        'GET',
-                        $owmurl
+                    'GET',
+                    $owmurl
                 );
 
                 $weatherjson = \json_decode($response->getContent(), true);
@@ -166,7 +171,7 @@ class ApiController extends AbstractFOSRestController
      */
     public function appServerDatetimeAction()
     {
-        $now = (new \DateTime());
+        $now = (new DateTime());
 
         return $this->view(['datetime' => $now->format('Y-m-d H:i:s'), 'date' => $now->format('Y-m-d'), 'time' => $now->format('H:i:s')]);
     }

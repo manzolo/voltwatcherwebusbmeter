@@ -2,6 +2,9 @@
     "cmen/google-charts-bundle": {
         "version": "3.1.0"
     },
+    "composer/xdebug-handler": {
+        "version": "2.0.2"
+    },
     "comunedifirenze/bicorebundle": {
         "version": "v0.1.0"
     },
@@ -13,6 +16,9 @@
     },
     "comunedifirenze/user-bundle": {
         "version": "1.2.2.2"
+    },
+    "dbrekelmans/bdi": {
+        "version": "0.3"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -199,6 +205,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.2"
     },
+    "pdepend/pdepend": {
+        "version": "2.10.2"
+    },
     "phar-io/manifest": {
         "version": "2.0.1"
     },
@@ -220,6 +229,9 @@
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
     },
+    "phpmd/phpmd": {
+        "version": "2.11.0"
+    },
     "phpoffice/phpspreadsheet": {
         "version": "1.5.0"
     },
@@ -228,6 +240,9 @@
     },
     "phpstan/phpdoc-parser": {
         "version": "0.4.12"
+    },
+    "phpstan/phpstan": {
+        "version": "0.12.99"
     },
     "phpunit/php-code-coverage": {
         "version": "9.2.6"
@@ -340,6 +355,18 @@
         },
         "files": [
             "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.6",
+            "ref": "1019e5c08d4821cb9b77f4891f8e9c31ff20ac6f"
+        },
+        "files": [
+            "phpcs.xml.dist"
         ]
     },
     "symfony/apache-pack": {
