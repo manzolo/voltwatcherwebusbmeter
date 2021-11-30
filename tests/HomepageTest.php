@@ -66,11 +66,11 @@ class HomepageTest extends WebTestCase
     }
     public function testApi(): void
     {
-        $tokem = $this->getToken();
+        $token = $this->getToken();
         $now = (new \DateTime())->format("Y-m-d H:i:s");
         $data = '{"device":"44:44:09:04:01:CC","data":"' . $now . '","volt":"12","temp":"18","batteryperc":"100","longitude":"11.3447","latitude":"43.9614"}';
         $crawler = $this->client->request('PUT', '/api/volt/record.json', [], [], ['CONTENT_TYPE' => 'application/json',
-            'Accept' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer ' . $tokem], $data);
+            'Accept' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer ' . $token], $data);
 
         $this->assertResponseIsSuccessful();
     }
