@@ -10,18 +10,20 @@ use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart;
+use DateTime;
 
 /**
  * Log controller.
  */
 class LogController extends FiController
 {
+
     private $chartdifftime = '-3 days';
 
     //private $batterystatus = array(
     //    "perc"=>100,"volt"=>12.92,"perc"=>90,"volt"=>12.80,"perc"=>80,"volt"=>12.66,"perc"=>70,"volt"=>12.52,"perc"=>60,"volt"=>12.38,"perc"=>50,"volt"=>12.32,
     //    "perc"=>40,"volt"=>12.06,"perc"=>30,"volt"=>12.00,"perc"=>80,"volt"=>12.66,"perc"=>70,"volt"=>12.52,"perc"=>60,"volt"=>12.38,"perc"=>10,"volt"=>11.50);
-
     /**
      * Matches / exactly.
      *
@@ -44,39 +46,39 @@ class LogController extends FiController
         $formclass = str_replace('Entity', 'Form', $entityclass);
 
         $modellocolonne = [
-            $controller.'.id' => [
+            $controller . '.id' => [
                 'nometabella' => $controller,
-                'nomecampo' => $controller.'.id',
+                'nomecampo' => $controller . '.id',
                 'etichetta' => 'Id',
                 'ordine' => 5,
                 'larghezza' => 50,
                 'escluso' => true,
             ],
-            $controller.'.data' => [
+            $controller . '.data' => [
                 'nometabella' => $controller,
-                'nomecampo' => $controller.'.data',
+                'nomecampo' => $controller . '.data',
                 'etichetta' => 'Rilevazione',
                 'ordine' => 10,
                 'larghezza' => 200,
                 'escluso' => false,
             ],
-            $controller.'.volt' => [
+            $controller . '.volt' => [
                 'nometabella' => $controller,
-                'nomecampo' => $controller.'.volt',
+                'nomecampo' => $controller . '.volt',
                 'etichetta' => 'Volt',
                 'ordine' => 20,
                 'larghezza' => 80,
                 'escluso' => false,
             ],
-            $controller.'.device' => [
+            $controller . '.device' => [
                 'nometabella' => $controller,
-                'nomecampo' => $controller.'.device',
+                'nomecampo' => $controller . '.device',
                 'etichetta' => 'Rilevatore',
                 'ordine' => 30,
                 'larghezza' => 50,
                 'escluso' => false,
             ],
-            $controller.'.detectorperc' => [
+            $controller . '.detectorperc' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.detectorperc',
                 'etichetta' => 'Temperatura',
@@ -84,7 +86,7 @@ class LogController extends FiController
                 'larghezza' => 30,
                 'escluso' => true,
             ],
-            $controller.'.temp' => [
+            $controller . '.temp' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.temp',
                 'etichetta' => 'Temperatura',
@@ -92,7 +94,7 @@ class LogController extends FiController
                 'larghezza' => 30,
                 'escluso' => true,
             ],
-            $controller.'.longitude' => [
+            $controller . '.longitude' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.longitude',
                 'etichetta' => 'Longitudine',
@@ -100,7 +102,7 @@ class LogController extends FiController
                 'larghezza' => 30,
                 'escluso' => true,
             ],
-            $controller.'.latitude' => [
+            $controller . '.latitude' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.latitude',
                 'etichetta' => 'Latitudine',
@@ -108,7 +110,7 @@ class LogController extends FiController
                 'larghezza' => 30,
                 'escluso' => true,
             ],
-            $controller.'.weather' => [
+            $controller . '.weather' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.weather',
                 'etichetta' => 'Weather',
@@ -116,7 +118,7 @@ class LogController extends FiController
                 'larghezza' => 30,
                 'escluso' => true,
             ],
-            $controller.'.externaltemp' => [
+            $controller . '.externaltemp' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.externaltemp',
                 'etichetta' => 'External temp',
@@ -124,7 +126,7 @@ class LogController extends FiController
                 'larghezza' => 30,
                 'escluso' => true,
             ],
-            $controller.'.location' => [
+            $controller . '.location' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.location',
                 'etichetta' => 'Location',
@@ -132,7 +134,7 @@ class LogController extends FiController
                 'larghezza' => 50,
                 'escluso' => true,
             ],
-            $controller.'.cloudiness' => [
+            $controller . '.cloudiness' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.cloudiness',
                 'etichetta' => 'Cloudiness %',
@@ -140,7 +142,7 @@ class LogController extends FiController
                 'larghezza' => 30,
                 'escluso' => true,
             ],
-            $controller.'.weathericon' => [
+            $controller . '.weathericon' => [
                 'nometabella' => $controller,
                 'nomecampo' => 'Log.weathericon',
                 'etichetta' => 'Weather Icon',
@@ -154,7 +156,7 @@ class LogController extends FiController
         $prefiltri = [];
         $entityutils = new EntityUtils($this->get('doctrine')->getManager());
         $tablenamefromentity = $entityutils->getTableFromEntity($entityclass);
-        $colonneordinamento = [$tablenamefromentity.'.data' => 'DESC', $tablenamefromentity.'.device_id' => 'ASC'];
+        $colonneordinamento = [$tablenamefromentity . '.data' => 'DESC', $tablenamefromentity . '.device_id' => 'ASC'];
         $parametritabella = ['em' => ParametriTabella::setParameter('default'),
             'tablename' => ParametriTabella::setParameter($tablenamefromentity),
             'nomecontroller' => ParametriTabella::setParameter($controller),
@@ -164,7 +166,7 @@ class LogController extends FiController
             'formclass' => ParametriTabella::setParameter($formclass),
             'modellocolonne' => ParametriTabella::setParameter(json_encode($modellocolonne)),
             'permessi' => ParametriTabella::setParameter(json_encode($this->getPermessi()->toJson($controller))),
-            'urltabella' => ParametriTabella::setParameter($assetsmanager->getUrl('/').$controller.'/'.'tabella'),
+            'urltabella' => ParametriTabella::setParameter($assetsmanager->getUrl('/') . $controller . '/' . 'tabella'),
             'baseurl' => ParametriTabella::setParameter($assetsmanager->getUrl('/')),
             'idpassato' => ParametriTabella::setParameter($idpassato),
             'titolotabella' => ParametriTabella::setParameter($controller),
@@ -179,11 +181,11 @@ class LogController extends FiController
             'filtri' => ParametriTabella::setParameter(json_encode($filtri)),
             'prefiltri' => ParametriTabella::setParameter(json_encode($prefiltri)),
             'traduzionefiltri' => ParametriTabella::setParameter(''),
-            'graficodal' => ParametriTabella::setParameter((new \DateTime())->modify($this->chartdifftime)->format('d/m/Y H:i')),
+            'graficodal' => ParametriTabella::setParameter((new DateTime())->modify($this->chartdifftime)->format('d/m/Y H:i')),
         ];
 
         /* chart */
-        $qb = $this->em->createQueryBuilder('d')
+        $qb = $this->em->createQueryBuilder()
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
@@ -193,7 +195,6 @@ class LogController extends FiController
 
         return $this->render($crudtemplate, ['charts' => $charts, 'parametritabella' => $parametritabella]);
     }
-
     public function tabella(Request $request)
     {
         if (!$this->permessi->canRead($this->getController())) {
@@ -205,13 +206,18 @@ class LogController extends FiController
                 json_decode(ParametriTabella::getParameter($parametripassati['parametriform']), true) : [];
         $classbundle = ParametriTabella::getParameter($parametripassati['entityclass']);
         $formbundle = ParametriTabella::getParameter($parametripassati['formclass']);
-        $formType = $formbundle.'Type';
+        $formType = $formbundle . 'Type';
 
         $entity = new $classbundle();
         $controller = ParametriTabella::getParameter($parametripassati['nomecontroller']);
-        $form = $this->createForm($formType, $entity, ['attr' => ['id' => 'formdati'.$controller], 'action' => $this->generateUrl($controller.'_new'), 'parametriform' => $parametriform]);
         
-        $qb = $this->em->createQueryBuilder('d')
+        $formParameters = ['attr' => ['id' => 'formdati' . $controller],
+            'action' => $this->generateUrl($controller . '_new'),
+            'parametriform' => $parametriform
+                ];
+        $form = $this->createForm($formType, $entity, $formParameters);
+
+        $qb = $this->em->createQueryBuilder()
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
@@ -226,14 +232,13 @@ class LogController extends FiController
 
         return $this->render($templateobj['template'], ['parametri' => $parametri]);
     }
-
     private function getCharts($devices)
     {
         /* chart */
         $charts = [];
 
-        $date = (new \DateTime())->modify($this->chartdifftime);
-        $qb = $this->em->createQueryBuilder('d')
+        (new DateTime())->modify($this->chartdifftime);
+        $qb = $this->em->createQueryBuilder()
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->getQuery();
@@ -242,14 +247,14 @@ class LogController extends FiController
 
         foreach ($devicesrows as $device) {
             /* chart */
-            $qb = $this->em->createQueryBuilder('j')
+            $qb = $this->em->createQueryBuilder()
                     ->select('j')
                     ->from('App:Journal', 'j')
                     ->where('j.device = :device')
                     ->andWhere('j.dal <= :ora')
                     ->andWhere('j.volt is not null')
                     ->setParameter('device', $device->getId())
-                    ->setParameter('ora', new \DateTime())
+                    ->setParameter('ora', new DateTime())
                     ->getQuery();
 
             $journalrows = $qb->getResult();
@@ -261,16 +266,18 @@ class LogController extends FiController
                 $dati[] = [$journalrows->getDatarilevazione(), floatval($journalrows->getVolt()), round(floatval($journalrows->getAvgvolt()), 2)];
             }
             if (1 == count($dati)) {
-                $dati[] = [new \DateTime(), 0, 0];
+                $dati[] = [new DateTime(), 0, 0];
             }
-            $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart();
+            $chart = new AreaChart();
             $chart->getData()->setArrayToDataTable($dati);
             $chart->setElementID($device->getId());
 
             $chart->getOptions()->setTitle($device->getName());
+            
             $chart->getOptions()
                     ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
-            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'], 'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
+            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'],
+            //'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
             ;
 
             $chart->getOptions()->setHeight(400);
@@ -287,31 +294,5 @@ class LogController extends FiController
         }
 
         return $charts;
-    }
-
-    private function searchInArray($array, $search_list)
-    {
-        // Create the result array
-        $result = [];
-
-        // Iterate over each array element
-        foreach ($array as $key => $value) {
-            // Iterate over each search condition
-            foreach ($search_list as $k => $v) {
-                // If the array element does not meet
-                // the search condition then continue
-                // to the next element
-                if (!isset($value[$k]) || $value[$k] != $v) {
-                    // Skip two loops
-                    continue 2;
-                }
-            }
-            // Append array element's key to the
-            //result array
-            $result[] = $value;
-        }
-
-        // Return result
-        return $result;
     }
 }

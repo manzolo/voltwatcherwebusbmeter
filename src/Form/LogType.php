@@ -21,13 +21,14 @@ class LogType extends AbstractType
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy HH:mm',
                     'attr' => ['class' => 'bidatetimepicker'],
+                    'html5' => false,
                 ])
                 ->add('volt')
                 ->add('temp')
                 ->add('device')
                 ->add('detectorperc')
-                ->add('longitude', NumberType::class, ['scale'=>8])
-                ->add('latitude', NumberType::class, ['scale'=>8])
+                ->add('longitude', NumberType::class, ['scale' => 8])
+                ->add('latitude', NumberType::class, ['scale' => 8])
                 ->add('weather')
                 ->add('externaltemp')
                 ->add('cloudiness')
@@ -35,7 +36,6 @@ class LogType extends AbstractType
 
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

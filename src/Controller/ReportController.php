@@ -22,21 +22,20 @@ class ReportController extends AbstractController
         set_time_limit(960);
         ini_set('memory_limit', '2048M');
 
-        $qb = $em->createQueryBuilder('l')
+        $dettagliorows = $em->createQueryBuilder()
                 ->select('l')
                 ->from('App:Log', 'l')
                 ->orderBy('l.data', 'DESC')
-                ->getQuery();
-        $dettagliorows = $qb->getResult();
-
-        $qb = $em->createQueryBuilder('l')
+                ->getQuery()
+                ->getResult();
+        $riepilogorows = $em->createQueryBuilder()
                 ->select("CONCAT(CONCAT(d.address,' '),d.name) as device, MAX(l.volt) maxvolt, MIN(l.volt) minvolt, SUBSTRING(l.data,1,10) AS grData")
                 ->from('App:Log', 'l')
                 ->leftJoin('l.device', 'd')
                 ->groupBy('l.device, grData')
                 ->orderBy('grData', 'DESC')
-                ->getQuery();
-        $riepilogorows = $qb->getResult();
+                ->getQuery()
+                ->getResult();
 
         //Creare un nuovo file
         $spreadsheet = new Spreadsheet();
@@ -54,16 +53,17 @@ class ReportController extends AbstractController
         $dettagliosheet->setCellValueByColumnAndRow(3, 1, 'Temp');
         $dettagliosheet->setCellValueByColumnAndRow(4, 1, 'Data');
 
-        $row = 1;
+        $rowDettaglio = 1;
+        $col = 1;
         foreach ($dettagliorows as $dettaglio) {
-            ++$row;
+            ++$rowDettaglio;
             $col = 1;
-            $dettagliosheet->setCellValueByColumnAndRow($col, $row, $dettaglio->getDevice()->__toString());
-            $col = $col + 1;
-            $dettagliosheet->setCellValueByColumnAndRow($col, $row, $dettaglio->getVolt());
-            $col = $col + 1;
-            $dettagliosheet->setCellValueByColumnAndRow($col, $row, $dettaglio->getTemp());
-            $col = $col + 1;
+            $dettagliosheet->setCellValueByColumnAndRow($col, $rowDettaglio, $dettaglio->getDevice()->__toString());
+            $col++;
+            $dettagliosheet->setCellValueByColumnAndRow($col, $rowDettaglio, $dettaglio->getVolt());
+            $col++;
+            $dettagliosheet->setCellValueByColumnAndRow($col, $rowDettaglio, $dettaglio->getTemp());
+            $col++;
 
             $datatmp = $dettaglio->getData()->format('Y-m-d H:i:s');
             $d = (int) substr($datatmp, 8, 2);
@@ -72,10 +72,10 @@ class ReportController extends AbstractController
             $h = (int) substr($datatmp, 11, 2);
             $i = (int) substr($datatmp, 14, 2);
             $dataval = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel($y, $m, $d, $h, $i, 0);
-            $dettagliosheet->setCellValueByColumnAndRow($col, $row, $dataval);
+            $dettagliosheet->setCellValueByColumnAndRow($col, $rowDettaglio, $dataval);
         }
 
-        $dettagliosheet->getStyle('D2:'.'D'.$row)
+        $dettagliosheet->getStyle('D2:' . 'D' . $rowDettaglio)
                 ->getNumberFormat()
                 ->setFormatCode('dd/mm/yyyy hh:mm:ss');
 
@@ -98,33 +98,34 @@ class ReportController extends AbstractController
         $riepilogosheet->setCellValueByColumnAndRow(3, 1, 'Min volt');
         $riepilogosheet->setCellValueByColumnAndRow(4, 1, 'Data');
 
-        $row = 1;
+        $rowRiepilogo = 1;
+        $col = 1;
         foreach ($riepilogorows as $dettaglio) {
-            ++$row;
+            ++$rowRiepilogo;
             $col = 1;
-            $riepilogosheet->setCellValueByColumnAndRow($col, $row, $dettaglio['device']);
-            $col = $col + 1;
-            $riepilogosheet->setCellValueByColumnAndRow($col, $row, $dettaglio['maxvolt']);
-            $col = $col + 1;
-            $riepilogosheet->setCellValueByColumnAndRow($col, $row, $dettaglio['minvolt']);
-            $col = $col + 1;
+            $riepilogosheet->setCellValueByColumnAndRow($col, $rowRiepilogo, $dettaglio['device']);
+            $col++;
+            $riepilogosheet->setCellValueByColumnAndRow($col, $rowRiepilogo, $dettaglio['maxvolt']);
+            $col++;
+            $riepilogosheet->setCellValueByColumnAndRow($col, $rowRiepilogo, $dettaglio['minvolt']);
+            $col++;
             $datatmp = $dettaglio['grData'];
             $d = (int) substr($datatmp, 8, 2);
             $m = (int) substr($datatmp, 5, 2);
             $y = (int) substr($datatmp, 0, 4);
             $dataval = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel($y, $m, $d, 0, 0, 0);
-            $riepilogosheet->setCellValueByColumnAndRow($col, $row, $dataval);
+            $riepilogosheet->setCellValueByColumnAndRow($col, $rowRiepilogo, $dataval);
         }
 
-        $riepilogosheet->getStyle('B2:'.'B'.$row)
+        $riepilogosheet->getStyle('B2:' . 'B' . $rowRiepilogo)
                 ->getNumberFormat()
                 ->setFormatCode('#,##0.00');
 
-        $riepilogosheet->getStyle('C2:'.'C'.$row)
+        $riepilogosheet->getStyle('C2:' . 'C' . $rowRiepilogo)
                 ->getNumberFormat()
                 ->setFormatCode('#,##0.00');
 
-        $riepilogosheet->getStyle('D2:'.'D'.$row)
+        $riepilogosheet->getStyle('D2:' . 'D' . $rowRiepilogo)
                 ->getNumberFormat()
                 ->setFormatCode('dd/mm/yyyy');
 
@@ -137,9 +138,9 @@ class ReportController extends AbstractController
         $todaydate = date('d-m-y');
 
         $filename = 'Exportazione';
-        $filename = $filename.'-'.$todaydate.'-'.strtoupper(md5(uniqid(rand(), true)));
-        $filename = $filename.'.xls';
-        $filename = sys_get_temp_dir().DIRECTORY_SEPARATOR.$filename;
+        $filename = $filename . '-' . $todaydate . '-' . strtoupper(md5(uniqid((string)rand(), true)));
+        $filename = $filename . '.xls';
+        $filename = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $filename;
 
         if (file_exists($filename)) {
             unlink($filename);
@@ -152,7 +153,7 @@ class ReportController extends AbstractController
             200,
             [
             'Content-Type' => 'application/vnd.ms-excel',
-            'Content-Disposition' => 'attachment; filename="Estrazione.xls"', ]
+            'Content-Disposition' => 'attachment; filename="Estrazione.xls"',]
         );
     }
 }

@@ -30,8 +30,6 @@ class InstallCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $em = $this->em;
-
         //Si controlla se è già presente l'utente
         $entiobj = $this->em->getRepository(Menuapplicazione::class)->findBy(["nome"=>"Gestione"]);
         if (count($entiobj) > 0) {
@@ -44,7 +42,7 @@ class InstallCommand extends Command
         $newMenuapplicazioneMain->setOrdine(10);
         $newMenuapplicazioneMain->setAttivo(true);
         $this->em->persist($newMenuapplicazioneMain);
-        $this->em->flush();       
+        $this->em->flush();
 
         $ordine = 0;
         
@@ -56,7 +54,7 @@ class InstallCommand extends Command
         $newMenuapplicazione->setOrdine($ordine);
         $newMenuapplicazione->setAttivo(true);
         $this->em->persist($newMenuapplicazione);
-        $this->em->flush();       
+        $this->em->flush();
 
         $ordine = $ordine + 10;
         $newMenuapplicazione = new Menuapplicazione();
@@ -66,7 +64,7 @@ class InstallCommand extends Command
         $newMenuapplicazione->setOrdine($ordine);
         $newMenuapplicazione->setAttivo(true);
         $this->em->persist($newMenuapplicazione);
-        $this->em->flush();       
+        $this->em->flush();
 
         $ordine = $ordine + 10;
         $newMenuapplicazione = new Menuapplicazione();
@@ -76,7 +74,7 @@ class InstallCommand extends Command
         $newMenuapplicazione->setOrdine($ordine);
         $newMenuapplicazione->setAttivo(true);
         $this->em->persist($newMenuapplicazione);
-        $this->em->flush();       
+        $this->em->flush();
 
         $ordine = $ordine + 10;
         $newMenuapplicazione = new Menuapplicazione();
@@ -86,7 +84,7 @@ class InstallCommand extends Command
         $newMenuapplicazione->setOrdine($ordine);
         $newMenuapplicazione->setAttivo(true);
         $this->em->persist($newMenuapplicazione);
-        $this->em->flush();       
+        $this->em->flush();
 
         $ordine = $ordine + 10;
         $newMenuapplicazione = new Menuapplicazione();
@@ -96,7 +94,7 @@ class InstallCommand extends Command
         $newMenuapplicazione->setOrdine($ordine);
         $newMenuapplicazione->setAttivo(true);
         $this->em->persist($newMenuapplicazione);
-        $this->em->flush();       
+        $this->em->flush();
 
         $output->writeln('<info>Done</info>');
         return 0;
