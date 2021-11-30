@@ -60,7 +60,7 @@ class InstallCommand extends Command
         $newMenuapplicazione = new Menuapplicazione();
         $newMenuapplicazione->setPadre($newMenuapplicazioneMain->getId());
         $newMenuapplicazione->setNome("Report");
-        $newMenuapplicazione->setPercorso("Report_container");
+        $newMenuapplicazione->setPercorso("report");
         $newMenuapplicazione->setOrdine($ordine);
         $newMenuapplicazione->setAttivo(true);
         $this->em->persist($newMenuapplicazione);
@@ -70,7 +70,7 @@ class InstallCommand extends Command
         $newMenuapplicazione = new Menuapplicazione();
         $newMenuapplicazione->setPadre($newMenuapplicazioneMain->getId());
         $newMenuapplicazione->setNome("Devices");
-        $newMenuapplicazione->setPercorso("Devices_container");
+        $newMenuapplicazione->setPercorso("Device_container");
         $newMenuapplicazione->setOrdine($ordine);
         $newMenuapplicazione->setAttivo(true);
         $this->em->persist($newMenuapplicazione);
