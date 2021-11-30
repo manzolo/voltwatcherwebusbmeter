@@ -7,29 +7,26 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreateJournalCommand extends Command
-{
+class CreateJournalCommand extends Command {
+
     private $journaldiffdays = '-3 days';
     protected static $defaultName = 'voltwatcher:createjournal';
     private $em;
 
-    protected function configure()
-    {
+    protected function configure() {
         $this
                 ->setDescription('Journal creation')
                 ->setHelp('Store journal')
         ;
     }
 
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em)
-    {
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em) {
         $this->em = $em;
         // you *must* call the parent constructor
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $em = $this->em;
         $query = $em->createQueryBuilder()
                 ->delete('App:Journal', 'd')
@@ -59,7 +56,7 @@ class CreateJournalCommand extends Command
                 $avgdevice = $row['device'];
                 $avgdevicename = $row['devicename'];
                 $avgvolt = $row['avgvolt'];
-                $datechk = \DateTime::createFromFormat('Y-m-d H:i', $date->format('Y-m-d').' '.$avgora);
+                $datechk = \DateTime::createFromFormat('Y-m-d H:i', $date->format('Y-m-d') . ' ' . $avgora);
                 $avgdays[] = ['device' => $avgdevice, 'deviceid' => $avgdeviceid, 'devicename' => $avgdevicename, 'ora' => $datechk, 'avgvolt' => $avgvolt];
             }
         }
@@ -85,14 +82,14 @@ class CreateJournalCommand extends Command
                     ->getQuery();
 
             $dettagliorows = $qb->getResult();
-            /*if ($avgday["deviceid"] == 1 && $dal->format("Y-m-d H:i") == '2019-10-05 00:00'){
-                dump(count($dettagliorows));
-                dump($newJournal->getDal());
-                dump($newJournal->getAl());
-                dump($dal);
-                dump($al);
-                exit;
-            }*/
+            /* if ($avgday["deviceid"] == 1 && $dal->format("Y-m-d H:i") == '2019-10-05 00:00'){
+              dump(count($dettagliorows));
+              dump($newJournal->getDal());
+              dump($newJournal->getAl());
+              dump($dal);
+              dump($al);
+              exit;
+              } */
             if (count($dettagliorows) > 0) {
                 $avg = 0;
                 for ($index = 0; $index < count($dettagliorows); ++$index) {
@@ -107,5 +104,7 @@ class CreateJournalCommand extends Command
         }
 
         $output->writeln('<info>Done</info>');
+        return 0;
     }
+
 }
