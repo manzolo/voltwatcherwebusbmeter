@@ -17,7 +17,7 @@ class BatteryExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('battery_level', [$this, 'batteryLevel', 'is_safe' => ['html']]),

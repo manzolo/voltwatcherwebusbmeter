@@ -45,7 +45,7 @@ class RiepilogoCommand extends Command {
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output): int {
         $date = (new \DateTime())->modify($this->journaldiffdays);
         $em = $this->em;
 
