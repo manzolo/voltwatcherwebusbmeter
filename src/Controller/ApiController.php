@@ -12,19 +12,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ApiController extends AbstractFOSRestController
 {
 
-    private $mailer;
-    private $params;
-    private $client;
+    private MailerInterface $mailer;
+    private ParameterBagInterface $params;
+    private HttpClientInterface $client;
+    private EntityManagerInterface $em;
 
-    public function __construct(MailerInterface $mailer, ParameterBagInterface $params, HttpClientInterface $client)
+    public function __construct(MailerInterface $mailer, ParameterBagInterface $params, HttpClientInterface $client, EntityManagerInterface $em)
     {
         $this->mailer = $mailer;
         $this->params = $params;
         $this->client = $client;
+        $this->em = $em;
     }
     /**
      * @RestAnnotations\Put("api/volt/record.json")
@@ -53,8 +56,7 @@ class ApiController extends AbstractFOSRestController
         $longitude = floatval($datavolt['longitude']);
         $latitude = floatval($datavolt['latitude']);
 
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
                 ->select('d')
                 ->from('App:Device', 'd')
                 ->where('d.address = :address')
@@ -65,8 +67,8 @@ class ApiController extends AbstractFOSRestController
         if (count($devices) <= 0) {
             $newdevice = new Device();
             $newdevice->setAddress($device);
-            $em->persist($newdevice);
-            $em->flush();
+            $this->em->persist($newdevice);
+            $this->em->flush();
             //$em->clear();
         } else {
             $newdevice = $devices[0];
@@ -80,8 +82,8 @@ class ApiController extends AbstractFOSRestController
         $newlog->setLongitude($longitude);
         $newlog->setLatitude($latitude);
 
-        $em->persist($newlog);
-        $em->flush();
+        $this->em->persist($newlog);
+        $this->em->flush();
 
         $threshold = $newlog->getDevice()->getThreshold();
         $recipient = $this->params->get('mailer_user');
@@ -125,8 +127,8 @@ class ApiController extends AbstractFOSRestController
                 $newlog->setCloudiness($cloudiness);
                 $newlog->setLocation($location);
                 $newlog->setWeathericon($weathericon);
-                $em->persist($newlog);
-                $em->flush();
+                $this->em->persist($newlog);
+                $this->em->flush();
             } catch (\Exception $exc) {
                 return $this->view(['errcode' => -99, 'errmsg' => $exc->getTraceAsString()], Response::HTTP_OK);
             }
@@ -147,8 +149,7 @@ class ApiController extends AbstractFOSRestController
      */
     public function appGetSettingsAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
                 ->select('s')
                 ->from('App:Settings', 's')
                 ->getQuery();
