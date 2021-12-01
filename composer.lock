@@ -136,30 +136,30 @@
         },
         {
             "name": "comunedifirenze/bicorebundle",
-            "version": "3.0.6",
+            "version": "3.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ComuneFI/BiCoreBundle.git",
-                "reference": "b05beb24664a5ef8598986e2ea78ce42b12c63ce"
+                "reference": "cd2c553b319e22a196c621c3fa34f23bd59619db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/b05beb24664a5ef8598986e2ea78ce42b12c63ce",
-                "reference": "b05beb24664a5ef8598986e2ea78ce42b12c63ce",
+                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/cd2c553b319e22a196c621c3fa34f23bd59619db",
+                "reference": "cd2c553b319e22a196c621c3fa34f23bd59619db",
                 "shasum": ""
             },
             "require": {
                 "composer/package-versions-deprecated": "1.11.99.4",
                 "comunedifirenze/doctrine2-exporter": "^3.0",
                 "comunedifirenze/mysql-workbench-schema-exporter": "^3.0",
-                "comunedifirenze/user-bundle": "^1.0|^2.0",
+                "comunedifirenze/user-bundle": "^3.0",
                 "doctrine/doctrine-bundle": "^2.4",
                 "doctrine/doctrine-migrations-bundle": "^3.1",
                 "doctrine/orm": "^2.9",
                 "fi/osbundle": "~2.0",
                 "friendsofsymfony/jsrouting-bundle": "^2.2",
                 "hanneskod/classtools": "^1.2",
-                "php": ">=7.2",
+                "php": ">=7.4",
                 "phpoffice/phpspreadsheet": "^1.4",
                 "symfony/asset": "5.4.*",
                 "symfony/cache": "5.4.*",
@@ -278,9 +278,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ComuneFI/BiCoreBundle/issues",
-                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.6"
+                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.10"
             },
-            "time": "2021-11-30T14:32:43+00:00"
+            "time": "2021-12-01T17:26:01+00:00"
         },
         {
             "name": "comunedifirenze/doctrine2-exporter",
@@ -410,16 +410,16 @@
         },
         {
             "name": "comunedifirenze/user-bundle",
-            "version": "2.0.1.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ComuneFI/user-bundle.git",
-                "reference": "18886ca4d21dbf30dae3cd73ff3f26271234e5d4"
+                "reference": "800c6af2a66d7f5525577dbcabaa2afcf9be31e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ComuneFI/user-bundle/zipball/18886ca4d21dbf30dae3cd73ff3f26271234e5d4",
-                "reference": "18886ca4d21dbf30dae3cd73ff3f26271234e5d4",
+                "url": "https://api.github.com/repos/ComuneFI/user-bundle/zipball/800c6af2a66d7f5525577dbcabaa2afcf9be31e7",
+                "reference": "800c6af2a66d7f5525577dbcabaa2afcf9be31e7",
                 "shasum": ""
             },
             "require": {
@@ -476,9 +476,9 @@
             "description": "Comune di Firenze Symfony UserBundle",
             "homepage": "https://github.com/ComuneFI",
             "support": {
-                "source": "https://github.com/ComuneFI/user-bundle/tree/2.0.1.1"
+                "source": "https://github.com/ComuneFI/user-bundle/tree/3.0.0"
             },
-            "time": "2021-08-16T10:00:39+00:00"
+            "time": "2021-12-01T17:10:04+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -966,16 +966,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "511d22bf801fc094bdce9c7b3a238d0d1e8d9512"
+                "reference": "5b77477ba2981a00b423d1bb17084b87eb57a4a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/511d22bf801fc094bdce9c7b3a238d0d1e8d9512",
-                "reference": "511d22bf801fc094bdce9c7b3a238d0d1e8d9512",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/5b77477ba2981a00b423d1bb17084b87eb57a4a5",
+                "reference": "5b77477ba2981a00b423d1bb17084b87eb57a4a5",
                 "shasum": ""
             },
             "require": {
@@ -992,7 +992,7 @@
                 "symfony/deprecation-contracts": "^2.1|^3",
                 "symfony/doctrine-bridge": "^4.4.22|^5.2.7|^6.0",
                 "symfony/framework-bundle": "^3.4.30|^4.3.3|^5.0|^6.0",
-                "symfony/service-contracts": "^1.1.1|^2.0"
+                "symfony/service-contracts": "^1.1.1|^2.0|^3"
             },
             "conflict": {
                 "doctrine/orm": "<2.9",
@@ -1059,7 +1059,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineBundle/issues",
-                "source": "https://github.com/doctrine/DoctrineBundle/tree/2.5.1"
+                "source": "https://github.com/doctrine/DoctrineBundle/tree/2.5.2"
             },
             "funding": [
                 {
@@ -1075,7 +1075,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-30T09:51:33+00:00"
+            "time": "2021-12-01T10:13:31+00:00"
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -6053,16 +6053,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.36.3",
+            "version": "v1.36.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "0f40c826c0725208c254ddcd3481690e6c7e5047"
+                "reference": "716eee9c8b10b33e682df1b7d80b9061887e9691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/0f40c826c0725208c254ddcd3481690e6c7e5047",
-                "reference": "0f40c826c0725208c254ddcd3481690e6c7e5047",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/716eee9c8b10b33e682df1b7d80b9061887e9691",
+                "reference": "716eee9c8b10b33e682df1b7d80b9061887e9691",
                 "shasum": ""
             },
             "require": {
@@ -6072,7 +6072,7 @@
                 "symfony/config": "^4.4|^5.0|^6.0",
                 "symfony/console": "^4.4|^5.0|^6.0",
                 "symfony/dependency-injection": "^4.4|^5.0|^6.0",
-                "symfony/deprecation-contracts": "^2.2",
+                "symfony/deprecation-contracts": "^2.2|^3",
                 "symfony/filesystem": "^4.4|^5.0|^6.0",
                 "symfony/finder": "^4.4|^5.0|^6.0",
                 "symfony/framework-bundle": "^4.4|^5.0|^6.0",
@@ -6121,7 +6121,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/maker-bundle/issues",
-                "source": "https://github.com/symfony/maker-bundle/tree/v1.36.3"
+                "source": "https://github.com/symfony/maker-bundle/tree/v1.36.4"
             },
             "funding": [
                 {
@@ -6137,7 +6137,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-22T18:44:03+00:00"
+            "time": "2021-12-01T00:27:38+00:00"
         },
         {
             "name": "symfony/mime",
