@@ -12,10 +12,16 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Entity\Device;
 use App\Entity\Log;
+use App\Util\Date;
 use \Doctrine\ORM\EntityManagerInterface;
 use \Twig\Environment;
 use \DateTime;
+use \Exception;
 
+/**
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class RiepilogoCommand extends Command
 {
 
@@ -76,8 +82,8 @@ class RiepilogoCommand extends Command
             $min = round($row['minvolt'], 2);
             $max = round($row['maxvolt'], 2);
             $device = $em->getRepository(Device::class)->find($deviceid);
-            $bodyWeek = $bodyWeek . $device->__toString() . ' Min:' . $min . ' Avg:' . $avg . ' Max:' . $max . '<br/><br/>';
-            $rowsWeek[] = [$device->__toString(), $min, $avg, $max];
+            $bodyWeek = $bodyWeek . $device . ' Min:' . $min . ' Avg:' . $avg . ' Max:' . $max . '<br/><br/>';
+            $rowsWeek[] = [$device, $min, $avg, $max];
         }
 
         $tableWeek = new Table($output);
@@ -111,13 +117,13 @@ class RiepilogoCommand extends Command
         $rowsDaily = [];
         foreach ($riepilogodayrows as $row) {
             $deviceid = $row['deviceid'];
-            $day = \DateTime::createFromFormat('Y-m-d', $row['day']);
+            $day = $this->getDateTime($row['day']);
             $avg = round($row['avgvolt'], 2);
             $min = round($row['minvolt'], 2);
             $max = round($row['maxvolt'], 2);
             $device = $em->getRepository(Device::class)->find($deviceid);
-            $bodyDaily = $bodyDaily . $device->__toString() . ' Min:' . $min . ' Avg:' . $avg . ' Max:' . $max . '<br/><br/>';
-            $rowsDaily[] = [$day->format('d/m/Y'), $device->__toString(), $min, $avg, $max];
+            $bodyDaily = $bodyDaily . $device . ' Min:' . $min . ' Avg:' . $avg . ' Max:' . $max . '<br/><br/>';
+            $rowsDaily[] = [$day->format('d/m/Y'), $device, $min, $avg, $max];
         }
 
         $table = new Table($output);
@@ -128,21 +134,16 @@ class RiepilogoCommand extends Command
         ;
         $table->render();
         $sendmail = (false !== $input->getOption('sendmail'));
-        if ($sendmail) {
-            $recipient = $this->params->get('mailer_user');
+        $recipient = $this->params->get('mailer_user');
+        if ($sendmail && is_string($recipient)) {
             $output->writeln('<info>send mail to ' . $recipient . '</info>');
 
             $email = (new Email())
                     ->from($recipient)
                     ->to($recipient)
-                    //->cc('cc@example.com')
-                    //->bcc('bcc@example.com')
-                    //->replyTo('fabien@example.com')
-                    //->priority(Email::PRIORITY_HIGH)
                     ->subject('Energy report from ' . $date->format('d/m/Y H:i:s') . ' to ' . (new DateTime())->format('d/m/Y H:i:s'))
                     ->text(
                         $this->templating->render(
-                                    // templates/emails/registration.html.twig
                             'Report/index.html.twig',
                             ['rows' => $riepilogodayrows, 'weeklyrows' => $riepilogorows]
                         ),
@@ -150,7 +151,6 @@ class RiepilogoCommand extends Command
                     )
                     ->html(
                         $this->templating->render(
-                            // templates/emails/registration.html.twig
                             'Report/index.html.twig',
                             ['rows' => $riepilogodayrows, 'weeklyrows' => $riepilogorows]
                         ),
@@ -163,5 +163,13 @@ class RiepilogoCommand extends Command
 
         $output->writeln('<info>Done</info>');
         return 0;
+    }
+    private function getDateTime(string $date): DateTime
+    {
+        $day = \DateTime::createFromFormat('Y-m-d', $date);
+        if (!($day)) {
+            throw new Exception("Data non valida");
+        }
+        return $day;
     }
 }

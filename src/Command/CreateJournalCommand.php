@@ -11,6 +11,7 @@ use \App\Entity\Journal;
 use App\Entity\Device;
 use App\Entity\Log;
 use \DateTime;
+use \Exception;
 
 class CreateJournalCommand extends Command
 {
@@ -46,6 +47,7 @@ class CreateJournalCommand extends Command
         $to_date = clone new DateTime();
 
         $avgdays = [];
+
         for ($date = $from_date; $date <= $to_date; $date->modify('+1 days')) {
             $qb = $em->createQueryBuilder()
                     ->select("d.id as deviceid, "
@@ -68,6 +70,9 @@ class CreateJournalCommand extends Command
                 $avgdevicename = $row['devicename'];
                 $avgvolt = $row['avgvolt'];
                 $datechk = \DateTime::createFromFormat('Y-m-d H:i', $date->format('Y-m-d') . ' ' . $avgora);
+                if (!$datechk) {
+                    throw new Exception($date->format('Y-m-d') . ": data non valida");
+                }
                 $avgdays[] = [
                     'device' => $avgdevice,
                     'deviceid' => $avgdeviceid,
@@ -78,6 +83,7 @@ class CreateJournalCommand extends Command
         }
         foreach ($avgdays as $avgday) {
             $device = $em->getRepository(Device::class)->find($avgday['deviceid']);
+
             $dal = clone $avgday['ora'];
             $al = clone $avgday['ora']->modify('+599 seconds');
             $newJournal = new Journal();
