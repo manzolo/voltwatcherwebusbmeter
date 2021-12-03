@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use \Exception;
 
 class ReportController extends AbstractController
 {
@@ -147,9 +148,12 @@ class ReportController extends AbstractController
         }
 
         $objPHPExcel->save($filename);
-
+        $response = file_get_contents($filename);
+        if (!$response) {
+            throw new Exception("Impossibile scaricare il file");
+        }
         return new Response(
-            file_get_contents($filename),
+            $response,
             200,
             [
             'Content-Type' => 'application/vnd.ms-excel',

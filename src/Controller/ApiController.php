@@ -17,6 +17,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
 use DateTimeZone;
+use Exception;
 
 /**
  *
@@ -46,21 +47,10 @@ class ApiController extends AbstractFOSRestController
     {
         //if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $device = $datavolt['device'];
-        if ($datavolt['data']) {
-            //20200416201917.000
-            $datepost = $datavolt['data'];
-            if (18 == strlen($datepost)) {
-                $data = Datetime::createFromFormat('YmdHis.000', $datepost, new DateTimeZone('UTC'));
-                $data->setTimeZone(new DateTimeZone('Europe/Rome'));
-            } else {
-                $data = Datetime::createFromFormat('Y-m-d H:i:s', $datepost);
-            }
-        } else {
-            $data = new DateTime();
-            $data->setTimeZone(new DateTimeZone('Europe/Rome'));
-        }
+        $data = $this->getDatetime($datavolt['data']);
         $volt = (float) $datavolt['volt'];
         $temp = (float) $datavolt['temp'];
+
         $batteryperc = (float) $datavolt['batteryperc'];
         $longitude = floatval($datavolt['longitude']);
         $latitude = floatval($datavolt['latitude']);
@@ -98,6 +88,9 @@ class ApiController extends AbstractFOSRestController
         $recipient = $this->params->get('mailer_user');
         $devicename = $this->getDeviceName($newlog);
         if ($threshold && $recipient && $newlog->getVolt() < $threshold) {
+            if (!(is_string($recipient))) {
+                throw new Exception("Email non valida");
+            }
             $email = (new Email())
                     ->from($recipient)
                     ->to($recipient)
@@ -113,12 +106,15 @@ class ApiController extends AbstractFOSRestController
                     ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
             try {
                 $this->mailer->send($email);
-            } catch (\Exception $exc) {
+            } catch (Exception $exc) {
                 //echo $exc->getTraceAsString();
             }
         }
 
         $owmappid = $this->params->get('openweathermap_apikey');
+        if (!(is_string($owmappid))) {
+            throw new Exception("Openweathermap api key non valida");
+        }
         if ($owmappid && ($longitude || $latitude)) {
             try {
                 $owmurl = 'https://api.openweathermap.org/data/2.5/weather?lon=' . $longitude . '&lat=' . $latitude . '&APPID=' . $owmappid;
@@ -142,12 +138,34 @@ class ApiController extends AbstractFOSRestController
                 $newlog->setWeathericon($weathericon);
                 $this->em->persist($newlog);
                 $this->em->flush();
-            } catch (\Exception $exc) {
+            } catch (Exception $exc) {
                 return $this->view(['errcode' => -99, 'errmsg' => $exc->getTraceAsString()], Response::HTTP_OK);
             }
         }
 
         return $this->view(['errcode' => 0, 'errmsg' => 'OK'], Response::HTTP_OK);
+    }
+    private function getDatetime(?string $dataRaw): DateTime
+    {
+        if ($dataRaw) {
+            //20200416201917.000
+            if (18 == strlen($dataRaw)) {
+                $data = Datetime::createFromFormat('YmdHis.000', $dataRaw, new DateTimeZone('UTC'));
+                if (!($data instanceof DateTime)) {
+                    throw new Exception("Data non valida");
+                }
+                $data->setTimeZone(new DateTimeZone('Europe/Rome'));
+            } else {
+                $data = Datetime::createFromFormat('Y-m-d H:i:s', $dataRaw);
+            }
+        } else {
+            $data = new DateTime();
+            $data->setTimeZone(new DateTimeZone('Europe/Rome'));
+        }
+        if (!($data instanceof DateTime)) {
+            throw new Exception("Data non valida");
+        }
+        return $data;
     }
     /**
      * @RestAnnotations\Post("api/volt/record.json")

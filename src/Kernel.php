@@ -20,22 +20,20 @@ class Kernel extends BaseKernel
     {
         return $this->getProjectDir() . '/var/cache/' . $this->environment;
     }
-
     public function getLogDir(): string
     {
         return $this->getProjectDir() . '/var/log';
     }
-
     public function registerBundles(): iterable
     {
         $contents = require $this->getProjectDir() . '/config/bundles.php';
         foreach ($contents as $class => $envs) {
             if ($envs[$this->environment] ?? $envs['all'] ?? false) {
+                /** @phpstan-ignore-next-line */
                 yield new $class();
             }
         }
     }
-
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $container->addResource(new FileResource($this->getProjectDir() . '/config/bundles.php'));
@@ -50,7 +48,6 @@ class Kernel extends BaseKernel
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
     }
-
     protected function configureRoutes(RoutingConfigurator $routes): void
     {
         $confDir = $this->getProjectDir() . '/config';
