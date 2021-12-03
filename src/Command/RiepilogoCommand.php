@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,7 +20,6 @@ class RiepilogoCommand extends Command
     private $journaldiffdays = '-7 days';
     protected static $defaultName = 'voltwatcher:weeklyreport';
     private $em;
-    private $logger;
     private $mailer;
     private $templating;
     private $params;
@@ -41,13 +39,11 @@ class RiepilogoCommand extends Command
     }
     public function __construct(
         EntityManagerInterface $em,
-        LoggerInterface $logger,
         MailerInterface $mailer,
         Environment $templating,
         ParameterBagInterface $params
     ) {
         $this->em = $em;
-        $this->logger = $logger;
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->params = $params;

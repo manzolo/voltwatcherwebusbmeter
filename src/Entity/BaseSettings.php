@@ -41,7 +41,7 @@ class BaseSettings
      *
      * @param int $id
      *
-     * @return \App\Entity\Settings
+     * @return \App\Entity\BaseSettings
      */
     public function setId($id)
     {
@@ -65,7 +65,7 @@ class BaseSettings
      *
      * @param string $key
      *
-     * @return \App\Entity\Settings
+     * @return \App\Entity\BaseSettings
      */
     public function setKey($key)
     {
@@ -89,7 +89,7 @@ class BaseSettings
      *
      * @param string $value
      *
-     * @return \App\Entity\Settings
+     * @return \App\Entity\BaseSettings
      */
     public function setValue($value)
     {

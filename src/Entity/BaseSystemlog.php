@@ -56,7 +56,7 @@ class BaseSystemlog
      *
      * @param int $id
      *
-     * @return \App\Entity\Systemlog
+     * @return \App\Entity\BaseSystemlog
      */
     public function setId($id)
     {
@@ -80,7 +80,7 @@ class BaseSystemlog
      *
      * @param \DateTime $datelog
      *
-     * @return \App\Entity\Systemlog
+     * @return \App\Entity\BaseSystemlog
      */
     public function setDatelog($datelog)
     {
@@ -104,7 +104,7 @@ class BaseSystemlog
      *
      * @param string $typelog
      *
-     * @return \App\Entity\Systemlog
+     * @return \App\Entity\BaseSystemlog
      */
     public function setTypelog($typelog)
     {
@@ -128,7 +128,7 @@ class BaseSystemlog
      *
      * @param string $agent
      *
-     * @return \App\Entity\Systemlog
+     * @return \App\Entity\BaseSystemlog
      */
     public function setAgent($agent)
     {
@@ -152,7 +152,7 @@ class BaseSystemlog
      *
      * @param string $ip
      *
-     * @return \App\Entity\Systemlog
+     * @return \App\Entity\BaseSystemlog
      */
     public function setIp($ip)
     {
@@ -176,7 +176,7 @@ class BaseSystemlog
      *
      * @param string $message
      *
-     * @return \App\Entity\Systemlog
+     * @return \App\Entity\BaseSystemlog
      */
     public function setMessage($message)
     {

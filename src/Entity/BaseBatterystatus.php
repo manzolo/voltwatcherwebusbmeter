@@ -46,7 +46,7 @@ class BaseBatterystatus
      *
      * @param int $id
      *
-     * @return \App\Entity\Batterystatus
+     * @return \App\Entity\BaseBatterystatus
      */
     public function setId($id)
     {
@@ -70,7 +70,7 @@ class BaseBatterystatus
      *
      * @param float $fromvolt
      *
-     * @return \App\Entity\Batterystatus
+     * @return \App\Entity\BaseBatterystatus
      */
     public function setFromvolt($fromvolt)
     {
@@ -94,7 +94,7 @@ class BaseBatterystatus
      *
      * @param float $tovolt
      *
-     * @return \App\Entity\Batterystatus
+     * @return \App\Entity\BaseBatterystatus
      */
     public function setTovolt($tovolt)
     {
@@ -118,7 +118,7 @@ class BaseBatterystatus
      *
      * @param float $perc
      *
-     * @return \App\Entity\Batterystatus
+     * @return \App\Entity\BaseBatterystatus
      */
     public function setPerc($perc)
     {

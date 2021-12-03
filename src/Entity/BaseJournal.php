@@ -77,7 +77,7 @@ class BaseJournal
      *
      * @param int $id
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setId($id)
     {
@@ -101,7 +101,7 @@ class BaseJournal
      *
      * @param int $device_id
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setDeviceId($device_id)
     {
@@ -125,7 +125,7 @@ class BaseJournal
      *
      * @param \DateTime $dal
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setDal($dal)
     {
@@ -149,7 +149,7 @@ class BaseJournal
      *
      * @param \DateTime $al
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setAl($al)
     {
@@ -173,7 +173,7 @@ class BaseJournal
      *
      * @param float $volt
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setVolt($volt)
     {
@@ -197,7 +197,7 @@ class BaseJournal
      *
      * @param float $temp
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setTemp($temp)
     {
@@ -221,7 +221,7 @@ class BaseJournal
      *
      * @param float $detectorperc
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setDetectorperc($detectorperc)
     {
@@ -245,7 +245,7 @@ class BaseJournal
      *
      * @param float $avgvolt
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setAvgvolt($avgvolt)
     {
@@ -269,7 +269,7 @@ class BaseJournal
      *
      * @param \DateTime $datarilevazione
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setDatarilevazione($datarilevazione)
     {
@@ -293,7 +293,7 @@ class BaseJournal
      *
      * @param \App\Entity\Device $device
      *
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setDevice(Device $device = null)
     {
@@ -305,7 +305,7 @@ class BaseJournal
     /**
      * Get Device entity (many to one).
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function getDevice()
     {

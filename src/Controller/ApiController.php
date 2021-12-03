@@ -89,6 +89,7 @@ class ApiController extends AbstractFOSRestController
 
         $threshold = $newlog->getDevice()->getThreshold();
         $recipient = $this->params->get('mailer_user');
+        $devicename = $this->getDeviceName($newlog);
         if ($threshold && $recipient && $newlog->getVolt() < $threshold) {
             $email = (new Email())
                     ->from($recipient)
@@ -97,12 +98,12 @@ class ApiController extends AbstractFOSRestController
                     //->bcc('bcc@example.com')
                     //->replyTo('fabien@example.com')
                     ->priority(Email::PRIORITY_HIGH)
-                    ->subject('WARNING from ' . $newlog->getDevice() . ' *** ' . $newlog->getVolt() . ' volt ***')
-                    ->text('WARNING from ' . $newlog->getDevice() .
+                    ->subject('WARNING from ' . $devicename . ' *** ' . $newlog->getVolt() . ' volt ***')
+                    ->text('WARNING from ' . $devicename .
                             '! Received ' . $newlog->getVolt() .
                             ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'))
-                    ->html('WARNING from ' . $newlog->getDevice() . '! Received ' . $newlog->getVolt() .
-                            ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
+                    ->html('WARNING from ' . $devicename . '! Received ' . $newlog->getVolt() .
+                    ' (less of ' . $threshold . ' threshold) at ' . $newlog->getData()->format('d/m/Y H:i:s'));
             try {
                 $this->mailer->send($email);
             } catch (\Exception $exc) {
@@ -174,5 +175,9 @@ class ApiController extends AbstractFOSRestController
         $now = (new DateTime());
 
         return $this->view(['datetime' => $now->format('Y-m-d H:i:s'), 'date' => $now->format('Y-m-d'), 'time' => $now->format('H:i:s')]);
+    }
+    private function getDeviceName($newlog)
+    {
+        return $newlog->getDevice()->getName() ? $newlog->getDevice()->getName() : $newlog->getDevice()->getAddress();
     }
 }
