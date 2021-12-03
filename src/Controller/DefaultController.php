@@ -114,8 +114,8 @@ class DefaultController extends AbstractController
             $chart->setElementID($device->getId());
             $deviceName = $device->getName() ? $device->getName() : $device->getAddress();
             $chart->getOptions()->getChart()->setTitle($deviceName);
-            $chart->getOptions()
-                    ->setSeries([['axis' => 'Volts']])
+            /** @phpstan-ignore-next-line */
+            $chart->getOptions()->setSeries([['axis' => 'Volts']])
             //->setAxes(['y' => ['Volts' => ['label' => 'Volts'],
             //'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
             ;

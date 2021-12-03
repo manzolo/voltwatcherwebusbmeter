@@ -61,7 +61,7 @@ class BaseJournal
      * Set the value of id.
      *
      * @param integer $id
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setId($id)
     {
@@ -84,7 +84,7 @@ class BaseJournal
      * Set the value of device_id.
      *
      * @param integer $device_id
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setDeviceId($device_id)
     {
@@ -107,7 +107,7 @@ class BaseJournal
      * Set the value of Journalcol.
      *
      * @param \DateTime $Journalcol
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setJournalcol($Journalcol)
     {
@@ -130,7 +130,7 @@ class BaseJournal
      * Set the value of volt.
      *
      * @param float $volt
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setVolt($volt)
     {
@@ -153,7 +153,7 @@ class BaseJournal
      * Set the value of temp.
      *
      * @param float $temp
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setTemp($temp)
     {
@@ -176,7 +176,7 @@ class BaseJournal
      * Set the value of detectorperc.
      *
      * @param float $detectorperc
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setDetectorperc($detectorperc)
     {
@@ -199,7 +199,7 @@ class BaseJournal
      * Set Device entity (many to one).
      *
      * @param \App\Entity\Device $device
-     * @return \App\Entity\Journal
+     * @return \App\Entity\BaseJournal
      */
     public function setDevice(Device $device = null)
     {
@@ -211,7 +211,7 @@ class BaseJournal
     /**
      * Get Device entity (many to one).
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function getDevice()
     {

@@ -97,7 +97,7 @@ class BaseLog
      *
      * @param int $id
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setId($id)
     {
@@ -121,7 +121,7 @@ class BaseLog
      *
      * @param int $device_id
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setDeviceId($device_id)
     {
@@ -145,7 +145,7 @@ class BaseLog
      *
      * @param \DateTime $data
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setData($data)
     {
@@ -169,7 +169,7 @@ class BaseLog
      *
      * @param float $volt
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setVolt($volt)
     {
@@ -193,7 +193,7 @@ class BaseLog
      *
      * @param float $temp
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setTemp($temp)
     {
@@ -217,7 +217,7 @@ class BaseLog
      *
      * @param float $detectorperc
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setDetectorperc($detectorperc)
     {
@@ -241,7 +241,7 @@ class BaseLog
      *
      * @param float $longitude
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setLongitude($longitude)
     {
@@ -265,7 +265,7 @@ class BaseLog
      *
      * @param float $latitude
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setLatitude($latitude)
     {
@@ -289,7 +289,7 @@ class BaseLog
      *
      * @param string $weather
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setWeather($weather)
     {
@@ -313,7 +313,7 @@ class BaseLog
      *
      * @param float $externaltemp
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setExternaltemp($externaltemp)
     {
@@ -337,7 +337,7 @@ class BaseLog
      *
      * @param string $location
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setLocation($location)
     {
@@ -361,7 +361,7 @@ class BaseLog
      *
      * @param float $cloudiness
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setCloudiness($cloudiness)
     {
@@ -385,7 +385,7 @@ class BaseLog
      *
      * @param string $weathericon
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setWeathericon($weathericon)
     {
@@ -409,7 +409,7 @@ class BaseLog
      *
      * @param \App\Entity\Device $device
      *
-     * @return \App\Entity\Log
+     * @return \App\Entity\BaseLog
      */
     public function setDevice(Device $device = null)
     {
@@ -421,7 +421,7 @@ class BaseLog
     /**
      * Get Device entity (many to one).
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function getDevice()
     {

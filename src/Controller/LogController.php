@@ -273,9 +273,8 @@ class LogController extends FiController
             $chart->setElementID($device->getId());
             $deviceName = $device->getName() ? $device->getName() : $device->getAddress();
             $chart->getOptions()->setTitle($deviceName);
-            
-            $chart->getOptions()
-                    ->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
+            /** @phpstan-ignore-next-line */
+            $chart->getOptions()->setSeries([['axis' => 'Volts'], ['axis' => 'AvgVolts']/* , ['axis' => 'Temps'] */])
             //->setAxes(['y' => ['Volts' => ['label' => 'Volts'],
             //'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
             ;

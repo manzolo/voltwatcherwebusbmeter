@@ -61,7 +61,7 @@ class BaseDevice
      *
      * @param int $id
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function setId($id)
     {
@@ -85,7 +85,7 @@ class BaseDevice
      *
      * @param string $address
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function setAddress($address)
     {
@@ -109,7 +109,7 @@ class BaseDevice
      *
      * @param string $name
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function setName($name)
     {
@@ -133,7 +133,7 @@ class BaseDevice
      *
      * @param float $threshold
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function setThreshold($threshold)
     {
@@ -157,7 +157,7 @@ class BaseDevice
      *
      * @param \App\Entity\Journal $journal
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function addJournal(Journal $journal)
     {
@@ -171,7 +171,7 @@ class BaseDevice
      *
      * @param \App\Entity\Journal $journal
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function removeJournal(Journal $journal)
     {
@@ -195,7 +195,7 @@ class BaseDevice
      *
      * @param \App\Entity\Log $log
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function addLog(Log $log)
     {
@@ -209,7 +209,7 @@ class BaseDevice
      *
      * @param \App\Entity\Log $log
      *
-     * @return \App\Entity\Device
+     * @return \App\Entity\BaseDevice
      */
     public function removeLog(Log $log)
     {
