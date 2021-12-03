@@ -5,6 +5,7 @@ namespace App\Twig\Extension;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use \Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Batterystatus;
 
 /**
  * This will suppress all the PMD warnings in
@@ -15,7 +16,7 @@ use \Doctrine\ORM\EntityManagerInterface;
 class BatteryExtension extends AbstractExtension
 {
 
-    protected $em;
+    protected EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -32,11 +33,11 @@ class BatteryExtension extends AbstractExtension
             new TwigFunction('battery_color', [$this, 'batteryColor']),
         ];
     }
-    public function batteryLevel($volt)
+    public function batteryLevel(float $volt): float
     {
-        $qb = $this->em->createQueryBuilder('b')
+        $qb = $this->em->createQueryBuilder()
                 ->select('b')
-                ->from('App:Batterystatus', 'b')
+                ->from(Batterystatus::class, 'b')
                 ->where(':currentvolt between b.fromvolt and b.tovolt')
                 ->setParameter('currentvolt', $volt)
                 ->getQuery();
@@ -49,7 +50,7 @@ class BatteryExtension extends AbstractExtension
             return $this->batteryPercent($volt);
         }
     }
-    private function batteryPercent(float $volt)
+    private function batteryPercent(float $volt): float
     {
         if ($volt >= 12.91) {
             return 100; //12,91
@@ -84,8 +85,9 @@ class BatteryExtension extends AbstractExtension
         if ($volt < 11.42) {
             return 0;
         }
+        return 0;
     }
-    public function batteryClass($volt)
+    public function batteryClass(float $volt): string
     {
         if (($this->batteryLevel($volt)) >= 40) {
             return '';
@@ -96,8 +98,9 @@ class BatteryExtension extends AbstractExtension
         if (($this->batteryLevel($volt)) < 30) {
             return 'batteryalert';
         }
+        return '';
     }
-    public function batteryColor($volt)
+    public function batteryColor(float $volt): string
     {
         if (($this->batteryLevel($volt)) >= 40) {
             return 'battery-normal-color';
@@ -108,5 +111,6 @@ class BatteryExtension extends AbstractExtension
         if (($this->batteryLevel($volt)) < 30) {
             return 'battery-alert-color';
         }
+        return '';
     }
 }

@@ -7,6 +7,7 @@ use App\Entity\Log;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,19 +17,19 @@ use DateTime;
 class DefaultController extends AbstractController
 {
 
-    private $chartdifftime = '-2 days';
+    private string $chartdifftime = '-2 days';
 
     /**
      * Matches / exactly.
      *
      * @Route("/", name="welcome")
      */
-    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em)
+    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em): Response
     {
         /* chart */
         $qb = $em->createQueryBuilder()
                 ->select('d')
-                ->from('App:Device', 'd')
+                ->from(Device::class, 'd')
                 ->getQuery();
         $devicesrows = $qb->getResult();
 
@@ -36,7 +37,7 @@ class DefaultController extends AbstractController
         foreach ($devicesrows as $device) {
             $qb = $em->createQueryBuilder()
                     ->select('l')
-                    ->from('App:Log', 'l')
+                    ->from(Log::class, 'l')
                     ->where('l.device = :device')
                     ->setParameter(':device', $device)
                     ->orderBy('l.data', 'DESC')
@@ -49,7 +50,7 @@ class DefaultController extends AbstractController
                 $lastweek = clone $infodevice->getData();
                 $qb = $em->createQueryBuilder()
                         ->select('l')
-                        ->from('App:Log', 'l')
+                        ->from(Log::class, 'l')
                         ->where('l.device = :device')
                         ->andWhere('l.data < :data')
                         ->andWhere('l.data > :datachk')
@@ -74,7 +75,10 @@ class DefaultController extends AbstractController
 
         return $this->render($crudtemplate, ['infodevices' => $infodevices, 'charts' => $charts]);
     }
-    private function getCharts(EntityManagerInterface $em)
+    /**
+      @return array<LineChart> Charts
+     */
+    private function getCharts(EntityManagerInterface $em): array
     {
         /* chart */
         $charts = [];
@@ -82,7 +86,7 @@ class DefaultController extends AbstractController
         $date = (new DateTime())->modify($this->chartdifftime);
         $qb = $em->createQueryBuilder()
                 ->select('d')
-                ->from('App:Device', 'd')
+                ->from(Device::class, 'd')
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
@@ -91,7 +95,7 @@ class DefaultController extends AbstractController
             /* chart */
             $qb = $em->createQueryBuilder()
                     ->select('l')
-                    ->from('App:Log', 'l')
+                    ->from(Log::class, 'l')
                     ->where('l.device = :device')
                     ->andWhere('l.data >= :data')
                     ->setParameter('device', $device->getId())

@@ -7,22 +7,24 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Log;
 
 class ElkCommand extends Command
 {
 
     protected static $defaultName = 'voltwatcher:elk';
-    private $client;
-    private $em;
+    private HttpClientInterface $client;
+    private EntityManagerInterface $em;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
                 ->setDescription('Elk creation')
                 ->setHelp('Elk')
         ;
     }
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, HttpClientInterface $client)
+    public function __construct(EntityManagerInterface $em, HttpClientInterface $client)
     {
         $this->em = $em;
         $this->client = $client;
@@ -33,9 +35,9 @@ class ElkCommand extends Command
     {
         $em = $this->em;
 
-        $riepilogorows = $em->createQueryBuilder('l')
+        $riepilogorows = $em->createQueryBuilder()
                 ->select("l")
-                ->from('App:Log', 'l')
+                ->from(Log::class, 'l')
                 //->andWhere('l.data >= :data')
                 //->setParameter("data", $date)
                 //->setMaxResults(1)

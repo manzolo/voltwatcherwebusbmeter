@@ -7,13 +7,14 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Cdf\BiCoreBundle\Entity\Menuapplicazione;
+use Doctrine\ORM\EntityManagerInterface;
 
 class InstallCommand extends Command
 {
     protected static $defaultName = 'voltwatcher:install';
-    private $em;
+    private EntityManagerInterface $em;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
                 ->setDescription('Install')
@@ -21,7 +22,7 @@ class InstallCommand extends Command
         ;
     }
 
-    public function __construct(\Doctrine\ORM\EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
         // you *must* call the parent constructor
