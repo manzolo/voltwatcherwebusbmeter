@@ -244,6 +244,9 @@
     "phpstan/phpstan": {
         "version": "0.12.99"
     },
+    "phpstan/phpstan-doctrine": {
+        "version": "1.0.2"
+    },
     "phpunit/php-code-coverage": {
         "version": "9.2.6"
     },

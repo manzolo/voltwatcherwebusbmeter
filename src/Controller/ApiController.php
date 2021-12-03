@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Device;
+use App\Entity\Settings;
 use App\Entity\Log;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as RestAnnotations;
+use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +18,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
 use DateTimeZone;
 
+/**
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class ApiController extends AbstractFOSRestController
 {
 
@@ -34,8 +40,9 @@ class ApiController extends AbstractFOSRestController
     /**
      * @RestAnnotations\Put("api/volt/record.json")
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
+     * @param array<string> $datavolt
      */
-    public function putVoltRecordAction(array $datavolt)
+    public function putVoltRecordAction(array $datavolt): View
     {
         //if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $device = $datavolt['device'];
@@ -60,7 +67,7 @@ class ApiController extends AbstractFOSRestController
 
         $qb = $this->em->createQueryBuilder()
                 ->select('d')
-                ->from('App:Device', 'd')
+                ->from(Device::class, 'd')
                 ->where('d.address = :address')
                 ->setParameter('address', $device)
                 ->getQuery();
@@ -145,19 +152,20 @@ class ApiController extends AbstractFOSRestController
     /**
      * @RestAnnotations\Post("api/volt/record.json")
      * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
+     * @param array<string> $datavolt
      */
-    public function postVoltRecordAction(array $datavolt)
+    public function postVoltRecordAction(array $datavolt): View
     {
         return $this->putVoltRecordAction($datavolt);
     }
     /**
      * @RestAnnotations\Get("api/get/settings/app.json")
      */
-    public function appGetSettingsAction()
+    public function appGetSettingsAction(): View
     {
         $qb = $this->em->createQueryBuilder()
                 ->select('s')
-                ->from('App:Settings', 's')
+                ->from(Settings::class, 's')
                 ->getQuery();
         $settings = $qb->getResult();
         $newsettings = [];
@@ -170,13 +178,13 @@ class ApiController extends AbstractFOSRestController
     /**
      * @RestAnnotations\Get("api/get/server/datetime.json")
      */
-    public function appServerDatetimeAction()
+    public function appServerDatetimeAction(): View
     {
-        $now = (new DateTime());
+        $now = new DateTime();
 
         return $this->view(['datetime' => $now->format('Y-m-d H:i:s'), 'date' => $now->format('Y-m-d'), 'time' => $now->format('H:i:s')]);
     }
-    private function getDeviceName($newlog)
+    private function getDeviceName(Log $newlog): string
     {
         return $newlog->getDevice()->getName() ? $newlog->getDevice()->getName() : $newlog->getDevice()->getAddress();
     }

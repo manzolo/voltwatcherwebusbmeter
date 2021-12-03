@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Log;
+use App\Entity\Device;
+use App\Entity\Journal;
 use Cdf\BiCoreBundle\Controller\FiController;
 use Cdf\BiCoreBundle\Utils\Entity\EntityUtils;
 use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart;
@@ -19,7 +22,7 @@ use DateTime;
 class LogController extends FiController
 {
 
-    private $chartdifftime = '-3 days';
+    private string $chartdifftime = '-3 days';
 
     //private $batterystatus = array(
     //    "perc"=>100,"volt"=>12.92,"perc"=>90,"volt"=>12.80,"perc"=>80,"volt"=>12.66,"perc"=>70,"volt"=>12.52,"perc"=>60,"volt"=>12.38,"perc"=>50,"volt"=>12.32,
@@ -29,7 +32,7 @@ class LogController extends FiController
      *
      * @Route("/Log", name="Log_container")
      */
-    public function index(Request $request, Packages $assetsmanager)
+    public function index(Request $request, Packages $assetsmanager): Response
     {
         $bundle = $this->getBundle();
         $controller = $this->getController();
@@ -154,7 +157,7 @@ class LogController extends FiController
 
         $filtri = [];
         $prefiltri = [];
-        $entityutils = new EntityUtils($this->get('doctrine')->getManager());
+        $entityutils = new EntityUtils($this->em);
         $tablenamefromentity = $entityutils->getTableFromEntity($entityclass);
         $colonneordinamento = [$tablenamefromentity . '.data' => 'DESC', $tablenamefromentity . '.device_id' => 'ASC'];
         $parametritabella = ['em' => ParametriTabella::setParameter('default'),
@@ -187,7 +190,7 @@ class LogController extends FiController
         /* chart */
         $qb = $this->em->createQueryBuilder()
                 ->select('d')
-                ->from('App:Device', 'd')
+                ->from(Device::class, 'd')
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
@@ -195,7 +198,7 @@ class LogController extends FiController
 
         return $this->render($crudtemplate, ['charts' => $charts, 'parametritabella' => $parametritabella]);
     }
-    public function tabella(Request $request)
+    public function tabella(Request $request): Response
     {
         if (!$this->permessi->canRead($this->getController())) {
             throw new AccessDeniedException('Non si hanno i permessi per visualizzare questo contenuto');
@@ -210,16 +213,16 @@ class LogController extends FiController
 
         $entity = new $classbundle();
         $controller = ParametriTabella::getParameter($parametripassati['nomecontroller']);
-        
+
         $formParameters = ['attr' => ['id' => 'formdati' . $controller],
             'action' => $this->generateUrl($controller . '_new'),
             'parametriform' => $parametriform
-                ];
+        ];
         $form = $this->createForm($formType, $entity, $formParameters);
 
         $qb = $this->em->createQueryBuilder()
                 ->select('d')
-                ->from('App:Device', 'd')
+                ->from(Device::class, 'd')
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
@@ -232,7 +235,11 @@ class LogController extends FiController
 
         return $this->render($templateobj['template'], ['parametri' => $parametri]);
     }
-    private function getCharts($devices)
+    /**
+      @param array<AreaChart> $devices Charts
+      @return array<AreaChart> Charts
+     */
+    private function getCharts(array $devices): array
     {
         /* chart */
         $charts = [];
@@ -240,7 +247,7 @@ class LogController extends FiController
         (new DateTime())->modify($this->chartdifftime);
         $qb = $this->em->createQueryBuilder()
                 ->select('d')
-                ->from('App:Device', 'd')
+                ->from(Device::class, 'd')
                 ->getQuery();
 
         $devicesrows = $qb->getResult();
@@ -249,7 +256,7 @@ class LogController extends FiController
             /* chart */
             $qb = $this->em->createQueryBuilder()
                     ->select('j')
-                    ->from('App:Journal', 'j')
+                    ->from(Journal::class, 'j')
                     ->where('j.device = :device')
                     ->andWhere('j.dal <= :ora')
                     ->andWhere('j.volt is not null')

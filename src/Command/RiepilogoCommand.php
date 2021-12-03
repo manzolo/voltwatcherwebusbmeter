@@ -10,6 +10,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use App\Entity\Device;
+use App\Entity\Log;
 use \Doctrine\ORM\EntityManagerInterface;
 use \Twig\Environment;
 use \DateTime;
@@ -17,14 +19,14 @@ use \DateTime;
 class RiepilogoCommand extends Command
 {
 
-    private $journaldiffdays = '-7 days';
+    private string $journaldiffdays = '-7 days';
     protected static $defaultName = 'voltwatcher:weeklyreport';
-    private $em;
-    private $mailer;
-    private $templating;
-    private $params;
+    private EntityManagerInterface $em;
+    private MailerInterface $mailer;
+    private Environment $templating;
+    private ParameterBagInterface $params;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
                 ->setDescription('Weekly report')
@@ -56,9 +58,9 @@ class RiepilogoCommand extends Command
         $em = $this->em;
 
         /* weekly */
-        $qbWeek = $em->createQueryBuilder('l')
+        $qbWeek = $em->createQueryBuilder()
                 ->select('d.id as deviceid, d.address as device, d.name as devicename, AVG(l.volt) avgvolt, MIN(l.volt) minvolt, MAX(l.volt) maxvolt')
-                ->from('App:Log', 'l')
+                ->from(Log::class, 'l')
                 ->leftJoin('l.device', 'd')
                 ->andWhere('l.data >= :data')
                 ->setParameter('data', $date)
@@ -73,7 +75,7 @@ class RiepilogoCommand extends Command
             $avg = round($row['avgvolt'], 2);
             $min = round($row['minvolt'], 2);
             $max = round($row['maxvolt'], 2);
-            $device = $em->getRepository('App:Device')->find($deviceid);
+            $device = $em->getRepository(Device::class)->find($deviceid);
             $bodyWeek = $bodyWeek . $device->__toString() . ' Min:' . $min . ' Avg:' . $avg . ' Max:' . $max . '<br/><br/>';
             $rowsWeek[] = [$device->__toString(), $min, $avg, $max];
         }
@@ -87,7 +89,7 @@ class RiepilogoCommand extends Command
         $tableWeek->render();
 
         /* dayly */
-        $qbDaily = $em->createQueryBuilder('l')
+        $qbDaily = $em->createQueryBuilder()
                 ->select('d.id as deviceid, '
                         . 'd.address as device, '
                         . 'd.name as devicename, '
@@ -95,7 +97,7 @@ class RiepilogoCommand extends Command
                         . 'AVG(l.volt) avgvolt, '
                         . 'MIN(l.volt) minvolt, '
                         . 'MAX(l.volt) maxvolt')
-                ->from('App:Log', 'l')
+                ->from(Log::class, 'l')
                 ->leftJoin('l.device', 'd')
                 ->andWhere('l.data >= :data')
                 ->setParameter('data', $date)
@@ -113,7 +115,7 @@ class RiepilogoCommand extends Command
             $avg = round($row['avgvolt'], 2);
             $min = round($row['minvolt'], 2);
             $max = round($row['maxvolt'], 2);
-            $device = $em->getRepository('App:Device')->find($deviceid);
+            $device = $em->getRepository(Device::class)->find($deviceid);
             $bodyDaily = $bodyDaily . $device->__toString() . ' Min:' . $min . ' Avg:' . $avg . ' Max:' . $max . '<br/><br/>';
             $rowsDaily[] = [$day->format('d/m/Y'), $device->__toString(), $min, $avg, $max];
         }

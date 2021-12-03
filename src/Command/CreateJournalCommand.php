@@ -8,16 +8,18 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use \Doctrine\ORM\EntityManagerInterface;
 use \App\Entity\Journal;
+use App\Entity\Device;
+use App\Entity\Log;
 use \DateTime;
 
 class CreateJournalCommand extends Command
 {
 
-    private $journaldiffdays = '-3 days';
+    private string $journaldiffdays = '-3 days';
     protected static $defaultName = 'voltwatcher:createjournal';
-    private $em;
+    private EntityManagerInterface $em;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
                 ->setDescription('Journal creation')
@@ -34,7 +36,7 @@ class CreateJournalCommand extends Command
     {
         $em = $this->em;
         $em->createQueryBuilder()
-                ->delete('App:Journal', 'd')
+                ->delete(Journal::class, 'd')
                 ->getQuery()
                 ->execute();
 
@@ -45,13 +47,13 @@ class CreateJournalCommand extends Command
 
         $avgdays = [];
         for ($date = $from_date; $date <= $to_date; $date->modify('+1 days')) {
-            $qb = $em->createQueryBuilder('l')
+            $qb = $em->createQueryBuilder()
                     ->select("d.id as deviceid, "
                             . "d.address as device, "
                             . "d.name as devicename, "
                             . "AVG(l.volt) avgvolt, "
                             . "CONCAT(SUBSTRING(l.data,12,4),'0') AS ora")
-                    ->from('App:Log', 'l')
+                    ->from(Log::class, 'l')
                     ->leftJoin('l.device', 'd')
                     //->andWhere('l.data >= :data')
                     //->setParameter("data", $date)
@@ -75,7 +77,7 @@ class CreateJournalCommand extends Command
             }
         }
         foreach ($avgdays as $avgday) {
-            $device = $em->getRepository('App:Device')->find($avgday['deviceid']);
+            $device = $em->getRepository(Device::class)->find($avgday['deviceid']);
             $dal = clone $avgday['ora'];
             $al = clone $avgday['ora']->modify('+599 seconds');
             $newJournal = new Journal();
@@ -85,9 +87,9 @@ class CreateJournalCommand extends Command
             $newJournal->setAvgvolt($avgday['avgvolt']);
             $em->persist($newJournal);
 
-            $qb = $em->createQueryBuilder('l')
+            $qb = $em->createQueryBuilder()
                     ->select('l')
-                    ->from('App:Log', 'l')
+                    ->from(Log::class, 'l')
                     ->where('l.device = :device')
                     ->andWhere('l.data between :dal and :al')
                     ->setParameter('device', $device)

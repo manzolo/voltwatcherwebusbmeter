@@ -17,7 +17,7 @@ class ReportController extends AbstractController
      *
      * @Route("/report", name="report")
      */
-    public function index(Request $request, EntityManagerInterface $em)
+    public function index(Request $request, EntityManagerInterface $em): Response
     {
         set_time_limit(960);
         ini_set('memory_limit', '2048M');
@@ -138,7 +138,7 @@ class ReportController extends AbstractController
         $todaydate = date('d-m-y');
 
         $filename = 'Exportazione';
-        $filename = $filename . '-' . $todaydate . '-' . strtoupper(md5(uniqid((string)rand(), true)));
+        $filename = $filename . '-' . $todaydate . '-' . strtoupper(md5(uniqid((string) rand(), true)));
         $filename = $filename . '.xlsx';
         $filename = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $filename;
 
