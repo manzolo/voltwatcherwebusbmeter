@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart;
+use Doctrine\Persistence\ManagerRegistry;
 use DateTime;
 
 /**
@@ -198,7 +199,7 @@ class LogController extends FiController
 
         return $this->render($crudtemplate, ['charts' => $charts, 'parametritabella' => $parametritabella]);
     }
-    public function tabella(Request $request): Response
+    public function tabella(Request $request, ManagerRegistry $doctrine): Response
     {
         if (!$this->permessi->canRead($this->getController())) {
             throw new AccessDeniedException('Non si hanno i permessi per visualizzare questo contenuto');
@@ -227,7 +228,7 @@ class LogController extends FiController
 
         $devicesrows = $qb->getResult();
         $charts = $this->getCharts($devicesrows);
-        $parametri = array_merge($parametripassati, $this->getParametriTabella($parametripassati));
+        $parametri = array_merge($parametripassati, $this->getParametriTabella($doctrine, $parametripassati));
         $parametri['charts'] = $charts;
         $parametri['form'] = $form->createView();
         $templateobj = $this->getTabellaTemplateInformations($controller);
