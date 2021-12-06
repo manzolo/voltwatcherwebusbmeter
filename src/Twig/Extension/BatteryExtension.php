@@ -41,12 +41,13 @@ class BatteryExtension extends AbstractExtension
                 ->where(':currentvolt between b.fromvolt and b.tovolt')
                 ->setParameter('currentvolt', $volt)
                 ->getQuery();
-        $bsrows = $qb->getResult();
-        if (1 == count($bsrows)) {
-            return round($bsrows[0]->getPerc(), 0);
+        $bsrows = $qb->getOneOrNullResult();
+        
+        if ($bsrows) {
+            return round($bsrows->getPerc(), 0);
         } else {
-            //Carica %  99  90  80      70  60  50  40  30  20  10
-            //Tensione  12,91 12,80 V   12,66 12,52  12,38           12,06   12,06  11,90 V 11,70 V
+            //Carica %  99 90 80 70 60 50 40 30 20 10
+            //Tensione  12,91 12,80 12,66 12,52  12,38 12,06 12,06 11,90 11,70
             return $this->batteryPercent($volt);
         }
     }

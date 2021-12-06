@@ -3,19 +3,31 @@
 namespace App\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\HttpFoundation\Response;
+use \DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 
 class HomepageTest extends WebTestCase
 {
 
-    private $client;
+    private KernelBrowser $client;
+    private EntityManagerInterface $em;
+    static private string $now;
+    static private string $nowCheck;
+    static private string $volt;
+    static private string $deviceAddress;
 
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $em;
+    const LOCATION = 'San Piero a Sieve';
 
+    public static function setUpBeforeClass(): void
+    {
+        $now = new DateTime();
+        self::$now = $now->format("Y-m-d H:i:s");
+        self::$nowCheck = $now->format("d/m/Y H:i:s");
+        self::$volt = "12";
+        self::$deviceAddress = '55:44:33:22:11:AA';
+    }
     protected function setUp(): void
     {
         static::$kernel = static::createKernel();
@@ -58,7 +70,6 @@ class HomepageTest extends WebTestCase
     }
     private function getAdminClient()
     {
-
         $user = $this->getUserFromUsername("admin");
         $this->client->loginUser($user);
     }
@@ -77,19 +88,38 @@ class HomepageTest extends WebTestCase
     public function testApi(): void
     {
         $token = $this->getToken();
-        $now = (new \DateTime())->format("Y-m-d H:i:s");
-        $data = '{"device":"44:44:09:04:01:CC","data":"' . $now . '","volt":"12","temp":"18","batteryperc":"100","longitude":"11.3447","latitude":"43.9614"}';
+        $data = '{"device":"' . self::$deviceAddress . '","data":"' . self::$now . '","volt":"' . self::$volt . '","temp":"18","batteryperc":"100","longitude":"11.3447","latitude":"43.9614"}';
         $crawler = $this->client->request('PUT', '/api/volt/record.json', [], [], ['CONTENT_TYPE' => 'application/json',
             'Accept' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer ' . $token], $data);
-
         $this->assertResponseIsSuccessful();
+        $this->assertJsonResponse($this->client->getResponse(), 200);
     }
     public function testHomepage(): void
     {
         $this->getAdminClient();
-        $crawler = $this->client->request('GET', '/');
+        $this->client->request('GET', '/');
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('San Piero a Sieve', $this->client->getResponse()->getContent());
-        //$crawler->html()
+        $responseText = $this->client->getResponse()->getContent();
+        $this->assertStringContainsString(self::LOCATION, $responseText);
+        $this->assertStringContainsString(self::$volt, $responseText);
+        $this->assertStringContainsString(self::$nowCheck, $responseText);
+        $this->assertStringContainsString(self::$deviceAddress, $responseText);
+        $this->assertStringContainsString(self::$deviceAddress, $responseText);
+        $this->assertStringContainsString('chart', $responseText);
+    }
+    protected function assertJsonResponse(Response $response, $statusCode = 200)
+    {
+        $this->assertEquals(
+                $statusCode, $response->getStatusCode(),
+                $response->getContent()
+        );
+        $this->assertTrue(
+                $response->headers->contains('Content-Type', 'application/json'),
+                $response->headers
+        );
+
+        $jsonResponse = json_decode($response->getContent());
+        $this->assertEquals(0, $jsonResponse->errcode);
+        $this->assertEquals("OK", $jsonResponse->errmsg);
     }
 }
