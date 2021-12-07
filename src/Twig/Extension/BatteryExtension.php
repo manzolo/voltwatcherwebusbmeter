@@ -53,7 +53,7 @@ class BatteryExtension extends AbstractExtension
     }
     private function batteryPercent(float $volt): float
     {
-        if ($volt > 12.91) {
+        if ($volt > 12.92) {
             return 100; //12,91
         }
         if ($volt >= 12.80 && $volt < 12.91) { // 12,80
