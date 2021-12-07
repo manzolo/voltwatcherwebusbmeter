@@ -59,28 +59,28 @@ class BatteryExtension extends AbstractExtension
         if ($volt >= 12.80 && $volt < 12.91) { // 12,80
             return 90;
         }
-        if ($volt >= 12.66 && $volt < 12.80) { //12,66
+        if ($volt >= 12.66 && $volt < 12.79) { //12,66
             return 80;
         }
-        if ($volt >= 12.52 && $volt < 12.66) { //12,52
+        if ($volt >= 12.52 && $volt < 12.65) { //12,52
             return 70;
         }
-        if ($volt >= 12.38 && $volt < 12.52) { //12,38
+        if ($volt >= 12.38 && $volt < 12.51) { //12,38
             return 60;
         }
-        if ($volt >= 12.22 && $volt < 12.38) {
+        if ($volt >= 12.22 && $volt < 12.37) {
             return 50;
         }
-        if ($volt >= 12.06 && $volt < 12.22) {
+        if ($volt >= 12.06 && $volt < 12.21) {
             return 40;
         }
-        if ($volt >= 11.90 && $volt < 12.06) {
+        if ($volt >= 11.90 && $volt < 12.05) {
             return 30;
         }
-        if ($volt >= 11.70 && $volt < 11.90) {
+        if ($volt >= 11.70 && $volt < 11.89) {
             return 20;
         }
-        if ($volt >= 11.42 && $volt < 11.70) {
+        if ($volt >= 11.42 && $volt < 11.69) {
             return 10;
         }
         if ($volt < 11.41) {
