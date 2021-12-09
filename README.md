@@ -90,14 +90,14 @@ Usb bluetooth volt meter like https://sigrok.org/wiki/RDTech_UM_series
 ### Standalone
 Php modules
 
-- php7.*-xml  
-- php7.*-intl  
-- php7.*-mbstring  
-- php7.*-sqlite3 | php7.*-pgsql | php7.*-mysql 
-- php7.*-zip 
-- php7.*-gd 
-- php7.*-curl 
-- php7.*-bz2 
+- php8.*-xml  
+- php8.*-intl  
+- php8.*-mbstring  
+- php8.*-sqlite3 | php8.*-pgsql | php8.*-mysql 
+- php8.*-zip 
+- php8.*-gd 
+- php8.*-curl 
+- php8.*-bz2 
 
 #### Installation
     git clone https://github.com/manzolo/voltwatcherwebusbmeter.git
