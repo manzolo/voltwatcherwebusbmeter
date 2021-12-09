@@ -55,9 +55,7 @@ RUN apt update && apt install -y \
     gnupg
 RUN add-apt-repository ppa:ondrej/php
 RUN apt update -y && DEBIAN_FRONTEND=noninteractive apt install -y libpng-dev libzip-dev acl libmcrypt-dev libonig-dev zlib1g-dev \
-apache2 php8.1 libapache2-mod-php8.1 \
-php8.1-{bcmath,bz2,intl,gd,mbstring,pgsql,sqlite3,mysql,zip,xml,curl,soap}
-#RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev libpng-dev libzip-dev netcat acl
+apache2 php8.1 libapache2-mod-php8.1 php8.1-bcmath php8.1-bz2 php8.1-intl php8.1-gd php8.1-mbstring php8.1-pgsql php8.1-sqlite3 php8.1-mysql php8.1-zip php8.1-xml php8.1-curl php8.1-soap
 #RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
 
 WORKDIR /var/www/html
