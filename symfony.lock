@@ -2,6 +2,9 @@
     "cmen/google-charts-bundle": {
         "version": "3.1.0"
     },
+    "composer/pcre": {
+        "version": "1.0.0"
+    },
     "composer/xdebug-handler": {
         "version": "2.0.2"
     },
