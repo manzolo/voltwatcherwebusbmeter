@@ -37,7 +37,7 @@ create_database:
       - echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
 
 check_project:
-    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.1-apache
     stage: build
     script:
       #- env
@@ -60,7 +60,7 @@ check_project:
       - bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
     
 test_project:
-    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.0-apache
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.1-apache
     stage: test
     script:
       #- env
