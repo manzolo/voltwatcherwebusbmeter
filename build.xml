@@ -18,20 +18,25 @@
     </target>
 
     <target name="clean" description="Cleanup build">
-        <delete dir="build/artifacts/coverage"/>
-        <delete dir="build/artifacts/logs"/>
+        <delete dir="${basedir}/drivers"/>
         <delete file="cache.properties"/>
         <delete file="composer.phar"/>
+        <delete file=".phpunit.result.cache"/>
+        <delete file="version.properties"/>
+        
     </target>
 
     <target name="finish" description="Cleanup">
+        <delete dir="${basedir}/drivers"/>
         <delete file="cache.properties"/>
         <delete file="composer.phar"/>
+        <delete file=".phpunit.result.cache"/>
+        <delete file="version.properties"/>
     </target>
 
     <target name="prepare" depends="clean" description="Prepare for build">
-        <mkdir dir="build/artifacts/coverage"/>
-        <mkdir dir="build/artifacts/logs"/>
+        <mkdir dir="${basedir}/build/artifacts/coverage"/>
+        <mkdir dir="${basedir}/build/artifacts/logs"/>
     </target>
 
     <target name="check-composer">
@@ -116,7 +121,7 @@
         <exec executable="bin/phpmd" failonerror="true">
             <arg path="src"/>
             <arg value="text"/>
-            <arg value="tools/phpmd/ruleset.xml"/>
+            <arg value="${basedir}/tools/phpmd/ruleset.xml"/>
         </exec>
     </target>
 
@@ -124,7 +129,7 @@
             description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
         <exec executable="bin/phpcs" failonerror="true">
             <arg value="--report=full"/>
-            <arg value="--standard=tools/phpcs/ruleset.xml"/>
+            <arg value="--standard=${basedir}/tools/phpcs/ruleset.xml"/>
             <arg value="--warning-severity=0"/>
             <arg value="--extensions=php"/>
             <arg path="src"/>
@@ -140,7 +145,8 @@
     <target name="phpstan-ci" description="PHPStan finds bugs in your code without writing tests">
         <exec executable="bin/phpstan" failonerror="true">
             <arg value="--no-progress"/>
-            <arg value="--configuration=${basedir}/phpstan.neon"/>
+            <arg value="--no-ansi"/>
+            <arg value="--configuration=${basedir}/tools/phpstan/phpstan.neon"/>
             <arg value="--memory-limit=-1"/>
         </exec>
     </target>
