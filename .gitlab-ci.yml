@@ -6,7 +6,7 @@ stages:
     - test
     - build
     - deploy
-    - restart_container
+    #- restart_container
     
 variables:
   DATABASE_URL: $DATABASE_URL
@@ -40,7 +40,6 @@ check_project:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.1-apache
     stage: build
     script:
-      #- env
       - composer config cache-files-dir .composer_cache
       - composer install --no-dev --optimize-autoloader --no-interaction
       - bin/console lint:yaml config --parse-tags
@@ -50,10 +49,8 @@ check_project:
       - bin/console lint:xliff translations
       # this checks that arguments injected into services match type declarations
       - bin/console lint:container
-      # TODO: replace the old security checker by the new checker provided by the 'symfony' binary
       # this checks that the application doesn't use dependencies with known security vulnerabilities
       - symfony security:check
-      # this checks that Doctrine's mapping configurations are valid
       - bin/console bicorebundle:install admin admin admin@admin.it
       - bin/console voltwatcher:install
       # this checks that Doctrine's mapping configurations are valid
@@ -63,7 +60,6 @@ test_project:
     image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.1-apache
     stage: test
     script:
-      #- env
       - composer config cache-files-dir .composer_cache
       - ant
 
@@ -76,7 +72,8 @@ deploy_project:
     - echo "Latest image tag:"$TAG_LATEST
     - echo "Deploy image tag:"$TAG_COMMIT
   script:
-    - docker-compose build --no-cache
+    #- docker-compose build --no-cache
+    - docker-compose build
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY      
     - docker push $TAG_LATEST
     - docker tag $TAG_LATEST $TAG_COMMIT
