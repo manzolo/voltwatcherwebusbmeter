@@ -40,6 +40,7 @@ RUN rm -rf .git && \
     rm -rf var && \
     rm -rf .env.local && \
     rm -rf .env && \
+    rm -rf vendor && \
     cp .env.dist .env && \
     mkdir var && \ 
     chmod 777 -R var && \ 
