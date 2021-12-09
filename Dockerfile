@@ -45,18 +45,20 @@ RUN rm -rf .git && \
     chmod 777 -R var && \ 
     composer install --no-dev --optimize-autoloader
 
-FROM ubuntu:20.04
+FROM php:8.1-apache
 
 RUN apt update && apt install -y \
     apt-transport-https \
     software-properties-common \
     ca-certificates \
     curl \
+    libonig-dev \
+    zlib1g-dev \
+    libpng-dev \
+    libzip-dev \
     gnupg
-RUN add-apt-repository ppa:ondrej/php
-RUN apt update -y && DEBIAN_FRONTEND=noninteractive apt install -y libpng-dev libzip-dev acl libmcrypt-dev libonig-dev zlib1g-dev \
-apache2 php8.1 libapache2-mod-php8.1 php8.1-bcmath php8.1-bz2 php8.1-intl php8.1-gd php8.1-mbstring php8.1-pgsql php8.1-sqlite3 php8.1-mysql php8.1-zip php8.1-xml php8.1-curl php8.1-soap
-#RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
+
+RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
 
 WORKDIR /var/www/html
 COPY --from=build /home/wwwroot/voltwatcher /var/www/html
@@ -69,23 +71,15 @@ COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/000-default.c
 COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/start-apache /usr/local/bin/
 RUN chmod +x /usr/local/bin/start-apache
 RUN apachectl configtest
-RUN a2enmod php8.1
 RUN a2enmod rewrite
 RUN a2enmod remoteip
 RUN a2enmod env
-#RUN phpenmod pdo_mysql
-RUN rm /var/www/html/index.html
+
 RUN rm -rf /var/www/html/.env
 RUN rm -rf /var/www/html/.env.docker.local
 RUN rm -rf /var/www/html/.env.dist
 RUN rm -rf /var/www/html/.env.local
 RUN echo "APP_ENV=prod" > .env
-
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
 
 EXPOSE 80
 
