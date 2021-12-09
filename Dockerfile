@@ -40,6 +40,7 @@ RUN rm -rf .git && \
     rm -rf var && \
     rm -rf .env.local && \
     rm -rf .env && \
+    rm -rf vendor && \
     cp .env.dist .env && \
     mkdir var && \ 
     chmod 777 -R var && \ 
@@ -84,3 +85,33 @@ RUN echo "APP_ENV=prod" > .env
 EXPOSE 80
 
 CMD ["/usr/local/bin/start-apache"]
+
+# *** Symfony CLI *** 
+#
+#FROM php:8.1-cli
+#
+#RUN apt-get update -y && apt-get install -y \
+#    libmcrypt-dev \
+#    libonig-dev \
+#    zlib1g-dev \
+#    libpng-dev \
+#    libzip-dev \
+#    wget
+#
+#RUN docker-php-ext-install pdo pdo_mysql zip gd
+#
+#
+#RUN docker-php-ext-install pdo mbstring
+#
+#WORKDIR /app
+#COPY --from=build /home/wwwroot/voltwatcher /app
+#
+#ENV MYSQL_HOST=mysqlhost
+#ENV MYSQL_PORT=3306
+#
+## Symfony tool
+#RUN wget https://get.symfony.com/cli/installer -O - | bash && \
+#  mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+#RUN symfony server:ca:install
+#EXPOSE 80
+#CMD symfony serve --port=80
