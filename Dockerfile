@@ -1,7 +1,7 @@
 ARG MYSQL_HOST
 ARG MYSQL_PORT
 
-FROM php:8.0.11-fpm as build
+FROM php:8.1.0-fpm as build
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
@@ -55,7 +55,7 @@ RUN apt update && apt install -y \
     gnupg
 RUN add-apt-repository ppa:ondrej/php
 RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev \
-apache2 php8.0 php8.0-mysql libapache2-mod-php8.0 php-mbstring php-intl php-mysql php-gd php-zip php-xml curl \
+apache2 php8.1 php8.1-mysql libapache2-mod-php1.0 php-mbstring php-intl php-mysql php-gd php-zip php-xml curl \
 libpng-dev libzip-dev acl
 #RUN apt-get update -y && apt-get install -y libmcrypt-dev libonig-dev zlib1g-dev libpng-dev libzip-dev netcat acl
 #RUN docker-php-ext-install pdo pdo_mysql mbstring gd zip
@@ -71,7 +71,7 @@ COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/000-default.c
 COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/start-apache /usr/local/bin/
 RUN chmod +x /usr/local/bin/start-apache
 RUN apachectl configtest
-RUN a2enmod php8.0
+RUN a2enmod php8.1
 RUN a2enmod rewrite
 RUN a2enmod remoteip
 RUN a2enmod env
