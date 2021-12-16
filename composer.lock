@@ -136,16 +136,16 @@
         },
         {
             "name": "comunedifirenze/bicorebundle",
-            "version": "3.0.22",
+            "version": "3.0.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ComuneFI/BiCoreBundle.git",
-                "reference": "37aea245a33de322f584863006f6b04fc0005eab"
+                "reference": "3b882128237cc3c011887284b23850441d8013a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/37aea245a33de322f584863006f6b04fc0005eab",
-                "reference": "37aea245a33de322f584863006f6b04fc0005eab",
+                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/3b882128237cc3c011887284b23850441d8013a9",
+                "reference": "3b882128237cc3c011887284b23850441d8013a9",
                 "shasum": ""
             },
             "require": {
@@ -159,7 +159,7 @@
                 "fi/osbundle": "^2.0",
                 "friendsofsymfony/jsrouting-bundle": "^2.2",
                 "hanneskod/classtools": "^1.2",
-                "php": ">=7.4",
+                "php": ">=8.0",
                 "phpoffice/phpspreadsheet": "^1.4",
                 "symfony/asset": "5.4.*",
                 "symfony/cache": "5.4.*",
@@ -278,9 +278,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ComuneFI/BiCoreBundle/issues",
-                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.22"
+                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.23"
             },
-            "time": "2021-12-15T11:43:28+00:00"
+            "time": "2021-12-16T11:36:41+00:00"
         },
         {
             "name": "comunedifirenze/doctrine2-exporter",
@@ -2482,16 +2482,16 @@
         },
         {
             "name": "jms/serializer-bundle",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSerializerBundle.git",
-                "reference": "6fdc277e16703c6f2cf6acb1df496ddba493b8a1"
+                "reference": "62657a1217f1378764cdd69a27d55f476bce277a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/6fdc277e16703c6f2cf6acb1df496ddba493b8a1",
-                "reference": "6fdc277e16703c6f2cf6acb1df496ddba493b8a1",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/62657a1217f1378764cdd69a27d55f476bce277a",
+                "reference": "62657a1217f1378764cdd69a27d55f476bce277a",
                 "shasum": ""
             },
             "require": {
@@ -2557,7 +2557,7 @@
             ],
             "support": {
                 "issues": "https://github.com/schmittjoh/JMSSerializerBundle/issues",
-                "source": "https://github.com/schmittjoh/JMSSerializerBundle/tree/4.0.1"
+                "source": "https://github.com/schmittjoh/JMSSerializerBundle/tree/4.0.2"
             },
             "funding": [
                 {
@@ -2565,7 +2565,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-20T13:26:53+00:00"
+            "time": "2021-12-01T12:22:07+00:00"
         },
         {
             "name": "laminas/laminas-code",
