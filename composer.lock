@@ -136,16 +136,16 @@
         },
         {
             "name": "comunedifirenze/bicorebundle",
-            "version": "3.0.23",
+            "version": "3.0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ComuneFI/BiCoreBundle.git",
-                "reference": "3b882128237cc3c011887284b23850441d8013a9"
+                "reference": "9d2e6b89fbed601374a5d61e49b4929c2dd54f4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/3b882128237cc3c011887284b23850441d8013a9",
-                "reference": "3b882128237cc3c011887284b23850441d8013a9",
+                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/9d2e6b89fbed601374a5d61e49b4929c2dd54f4f",
+                "reference": "9d2e6b89fbed601374a5d61e49b4929c2dd54f4f",
                 "shasum": ""
             },
             "require": {
@@ -183,6 +183,7 @@
                 "symfony/property-info": "5.4.*",
                 "symfony/proxy-manager-bridge": "5.4.*",
                 "symfony/routing": "5.4.*",
+                "symfony/runtime": "5.4.*",
                 "symfony/security-csrf": "5.4.*",
                 "symfony/string": "5.4.*",
                 "symfony/translation": "5.4.*",
@@ -278,9 +279,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ComuneFI/BiCoreBundle/issues",
-                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.23"
+                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.24"
             },
-            "time": "2021-12-16T11:36:41+00:00"
+            "time": "2021-12-22T08:37:04+00:00"
         },
         {
             "name": "comunedifirenze/doctrine2-exporter",
@@ -1604,16 +1605,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.10.3",
+            "version": "2.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "7b242753466508e1dd10f67c1baee95785f845c1"
+                "reference": "cccb2e2fdfed2969afb3d65c5ea82bafdefbe1a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/7b242753466508e1dd10f67c1baee95785f845c1",
-                "reference": "7b242753466508e1dd10f67c1baee95785f845c1",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/cccb2e2fdfed2969afb3d65c5ea82bafdefbe1a7",
+                "reference": "cccb2e2fdfed2969afb3d65c5ea82bafdefbe1a7",
                 "shasum": ""
             },
             "require": {
@@ -1645,10 +1646,10 @@
                 "phpbench/phpbench": "^0.16.10 || ^1.0",
                 "phpstan/phpstan": "1.2.0",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
-                "squizlabs/php_codesniffer": "3.6.1",
+                "squizlabs/php_codesniffer": "3.6.2",
                 "symfony/cache": "^4.4 || ^5.2",
                 "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0",
-                "vimeo/psalm": "4.13.1"
+                "vimeo/psalm": "4.15.0"
             },
             "suggest": {
                 "symfony/cache": "Provides cache support for Setup Tool with doctrine/cache 2.0",
@@ -1697,9 +1698,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.10.3"
+                "source": "https://github.com/doctrine/orm/tree/2.10.4"
             },
-            "time": "2021-12-03T12:27:05+00:00"
+            "time": "2021-12-20T21:23:47+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -2170,27 +2171,28 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "3.1.1",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "cb75a41227ed5a9028fa3028c8225dda5c7b3086"
+                "reference": "519d967fb101fa4b5aaaff3e3fc060add24fd694"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/cb75a41227ed5a9028fa3028c8225dda5c7b3086",
-                "reference": "cb75a41227ed5a9028fa3028c8225dda5c7b3086",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/519d967fb101fa4b5aaaff3e3fc060add24fd694",
+                "reference": "519d967fb101fa4b5aaaff3e3fc060add24fd694",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "symfony/config": "^4.4|^5.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/event-dispatcher": "^4.4|^5.0",
-                "symfony/framework-bundle": "^4.4.1|^5.0",
-                "symfony/http-foundation": "^4.4|^5.0",
-                "symfony/http-kernel": "^4.4|^5.0",
-                "symfony/security-core": "^3.4|^4.3|^5.0",
+                "symfony/config": "^4.4|^5.3|^6.0",
+                "symfony/dependency-injection": "^4.4|^5.3|^6.0",
+                "symfony/event-dispatcher": "^4.4|^5.3|^6.0",
+                "symfony/framework-bundle": "^4.4.1|^5.0|^6.0",
+                "symfony/http-foundation": "^4.4|^5.3|^6.0",
+                "symfony/http-kernel": "^4.4|^5.3|^6.0",
+                "symfony/routing": "^4.4|^5.3|^6.0",
+                "symfony/security-core": "^4.4|^5.3|^6.0",
                 "willdurand/jsonp-callback-validator": "^1.0",
                 "willdurand/negotiation": "^2.0|^3.0"
             },
@@ -2198,7 +2200,7 @@
                 "doctrine/annotations": "<1.12",
                 "jms/serializer": "<1.13.0",
                 "jms/serializer-bundle": "<2.4.3|3.0.0",
-                "sensio/framework-extra-bundle": "<5.2.3",
+                "sensio/framework-extra-bundle": "<6.1",
                 "symfony/error-handler": "<4.4.1"
             },
             "require-dev": {
@@ -2208,20 +2210,20 @@
                 "jms/serializer-bundle": "^2.4.3|^3.0.1|^4.0",
                 "psr/http-message": "^1.0",
                 "psr/log": "^1.0|^2.0|^3.0",
-                "sensio/framework-extra-bundle": "^5.2.3",
-                "symfony/asset": "^4.4|^5.0",
-                "symfony/browser-kit": "^4.4|^5.0",
-                "symfony/css-selector": "^4.4|^5.0",
-                "symfony/expression-language": "^4.4|^5.0",
-                "symfony/form": "^4.4|^5.0",
-                "symfony/mime": "^4.4|^5.0",
-                "symfony/phpunit-bridge": "^5.3.10",
-                "symfony/security-bundle": "^4.4|^5.0",
-                "symfony/serializer": "^4.4|^5.0",
-                "symfony/twig-bundle": "^4.4|^5.0",
-                "symfony/validator": "^4.4|^5.0",
-                "symfony/web-profiler-bundle": "^4.4|^5.0",
-                "symfony/yaml": "^4.4|^5.0"
+                "sensio/framework-extra-bundle": "^6.1",
+                "symfony/asset": "^4.4|^5.3|^6.0",
+                "symfony/browser-kit": "^4.4|^5.3|^6.0",
+                "symfony/css-selector": "^4.4|^5.3|^6.0",
+                "symfony/expression-language": "^4.4|^5.3|^6.0",
+                "symfony/form": "^4.4|^5.3|^6.0",
+                "symfony/mime": "^4.4|^5.3|^6.0",
+                "symfony/phpunit-bridge": "^5.3|^6.0",
+                "symfony/security-bundle": "^4.4|^5.3|^6.0",
+                "symfony/serializer": "^4.4|^5.3|^6.0",
+                "symfony/twig-bundle": "^4.4|^5.3|^6.0",
+                "symfony/validator": "^4.4|^5.3|^6.0",
+                "symfony/web-profiler-bundle": "^4.4|^5.3|^6.0",
+                "symfony/yaml": "^4.4|^5.3|^6.0"
             },
             "suggest": {
                 "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires ^2.0|^3.0",
@@ -2269,9 +2271,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FriendsOfSymfony/FOSRestBundle/issues",
-                "source": "https://github.com/FriendsOfSymfony/FOSRestBundle/tree/3.1.1"
+                "source": "https://github.com/FriendsOfSymfony/FOSRestBundle/tree/3.2.0"
             },
-            "time": "2021-11-08T13:02:04+00:00"
+            "time": "2021-12-18T21:22:44+00:00"
         },
         {
             "name": "hanneskod/classtools",
@@ -2569,16 +2571,16 @@
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.5.0",
+            "version": "4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "c99ef8e5629c33bfaa3a8f1df773e916af564cd6"
+                "reference": "6fd96d4d913571a2cd056a27b123fa28cb90ac4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/c99ef8e5629c33bfaa3a8f1df773e916af564cd6",
-                "reference": "c99ef8e5629c33bfaa3a8f1df773e916af564cd6",
+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/6fd96d4d913571a2cd056a27b123fa28cb90ac4e",
+                "reference": "6fd96d4d913571a2cd056a27b123fa28cb90ac4e",
                 "shasum": ""
             },
             "require": {
@@ -2631,7 +2633,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-12-07T06:00:32+00:00"
+            "time": "2021-12-19T18:06:55+00:00"
         },
         {
             "name": "lcobucci/clock",
@@ -4042,16 +4044,16 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v6.2.1",
+            "version": "v6.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "7fd1d54c1b27f094a68ae15a99b7fc815857255f"
+                "reference": "eeab0bbe6ac94a600a7da7aac020646dcd739484"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/7fd1d54c1b27f094a68ae15a99b7fc815857255f",
-                "reference": "7fd1d54c1b27f094a68ae15a99b7fc815857255f",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/eeab0bbe6ac94a600a7da7aac020646dcd739484",
+                "reference": "eeab0bbe6ac94a600a7da7aac020646dcd739484",
                 "shasum": ""
             },
             "require": {
@@ -4114,9 +4116,9 @@
             ],
             "support": {
                 "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
-                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.1"
+                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.3"
             },
-            "time": "2021-10-20T09:43:03+00:00"
+            "time": "2021-12-17T14:36:53+00:00"
         },
         {
             "name": "symfony/apache-pack",
@@ -10161,16 +10163,16 @@
         },
         {
             "name": "phpmd/phpmd",
-            "version": "2.11.0",
+            "version": "2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpmd/phpmd.git",
-                "reference": "3637949092e6471aeaeca66bc6c016f45e459e24"
+                "reference": "08b60a2eb7e14c23f46ff8865b510ae08b75d0fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpmd/phpmd/zipball/3637949092e6471aeaeca66bc6c016f45e459e24",
-                "reference": "3637949092e6471aeaeca66bc6c016f45e459e24",
+                "url": "https://api.github.com/repos/phpmd/phpmd/zipball/08b60a2eb7e14c23f46ff8865b510ae08b75d0fd",
+                "reference": "08b60a2eb7e14c23f46ff8865b510ae08b75d0fd",
                 "shasum": ""
             },
             "require": {
@@ -10232,7 +10234,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/phpmd",
                 "issues": "https://github.com/phpmd/phpmd/issues",
-                "source": "https://github.com/phpmd/phpmd/tree/2.11.0"
+                "source": "https://github.com/phpmd/phpmd/tree/2.11.1"
             },
             "funding": [
                 {
@@ -10240,7 +10242,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-29T14:05:52+00:00"
+            "time": "2021-12-17T11:25:43+00:00"
         },
         {
             "name": "phpspec/prophecy",
