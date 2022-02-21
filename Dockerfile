@@ -19,6 +19,9 @@ RUN rm -rf .git && \
     chmod 777 -R var && \ 
     composer install --no-dev --optimize-autoloader
 
+
+
+
 FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-lite
 
 WORKDIR /var/www/html
@@ -32,6 +35,9 @@ ENV APP_ENV=prod
 COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/start-apache /usr/local/bin/
 RUN chmod +x /usr/local/bin/start-apache
+RUN rm -rf /etc/apache2/conf-enabled/vhost.conf
+RUN rm -rf /var/log/apache2/access.log && touch /var/log/apache2/access.log
+RUN rm -rf /var/log/apache2/error.log && /var/log/apache2/error.log
 RUN apachectl configtest
 
 RUN rm -rf /var/www/html/.env
