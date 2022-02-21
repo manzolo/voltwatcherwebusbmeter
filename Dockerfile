@@ -29,9 +29,10 @@ ENV MYSQL_HOST=mysqlhost
 ENV MYSQL_PORT=3306
 ENV APP_ENV=prod
 
+COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/start-apache /usr/local/bin/
+RUN chmod +x /usr/local/bin/start-apache
 RUN apachectl configtest
-#RUN a2enmod rewrite
-#RUN a2enmod remoteip
 
 RUN rm -rf /var/www/html/.env
 RUN rm -rf /var/www/html/.env.docker.local
