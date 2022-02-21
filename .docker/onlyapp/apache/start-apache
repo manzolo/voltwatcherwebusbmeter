@@ -2,14 +2,14 @@
 sed -i "s/Listen 80/Listen ${PORT:-80}/g" /etc/apache2/ports.conf
 sed -i "s/:80/:${PORT:-80}/g" /etc/apache2/sites-enabled/*
 
-APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data' | grep -v root | head -1 | cut -d\  -f1`
-setfacl -R -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX /var/www/html/var/log
-setfacl -dR -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX /var/www/html/var/cache
+#APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data' | grep -v root | head -1 | cut -d\  -f1`
+#setfacl -R -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX /var/www/html/var/log
+#setfacl -dR -m u:"$APACHEUSER":rwX -m u:`whoami`:rwX /var/www/html/var/cache
 
 rm -rf /var/www/html/var/log/prod
 /var/www/html/bin/console cache:clear --env=prod
 
-chmod 777 /var/www/html/var/cache
-chmod 777 /var/www/html/var/log
+chmod -R 777 /var/www/html/var/cache
+chmod -R 777 /var/www/html/var/log
 
 apache2ctl -DFOREGROUND
