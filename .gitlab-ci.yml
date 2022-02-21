@@ -37,7 +37,7 @@ create_database:
       - echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
 
 check_project:
-    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.1-apache
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.1-apache-full
     stage: build
     script:
       - composer config cache-files-dir .composer_cache
@@ -51,13 +51,14 @@ check_project:
       - bin/console lint:container
       # this checks that the application doesn't use dependencies with known security vulnerabilities
       - symfony security:check
+      # Install environment
       - bin/console bicorebundle:install admin admin admin@admin.it
       - bin/console voltwatcher:install
       # this checks that Doctrine's mapping configurations are valid
       - bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
     
 test_project:
-    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.1-apache
+    image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/php8.1-apache-full
     stage: test
     script:
       - composer config cache-files-dir .composer_cache
