@@ -1,7 +1,7 @@
 ARG MYSQL_HOST
 ARG MYSQL_PORT
 
-FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-full as build
+FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-full:latest as build
 
 WORKDIR /home/wwwroot/voltwatcher
 
@@ -22,7 +22,7 @@ RUN rm -rf .git && \
 
 
 
-FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-lite
+FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-lite:latest
 
 WORKDIR /var/www/html
 COPY --from=build /home/wwwroot/voltwatcher /var/www/html
