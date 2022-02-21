@@ -337,9 +337,9 @@ echo "git checkout develop"
 echo "git flow release start "$(compose)
 echo "git flow release finish "$(compose)
 echo "git push origin develop master --tags"
-echo "docker tag manzolo/voltwatcher_app manzolo/voltwatcher_app:"$(compose)
-echo "docker push manzolo/voltwatcher_app:"$(compose)
-echo "docker push manzolo/voltwatcher_app"
+#echo "docker tag manzolo/voltwatcher_app manzolo/voltwatcher_app:"$(compose)
+#echo "docker push manzolo/voltwatcher_app:"$(compose)
+#echo "docker push manzolo/voltwatcher_app"
 
 # is proposed tag in conflict with any other TAG
 PROPOSED_HASH=$(tag_hash $(compose))
