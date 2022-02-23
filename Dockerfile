@@ -27,8 +27,8 @@ RUN rm -rf .git && \
 FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-lite:latest
 
 WORKDIR /var/www/html
-COPY --from=build /home/wwwroot/voltwatcher /var/www/html
-RUN chown -R www-data:www-data /var/www/html
+COPY --from=build --chown=www-data /home/wwwroot/voltwatcher /var/www/html
+#RUN chown -R www-data:www-data /var/www/html
 
 ENV MYSQL_HOST=mysqlhost
 ENV MYSQL_PORT=3306
