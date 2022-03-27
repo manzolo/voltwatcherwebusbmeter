@@ -27,21 +27,21 @@
         "/build/755.5a8586e9.js",
         "/build/109.984d2752.js",
         "/build/239.fced97f6.js",
-        "/build/921.88ded6f0.js",
-        "/build/maps.a8a3f526.js"
+        "/build/991.86acce04.js",
+        "/build/maps.eb2b5951.js"
       ],
       "css": [
-        "/build/maps.0fbd5663.css"
+        "/build/maps.c3858c23.css"
       ]
     },
     "battery": {
       "js": [
         "/build/runtime.d575ba56.js",
-        "/build/176.068b7731.js",
+        "/build/176.e3e0ce40.js",
         "/build/battery.869f9637.js"
       ],
       "css": [
-        "/build/803.df83ead9.css",
+        "/build/803.f3107e99.css",
         "/build/battery.dd1278d2.css"
       ]
     },
@@ -50,11 +50,11 @@
         "/build/runtime.d575ba56.js",
         "/build/755.5a8586e9.js",
         "/build/981.65633466.js",
-        "/build/234.bfdf3094.js",
+        "/build/234.0d44e760.js",
         "/build/bootstrapitalia.5160354d.js"
       ],
       "css": [
-        "/build/234.d7ca43f3.css"
+        "/build/234.6bd4710f.css"
       ]
     },
     "bicore": {
@@ -85,12 +85,12 @@
         "/build/981.65633466.js",
         "/build/215.dd52c077.js",
         "/build/239.fced97f6.js",
-        "/build/515.718ddde2.js",
+        "/build/515.d42fedc0.js",
         "/build/919.fbb51352.js",
         "/build/bitabella.65883b11.js"
       ],
       "css": [
-        "/build/803.df83ead9.css",
+        "/build/803.f3107e99.css",
         "/build/919.28033ba2.css"
       ]
     },
@@ -102,12 +102,12 @@
         "/build/981.65633466.js",
         "/build/215.dd52c077.js",
         "/build/239.fced97f6.js",
-        "/build/515.718ddde2.js",
+        "/build/515.d42fedc0.js",
         "/build/919.fbb51352.js",
         "/build/bidemo.32be57cf.js"
       ],
       "css": [
-        "/build/803.df83ead9.css",
+        "/build/803.f3107e99.css",
         "/build/919.28033ba2.css"
       ]
     },

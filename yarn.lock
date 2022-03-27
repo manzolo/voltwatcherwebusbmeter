@@ -1248,10 +1248,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-free@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@fortawesome/fontawesome-free@npm:6.0.0"
-  checksum: 138e352ba6e9ecdd711899943919d4020704ddf22dc6a7de14d0dbfb5222c60738fcded6ca39a3fcd6fa8eaf9b83033e44dd25625d9e0118a9cea1d4585b36de
+"@fortawesome/fontawesome-free@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "@fortawesome/fontawesome-free@npm:6.1.1"
+  checksum: adb3c71e0d9e60488401a193cfd1925ad100935ae41c88d3969937b59c182289ecc6f8c0835f0a3fb9cc215348a047a39536e918247381774baf7dcebef94b64
   languageName: node
   linkType: hard
 
@@ -1396,9 +1396,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@symfony/webpack-encore@npm:^1.8.1":
-  version: 1.8.1
-  resolution: "@symfony/webpack-encore@npm:1.8.1"
+"@splidejs/splide@npm:^3.6.12":
+  version: 3.6.12
+  resolution: "@splidejs/splide@npm:3.6.12"
+  checksum: 2257a63a3adea8693492875b8e742eddf777ff2dfca3bc4e0197f74773aa75d0dd6888197219b755b64c3b511239dc29ace0a0bb1465704b3e8e6bc35760b8f2
+  languageName: node
+  linkType: hard
+
+"@symfony/webpack-encore@npm:^1.8.2":
+  version: 1.8.2
+  resolution: "@symfony/webpack-encore@npm:1.8.2"
   dependencies:
     "@babel/core": ^7.7.0
     "@babel/plugin-syntax-dynamic-import": ^7.0.0
@@ -1427,7 +1434,7 @@ __metadata:
     yargs-parser: ^20.2.4
   bin:
     encore: bin/encore.js
-  checksum: 0bbcc49618428331794ac39e279c85e06fc3831b4d544417221a7957c95ba72af945b88d4b63c754fc54a7acba2f246bdcc04e98c2e5ed3e56fb72ef7390cabb
+  checksum: 7dcd1dc7a36990a9db11f142eaaf179d136a294841979d44e402d65f6a471e89487451c71f053853af77ec38d17df4b5dc1f637011cdb32d2ec8b167b0d7fe1f
   languageName: node
   linkType: hard
 
@@ -1915,6 +1922,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"accessible-autocomplete@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "accessible-autocomplete@npm:2.0.4"
+  dependencies:
+    preact: ^8.3.1
+  checksum: e1eeff2785476bb37be022a1a149e68f3bacd4e29a264b442ddd2d6c94fe900ecaf109a87098791e55774fe7ec9d93e6d55039390c9e82207d3ebb18576f182a
+  languageName: node
+  linkType: hard
+
 "acorn-import-assertions@npm:^1.7.6":
   version: 1.8.0
   resolution: "acorn-import-assertions@npm:1.8.0"
@@ -2390,20 +2406,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap-italia@npm:^1.5.2":
-  version: 1.5.2
-  resolution: "bootstrap-italia@npm:1.5.2"
+"bootstrap-italia@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "bootstrap-italia@npm:1.6.0"
   dependencies:
+    "@splidejs/splide": ^3.6.12
+    accessible-autocomplete: ^2.0.4
     ansi-regex: ^6.0.1
     bootstrap: ^4.6.1
     bootstrap-select: ^1.13.18
     glob-parent: ^6.0.2
     jquery: ^3.6.0
+    just-validate: ^3.5.0
+    just-validate-plugin-date: ^1.1.1
     nth-check: ^2.0.1
     owl.carousel: 2.3.4
     popper.js: 1.16.1
     svgxuse: 1.2.6
-  checksum: bc38aa4a2436bd738b2b9c5029a62a1f61ce7f4f2a92f5b6b39b82850db4d95b49a310b627ed62620fc9fabd673d9e85496cf28219b2e077242a00dde18a8459
+  checksum: c4db56fae80a04b085a31cb50a5dea6c2db281af5e470914789981d4bdeb792426b2f974354b96d7a15cf05f2114eb0ca0e32631966f440a1a07af647dc10acf
   languageName: node
   linkType: hard
 
@@ -2522,13 +2542,6 @@ __metadata:
     function-bind: ^1.1.1
     get-intrinsic: ^1.0.2
   checksum: f8e31de9d19988a4b80f3e704788c4a2d6b6f3d17cfec4f57dc29ced450c53a49270dc66bf0fbd693329ee948dd33e6c90a329519aef17474a4d961e8d6426b0
-  languageName: node
-  linkType: hard
-
-"callsites@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "callsites@npm:3.1.0"
-  checksum: 072d17b6abb459c2ba96598918b55868af677154bec7e73d222ef95a8fdb9bbf7dae96a8421085cdad8cd190d86653b5b6dc55a4484f2e5b2e27d5e0c3fc15b3
   languageName: node
   linkType: hard
 
@@ -3121,6 +3134,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:2.28.0":
+  version: 2.28.0
+  resolution: "date-fns@npm:2.28.0"
+  checksum: a0516b2e4f99b8bffc6cc5193349f185f195398385bdcaf07f17c2c4a24473c99d933eb0018be4142a86a6d46cb0b06be6440ad874f15e795acbedd6fd727a1f
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -3130,7 +3150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.2.0, debug@npm:^4.3.1":
+"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1":
   version: 4.3.3
   resolution: "debug@npm:4.3.3"
   dependencies:
@@ -3558,13 +3578,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm@npm:^3.2.25":
-  version: 3.2.25
-  resolution: "esm@npm:3.2.25"
-  checksum: 978aabe2de83541c105605a6d60a26ed8e627ef6bb0a7605fe15a95bbdea6b8348bd045255cb22219c054dd09a81a94823df00843d9e97f42419c92015ce3a64
-  languageName: node
-  linkType: hard
-
 "esrecurse@npm:^4.3.0":
   version: 4.3.0
   resolution: "esrecurse@npm:4.3.0"
@@ -3969,18 +3982,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"geotiff@npm:^1.0.8":
-  version: 1.0.9
-  resolution: "geotiff@npm:1.0.9"
+"geotiff@npm:^2.0.2":
+  version: 2.0.5
+  resolution: "geotiff@npm:2.0.5"
   dependencies:
     "@petamoriken/float16": ^3.4.7
     lerc: ^3.0.0
-    lru-cache: ^6.0.0
     pako: ^2.0.4
     parse-headers: ^2.0.2
-    threads: ^1.7.0
+    quick-lru: ^6.1.0
+    web-worker: ^1.2.0
     xml-utils: ^1.0.2
-  checksum: 27eabb360cfd67ef19bed1bfe6562842c64f93fa0d446dfddcd3191b41379a1ff7d4609b9bb792fb257e31a14c5a272a2b7c3033af1a140b6c8eeda466f3255b
+  checksum: d27c70038e9d68d116bc7f4fd51176d531b5d238f5bf4e97cbd48cf1a4e790a2d6c3f4c370af24009fc3e7dc7521b2f0d4fd5ace2df85191da243d2d2a07e1c4
   languageName: node
   linkType: hard
 
@@ -4611,13 +4624,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-observable@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "is-observable@npm:2.1.0"
-  checksum: 93b0e0f9b115ef4b5f0523f4930667a7809a42e9cf1b23a444f8a9c15f72b9c1729b2a4691d55a5c479a05eafd5dda9b51ed1b65336d56027b7989ecb8ef51bf
-  languageName: node
-  linkType: hard
-
 "is-path-cwd@npm:^2.0.0, is-path-cwd@npm:^2.2.0":
   version: 2.2.0
   resolution: "is-path-cwd@npm:2.2.0"
@@ -4893,6 +4899,22 @@ __metadata:
     json-schema: 0.4.0
     verror: 1.10.0
   checksum: 2ad1b9fdcccae8b3d580fa6ced25de930eaa1ad154db21bbf8478a4d30bbbec7925b5f5ff29b933fba9412b16a17bd484a8da4fdb3663b5e27af95dd693bab2a
+  languageName: node
+  linkType: hard
+
+"just-validate-plugin-date@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "just-validate-plugin-date@npm:1.1.1"
+  dependencies:
+    date-fns: 2.28.0
+  checksum: 74cd7b3ccb7f6535ed64e0fac5a584138f9ea484eaa3b63da4fa4619ff3d56196558f855e25151c89af936dd010f4000d6344455f6663c6513c6d761b53cc331
+  languageName: node
+  linkType: hard
+
+"just-validate@npm:^3.5.0":
+  version: 3.5.1
+  resolution: "just-validate@npm:3.5.1"
+  checksum: 6859542c2ad30549556a4ccf9e64c097dbe6defa13bfab5d15939ece72b16661de5ec491b7866ea6b843138b50c13e2c2df02aa035be9ce2f9af38eaa629800c
   languageName: node
   linkType: hard
 
@@ -5631,13 +5653,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"observable-fns@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "observable-fns@npm:0.6.1"
-  checksum: b575f23f90c6129a8bead1d5001dbae2d83c6d01724a4790ec8f1c7f2db352440c87eae2ffb562117cb58b4a68b4503ab3a7017a77025916993ad710cd0efdd9
-  languageName: node
-  linkType: hard
-
 "obuf@npm:^1.0.0, obuf@npm:^1.1.2":
   version: 1.1.2
   resolution: "obuf@npm:1.1.2"
@@ -5645,26 +5660,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ol-mapbox-style@npm:^6.8.2":
-  version: 6.8.3
-  resolution: "ol-mapbox-style@npm:6.8.3"
+"ol-mapbox-style@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "ol-mapbox-style@npm:7.1.1"
   dependencies:
     "@mapbox/mapbox-gl-style-spec": ^13.20.1
     mapbox-to-css-font: ^2.4.1
     webfont-matcher: ^1.1.0
-  checksum: 118c959d9cb6348d768fa778c111ab33ec9019aa9a2aa309049ea0313d13976f0cf0aa042b71764f1d3e5f0fc70748228fef1f75e693e847cb6a3ae8843684cb
+  checksum: 3f5f9c528163a0f74a582c0cbec58b833cc76b212d334a497a085e0b562164a05054ab2a5a78cde92e9ea560433bbae9511344e894d5440700515af07365426c
   languageName: node
   linkType: hard
 
-"ol@npm:^6.12.0":
-  version: 6.12.0
-  resolution: "ol@npm:6.12.0"
+"ol@npm:^6.14.1":
+  version: 6.14.1
+  resolution: "ol@npm:6.14.1"
   dependencies:
-    geotiff: ^1.0.8
-    ol-mapbox-style: ^6.8.2
+    geotiff: ^2.0.2
+    ol-mapbox-style: ^7.1.1
     pbf: 3.2.1
     rbush: ^3.0.1
-  checksum: a0eb5766bda485acd59c95e835e87d214c501310474e22003f4ef9ea600bf005abb43f0f33aa3d4939d2c84748bd40a5c4168c31551e5266c208aeff8eb576dc
+  checksum: 118ae5b40fb3f98efb7c2cbf230edc3788567fac872f80e09b9dbcc3845c0179de95c2ef771be2307e6f8b4162e9dbc68818757c874d7d4fdd855e56dd43ea12
   languageName: node
   linkType: hard
 
@@ -6366,6 +6381,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"preact@npm:^8.3.1":
+  version: 8.5.3
+  resolution: "preact@npm:8.5.3"
+  checksum: 1a2d90816abdc62673842190b819b7ce2f552b4b412cc0d2118395d8167e79f4e988229993079700277a0cae6b7fd895b3bfe5a43091bbc1f4df43903b04d1e7
+  languageName: node
+  linkType: hard
+
 "pretty-error@npm:^3.0.3":
   version: 3.0.4
   resolution: "pretty-error@npm:3.0.4"
@@ -6456,6 +6478,13 @@ __metadata:
   version: 4.0.1
   resolution: "quick-lru@npm:4.0.1"
   checksum: bea46e1abfaa07023e047d3cf1716a06172c4947886c053ede5c50321893711577cb6119360f810cc3ffcd70c4d7db4069c3cee876b358ceff8596e062bd1154
+  languageName: node
+  linkType: hard
+
+"quick-lru@npm:^6.1.0":
+  version: 6.1.1
+  resolution: "quick-lru@npm:6.1.1"
+  checksum: a9c75bf1d208c1d207590e10403a75d037f9faf7857f2e0d38c294d92b40d8b400776bcb5d4dd516baa84e6f5e3baf2a16cf405e6fedc18107922f46aeae83ee
   languageName: node
   linkType: hard
 
@@ -6863,21 +6892,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@fortawesome/fontawesome-free": ^6.0.0
-    "@symfony/webpack-encore": ^1.8.1
+    "@fortawesome/fontawesome-free": ^6.1.1
+    "@symfony/webpack-encore": ^1.8.2
     bootbox: ^5.5.2
     bootstrap-confirmation2: ^4.2.1
-    bootstrap-italia: ^1.5.2
+    bootstrap-italia: ^1.6.0
     core-js: ^3.21.1
     file-loader: ^6.2.0
     google-charts: ^2.0.0
     jquery-contextmenu: ^2.9.2
     moment: 2.29.1
     node-sass: ^7.0.1
-    ol: ^6.12.0
+    ol: ^6.14.1
     sass-loader: ^12.6.0
     serialize-javascript: ^6.0.0
-    sweetalert2: ^11.4.4
+    sweetalert2: ^11.4.7
     webpack-notifier: ^1.15.0
   languageName: unknown
   linkType: soft
@@ -7601,10 +7630,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sweetalert2@npm:^11.4.4":
-  version: 11.4.4
-  resolution: "sweetalert2@npm:11.4.4"
-  checksum: 3e68b2072a3e3d2b13dc566c8bc44c781c81a667189effa59c75442067eb9b039909c2ec13870d1fccb2ff266a4de79baca26461bd01a9a0e2680a01d16bbd2f
+"sweetalert2@npm:^11.4.7":
+  version: 11.4.7
+  resolution: "sweetalert2@npm:11.4.7"
+  checksum: b1468ceded37370d3c6f935e961049e2209f109995a5830cf3c0b3168e4eb413aaab6495d3dd4b9408547e090c74a189590486f30b049fcd5fe104f1ac273f32
   languageName: node
   linkType: hard
 
@@ -7678,22 +7707,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"threads@npm:^1.7.0":
-  version: 1.7.0
-  resolution: "threads@npm:1.7.0"
-  dependencies:
-    callsites: ^3.1.0
-    debug: ^4.2.0
-    is-observable: ^2.1.0
-    observable-fns: ^0.6.1
-    tiny-worker: ">= 2"
-  dependenciesMeta:
-    tiny-worker:
-      optional: true
-  checksum: 253574bc5c70d0663756d74c7a438ced64f9c6746ff550abea18b11919a24cc6b1be3322b4d0bdb8c6077e52774eb65f49549bb9deec24e693f149470c316ee1
-  languageName: node
-  linkType: hard
-
 "thunky@npm:^1.0.2":
   version: 1.1.0
   resolution: "thunky@npm:1.1.0"
@@ -7705,15 +7718,6 @@ __metadata:
   version: 0.3.0
   resolution: "timsort@npm:0.3.0"
   checksum: 1a66cb897dacabd7dd7c91b7e2301498ca9e224de2edb9e42d19f5b17c4b6dc62a8d4cbc64f28be82aaf1541cb5a78ab49aa818f42a2989ebe049a64af731e2a
-  languageName: node
-  linkType: hard
-
-"tiny-worker@npm:>= 2":
-  version: 2.3.0
-  resolution: "tiny-worker@npm:2.3.0"
-  dependencies:
-    esm: ^3.2.25
-  checksum: 33492c9b0623e064dd39bc64d61e7031a3ba146ed1d6de179c3f8c2e3b965061e204e602c0b019fa363ccca1e6939fc2e8d03c4ad070450cc491d47cd5382409
   languageName: node
   linkType: hard
 
@@ -7991,6 +7995,13 @@ __metadata:
   dependencies:
     minimalistic-assert: ^1.0.0
   checksum: 2abc306c96930b757972a1c4650eb6b25b5d99f24088714957f88629e137db569368c5de0e57986c89ea70db2f1df9bba11a87cb6d0c8694b6f53a0159fab3bf
+  languageName: node
+  linkType: hard
+
+"web-worker@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "web-worker@npm:1.2.0"
+  checksum: 1bb28348ddcf9b2e7c62c5fd02e49a84098795856cd905456de957271bba288e9618941cf69d8960f0a7ae81f5dfb74b427c0634be47ec69e3e955c4ec5213be
   languageName: node
   linkType: hard
 
