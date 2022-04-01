@@ -2406,9 +2406,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap-italia@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "bootstrap-italia@npm:1.6.0"
+"bootstrap-italia@npm:^1.6.1":
+  version: 1.6.1
+  resolution: "bootstrap-italia@npm:1.6.1"
   dependencies:
     "@splidejs/splide": ^3.6.12
     accessible-autocomplete: ^2.0.4
@@ -2423,7 +2423,7 @@ __metadata:
     owl.carousel: 2.3.4
     popper.js: 1.16.1
     svgxuse: 1.2.6
-  checksum: c4db56fae80a04b085a31cb50a5dea6c2db281af5e470914789981d4bdeb792426b2f974354b96d7a15cf05f2114eb0ca0e32631966f440a1a07af647dc10acf
+  checksum: 5a3824a31b29a3e789ce75fff9995c6ae31baedb232674e4ce5c771a9bf824f52ff13586fd2f1196f6f62ff885e7d9c9686824f0525c76e514f9045e15b8e4c2
   languageName: node
   linkType: hard
 
@@ -6896,7 +6896,7 @@ __metadata:
     "@symfony/webpack-encore": ^1.8.2
     bootbox: ^5.5.2
     bootstrap-confirmation2: ^4.2.1
-    bootstrap-italia: ^1.6.0
+    bootstrap-italia: ^1.6.1
     core-js: ^3.21.1
     file-loader: ^6.2.0
     google-charts: ^2.0.0
@@ -6906,7 +6906,7 @@ __metadata:
     ol: ^6.14.1
     sass-loader: ^12.6.0
     serialize-javascript: ^6.0.0
-    sweetalert2: ^11.4.7
+    sweetalert2: ^11.4.8
     webpack-notifier: ^1.15.0
   languageName: unknown
   linkType: soft
@@ -7630,10 +7630,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sweetalert2@npm:^11.4.7":
-  version: 11.4.7
-  resolution: "sweetalert2@npm:11.4.7"
-  checksum: b1468ceded37370d3c6f935e961049e2209f109995a5830cf3c0b3168e4eb413aaab6495d3dd4b9408547e090c74a189590486f30b049fcd5fe104f1ac273f32
+"sweetalert2@npm:^11.4.8":
+  version: 11.4.8
+  resolution: "sweetalert2@npm:11.4.8"
+  checksum: 6dcb2eac662a9748a8695ef0614cadfaa4b462e120effc66c0e739320d31818bfd64708a71af4ebfff516bd00a54aeaf0945f5e7564abf714ec9c9cf88c8a174
   languageName: node
   linkType: hard
 
