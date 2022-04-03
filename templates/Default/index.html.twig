@@ -2,6 +2,7 @@
 
 {% block javascripts %}
     {{parent()}}
+    {{ encore_entry_script_tags('react') }}
     {{ encore_entry_script_tags('maps') }}
     {{ encore_entry_script_tags('chart') }}
     <script>
@@ -9,7 +10,7 @@
         {% for chart in charts %}
             {{ gc_draw(chart,'div_chart'~chart.elementId) }}
         {% endfor %}    
-            }
+                }
     </script>
 
 {% endblock%}
@@ -23,6 +24,10 @@
 {% endblock%}
 
 {% block content %}
+    <div id="react" class="row">
+        
+    </div>
+
     <div class="row">
         {% for device, infodevice in infodevices %}
             <div class="col-6 col-lg-3">

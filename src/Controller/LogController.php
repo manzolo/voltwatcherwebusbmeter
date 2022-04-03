@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Log;
 use App\Entity\Device;
 use App\Entity\Journal;
+use App\Service\Battery;
 use Cdf\BiCoreBundle\Controller\FiController;
 use Cdf\BiCoreBundle\Utils\Entity\EntityUtils;
 use Cdf\BiCoreBundle\Utils\Tabella\ParametriTabella;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use \CMEN\GoogleChartsBundle\GoogleCharts\Charts\AreaChart;
@@ -301,5 +304,47 @@ class LogController extends FiController
         }
 
         return $charts;
+    }
+    /**
+     * Matches / exactly.
+     *
+     * @Route("/Log/Last/{device}", name="Log_last", options={"expose"=true} )
+     */
+    public function getLastLog(Request $request, string $device, EntityManagerInterface $em, Battery $battery): JsonResponse
+    {
+        $ret = null;
+        $qb = $em->createQueryBuilder()
+                ->select('l')
+                ->from(Log::class, 'l')
+                ->where('l.device = :device')
+                ->setParameter(':device', $device)
+                ->orderBy('l.data', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getResult()
+        ;
+
+        if (count($qb) > 0) {
+            $mylog = $qb[0];
+            $ret = [
+                "id" => $mylog->getId(),
+                "address" => $mylog->getDevice()->getAddress(),
+                "devicename" => $mylog->getDevice()->getName(),
+                "date" => $mylog->getData()->format("c"),
+                "volt" => $mylog->getVolt(),
+                "temp" => $mylog->getTemp(),
+                "batteryperc" => $battery->batteryLevel($mylog->getVolt()),
+                "detectorperc" => $mylog->getDetectorperc(),
+                "latitude" => $mylog->getLatitude(),
+                "longitude" => $mylog->getLongitude(),
+                "weather" => $mylog->getWeather(),
+                "externaltemp" => $mylog->getExternaltemp(),
+                "location" => $mylog->getLocation(),
+                "cloudiness" => $mylog->getCloudiness(),
+                "weathericon" => $mylog->getWeathericon(),
+            ];
+        }
+
+        return new JsonResponse($ret);
     }
 }
