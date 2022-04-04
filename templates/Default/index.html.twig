@@ -2,6 +2,7 @@
 
 {% block javascripts %}
     {{parent()}}
+    {{ encore_entry_script_tags('react') }}
     {{ encore_entry_script_tags('maps') }}
     {{ encore_entry_script_tags('chart') }}
     <script>
@@ -9,7 +10,7 @@
         {% for chart in charts %}
             {{ gc_draw(chart,'div_chart'~chart.elementId) }}
         {% endfor %}    
-            }
+                }
     </script>
 
 {% endblock%}
@@ -23,48 +24,10 @@
 {% endblock%}
 
 {% block content %}
-    <div class="row">
-        {% for device, infodevice in infodevices %}
-            <div class="col-6 col-lg-3">
-                <!--start card-->
-                <div class="card-wrapper">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="categoryicon-top" title="{{battery_level(infodevice.volt)}}%">
-                                <i class="fa fa-battery-empty font-70px fa-battery-filling" aria-hidden="true">
-                                    <span id="{{infodevice.deviceinfo}}_battery_status" style="width:calc({{battery_level(infodevice.volt)}}% * 0.73)"></span>
-                                </i>
-                            </div>
-
-                            <h6 class="card-title">
-                                {{ infodevice.deviceinfo }}<br/>
-                                {{infodevice.volt}} v<br/>
-                                {{battery_level(infodevice.volt)}}%
-                            </h6>
-
-                            <p class="card-text" data-toggle="collapse" data-target="#collapseStorico" aria-label="Storico modifiche" aria-expanded="false" aria-controls="collapseStorico">{{ infodevice.data|date('d/m/Y H:i:s') }}</p>
-                            <div class="collapse" id="collapseStorico">
-                                {% for oldrow in infodevice.oldrows %}
-                                    <p class="card-text">{{oldrow.volt}}
-                                        {{ oldrow.data|date('d/m/Y') }}
-                                    </p>
-                                {% endfor %}
-                            </div>
-
-                            {% if infodevice.weathericon is defined and infodevice.weathericon %}
-                                <img src="https://openweathermap.org/img/wn/{{ infodevice.weathericon }}@2x.png" alt="Weather icon" title="{{ infodevice.location }}">
-                                <br />
-                                {{ infodevice.location }}
-                            {% endif %}
-                        </div>
-
-                    </div>
-                </div>
-                <!--end card-->
-            </div>
-        {% endfor %}
+    <div id="root" class="row">
+        
     </div>
+
     <div id="mygraph" class="row invisible">
         <div class="clearfix"></div>
         {% for chart in charts %}

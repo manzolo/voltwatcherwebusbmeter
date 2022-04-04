@@ -25,6 +25,7 @@ Encore
          * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
          */
         .addEntry('app', './assets/js/app.js')
+        .addEntry('react', './assets/js/react.js')
         .addEntry('chart', './assets/js/chart.js')
         .addEntry('maps', './assets/js/maps.js')
         .addEntry('battery', './assets/js/battery.js')
@@ -58,7 +59,7 @@ Encore
         .enableSourceMaps(!Encore.isProduction())
         // enables hashed filenames (e.g. app.abc123.css)
         .enableVersioning(Encore.isProduction())
-
+        .enableReactPreset()
         // enables @babel/preset-env polyfills
         .configureBabel(() => {
         }, {
