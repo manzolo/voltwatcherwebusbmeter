@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from 'moment';
 import Device from './Device';
+import { Oval } from  'react-loader-spinner';
 const Routing = require('./Routing');
 
 class Devices extends Component {
@@ -9,7 +10,8 @@ class Devices extends Component {
 
         super(props);
         this.state = {
-            devices: []
+            devices: [],
+            isLoading: true
         };
     }
     componentDidMount() {
@@ -18,19 +20,24 @@ class Devices extends Component {
                 .then(response => response.json())
                 .then(deviceinfo => {
                     //console.log(deviceinfo);
-                    this.setState({devices: deviceinfo});
+                    this.setState({devices: deviceinfo, isLoading: false});
                 });
     }
     render() {
-        return <React.Fragment>{this.state.devices.map(({ id, address, name }) => (
-                                                <Device
-                                                    key={id}
-                                                    deviceid={id}
-                                                    address={address}
-                                                    devicename={name}
-                                                    >
-                                                </Device>
-                                            ))}</React.Fragment>; 
+        if (this.state.isLoading) {
+            return <Oval height="100" width="100" color='blue' ariaLabel='loading' />;
+        } else {
+            return <React.Fragment>{this.state.devices.map(({ id, address, name }) => (
+                                        <Device
+                                            key={id}
+                                            deviceid={id}
+                                            address={address}
+                                            devicename={name}
+                                            >
+                                        </Device>
+                                            ))}</React.Fragment>;
+        }
+
     }
 }
 export default Devices;
