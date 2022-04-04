@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import moment from 'moment';
+import DeviceLastWeekLog from './DeviceLastWeekLog'
 import '../../css/battery.scss'; 
 const Routing = require('./Routing');
 
@@ -57,6 +58,7 @@ class Device extends Component {
                                 </h6>
                                 <p className="card-text" data-toggle="collapse" data-target="#collapseStorico" aria-label="Storico modifiche" aria-expanded="false" aria-controls="collapseStorico">{moment(this.state.device.date).format('DD/MM/YYYY HH:mm')}</p>
                                 <div className="collapse" id="collapseStorico">
+                                <DeviceLastWeekLog deviceid={this.props.deviceid}/>
                                 </div>
                                 <img src={"https://openweathermap.org/img/wn/" + this.state.device.weathericon + "@2x.png"} alt="Weather icon" title={`${this.state.device.location}`}></img>
                                 <br />

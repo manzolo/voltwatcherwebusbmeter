@@ -26,54 +26,10 @@ class DefaultController extends AbstractController
      */
     public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em): Response
     {
-        /* chart */
-        $qb = $em->createQueryBuilder()
-                ->select('d')
-                ->from(Device::class, 'd')
-                ->getQuery();
-        $devicesrows = $qb->getResult();
-
-        $infodevices = [];
-        foreach ($devicesrows as $device) {
-            $qb = $em->createQueryBuilder()
-                    ->select('l')
-                    ->from(Log::class, 'l')
-                    ->where('l.device = :device')
-                    ->setParameter(':device', $device)
-                    ->orderBy('l.data', 'DESC')
-                    ->setMaxResults(1)
-                    ->getQuery();
-            $resultrows = $qb->getResult();
-            if (1 == count($resultrows)) {
-                $infodevice = $resultrows[0];
-                $hour = substr($infodevice->getData()->format('H:i:s'), 0, 4);
-                $lastweek = clone $infodevice->getData();
-                $qb = $em->createQueryBuilder()
-                        ->select('l')
-                        ->from(Log::class, 'l')
-                        ->where('l.device = :device')
-                        ->andWhere('l.data < :data')
-                        ->andWhere('l.data > :datachk')
-                        ->andWhere('substring(l.data,12,4) = :ora')
-                        ->setParameter(':device', $device)
-                        ->setParameter(':data', $infodevice->getData())
-                        ->setParameter(':datachk', $lastweek->modify('- 7 days'))
-                        ->setParameter(':ora', $hour)
-                        ->orderBy('l.data', 'DESC')
-                        ->getQuery();
-                $resultoldrows = $qb->getResult();
-                $infodevices[$device->getAddress()] = ['deviceinfo' => $infodevice->getDevice(),
-                    'volt' => $infodevice->getVolt(),
-                    'data' => $infodevice->getData(),
-                    'weathericon' => $infodevice->getWeathericon(),
-                    'location' => $infodevice->getLocation(),
-                    'oldrows' => $resultoldrows];
-            }
-        }
         $charts = $this->getCharts($em);
         $crudtemplate = 'Default/index.html.twig';
 
-        return $this->render($crudtemplate, ['infodevices' => $infodevices, 'charts' => $charts]);
+        return $this->render($crudtemplate, ['charts' => $charts]);
     }
     /**
       @return array<LineChart> Charts
