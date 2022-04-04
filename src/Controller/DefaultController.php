@@ -14,28 +14,23 @@ use Doctrine\ORM\EntityManagerInterface;
 use \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart;
 use DateTime;
 
-class DefaultController extends AbstractController
-{
-
-    private string $chartdifftime = '-2 days';
+class DefaultController extends AbstractController {
 
     /**
      * Matches / exactly.
      *
      * @Route("/", name="welcome")
      */
-    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em): Response
-    {
-        $charts = $this->getCharts($em);
+    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em): Response {
         $crudtemplate = 'Default/index.html.twig';
 
-        return $this->render($crudtemplate, ['charts' => $charts]);
+        return $this->render($crudtemplate);
     }
+
     /**
       @return array<LineChart> Charts
      */
-    private function getCharts(EntityManagerInterface $em): array
-    {
+    private function getCharts(EntityManagerInterface $em): array {
         /* chart */
         $charts = [];
 
@@ -95,6 +90,7 @@ class DefaultController extends AbstractController
 
         return $charts;
     }
+
     /*
      * Matches / exactly.
      *

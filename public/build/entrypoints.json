@@ -11,16 +11,17 @@
         "/build/app.2eea1a51.css"
       ]
     },
-    "react": {
+    "homepage": {
       "js": [
         "/build/runtime.d575ba56.js",
         "/build/109.36b5c479.js",
-        "/build/680.17299f6d.js",
-        "/build/594.698a3ef1.js",
-        "/build/react.ae2ddc3f.js"
+        "/build/78.7a0e9b6c.js",
+        "/build/762.019b4ac8.js",
+        "/build/145.e1ff8610.js",
+        "/build/homepage.0f530ba2.js"
       ],
       "css": [
-        "/build/react.f5922095.css"
+        "/build/homepage.f5922095.css"
       ]
     },
     "chart": {
@@ -31,6 +32,15 @@
       ],
       "css": [
         "/build/chart.2eea1a51.css"
+      ]
+    },
+    "react-chart": {
+      "js": [
+        "/build/runtime.d575ba56.js",
+        "/build/109.36b5c479.js",
+        "/build/78.7a0e9b6c.js",
+        "/build/145.e1ff8610.js",
+        "/build/react-chart.726789f6.js"
       ]
     },
     "maps": {
@@ -93,12 +103,13 @@
         "/build/runtime.d575ba56.js",
         "/build/755.43aadddf.js",
         "/build/109.36b5c479.js",
-        "/build/680.17299f6d.js",
+        "/build/78.7a0e9b6c.js",
+        "/build/762.019b4ac8.js",
         "/build/981.65349937.js",
         "/build/174.252111d1.js",
         "/build/472.515ea5a4.js",
         "/build/919.675e5fdb.js",
-        "/build/bitabella.fe958253.js"
+        "/build/bitabella.e3efb9be.js"
       ],
       "css": [
         "/build/803.f3107e99.css",
@@ -110,12 +121,13 @@
         "/build/runtime.d575ba56.js",
         "/build/755.43aadddf.js",
         "/build/109.36b5c479.js",
-        "/build/680.17299f6d.js",
+        "/build/78.7a0e9b6c.js",
+        "/build/762.019b4ac8.js",
         "/build/981.65349937.js",
         "/build/174.252111d1.js",
         "/build/472.515ea5a4.js",
         "/build/919.675e5fdb.js",
-        "/build/bidemo.1b11defa.js"
+        "/build/bidemo.c89706b5.js"
       ],
       "css": [
         "/build/803.f3107e99.css",

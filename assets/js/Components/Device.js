@@ -41,7 +41,6 @@ class Device extends Component {
                     //console.log(deviceinfo);
                     //console.log(Object.keys(deviceinfo).length);
                     this.setState({device: deviceinfo});
-
                 });
     }
     render() {
