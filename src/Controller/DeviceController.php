@@ -67,11 +67,16 @@ class DeviceController extends FiController
         $devicerows = $qb->getResult();
 
         $dati = [];
-        $json = ["role" => "tooltip", "type" => "string", "p" => ["html" => true]];
-        $dati[] = ['Data', 'Volts', $json];
+        $chartType = ["role" => "tooltip", "type" => "string", "p" => ["html" => true]];
+        $dati[] = ['Data', 'Volts', $chartType];
 
         foreach ($devicerows as $devicerows) {
-            $dati[] = [$devicerows->getData()->format("c"), floatval($devicerows->getVolt()), '<br/><div style="text-align: center;"><p>' . $devicerows->getData()->format("d/m/Y H:i") . '</p></div><div style="color: #0073e6; font-family: Roboto; font-size: 18px; font-weight: bold;text-align: center;">' . $devicerows->getVolt() . "</div><br/>"];
+            $tooltip = '<br/><div style="text-align: center;"><p>' .
+                    $devicerows->getData()->format("d/m/Y H:i") .
+                    '</p></div><div style="color: #0073e6; font-family: Roboto; font-size: 18px; font-weight: bold;text-align: center;">'
+                    . $devicerows->getVolt() . "</div><br/>"
+            ;
+            $dati[] = [$devicerows->getData()->format("c"), floatval($devicerows->getVolt()),$tooltip];
         }
         if (1 == count($dati)) {
             $dati[] = [new DateTime(), 0];
