@@ -1,6 +1,8 @@
 import { Chart } from "react-google-charts";
+import { TailSpin } from  'react-loader-spinner'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect }
+from 'react';
 import ReactDOM from "react-dom/client";
 const Routing = require('./Routing');
 
@@ -24,12 +26,10 @@ class ReactDeviceChart extends React.Component {
         this.interval = setInterval(() => {
             this.refreshData();
         }, 1000 * 60 * 5);
-
     }
 
     refreshData() {
         let routeLog = Routing.generate('Device_Chart', {device: this.props.deviceid});
-
         fetch(routeLog)
                 .then(response => response.json())
                 .then(deviceinfo => {
@@ -72,29 +72,31 @@ class ReactDeviceChart extends React.Component {
                      });
                      date_formatter.format(deviceinfo, 0);*/
                     this.setState({chart: deviceinfo, options: myoptions});
-                });
+                }).catch(error => {
+
+            console.error('There was an error!', error);
+        });
     }
 
     render() {
         if (Object.keys(this.state.chart).length <= 2) {
             return null;
         }
+        var wait = <TailSpin height="100" width="100" color='blue' ariaLabel='loading' />;
+
         return <React.Fragment>
             <Chart
                 chartType="LineChart"
                 chartLanguage= 'it'
                 data={this.state.chart}
                 options={this.state.options}
-                loader={ < div > Caricamento grafico {this.props.devicename
-                                }
-                                ... < /div>}
-                                        width = "100%"
-                                        height = "400px"
-                                legendToggle
-                                            />
-                                </React.Fragment>;
+                loader={wait}
+                width = "100%"
+                height = "400px"
+                legendToggle
+                />
+        </React.Fragment>;
+    }
+}
+export default ReactDeviceChart;
 
-                }
-                }
-                export default ReactDeviceChart;
-        
