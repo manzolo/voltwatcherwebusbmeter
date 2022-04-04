@@ -94,18 +94,50 @@ class HomepageTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertJsonResponse($this->client->getResponse(), 200);
     }
+    public function testDeviceList(): void
+    {
+        $this->getAdminClient();
+        $crawler = $this->client->request('GET', '/Device/List', [], [], ['CONTENT_TYPE' => 'application/json',
+            'Accept' => 'application/json']);
+        $this->assertResponseIsSuccessful();
+        $response = $this->client->getResponse();
+        $jsonResponse = json_decode($response->getContent(), true);
+        $check = $jsonResponse[0];
+        $this->assertEquals($check["address"], self::$deviceAddress);
+    }
+    
+    public function testDeviceLastLog(): void
+    {
+        $this->getAdminClient();
+        $crawler = $this->client->request('POST', '/Log/Last/1', [], [], ['CONTENT_TYPE' => 'application/json',
+            'Accept' => 'application/json']);
+        $this->assertResponseIsSuccessful();
+        $response = $this->client->getResponse();
+        $jsonResponse = json_decode($response->getContent(), true);
+        $this->assertEquals($jsonResponse["address"], self::$deviceAddress);
+        
+    }    
+    public function testDeviceLastWeekLog(): void
+    {
+        $this->getAdminClient();
+        $crawler = $this->client->request('POST', '/Log/LastWeek/1', [], [], ['CONTENT_TYPE' => 'application/json',
+            'Accept' => 'application/json']);
+        $this->assertResponseIsSuccessful();
+        $response = $this->client->getResponse();
+        $jsonResponse = json_decode($response->getContent(), true);
+        $check = $jsonResponse[0];
+        $this->assertEquals((float)$check["volt"], (float)self::$volt);
+        $this->assertEquals($check["location"], self::LOCATION);
+        $this->assertEquals($check["address"], self::$deviceAddress);
+        
+    }
+    
     public function testHomepage(): void
     {
         $this->getAdminClient();
         $this->client->request('GET', '/');
         $this->assertResponseIsSuccessful();
-        //$this->client->waitForVisibility('.card');
         $responseText = $this->client->getResponse()->getContent();
-//        $this->assertStringContainsString(self::LOCATION, $responseText);
-//        $this->assertStringContainsString(self::$volt, $responseText);
-//        $this->assertStringContainsString(self::$nowCheck, $responseText);
-//        $this->assertStringContainsString(self::$deviceAddress, $responseText);
-//        $this->assertStringContainsString(self::$deviceAddress, $responseText);
         $this->assertStringContainsString('chart', $responseText);
     }
     protected function assertJsonResponse(Response $response, $statusCode = 200)

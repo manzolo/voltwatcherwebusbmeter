@@ -18,6 +18,10 @@ if (!isset($_SERVER['APP_ENV'])) {
         throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
     }
     (new Dotenv())->load(__DIR__ . '/../.env');
+    $localenv = __DIR__ . '/../.env.local';
+    if (file_exists($localenv)) {
+        (new Dotenv())->load(__DIR__ . '/../.env.local');
+    }
 }
 
 $classLoader = new \Composer\Autoload\ClassLoader();
@@ -28,17 +32,14 @@ $classLoader->register();
 date_default_timezone_set('Europe/Rome');
 cleanFilesystem();
 
-
 //databaseinit();
-function clearcache()
-{
+function clearcache() {
     passthru(sprintf(
                     '"%s/console" cache:clear', __DIR__ . '/../bin'
     ));
 }
 
-function databaseinit()
-{
+function databaseinit() {
     passthru(sprintf(
                     '"%s/console" bicorebundle:dropdatabase --force', __DIR__ . '/../bin'
     ));
@@ -52,8 +53,7 @@ function databaseinit()
     #sleep(1);
 }
 
-function removecache()
-{
+function removecache() {
     $vendorDir = dirname(dirname(__FILE__));
     $envs = ["test", "dev", "prod"];
     foreach ($envs as $env) {
@@ -74,17 +74,15 @@ function removecache()
     }
 }
 
-function getErrorText($process, $command)
-{
+function getErrorText($process, $command) {
     $error = ($process->getErrorOutput() ? $process->getErrorOutput() : $process->getOutput());
 
     return 'Errore nel comando ' . $command . ' ' . $error . ' ';
 }
 
-function cleanFilesystem()
-{
+function cleanFilesystem() {
     $vendorDir = dirname(dirname(__FILE__));
-    $publicDir = realpath(dirname(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR)). DIRECTORY_SEPARATOR ."public";
+    $publicDir = realpath(dirname(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR)) . DIRECTORY_SEPARATOR . "public";
     //deleteLineFromFile($kernelfile, $DELETE);
     $routingfile = $vendorDir . '/config/routes.yaml';
 
@@ -162,11 +160,9 @@ function cleanFilesystem()
     if ($fs->exists($controller)) {
         $fs->remove($controller, true);
     }
-
 }
 
-function deleteFirstLineFile($file)
-{
+function deleteFirstLineFile($file) {
     $handle = fopen($file, 'r');
     fgets($handle, 2048); //get first line.
     $outfile = 'temp';
@@ -180,8 +176,7 @@ function deleteFirstLineFile($file)
     rename($outfile, $file);
 }
 
-function deleteLineFromFile($file, $DELETE)
-{
+function deleteLineFromFile($file, $DELETE) {
     $data = file($file);
 
     $out = array();
@@ -201,7 +196,6 @@ function deleteLineFromFile($file, $DELETE)
     fclose($fp);
 }
 
-function writestdout($buffer)
-{
+function writestdout($buffer) {
     fwrite(STDOUT, print_r($buffer . "\n", true));
 }
