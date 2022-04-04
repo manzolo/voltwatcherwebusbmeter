@@ -14,14 +14,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\LineChart;
 use DateTime;
 
-class DefaultController extends AbstractController {
+class DefaultController extends AbstractController
+{
 
     /**
      * Matches / exactly.
      *
      * @Route("/", name="welcome")
      */
-    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em): Response {
+    public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em): Response
+    {
         $crudtemplate = 'Default/index.html.twig';
 
         return $this->render($crudtemplate);
@@ -30,7 +32,8 @@ class DefaultController extends AbstractController {
     /**
       @return array<LineChart> Charts
      */
-    private function getCharts(EntityManagerInterface $em): array {
+    private function getCharts(EntityManagerInterface $em): array
+    {
         /* chart */
         $charts = [];
 

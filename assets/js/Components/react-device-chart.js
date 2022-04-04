@@ -23,7 +23,7 @@ class ReactDeviceChart extends React.Component {
         this.refreshData();
         this.interval = setInterval(() => {
             this.refreshData();
-        }, 1000 * 60 * 1);
+        }, 1000 * 60 * 5);
 
     }
 
