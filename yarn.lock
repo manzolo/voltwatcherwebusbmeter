@@ -6649,6 +6649,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-google-charts@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "react-google-charts@npm:4.0.0"
+  peerDependencies:
+    react: ">=16.3.0"
+    react-dom: ">=16.3.0"
+  checksum: 7bd258523b03badef5c269cae1c854b5a971c589ceea4b9a626f8c59f421f5c569e95096cc4024d492a04b248e3f910dc7c34c6f52c2424dbe32980f651014a8
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -7041,6 +7051,7 @@ __metadata:
     prop-types: ^15.8.1
     react: ^18.0.0
     react-dom: ^18.0.0
+    react-google-charts: ^4.0.0
     sass: ^1.49.11
     sass-loader: ^12.6.0
     serialize-javascript: ^6.0.0
