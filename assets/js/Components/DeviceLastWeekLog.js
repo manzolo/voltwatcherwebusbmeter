@@ -5,9 +5,6 @@ const Routing = require('./Routing');
 
 class DeviceLastWeekLog extends Component {
     constructor(props) {
-        //console.log("now");
-        //console.log(props);
-
         super(props);
         this.state = {
             logs: {}

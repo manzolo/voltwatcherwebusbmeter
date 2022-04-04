@@ -5,6 +5,12 @@ namespace App\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Batterystatus;
 
+/**
+ * This will suppress all the PMD warnings in
+ * this class.
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class Battery
 {
 
@@ -14,6 +20,7 @@ class Battery
     {
         $this->em = $em;
     }
+
     public function batteryLevel(float $volt): float
     {
         $qb = $this->em->createQueryBuilder()
@@ -32,6 +39,7 @@ class Battery
             return $this->batteryPercent($volt);
         }
     }
+
     private function batteryPercent(float $volt): float
     {
         if ($volt > 12.92) {

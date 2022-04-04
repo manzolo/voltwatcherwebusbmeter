@@ -23,7 +23,12 @@ use DateTime;
 /**
  * Log controller.
  */
-class LogController extends FiController {
+/**
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
+class LogController extends FiController
+{
 
     private string $chartdifftime = '-3 days';
 
@@ -36,7 +41,8 @@ class LogController extends FiController {
      *
      * @Route("/Log", name="Log_container")
      */
-    public function index(Request $request, Packages $assetsmanager): Response {
+    public function index(Request $request, Packages $assetsmanager): Response
+    {
         $bundle = $this->getBundle();
         $controller = $this->getController();
         $idpassato = $request->get('id');
@@ -202,7 +208,8 @@ class LogController extends FiController {
         return $this->render($crudtemplate, ['charts' => $charts, 'parametritabella' => $parametritabella]);
     }
 
-    public function tabella(Request $request, ManagerRegistry $doctrine): Response {
+    public function tabella(Request $request, ManagerRegistry $doctrine): Response
+    {
         if (!$this->permessi->canRead($this->getController())) {
             throw new AccessDeniedException('Non si hanno i permessi per visualizzare questo contenuto');
         }
@@ -243,7 +250,8 @@ class LogController extends FiController {
       @param array<AreaChart> $devices Charts
       @return array<AreaChart> Charts
      */
-    private function getCharts(array $devices): array {
+    private function getCharts(array $devices): array
+    {
         /* chart */
         $charts = [];
 
@@ -310,7 +318,8 @@ class LogController extends FiController {
      *
      * @Route("/Log/Last/{device}", name="Log_last", options={"expose"=true} )
      */
-    public function getLastLog(Request $request, string $device, EntityManagerInterface $em, Battery $battery): JsonResponse {
+    public function getLastLog(Request $request, string $device, EntityManagerInterface $em, Battery $battery): JsonResponse
+    {
         $ret = null;
         $qb = $em->createQueryBuilder()
                 ->select('l')
@@ -352,7 +361,8 @@ class LogController extends FiController {
      *
      * @Route("/Log/LastWeek/{device}", name="Log_last_week", options={"expose"=true} )
      */
-    public function getLastWeekLog(Request $request, string $device, EntityManagerInterface $em, Battery $battery): JsonResponse {
+    public function getLastWeekLog(Request $request, string $device, EntityManagerInterface $em, Battery $battery): JsonResponse
+    {
         $ret = [];
 
         $qb = $em->createQueryBuilder()
@@ -406,5 +416,4 @@ class LogController extends FiController {
 
         return new JsonResponse($ret);
     }
-
 }

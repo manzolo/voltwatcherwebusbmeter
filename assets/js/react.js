@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom/client";
 import Devices from './Components/Devices';
 const Routing = require('./Components/Routing');
 
@@ -20,5 +20,9 @@ class Device extends React.Component {
 
     }
 }
-
-ReactDOM.render(<Device />, document.getElementById('react'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <Device />
+  </React.StrictMode>
+);

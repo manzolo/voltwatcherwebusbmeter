@@ -8,12 +8,6 @@ use \Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Batterystatus;
 use App\Service\Battery;
 
-/**
- * This will suppress all the PMD warnings in
- * this class.
- *
- * @SuppressWarnings(PHPMD)
- */
 class BatteryExtension extends AbstractExtension
 {
 

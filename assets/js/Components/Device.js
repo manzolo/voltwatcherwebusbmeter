@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import moment from 'moment';
 import DeviceLastWeekLog from './DeviceLastWeekLog'
-import '../../css/battery.scss'; 
+import '../../css/battery.scss';
 const Routing = require('./Routing');
 
 //import fontawesome from '@fortawesome/fontawesome'
@@ -20,12 +20,19 @@ class Device extends Component {
             device: {}
         };
     }
-    componentDidMount() {
-        //const [councomponentDidMountt, setCount] = useState(0);
 
-        //useEffect(() => {
-        //this.setState({devices: this.props.arr});
-        //}, [count]); // Only re-run the effect if count changes
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    componentDidMount() {
+        this.refreshData();
+        this.interval = setInterval(() => {
+            this.refreshData();
+        }, 1000 * 60 * 10);
+
+    }
+    refreshData() {
         let routeLog = Routing.generate('Log_last', {device: this.props.deviceid});
 
         fetch(routeLog)
@@ -58,7 +65,7 @@ class Device extends Component {
                                 </h6>
                                 <p className="card-text" data-toggle="collapse" data-target="#collapseStorico" aria-label="Storico modifiche" aria-expanded="false" aria-controls="collapseStorico">{moment(this.state.device.date).format('DD/MM/YYYY HH:mm')}</p>
                                 <div className="collapse" id="collapseStorico">
-                                <DeviceLastWeekLog deviceid={this.props.deviceid}/>
+                                    <DeviceLastWeekLog deviceid={this.props.deviceid}/>
                                 </div>
                                 <img src={"https://openweathermap.org/img/wn/" + this.state.device.weathericon + "@2x.png"} alt="Weather icon" title={`${this.state.device.location}`}></img>
                                 <br />
