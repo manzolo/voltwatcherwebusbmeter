@@ -14,7 +14,8 @@ use DateTime;
 /**
  * Device controller.
  */
-class DeviceController extends FiController {
+class DeviceController extends FiController
+{
 
     private string $chartdifftime = '-2 days';
 
@@ -23,7 +24,8 @@ class DeviceController extends FiController {
      *
      * @Route("/Device/List", name="Device_List", options={"expose"=true} )
      */
-    public function getDevices(Request $request, EntityManagerInterface $em): JsonResponse {
+    public function getDevices(Request $request, EntityManagerInterface $em): JsonResponse
+    {
 
         $ret = [];
         $devices = $em->createQueryBuilder()
@@ -44,13 +46,13 @@ class DeviceController extends FiController {
 
         return new JsonResponse($ret);
     }
-
     /**
      * Matches /Device/Chart exactly.
      *
      * @Route("/Device/Chart/{device}", name="Device_Chart", options={"expose"=true})
      */
-    public function getDeviceChart(Request $request, string $device, EntityManagerInterface $em): JsonResponse {
+    public function getDeviceChart(Request $request, string $device, EntityManagerInterface $em): JsonResponse
+    {
         $date = (new DateTime())->modify($this->chartdifftime);
 
         $qb = $em->createQueryBuilder()
@@ -65,10 +67,11 @@ class DeviceController extends FiController {
         $devicerows = $qb->getResult();
 
         $dati = [];
-        $dati[] = ['Data', 'Volts'];
+        $json = ["role" => "tooltip", "type" => "string", "p" => ["html" => true]];
+        $dati[] = ['Data', 'Volts', $json];
 
         foreach ($devicerows as $devicerows) {
-            $dati[] = [$devicerows->getData()->format("c"), floatval($devicerows->getVolt())];
+            $dati[] = [$devicerows->getData()->format("c"), floatval($devicerows->getVolt()), '<br/><div style="text-align: center;"><p>' . $devicerows->getData()->format("d/m/Y H:i") . '</p></div><div style="color: #0073e6; font-family: Roboto; font-size: 18px; font-weight: bold;text-align: center;">' . $devicerows->getVolt() . "</div><br/>"];
         }
         if (1 == count($dati)) {
             $dati[] = [new DateTime(), 0];
@@ -76,5 +79,4 @@ class DeviceController extends FiController {
 
         return new JsonResponse($dati);
     }
-
 }

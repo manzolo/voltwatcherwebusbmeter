@@ -29,7 +29,7 @@ class Device extends Component {
         this.refreshData();
         this.interval = setInterval(() => {
             this.refreshData();
-        }, 1000 * 60 * 10);
+        }, 1000 * 60 * 1);
 
     }
     refreshData() {
@@ -38,8 +38,6 @@ class Device extends Component {
         fetch(routeLog)
                 .then(response => response.json())
                 .then(deviceinfo => {
-                    //console.log(deviceinfo);
-                    //console.log(Object.keys(deviceinfo).length);
                     this.setState({device: deviceinfo});
                 });
     }
