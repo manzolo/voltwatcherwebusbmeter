@@ -9,12 +9,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Cdf\BiCoreBundle\Controller\FiController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use DateTime;
 
 /**
  * Device controller.
  */
 class DeviceController extends FiController
 {
+
+    private string $chartdifftime = '-2 days';
+
     /**
      * Matches / exactly.
      *
@@ -41,5 +45,43 @@ class DeviceController extends FiController
 
 
         return new JsonResponse($ret);
+    }
+    /**
+     * Matches /Device/Chart exactly.
+     *
+     * @Route("/Device/Chart/{device}", name="Device_Chart", options={"expose"=true})
+     */
+    public function getDeviceChart(Request $request, string $device, EntityManagerInterface $em): JsonResponse
+    {
+        $date = (new DateTime())->modify($this->chartdifftime);
+
+        $qb = $em->createQueryBuilder()
+                ->select('l')
+                ->from(\App\Entity\Log::class, 'l')
+                ->where('l.device = :device')
+                ->andWhere('l.data >= :data')
+                ->setParameter('device', $device)
+                ->setParameter('data', $date)
+                ->getQuery();
+
+        $devicerows = $qb->getResult();
+
+        $dati = [];
+        $chartType = ["role" => "tooltip", "type" => "string", "p" => ["html" => true]];
+        $dati[] = ['Data', 'Volts', $chartType];
+
+        foreach ($devicerows as $devicerows) {
+            $tooltip = '<br/><div style="text-align: center;"><p>' .
+                    $devicerows->getData()->format("d/m/Y H:i") .
+                    '</p></div><div style="color: #0073e6; font-family: Roboto; font-size: 18px; font-weight: bold;text-align: center;">'
+                    . $devicerows->getVolt() . "</div><br/>"
+            ;
+            $dati[] = [$devicerows->getData()->format("c"), floatval($devicerows->getVolt()),$tooltip];
+        }
+        if (1 == count($dati)) {
+            $dati[] = [new DateTime(), 0];
+        }
+
+        return new JsonResponse($dati);
     }
 }

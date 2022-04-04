@@ -17,8 +17,6 @@ use DateTime;
 class DefaultController extends AbstractController
 {
 
-    private string $chartdifftime = '-2 days';
-
     /**
      * Matches / exactly.
      *
@@ -26,75 +24,76 @@ class DefaultController extends AbstractController
      */
     public function index(Request $request, Packages $assetsmanager, EntityManagerInterface $em): Response
     {
-        $charts = $this->getCharts($em);
         $crudtemplate = 'Default/index.html.twig';
 
-        return $this->render($crudtemplate, ['charts' => $charts]);
+        return $this->render($crudtemplate);
     }
-    /**
-      @return array<LineChart> Charts
-     */
-    private function getCharts(EntityManagerInterface $em): array
-    {
-        /* chart */
-        $charts = [];
 
-        $date = (new DateTime())->modify($this->chartdifftime);
-        $qb = $em->createQueryBuilder()
-                ->select('d')
-                ->from(Device::class, 'd')
-                ->getQuery();
+//    /**
+//      @return array<LineChart> Charts
+//     */
+//    private function getCharts(EntityManagerInterface $em): array
+//    {
+//        /* chart */
+//        $charts = [];
+//
+//        $date = (new DateTime())->modify($this->chartdifftime);
+//        $qb = $em->createQueryBuilder()
+//                ->select('d')
+//                ->from(Device::class, 'd')
+//                ->getQuery();
+//
+//        $devicesrows = $qb->getResult();
+//
+//        foreach ($devicesrows as $device) {
+//            /* chart */
+//            $qb = $em->createQueryBuilder()
+//                    ->select('l')
+//                    ->from(Log::class, 'l')
+//                    ->where('l.device = :device')
+//                    ->andWhere('l.data >= :data')
+//                    ->setParameter('device', $device->getId())
+//                    ->setParameter('data', $date)
+//                    ->getQuery();
+//
+//            $devicerows = $qb->getResult();
+//
+//            $dati = [];
+//            $dati[] = ['Data', 'Volts'];
+//
+//            foreach ($devicerows as $devicerows) {
+//                $dati[] = [$devicerows->getData(), floatval($devicerows->getVolt())];
+//            }
+//            if (1 == count($dati)) {
+//                $dati[] = [new DateTime(), 0];
+//            }
+//            $chart = new LineChart();
+//            $chart->getData()->setArrayToDataTable($dati);
+//            $chart->setElementID($device->getId());
+//            $deviceName = $device->getName() ? $device->getName() : $device->getAddress();
+//            $chart->getOptions()->getChart()->setTitle($deviceName);
+//            //** phpstan-ignore-next-line */
+//            $chart->getOptions()->setSeries([['axis' => 'Volts']])
+//            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'],
+//            //'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
+//            ;
+//
+//            $chart->getOptions()->setHeight(400);
+//
+//            //$chart->getOptions()->getHAxis()->setFormat('dd/MM/Y HH:mm');
+//            $chart->getOptions()->getHAxis()->setFormat('dd/MM H:mm');
+//            //$chart->getOptions()->getHAxis()->setFormat('HH:mm');
+//            $chart->getOptions()->getVAxis()->setFormat('#0.00');
+//            $chart->getOptions()->getVAxis()->setMinValue(11);
+//            $chart->getOptions()->getVAxis()->setMaxValue(16);
+//            $chart->getOptions()->getLegend()->setPosition('none');
+//            $charts[] = $chart;
+//            /* chart */
+//        }
+//
+//        return $charts;
+//    }
 
-        $devicesrows = $qb->getResult();
-
-        foreach ($devicesrows as $device) {
-            /* chart */
-            $qb = $em->createQueryBuilder()
-                    ->select('l')
-                    ->from(Log::class, 'l')
-                    ->where('l.device = :device')
-                    ->andWhere('l.data >= :data')
-                    ->setParameter('device', $device->getId())
-                    ->setParameter('data', $date)
-                    ->getQuery();
-
-            $devicerows = $qb->getResult();
-
-            $dati = [];
-            $dati[] = ['Data', 'Volts'];
-
-            foreach ($devicerows as $devicerows) {
-                $dati[] = [$devicerows->getData(), floatval($devicerows->getVolt())];
-            }
-            if (1 == count($dati)) {
-                $dati[] = [new DateTime(), 0];
-            }
-            $chart = new LineChart();
-            $chart->getData()->setArrayToDataTable($dati);
-            $chart->setElementID($device->getId());
-            $deviceName = $device->getName() ? $device->getName() : $device->getAddress();
-            $chart->getOptions()->getChart()->setTitle($deviceName);
-            /** @phpstan-ignore-next-line */
-            $chart->getOptions()->setSeries([['axis' => 'Volts']])
-            //->setAxes(['y' => ['Volts' => ['label' => 'Volts'],
-            //'AvgVolts' => ['label' => 'Average Volts']/* , 'Temps' => ['label' => 'Temps (Celsius)'] */]])
-            ;
-
-            $chart->getOptions()->setHeight(400);
-
-            //$chart->getOptions()->getHAxis()->setFormat('dd/MM/Y HH:mm');
-            $chart->getOptions()->getHAxis()->setFormat('dd/MM H:mm');
-            //$chart->getOptions()->getHAxis()->setFormat('HH:mm');
-            $chart->getOptions()->getVAxis()->setFormat('#0.00');
-            $chart->getOptions()->getVAxis()->setMinValue(11);
-            $chart->getOptions()->getVAxis()->setMaxValue(16);
-            $chart->getOptions()->getLegend()->setPosition('none');
-            $charts[] = $chart;
-            /* chart */
-        }
-
-        return $charts;
-    }
     /*
      * Matches / exactly.
      *

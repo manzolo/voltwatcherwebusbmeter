@@ -25,8 +25,9 @@ Encore
          * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
          */
         .addEntry('app', './assets/js/app.js')
-        .addEntry('react', './assets/js/react.js')
+        .addEntry('homepage', './assets/js/homepage.js')
         .addEntry('chart', './assets/js/chart.js')
+        .addEntry('react-chart', './assets/js/Components/react-devices-chart.js')
         .addEntry('maps', './assets/js/maps.js')
         .addEntry('battery', './assets/js/battery.js')
 
