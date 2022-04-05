@@ -37,7 +37,7 @@ class ReactDeviceChart extends React.Component {
                 .then(deviceinfo => {
                     //console.log(deviceinfo);
                     //console.log(Object.keys(deviceinfo).length);
-                    var width = (window.innerWidth <= 500) ? '85%' : '97%';
+                    var width = (window.innerWidth <= 500) ? '83%' : '95%';
                     var myoptions = {
                         title: this.props.devicename,
                         tooltip: {textStyle: {color: '#0073e6'}, showColorCode: true, isHtml: true, trigger: "visible"},
