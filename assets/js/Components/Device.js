@@ -5,6 +5,9 @@ import '../../css/battery.scss';
 import { Oval } from  'react-loader-spinner';
 const Routing = require('./Routing');
 
+const refreshInterval = 1000 * 60 * 5;
+//const refreshInterval = 1000 * 5;
+
 //import fontawesome from '@fortawesome/fontawesome'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { faBatteryEmpty } from '@fortawesome/fontawesome-free-solid'
@@ -19,7 +22,10 @@ class Device extends Component {
         super(props);
         this.state = {
             device: {},
-            isLoading: true
+            isLoading: true,
+            hasError: false,
+            sessionExpired: false,
+            error: null
         };
     }
 
@@ -31,21 +37,43 @@ class Device extends Component {
         this.refreshData();
         this.interval = setInterval(() => {
             this.refreshData();
-        }, 1000 * 60 * 5);
+        }, refreshInterval);
 
     }
     refreshData() {
-        let routeLog = Routing.generate('Log_last', {device: this.props.deviceid});
+        try {
+            let routeLog = Routing.generate('Log_last', {device: this.props.deviceid});
 
-        fetch(routeLog)
-                .then(response => response.json())
-                .then(deviceinfo => {
-                    this.setState({device: deviceinfo, isLoading: false});
-                });
+            fetch(routeLog)
+                    .then(response => {
+                        if (response.status >= 400) {
+                            throw new Error(response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(deviceinfo => {
+                        this.setState({device: deviceinfo, isLoading: false, hasError: false, error: null, sessionExpired: false});
+                    })
+                    .catch(error => {
+                        this.setState({hasError: true, error: error, sessionExpired: false});
+                    });
+
+            ;
+        } catch (e) {
+            this.setState({hasError: true, error: e, sessionExpired: false});
+        }
     }
     render() {
         if (Object.keys(this.state.device).length === 0) {
             return null;
+        }
+        if (this.state.sessionExpired) {
+            window.location.reload(false);
+        }
+        if (this.state.hasError) {
+            return <div className="alert alert-danger" role="alert">
+                {this.state.error.message}
+            </div>;
         }
         if (this.state.isLoading) {
             return <Oval height="100" width="100" color='blue' ariaLabel='loading' />;

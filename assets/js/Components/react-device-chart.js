@@ -3,10 +3,14 @@ import { TailSpin } from  'react-loader-spinner'
 
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom/client";
-import {withGetScreen} from 'react-getscreen'
+import { Navigate } from 'react-router-dom';
+
+import {withGetScreen} from 'react-getscreen';
 
 const Routing = require('./Routing');
 
+const refreshInterval = 1000 * 60 * 5;
+//const refreshInterval = 1000 * 5;
 
 class ReactDeviceChart extends React.Component {
 
@@ -15,8 +19,16 @@ class ReactDeviceChart extends React.Component {
         super(props);
         this.state = {
             chart: [],
-            options: {}
+            options: {},
+            hasError: false,
+            sessionExpired: false,
+            error: null
+
         };
+    }
+
+    static getDerivedStateFromError(error) {
+        return {hasError: true, error: error};
     }
 
     componentWillUnmount() {
@@ -25,73 +37,86 @@ class ReactDeviceChart extends React.Component {
 
     componentDidMount() {
         this.refreshData();
+
         this.interval = setInterval(() => {
             this.refreshData();
-        }, 1000 * 60 * 5);
+        }, refreshInterval);
     }
 
     refreshData() {
-        let routeLog = Routing.generate('Device_Chart', {device: this.props.deviceid});
-        fetch(routeLog)
-                .then(response => response.json())
-                .then(deviceinfo => {
-                    //console.log(deviceinfo);
-                    //console.log(Object.keys(deviceinfo).length);
-                    var width = (window.innerWidth <= 500) ? '83%' : '95%';
-                    var myoptions = {
-                        title: this.props.devicename,
-                        tooltip: {textStyle: {color: '#0073e6'}, showColorCode: true, isHtml: true, trigger: "visible"},
-                        //tooltip: { isHtml: true, trigger: "visible" },
-                        hAxis: {
-                            format: 'dd/MM HH:mm',
-                            gridlines: {
-                                color: 'none'
-                            },
-                            textStyle: {
-                                fontName: 'Roboto',
-                                fontSize: '10',
-                                format: 'd/m/Y'
-                            }
-                        },
-                        chartArea: {'width': width, 'height': '80%'},
-                        legend: {position: 'none'},
-                        vAxis: {
-                            format: '#0.0',
-                            gridlines: {count: -1},
-                            textStyle: {
-                                fontName: 'Roboto',
-                                fontSize: '10'}
-                            //minValue: 11, maxValue: 15,
-                            //viewWindow: {min: 10, max: 15}
-                            //gridlines: {color: 'none'}
+        try {
+            let routeLog = Routing.generate('Device_Chart', {device: this.props.deviceid});
+            fetch(routeLog)
+                    .then(response => {
+                        if (response.status >= 400) {
+                            throw new Error(response.statusText);
                         }
-                    };
-                    for (var i = 1; i < deviceinfo.length; i++) {
-                        deviceinfo[i][0] = new Date(deviceinfo[i][0]);
-                    }
-                    /*var google = window.google;
-                     var date_formatter = google.visualization.DateFormat({
-                     pattern: "MMM dd, yyyy"
-                     });
-                     date_formatter.format(deviceinfo, 0);*/
-                    this.setState({chart: deviceinfo, options: myoptions});
-                }).catch(error => {
-
-            console.error('There was an error!', error);
-        });
+                        return response.json();
+                    })
+                    .then(deviceinfo => {
+                        var width = (window.innerWidth <= 500) ? '83%' : '95%';
+                        var myoptions = {
+                            title: this.props.devicename,
+                            tooltip: {textStyle: {color: '#0073e6'}, showColorCode: true, isHtml: true, trigger: "visible"},
+                            hAxis: {
+                                format: 'dd/MM HH:mm',
+                                gridlines: {
+                                    color: 'none'
+                                },
+                                textStyle: {
+                                    fontName: 'Roboto',
+                                    fontSize: '10',
+                                    format: 'd/m/Y'
+                                }
+                            },
+                            chartArea: {'width': width, 'height': '80%'},
+                            legend: {position: 'none'},
+                            vAxis: {
+                                format: '#0.0',
+                                gridlines: {count: -1},
+                                textStyle: {
+                                    fontName: 'Roboto',
+                                    fontSize: '10'}
+                                //minValue: 11, maxValue: 15,
+                                //viewWindow: {min: 10, max: 15}
+                                //gridlines: {color: 'none'}
+                            }
+                        };
+                        for (var i = 1; i < deviceinfo.length; i++) {
+                            deviceinfo[i][0] = new Date(deviceinfo[i][0]);
+                        }
+                        this.setState({chart: deviceinfo, options: myoptions, hasError: false, error: null, sessionExpired: false});
+                    })
+                    .catch(error => {
+                        this.setState({hasError: true, error: error, sessionExpired: false});
+                    });
+        } catch (e) {
+            this.setState({hasError: true, error: e, sessionExpired: false});
+        }
     }
 
     render() {
-        if (Object.keys(this.state.chart).length <= 2) {
+        if (this.state.sessionExpired) {
+            window.location.reload(false);
+        }
+        if (this.state.hasError) {
+            return <div className="alert alert-danger" role="alert">
+                {this.state.error.message}
+            </div>;
+        }
+        if (Object.keys(this.state.chart).length <= 2)
+        {
             return null;
         }
+
         var wait = <TailSpin height="100" width="100" color='blue' ariaLabel='loading' />;
 
         return <React.Fragment>
             <Chart
                 chartType="LineChart"
                 chartLanguage= 'it'
-                data={this.state.chart}
+                data=
+                {this.state.chart}
                 options={this.state.options}
                 loader={wait}
                 width = "100%"
