@@ -1,10 +1,12 @@
 import { Chart } from "react-google-charts";
 import { TailSpin } from  'react-loader-spinner'
 
-import React, { useState, useEffect }
-from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom/client";
+import {withGetScreen} from 'react-getscreen'
+
 const Routing = require('./Routing');
+
 
 class ReactDeviceChart extends React.Component {
 
@@ -35,6 +37,7 @@ class ReactDeviceChart extends React.Component {
                 .then(deviceinfo => {
                     //console.log(deviceinfo);
                     //console.log(Object.keys(deviceinfo).length);
+                    var width = (window.innerWidth <= 500) ? '85%' : '97%';
                     var myoptions = {
                         title: this.props.devicename,
                         tooltip: {textStyle: {color: '#0073e6'}, showColorCode: true, isHtml: true, trigger: "visible"},
@@ -50,14 +53,14 @@ class ReactDeviceChart extends React.Component {
                                 format: 'd/m/Y'
                             }
                         },
-                        chartArea: {'width': '97%', 'height': '80%'},
+                        chartArea: {'width': width, 'height': '80%'},
                         legend: {position: 'none'},
                         vAxis: {
-                            format: '#0.00',
+                            format: '#0.0',
                             gridlines: {count: -1},
                             textStyle: {
                                 fontName: 'Roboto',
-                                fontSize: '10'},
+                                fontSize: '10'}
                             //minValue: 11, maxValue: 15,
                             //viewWindow: {min: 10, max: 15}
                             //gridlines: {color: 'none'}
