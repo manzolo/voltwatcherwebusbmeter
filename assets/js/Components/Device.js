@@ -30,16 +30,23 @@ class Device extends Component {
     }
 
     componentWillUnmount() {
+        window.removeEventListener("touchend", this.handleTouchEnd);
         clearInterval(this.interval);
     }
 
     componentDidMount() {
+        window.addEventListener("touchend", this.handleTouchEnd, {passive: true});
         this.refreshData();
         this.interval = setInterval(() => {
             this.refreshData();
         }, refreshInterval);
 
     }
+    handleTouchEnd = (e) => {
+        this.refreshData();
+        //console.log(e);
+    }
+    
     refreshData() {
         try {
             let routeLog = Routing.generate('Log_last', {device: this.props.deviceid});
