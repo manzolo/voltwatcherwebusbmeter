@@ -3,7 +3,6 @@ import { TailSpin } from  'react-loader-spinner'
 
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom/client";
-import { Navigate } from 'react-router-dom';
 
 import {withGetScreen} from 'react-getscreen';
 
@@ -20,6 +19,7 @@ class ReactDeviceChart extends React.Component {
         this.state = {
             chart: [],
             options: {},
+            width: window.innerWidth, height: window.innerHeight,
             hasError: false,
             sessionExpired: false,
             error: null
@@ -33,16 +33,20 @@ class ReactDeviceChart extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.interval);
+        window.removeEventListener('resize', this.updateDimensions);
     }
-
     componentDidMount() {
+        window.addEventListener('resize', this.updateDimensions);
         this.refreshData();
 
         this.interval = setInterval(() => {
             this.refreshData();
         }, refreshInterval);
     }
-
+    updateDimensions = () => {
+        this.setState({width: window.innerWidth, height: window.innerHeight});
+        this.refreshData();
+    }
     refreshData() {
         try {
             let routeLog = Routing.generate('Device_Chart', {device: this.props.deviceid});
@@ -54,7 +58,7 @@ class ReactDeviceChart extends React.Component {
                         return response.json();
                     })
                     .then(deviceinfo => {
-                        var width = (window.innerWidth <= 500) ? '83%' : '95%';
+                        var width = (this.state.width <= 500) ? '80%' : '95%';
                         var myoptions = {
                             title: this.props.devicename,
                             tooltip: {textStyle: {color: '#0073e6'}, showColorCode: true, isHtml: true, trigger: "visible"},
