@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useRef } from "react";
 import moment from 'moment';
 import Device from './Device';
 import { Oval } from  'react-loader-spinner';
@@ -6,27 +6,33 @@ const Routing = require('../Routing');
 
 class Devices extends Component {
     constructor(props) {
-        //console.log(props);
-
         super(props);
+        this.references = {};
         this.state = {
             devices: [],
-            forceRefresh: false,
             isLoading: true
         };
     }
-    componentWillReceiveProps(props) {
-        this.setState({forceRefresh: props.forceRefresh});
+    getOrCreateRef(id) {
+        if (!this.references.hasOwnProperty(id)) {
+            this.references[id] = React.createRef();
+        }
+        return this.references[id];
     }
-
-    componentDidMount() {
+    refreshData() {
+        //console.log('Devices called from parent');
         let routeDevices = Routing.generate('Device_List');
         fetch(routeDevices)
                 .then(response => response.json())
                 .then(deviceinfo => {
-                    //console.log(deviceinfo);
                     this.setState({devices: deviceinfo, isLoading: false});
                 });
+        this.state.devices.map(({ id }) => (
+                this.getOrCreateRef(id)).current.refreshData());
+    }
+
+    componentDidMount() {
+        this.refreshData();
     }
     render() {
         if (this.state.isLoading) {
@@ -38,7 +44,7 @@ class Devices extends Component {
                                             deviceid={id}
                                             address={address}
                                             devicename={name}
-                                            forceRefresh="{this.state.forceRefresh}"
+                                            ref={this.getOrCreateRef(id)}
                                             >
                                         </Device>
                                             ))}</React.Fragment>;

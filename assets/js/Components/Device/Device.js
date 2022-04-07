@@ -24,20 +24,12 @@ class Device extends Component {
             isLoading: true,
             hasError: false,
             sessionExpired: false,
-            error: null,
-            forceRefresh: props.forceRefresh
+            error: null
         };
         this.self = this;
     }
-    componentWillReceiveProps(props) {
-        this.setState({forceRefresh: props.forceRefresh});
-    }
-    forceRefreshAction() {
-        this.setState({
-            forceRefresh: !this.state.forceRefresh
-        });
-    }
-    componentDidMount() {
+    refreshData() {
+        //console.log('Device called from parent');
         try {
             let routeLog = Routing.generate('Log_last', {device: this.props.deviceid});
 
@@ -60,6 +52,9 @@ class Device extends Component {
             this.setState({hasError: true, error: e, sessionExpired: false});
         }
     }
+    componentDidMount() {
+        this.refreshData();
+    }
     render() {
         if (Object.keys(this.state.device).length === 0) {
             return null;
@@ -69,8 +64,8 @@ class Device extends Component {
         }
         if (this.state.hasError) {
             return <div className="alert alert-danger" role="alert">
-                {this.state.error.message}
-            </div>;
+    {this.state.error.message}
+</div>;
         }
         if (this.state.isLoading) {
             return <Oval height="100" width="100" color='blue' ariaLabel='loading' />;

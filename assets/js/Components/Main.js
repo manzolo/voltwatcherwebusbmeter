@@ -5,7 +5,7 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-import React, { useState, useEffect } from 'react';
+import React, {  useRef } from 'react';
 import ReactDOM from "react-dom/client";
 import Devices from './Device/Devices';
 import ReactDevicesChart from './Chart/react-devices-chart';
@@ -16,13 +16,14 @@ const refreshInterval = 1000 * 60 * 5;
 class Main extends React.Component {
     constructor(props) {
         super(props);
+        this.devicesHook = React.createRef();
+        this.chartsHook = React.createRef();
         this.state = {
             width: window.innerWidth, height: window.innerHeight,
-            touchStart: null, touchEnd: null,
-            forceRefresh: false
+            touchStart: null, touchEnd: null
         };
-        super();
     }
+
     forceRefreshAction = () => {
         this.setState({forceRefresh: !this.state.forceRefresh});
     }
@@ -69,18 +70,19 @@ class Main extends React.Component {
     }
 
     updateDimensions = () => {
-        this.setState({width: window.innerWidth, height: window.innerHeight, forceRefresh: false});
+        this.setState({width: window.innerWidth, height: window.innerHeight});
         this.refreshData();
     }
-    refreshData = () => {
-        console.log("Trigger Refresh");
-        this.setState({forceRefresh: false});
+    refreshData() {
+        //console.log("Trigger Refresh MAIN");
+        this.devicesHook.current.refreshData();
+        this.chartsHook.current.refreshData();
     }
-    
+
     render() {
         return <React.Fragment>
-            <Devices innerWidth="{this.state.width}" innerHeight="{this.state.height}" forceRefresh="{this.state.forceRefresh}"/>
-            <ReactDevicesChart  innerWidth="{this.state.width}" innerHeight="{this.state.height}" forceRefresh="{this.state.forceRefresh}"/>
+            <Devices innerWidth="{this.state.width}" innerHeight="{this.state.height}" ref={this.devicesHook}/>
+            <ReactDevicesChart  innerWidth="{this.state.width}" innerHeight="{this.state.height}" ref={this.chartsHook}/>
         </React.Fragment>;
     }
 }

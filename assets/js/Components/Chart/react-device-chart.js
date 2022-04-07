@@ -22,8 +22,7 @@ class ReactDeviceChart extends React.Component {
             width: props.innerWidth, height: props.innerHeight,
             hasError: false,
             sessionExpired: false,
-            error: null,
-            forceRefresh: false
+            error: null
 
         };
     }
@@ -31,7 +30,8 @@ class ReactDeviceChart extends React.Component {
     static getDerivedStateFromError(error) {
         return {hasError: true, error: error};
     }
-    componentDidMount() {
+    refreshData() {
+        //console.log('ReactDeviceChart called from parent');
         try {
             let routeLog = Routing.generate('Device_Chart', {device: this.props.deviceid});
             fetch(routeLog)
@@ -81,6 +81,9 @@ class ReactDeviceChart extends React.Component {
         } catch (e) {
             this.setState({hasError: true, error: e, sessionExpired: false});
         }
+    }
+    componentDidMount() {
+        this.refreshData();
     }
 
     render() {
