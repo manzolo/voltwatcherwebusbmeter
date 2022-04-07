@@ -19,13 +19,8 @@ class Main extends React.Component {
         this.devicesHook = React.createRef();
         this.chartsHook = React.createRef();
         this.state = {
-            width: window.innerWidth, height: window.innerHeight,
             touchStart: null, touchEnd: null
         };
-    }
-
-    forceRefreshAction = () => {
-        this.setState({forceRefresh: !this.state.forceRefresh});
     }
 
     onTouchStart = (e) => {
@@ -70,7 +65,6 @@ class Main extends React.Component {
     }
 
     updateDimensions = () => {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
         this.refreshData();
     }
     refreshData() {
@@ -81,8 +75,8 @@ class Main extends React.Component {
 
     render() {
         return <React.Fragment>
-            <Devices innerWidth="{this.state.width}" innerHeight="{this.state.height}" ref={this.devicesHook}/>
-            <ReactDevicesChart  innerWidth="{this.state.width}" innerHeight="{this.state.height}" ref={this.chartsHook}/>
+            <Devices ref={this.devicesHook}/>
+            <ReactDevicesChart ref={this.chartsHook}/>
         </React.Fragment>;
     }
 }

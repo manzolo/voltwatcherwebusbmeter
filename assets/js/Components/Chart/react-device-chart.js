@@ -19,17 +19,32 @@ class ReactDeviceChart extends React.Component {
         this.state = {
             chart: [],
             options: {},
-            width: props.innerWidth, height: props.innerHeight,
+            width: window.innerWidth, height: window.innerHeight,
             hasError: false,
             sessionExpired: false,
             error: null
 
         };
     }
+    componentWillUnmount() {
+        this.resizeHandler = removeEventListener('resize', this.updateDimensions);
+    }
+
+    componentDidMount() {
+        this.resizeHandler = addEventListener('resize', this.updateDimensions);
+        this.refreshData();
+    }
 
     static getDerivedStateFromError(error) {
         return {hasError: true, error: error};
     }
+
+    updateDimensions = () => {
+        //console.log(this.state.width);
+        this.setState({width: window.innerWidth, height: window.innerHeight});
+        //this.refreshData();
+    }
+
     refreshData() {
         //console.log('ReactDeviceChart called from parent');
         try {
@@ -43,6 +58,7 @@ class ReactDeviceChart extends React.Component {
                     })
                     .then(deviceinfo => {
                         var width = (this.state.width <= 500) ? '80%' : '95%';
+                        //console.log(this.state.width);
                         var myoptions = {
                             title: this.props.devicename,
                             tooltip: {textStyle: {color: '#0073e6'}, showColorCode: true, isHtml: true, trigger: "visible"},
@@ -81,9 +97,6 @@ class ReactDeviceChart extends React.Component {
         } catch (e) {
             this.setState({hasError: true, error: e, sessionExpired: false});
         }
-    }
-    componentDidMount() {
-        this.refreshData();
     }
 
     render() {
