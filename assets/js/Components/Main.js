@@ -12,6 +12,7 @@ import ReactDevicesChart from './Chart/react-devices-chart';
 
 const minSwipeDistance = 50;
 const refreshInterval = 1000 * 60 * 5;
+//const refreshInterval = 1000 * 5;
 
 class Main extends React.Component {
     constructor(props) {
