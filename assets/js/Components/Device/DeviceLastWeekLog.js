@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import moment from 'moment';
 import DeviceLastWeekLogDetails from './DeviceLastWeekLogDetails';
-const Routing = require('./Routing');
+const Routing = require('../Routing');
 
 class DeviceLastWeekLog extends Component {
     constructor(props) {

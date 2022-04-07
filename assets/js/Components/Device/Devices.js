@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import moment from 'moment';
 import Device from './Device';
 import { Oval } from  'react-loader-spinner';
-const Routing = require('./Routing');
+const Routing = require('../Routing');
 
 class Devices extends Component {
     constructor(props) {

@@ -3,21 +3,16 @@
 {% block javascripts %}
     {{parent()}}
     {{ encore_entry_script_tags('homepage') }}
-    {{ encore_entry_script_tags('react-chart') }}
 {% endblock%}
 
 {% block stylesheets %}
     {{parent()}}
-    {{ encore_entry_link_tags('react-chart') }}
     {{ encore_entry_link_tags('battery') }}
 
 {% endblock%}
 
 {% block content %}
     <div id="root" class="row">
-        
-    </div>
-    <div id="chart" class="chart">
         
     </div>
 {% endblock %}

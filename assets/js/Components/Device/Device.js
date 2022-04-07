@@ -2,9 +2,9 @@ import React, { useState, useEffect, Component } from "react";
 
 import moment from 'moment';
 import DeviceLastWeekLog from './DeviceLastWeekLog';
-import '../../css/battery.scss';
+import '../../../css/battery.scss';
 import { Oval } from  'react-loader-spinner';
-const Routing = require('./Routing');
+const Routing = require('../Routing');
 
 const refreshInterval = 1000 * 60 * 5;
 //const refreshInterval = 1000 * 5;
