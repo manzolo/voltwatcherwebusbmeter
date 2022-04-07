@@ -11,9 +11,14 @@ class Devices extends Component {
         super(props);
         this.state = {
             devices: [],
+            forceRefresh: false,
             isLoading: true
         };
     }
+    componentWillReceiveProps(props) {
+        this.setState({forceRefresh: props.forceRefresh});
+    }
+
     componentDidMount() {
         let routeDevices = Routing.generate('Device_List');
         fetch(routeDevices)
@@ -33,6 +38,7 @@ class Devices extends Component {
                                             deviceid={id}
                                             address={address}
                                             devicename={name}
+                                            forceRefresh="{this.state.forceRefresh}"
                                             >
                                         </Device>
                                             ))}</React.Fragment>;

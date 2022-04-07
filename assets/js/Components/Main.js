@@ -10,15 +10,77 @@ import ReactDOM from "react-dom/client";
 import Devices from './Device/Devices';
 import ReactDevicesChart from './Chart/react-devices-chart';
 
+const minSwipeDistance = 50;
+const refreshInterval = 1000 * 60 * 5;
+
 class Main extends React.Component {
-    constructor() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            width: window.innerWidth, height: window.innerHeight,
+            touchStart: null, touchEnd: null,
+            forceRefresh: false
+        };
         super();
     }
+    forceRefreshAction = () => {
+        this.setState({forceRefresh: !this.state.forceRefresh});
+    }
 
+    onTouchStart = (e) => {
+        this.setState({touchStart: e.targetTouches[0].clientY, touchEnd: null});
+    }
+
+    onTouchMove = (e) => {
+        this.setState({touchEnd: e.changedTouches[0].clientY});
+    }
+    onTouchEnd = (e) => {
+        if (!this.state.touchStart || !this.state.touchEnd)
+            return;
+        const distance = this.state.touchStart - this.state.touchEnd;
+        const isUpSwipe = distance > minSwipeDistance;
+        const isDownSwipe = distance < -minSwipeDistance;
+        if (isUpSwipe || isDownSwipe) {
+            if (isDownSwipe) {
+                this.refreshData();
+            }
+        }
+    }
+    componentWillUnmount() {
+        this.resizeHandler = removeEventListener('resize', this.updateDimensions);
+        this.swipeStartHandler = removeEventListener("touchstart", this.onTouchStart);
+        this.swipeMoveHandler = removeEventListener("touchmove", this.onTouchMove);
+        this.swipeEndHandler = removeEventListener("touchend", this.onTouchEnd);
+        clearInterval(this.interval);
+    }
+
+    componentDidMount() {
+        const self = this; //  this should not be double quoted;
+        this.resizeHandler = addEventListener('resize', this.updateDimensions);
+        this.swipeStartHandler = addEventListener("touchstart", this.onTouchStart, {passive: false});
+        this.swipeMoveHandler = addEventListener("touchmove", this.onTouchMove, {passive: false});
+        this.swipeEndHandler = addEventListener("touchend", this.onTouchEnd, {passive: false});
+
+        this.refreshData();
+        this.interval = setInterval(() => {
+            this.refreshData();
+        }, refreshInterval);
+
+    }
+
+    updateDimensions = () => {
+        this.setState({width: window.innerWidth, height: window.innerHeight, forceRefresh: false});
+        this.refreshData();
+    }
+    refreshData = () => {
+        console.log("Trigger Refresh");
+        this.setState({forceRefresh: false});
+    }
+    
     render() {
         return <React.Fragment>
-            <Devices />
-            <ReactDevicesChart />
+            <Devices innerWidth="{this.state.width}" innerHeight="{this.state.height}" forceRefresh="{this.state.forceRefresh}"/>
+            <ReactDevicesChart  innerWidth="{this.state.width}" innerHeight="{this.state.height}" forceRefresh="{this.state.forceRefresh}"/>
         </React.Fragment>;
     }
 }
