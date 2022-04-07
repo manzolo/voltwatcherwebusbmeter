@@ -140,7 +140,7 @@ class HomepageTest extends WebTestCase
         $this->client->request('GET', '/');
         $this->assertResponseIsSuccessful();
         $responseText = $this->client->getResponse()->getContent();
-        $this->assertStringContainsString('chart', $responseText);
+        $this->assertStringContainsString('root', $responseText);
     }
     protected function assertJsonResponse(Response $response, $statusCode = 200)
     {
