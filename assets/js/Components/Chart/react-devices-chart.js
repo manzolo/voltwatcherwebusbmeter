@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom/client";
 import ReactDeviceChart from './react-device-chart.js'
-const Routing = require('./Routing');
+const Routing = require('../Routing');
 
 class ReactDevicesChart extends React.Component {
     constructor(props) {
@@ -32,10 +32,5 @@ class ReactDevicesChart extends React.Component {
                                             ))}</React.Fragment>; 
     }
 }
-const root = ReactDOM.createRoot(document.getElementById("chart"));
-root.render(
-        <React.StrictMode>
-            <ReactDevicesChart />
-        </React.StrictMode>
-        );
 
+export default ReactDevicesChart;

@@ -7,7 +7,8 @@
 
 import React, { useState, useEffect } from 'react';
 import ReactDOM from "react-dom/client";
-import Devices from './Components/Devices';
+import Devices from './Components/Device/Devices';
+import ReactDevicesChart from './Components/Chart/react-devices-chart';
 
 class Device extends React.Component {
     constructor() {
@@ -23,5 +24,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
         <React.StrictMode>
             <Device />
+            <ReactDevicesChart />
         </React.StrictMode>
         );

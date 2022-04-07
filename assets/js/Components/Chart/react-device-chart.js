@@ -6,7 +6,7 @@ import ReactDOM from "react-dom/client";
 
 import {withGetScreen} from 'react-getscreen';
 
-const Routing = require('./Routing');
+const Routing = require('../Routing');
 
 const refreshInterval = 1000 * 60 * 5;
 //const refreshInterval = 1000 * 5;
