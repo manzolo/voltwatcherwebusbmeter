@@ -14,16 +14,13 @@ const refreshInterval = 1000 * 60 * 5;
 //import { faBatteryEmpty } from '@fortawesome/fontawesome-free-solid'
 //fontawesome.library.add(faBatteryEmpty);
 
-const minSwipeDistance = 50;
-
 class Device extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             device: {},
-            width: window.innerWidth, height: window.innerHeight,
-            touchStart: null, touchEnd: null,
+            width: props.innerWidth, height: props.innerHeight,
             isLoading: true,
             hasError: false,
             sessionExpired: false,
@@ -31,53 +28,8 @@ class Device extends Component {
         };
         this.self = this;
     }
-    onTouchStart = (e) => {
-        this.setState({touchStart: e.targetTouches[0].clientY, touchEnd: null});
-    }
-
-    onTouchMove = (e) => {
-        this.setState({touchEnd: e.changedTouches[0].clientY});
-    }
-    onTouchEnd = (e) => {
-        if (!this.state.touchStart || !this.state.touchEnd) return;
-        const distance = this.state.touchStart - this.state.touchEnd;
-        const isUpSwipe = distance > minSwipeDistance;
-        const isDownSwipe = distance < -minSwipeDistance;
-        if (isUpSwipe || isDownSwipe) {
-            if (isDownSwipe) {
-                this.refreshData();
-            }
-        }
-    }
-
-    componentWillUnmount() {
-        this.resizeHandler = removeEventListener('resize', this.updateDimensions);
-        this.swipeStartHandler = removeEventListener("touchstart", this.onTouchStart);
-        this.swipeMoveHandler = removeEventListener("touchmove", this.onTouchMove);
-        this.swipeEndHandler = removeEventListener("touchend", this.onTouchEnd);
-        clearInterval(this.interval);
-    }
-
-    componentDidMount() {
-        const self = this; //  this should not be double quoted;
-        this.resizeHandler = addEventListener('resize', this.updateDimensions);
-        this.swipeStartHandler = addEventListener("touchstart", this.onTouchStart, {passive: false});
-        this.swipeMoveHandler = addEventListener("touchmove", this.onTouchMove, {passive: false});
-        this.swipeEndHandler = addEventListener("touchend", this.onTouchEnd, {passive: false});
-
-        this.refreshData();
-        this.interval = setInterval(() => {
-            this.refreshData();
-        }, refreshInterval);
-
-    }
-
-    updateDimensions = () => {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
-        this.refreshData();
-    }
-
     refreshData() {
+        //console.log('Device called from parent');
         try {
             let routeLog = Routing.generate('Log_last', {device: this.props.deviceid});
 
@@ -100,6 +52,9 @@ class Device extends Component {
             this.setState({hasError: true, error: e, sessionExpired: false});
         }
     }
+    componentDidMount() {
+        this.refreshData();
+    }
     render() {
         if (Object.keys(this.state.device).length === 0) {
             return null;
@@ -109,8 +64,8 @@ class Device extends Component {
         }
         if (this.state.hasError) {
             return <div className="alert alert-danger" role="alert">
-                {this.state.error.message}
-            </div>;
+    {this.state.error.message}
+</div>;
         }
         if (this.state.isLoading) {
             return <Oval height="100" width="100" color='blue' ariaLabel='loading' />;

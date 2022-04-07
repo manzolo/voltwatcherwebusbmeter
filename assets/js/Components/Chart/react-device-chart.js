@@ -19,7 +19,7 @@ class ReactDeviceChart extends React.Component {
         this.state = {
             chart: [],
             options: {},
-            width: window.innerWidth, height: window.innerHeight,
+            width: props.innerWidth, height: props.innerHeight,
             hasError: false,
             sessionExpired: false,
             error: null
@@ -30,26 +30,8 @@ class ReactDeviceChart extends React.Component {
     static getDerivedStateFromError(error) {
         return {hasError: true, error: error};
     }
-    handleSwipe = (e) => {
-        this.refreshData();
-    }
-    componentWillUnmount() {
-        clearInterval(this.interval);
-        this.resizeHandler = removeEventListener('resize', this.updateDimensions);
-    }
-    componentDidMount() {
-        this.resizeHandler = addEventListener('resize', this.updateDimensions);
-        this.refreshData();
-
-        this.interval = setInterval(() => {
-            this.refreshData();
-        }, refreshInterval);
-    }
-    updateDimensions = () => {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
-        this.refreshData();
-    }
     refreshData() {
+        //console.log('ReactDeviceChart called from parent');
         try {
             let routeLog = Routing.generate('Device_Chart', {device: this.props.deviceid});
             fetch(routeLog)
@@ -99,6 +81,9 @@ class ReactDeviceChart extends React.Component {
         } catch (e) {
             this.setState({hasError: true, error: e, sessionExpired: false});
         }
+    }
+    componentDidMount() {
+        this.refreshData();
     }
 
     render() {

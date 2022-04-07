@@ -5,25 +5,13 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactDOM from "react-dom/client";
-import Devices from './Components/Device/Devices';
-import ReactDevicesChart from './Components/Chart/react-devices-chart';
-
-class Device extends React.Component {
-    constructor() {
-        super();
-    }
-
-    render() {
-        return <React.Fragment><Devices /></React.Fragment>;
-    }
-}
+import Main from './Components/Main';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
         <React.StrictMode>
-            <Device />
-            <ReactDevicesChart />
+            <Main />
         </React.StrictMode>
         );
