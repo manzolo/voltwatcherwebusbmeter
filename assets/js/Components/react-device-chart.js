@@ -1,7 +1,7 @@
 import { Chart } from "react-google-charts";
 import { TailSpin } from  'react-loader-spinner'
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactDOM from "react-dom/client";
 
 import {withGetScreen} from 'react-getscreen';
@@ -30,13 +30,15 @@ class ReactDeviceChart extends React.Component {
     static getDerivedStateFromError(error) {
         return {hasError: true, error: error};
     }
-
+    handleSwipe = (e) => {
+        this.refreshData();
+    }
     componentWillUnmount() {
         clearInterval(this.interval);
-        window.removeEventListener('resize', this.updateDimensions);
+        this.resizeHandler = removeEventListener('resize', this.updateDimensions);
     }
     componentDidMount() {
-        window.addEventListener('resize', this.updateDimensions);
+        this.resizeHandler = addEventListener('resize', this.updateDimensions);
         this.refreshData();
 
         this.interval = setInterval(() => {
