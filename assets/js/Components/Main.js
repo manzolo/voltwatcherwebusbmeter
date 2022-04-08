@@ -9,6 +9,7 @@ import React, {  useRef } from 'react';
 import ReactDOM from "react-dom/client";
 import Devices from './Device/Devices';
 import ReactDevicesChart from './Chart/react-devices-chart';
+import Routing from './Routing';
 
 const minSwipeDistance = 50;
 const refreshInterval = 1000 * 60 * 5;
@@ -20,6 +21,7 @@ class Main extends React.Component {
         this.devicesHook = React.createRef();
         this.chartsHook = React.createRef();
         this.state = {
+            hasError: false, error: null,
             touchStart: null, touchEnd: null
         };
     }
@@ -70,11 +72,48 @@ class Main extends React.Component {
     }
     refreshData() {
         //console.log("Trigger Refresh MAIN");
-        this.devicesHook.current.refreshData();
-        this.chartsHook.current.refreshData();
+
+        try {
+            let routeDevices = Routing.generate('Device_List');
+
+            fetch(routeDevices)
+                    .then(response => {
+                        if (response.status >= 400) {
+                            throw new Error(response.statusText);
+                        }
+                        if (response.redirected) {
+                            throw new Error("Sessione scaduta, effettuare nuovamente il login");
+                        }
+                        return response.json();
+                        /*const contentType = response.headers.get("content-type");
+                         if (contentType && contentType.indexOf("application/json") !== -1) {
+                         console.log(response);
+                         return response.json();
+                         } else {
+                         return response.text();
+                         }*/
+
+                        //return response.json();
+                    })
+                    .then(deviceinfo => {
+                        this.devicesHook.current.refreshData(deviceinfo);
+                        this.chartsHook.current.refreshData(deviceinfo);
+                    })
+                    .catch(error => {
+                        this.setState({hasError: true, error: error});
+                    });
+
+            ;
+        } catch (e) {
+            this.setState({hasError: true, error: e});
+        }
+
     }
 
     render() {
+        if (this.state.hasError) {
+            return <div className="alert alert-danger" role="alert">{this.state.error.message}</div>;
+        }
         return <React.Fragment>
             <Devices ref={this.devicesHook}/>
             <ReactDevicesChart ref={this.chartsHook}/>

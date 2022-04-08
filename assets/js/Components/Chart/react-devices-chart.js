@@ -17,22 +17,10 @@ class ReactDevicesChart extends React.Component {
         }
         return this.references[id];
     }
-    refreshData() {
+    refreshData(deviceinfo) {
         //console.log('ReactDevicesChart called from parent');
-        this.state.devices.map(({ id }) => (
-                this.getOrCreateRef(id)).current.refreshData());
-                
-        let routeDevices = Routing.generate('Device_List');
-        fetch(routeDevices)
-                .then(response => response.json())
-                .then(deviceinfo => {
-                    //console.log(deviceinfo);
-                    this.setState({devices: deviceinfo});
-                });
-
-    }
-    componentDidMount() {
-        this.refreshData();
+        this.setState({devices: deviceinfo, isLoading: false});
+        this.state.devices.map(({ id }) => (this.getOrCreateRef(id)).current.refreshData());
     }
     render() {
         return <React.Fragment>{this.state.devices.map(({ id, address, name }) => (
