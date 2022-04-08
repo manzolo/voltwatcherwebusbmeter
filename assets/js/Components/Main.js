@@ -7,13 +7,20 @@
 
 import React, {  useRef } from 'react';
 import ReactDOM from "react-dom/client";
+
 import Devices from './Device/Devices';
 import ReactDevicesChart from './Chart/react-devices-chart';
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 import Routing from './Routing';
 
 const minSwipeDistance = 50;
 const refreshInterval = 1000 * 60 * 5;
 //const refreshInterval = 1000 * 5;
+
+const MySwal = withReactContent(Swal);
 
 class Main extends React.Component {
     constructor(props) {
@@ -82,6 +89,21 @@ class Main extends React.Component {
                             throw new Error(response.statusText);
                         }
                         if (response.redirected) {
+
+                            Swal.fire({
+                                title: 'Tornare al login?',
+                                text: 'Sessione scaduta',
+                                icon: 'warning',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload();                                            
+                                }
+                            });
+
                             throw new Error("Sessione scaduta, effettuare nuovamente il login");
                         }
                         return response.json();
