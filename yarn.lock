@@ -7397,6 +7397,7 @@ __metadata:
     sass-loader: ^12.6.0
     serialize-javascript: ^6.0.0
     sweetalert2: ^11.4.8
+    sweetalert2-react-content: ^4.2.0
     webpack-notifier: ^1.15.0
   languageName: unknown
   linkType: soft
@@ -8182,6 +8183,17 @@ __metadata:
   version: 1.2.6
   resolution: "svgxuse@npm:1.2.6"
   checksum: fb72766dcbf820b28d134b38ce44291af205943486978351db34d82663ec7a8c16d82ac6d627c98fc66b03a6f794256383a38a76a91454f596f6bf0f17a26e85
+  languageName: node
+  linkType: hard
+
+"sweetalert2-react-content@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "sweetalert2-react-content@npm:4.2.0"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0
+    react-dom: ^16.0.0 || ^17.0.0
+    sweetalert2: ^11.0.0
+  checksum: 4ab81c2edabdf9aabeb9bb12f59f9804259382d1898ee807eedbba0088f9e0b10562c6340a5727680f110da940f2e639bf0d811f65b09525e8564486930ff6fe
   languageName: node
   linkType: hard
 
