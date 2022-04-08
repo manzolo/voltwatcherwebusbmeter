@@ -19,21 +19,13 @@ class Devices extends Component {
         }
         return this.references[id];
     }
-    refreshData() {
+    refreshData(deviceinfo) {
         //console.log('Devices called from parent');
-        let routeDevices = Routing.generate('Device_List');
-        fetch(routeDevices)
-                .then(response => response.json())
-                .then(deviceinfo => {
-                    this.setState({devices: deviceinfo, isLoading: false});
-                });
-        this.state.devices.map(({ id }) => (
-                this.getOrCreateRef(id)).current.refreshData());
+        //console.log(deviceinfo);
+        this.setState({devices: deviceinfo, isLoading: false});
+        this.state.devices.map(({ id }) => (this.getOrCreateRef(id)).current.refreshData());
     }
 
-    componentDidMount() {
-        this.refreshData();
-    }
     render() {
         if (this.state.isLoading) {
             return <Oval height="100" width="100" color='blue' ariaLabel='loading' />;

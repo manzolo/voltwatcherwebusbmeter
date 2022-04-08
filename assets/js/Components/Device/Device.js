@@ -6,9 +6,6 @@ import '../../../css/battery.scss';
 import { Oval } from  'react-loader-spinner';
 const Routing = require('../Routing');
 
-const refreshInterval = 1000 * 60 * 5;
-//const refreshInterval = 1000 * 5;
-
 //import fontawesome from '@fortawesome/fontawesome'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { faBatteryEmpty } from '@fortawesome/fontawesome-free-solid'
