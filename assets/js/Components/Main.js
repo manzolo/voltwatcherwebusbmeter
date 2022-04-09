@@ -100,7 +100,7 @@ class Main extends React.Component {
                                 confirmButtonText: 'OK'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.reload();                                            
+                                    window.location.reload();
                                 }
                             });
 
@@ -118,8 +118,13 @@ class Main extends React.Component {
                         //return response.json();
                     })
                     .then(deviceinfo => {
-                        this.devicesHook.current.refreshData(deviceinfo);
-                        this.chartsHook.current.refreshData(deviceinfo);
+                        this.setState({hasError: false, error: null});
+                        if (this.devicesHook.current) {
+                            this.devicesHook.current.refreshData(deviceinfo);
+                        }
+                        if (this.chartsHook.current) {
+                            this.chartsHook.current.refreshData(deviceinfo);
+                        }
                     })
                     .catch(error => {
                         this.setState({hasError: true, error: error});
