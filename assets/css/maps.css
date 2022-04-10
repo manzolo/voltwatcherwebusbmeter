@@ -2,6 +2,20 @@
     width: 100%;
     height:400px;
 }
+.map-container {
+    width: 100%;
+    height:250px;
+}
+
+.marker {
+    width: 25px;
+    height: 25px;
+    border: 5px solid #088;
+    border-radius: 10px;
+    background-color: #FF0000;
+    opacity: 0.5;
+}
+
 #marker {
     width: 25px;
     height: 25px;
