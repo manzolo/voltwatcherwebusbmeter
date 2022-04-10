@@ -87,34 +87,38 @@ class Device extends Component {
         }
 
         return (
-                <div key={this.props.id} className="col-6 col-lg-3">
+                <div key={this.props.id} className="col-6 col-lg-3 text-center">
                     <div className="card-wrapper">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="categoryicon-top" title={this.state.device.batteryperc + '%'}>
-                                    <i className="fa fa-battery-empty font-70px fa-battery-filling" aria-hidden="true">
+                        <div className="cardtext-center">
+                            <div className="card-body ">
+                                <h6><span className="badge badge-primary">{this.state.device.devicename}</span></h6>
+                                <div className="categoryicon-top align-middle" title={this.state.device.batteryperc + '%'}>
+                                    <div className="fa fa-battery-empty font-70px fa-battery-filling" aria-hidden="true">
                                         <span data-perc={this.state.device.batteryperc} style={{width: `calc(${this.state.device.batteryperc}% * 0.73)`}}></span>
-                                    </i>
-                                </div>
+                                    </div>
+                                </div>                   
                                 <h6 className="card-title">
-                                    {this.state.device.devicename}<br/>
                                     {this.state.device.volt} v<br/>
                                     {this.state.device.batteryperc}%
                                 </h6>
-                                <p className="card-text" data-toggle="collapse" data-target="#collapseStorico" aria-label="Storico modifiche" aria-expanded="false" aria-controls="collapseStorico">{moment(this.state.device.date).format('DD/MM/YYYY HH:mm')}</p>
-                                <div className="collapse" id="collapseStorico">
+                                <div className="badge badge-xs" data-toggle="collapse" data-target="#collapseStorico" aria-label="Storico modifiche" aria-expanded="false" aria-controls="collapseStorico">{moment(this.state.device.date).format('DD/MM/YYYY HH:mm')}</div>
+                                <div aria-hidden="true">
+                                    <img src={"https://openweathermap.org/img/wn/" + this.state.device.weathericon + "@2x.png"} alt="Weather icon" title={`${this.state.device.location}`}></img>
+                                </div>
+                                <div className="collapse badge" id="collapseStorico">
                                     <DeviceLastWeekLog deviceid={this.props.deviceid}/>
                                 </div>
-                                <img src={"https://openweathermap.org/img/wn/" + this.state.device.weathericon + "@2x.png"} alt="Weather icon" title={`${this.state.device.location}`}></img>
-                                <br />
-                                <button className="btn btn-xs btn-outline-primary" onClick={this.showMap}>{this.state.device.location}</button>
+                
+                                <div>
+                                    <button className="badge badge-outline-primary badge-xs" onClick={this.showMap}>{this.state.device.location}</button>
+                                </div>                   
                             </div>
                         </div>
                     </div>
                 </div>
-                        );
+                );
 
-            }
-        }
+    }
+}
 
-        export default Device;
+export default Device;
