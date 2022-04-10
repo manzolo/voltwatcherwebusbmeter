@@ -5,8 +5,7 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-import React, {  useRef } from 'react';
-import ReactDOM from "react-dom/client";
+import React from 'react';
 
 import Devices from './Device/Devices';
 import ReactDevicesChart from './Chart/react-devices-chart';
@@ -61,17 +60,15 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        const self = this; //  this should not be double quoted;
         this.resizeHandler = addEventListener('resize', this.updateDimensions);
         this.swipeStartHandler = addEventListener("touchstart", this.onTouchStart, {passive: false});
         this.swipeMoveHandler = addEventListener("touchmove", this.onTouchMove, {passive: false});
         this.swipeEndHandler = addEventListener("touchend", this.onTouchEnd, {passive: false});
 
-        this.refreshData();
         this.interval = setInterval(() => {
             this.refreshData();
         }, refreshInterval);
-
+        this.refreshData();
     }
 
     updateDimensions = () => {
@@ -79,7 +76,6 @@ class Main extends React.Component {
     }
     refreshData() {
         //console.log("Trigger Refresh MAIN");
-
         try {
             let routeDevices = Routing.generate('Device_List');
 
@@ -127,11 +123,37 @@ class Main extends React.Component {
                         }
                     })
                     .catch(error => {
+                        Swal.fire({
+                            title: 'Ricaricare la pagina?',
+                            text: 'Si è verificato un errore: ' + error,
+                            icon: 'warning',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        });
                         this.setState({hasError: true, error: error});
                     });
 
             ;
         } catch (e) {
+            Swal.fire({
+                title: 'Ricaricare la pagina?',
+                text: 'Si è verificato un errore',
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.reload();
+                }
+            });
             this.setState({hasError: true, error: e});
         }
 
@@ -142,8 +164,8 @@ class Main extends React.Component {
             return <div className="alert alert-danger" role="alert">{this.state.error.message}</div>;
         }
         return <React.Fragment>
-            <Devices ref={this.devicesHook}/>
-            <ReactDevicesChart ref={this.chartsHook}/>
+            <Devices key="device" ref={this.devicesHook}/>
+            <ReactDevicesChart key="chart" ref={this.chartsHook}/>
         </React.Fragment>;
     }
 }
