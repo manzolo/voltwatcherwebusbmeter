@@ -7,11 +7,19 @@ import { Map, View }
 from 'ol';
 import {addProjection, addCoordinateTransforms, fromLonLat, transform} from 'ol/proj.js';
 import {Attribution, defaults as defaultControls} from 'ol/control';
-import TileLayer from 'ol/layer/Tile';
+import {Icon, Style} from 'ol/style';
+import Feature from 'ol/Feature';
+import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 import OSM from 'ol/source/OSM';
-import Overlay from 'ol/Overlay.js';
+import Point from 'ol/geom/Point';
+import Text from 'ol/style/Text';
+import VectorSource from 'ol/source/Vector';
+
 import 'ol/ol.css';
 import '../../../css/maps.css';
+
+
+
 
 const Routing = require('../Routing');
 
@@ -20,9 +28,35 @@ class DeviceMap extends Component {
     constructor(props) {
         super(props);
         this.pos = fromLonLat([this.props.longitude, this.props.latitude]);
+
         const attribution = new Attribution({
             collapsible: true
         });
+        const iconFeature = new Feature({
+            geometry: new Point(this.pos),
+            name: 'Camper'
+        });
+        const iconStyle = new Style({
+            text: new Text({
+                text: '\uf3c5',
+                font: '900 25px "Font Awesome 5 Free"'
+            })
+        });
+
+        iconFeature.setStyle(iconStyle);
+
+        const vectorSource = new VectorSource({
+            features: [iconFeature]
+        });
+
+        const vectorLayer = new VectorLayer({
+            source: vectorSource
+        });
+
+        const rasterLayer = new TileLayer({
+            source: new OSM()
+        });
+
         this.state = {
             longitude: props.longitude,
             latitude: props.latitude,
@@ -31,11 +65,7 @@ class DeviceMap extends Component {
             center: [0, 0],
             zoom: 0,
             map: new Map({
-                layers: [
-                    new TileLayer({
-                        source: new OSM()
-                    })
-                ],
+                layers: [rasterLayer, vectorLayer],
                 view: new View({
                     center: this.pos,
                     zoom: 15
@@ -45,16 +75,6 @@ class DeviceMap extends Component {
     }
     componentDidMount() {
         this.state.map.setTarget("map-container" + this.props.deviceid);
-        this.marker = new Overlay({
-            position: this.pos,
-            positioning: "center-center",
-            element: document.getElementById("marker" + this.props.deviceid),
-            stopEvent: false
-        });
-        //console.log(this.marker);
-
-        // Adding to the Map Object
-        this.state.map.addOverlay(this.marker);
     }
     componentDidUpdate() {
         this.state.map.updateSize();
