@@ -73,7 +73,8 @@ class DeviceController extends FiController
         foreach ($devicerows as $devicerows) {
             $locationInfo = "";
             if ($devicerows->getLocation()) {
-                $locationInfo = '<img style="width: 60px; height:60px;" src="https://openweathermap.org/img/wn/' . $devicerows->getWeathericon() . '@2x.png" />'
+                $img = "https://openweathermap.org/img/wn/" . $devicerows->getWeathericon() . "@2x.png";
+                $locationInfo = '<img style="width: 60px; height:60px;" src="' . $img . '" />'
                         . '<p>' . $devicerows->getLocation() . '</p>';
             }
 
