@@ -17,7 +17,7 @@ use DateTime;
 class DeviceController extends FiController
 {
 
-    private string $chartdifftime = '-2 days';
+    private string $chartdifftime = '-3 days';
 
     /**
      * Matches / exactly.
@@ -71,12 +71,19 @@ class DeviceController extends FiController
         $dati[] = ['Data', 'Volts', $chartType];
 
         foreach ($devicerows as $devicerows) {
-            $tooltip = '<br/><div style="text-align: center;"><p>' .
-                    $devicerows->getData()->format("d/m/Y H:i") .
-                    '</p></div><div style="color: #0073e6; font-family: Roboto; font-size: 18px; font-weight: bold;text-align: center;">'
+            $locationInfo = "";
+            if ($devicerows->getLocation()) {
+                $locationInfo = '<img style="width: 60px; height:60px;" src="https://openweathermap.org/img/wn/' . $devicerows->getWeathericon() . '@2x.png" />'
+                        . '<p>' . $devicerows->getLocation() . '</p>';
+            }
+
+            $tooltip = '<br/><div style="text-align: center;">'
+                    . '<p>' . $devicerows->getData()->format("d/m/Y H:i") . '</p>' .
+                    $locationInfo
+                    . '</div><div style="color: #0073e6; font-family: Roboto; font-size: 18px; font-weight: bold;text-align: center;">'
                     . $devicerows->getVolt() . "</div><br/>"
             ;
-            $dati[] = [$devicerows->getData()->format("c"), floatval($devicerows->getVolt()),$tooltip];
+            $dati[] = [$devicerows->getData()->format("c"), floatval($devicerows->getVolt()), $tooltip];
         }
         if (1 == count($dati)) {
             $dati[] = [new DateTime(), 0];
