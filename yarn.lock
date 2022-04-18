@@ -3127,10 +3127,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.21.1":
-  version: 3.21.1
-  resolution: "core-js@npm:3.21.1"
-  checksum: d68eddd831340ad5b24ac29c72fda022a43b17f194c4278b6b875a843283d316502cb4abd07f28631d6ebc4387f66aa06e2b1b3c8fd7e08096a751b5c63f6889
+"core-js@npm:^3.22.0":
+  version: 3.22.0
+  resolution: "core-js@npm:3.22.0"
+  checksum: 88ac28dfb8e7fdcd80d32a69dc634900e3daf3bc873ebefb6f189b598ce96e9b68fe553428627e5c43f27749779389faceb865a2a120cf2d44f05795830b5cd7
   languageName: node
   linkType: hard
 
@@ -5679,10 +5679,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment@npm:2.29.2":
-  version: 2.29.2
-  resolution: "moment@npm:2.29.2"
-  checksum: ee850b5776485e2af0775ceb3cfebaa7d7638f0a750fe0678fcae24c310749f96c1938808384bd422a55e5703834a71fcb09c8a1d36d9cf847f6ed0205d7a3e5
+"moment@npm:2.29.3":
+  version: 2.29.3
+  resolution: "moment@npm:2.29.3"
+  checksum: 2e780e36d9a1823c08a1b6313cbb08bd01ecbb2a9062095820a34f42c878991ccba53abaa6abb103fd5c01e763724f295162a8c50b7e95b4f1c992ef0772d3f0
   languageName: node
   linkType: hard
 
@@ -7377,11 +7377,11 @@ __metadata:
     bootbox: ^5.5.2
     bootstrap-confirmation2: ^4.2.1
     bootstrap-italia: ^1.6.2
-    core-js: ^3.21.1
+    core-js: ^3.22.0
     file-loader: ^6.2.0
     google-charts: ^2.0.0
     jquery-contextmenu: ^2.9.2
-    moment: 2.29.2
+    moment: 2.29.3
     node-sass: ^7.0.1
     ol: ^6.14.1
     prop-types: ^15.8.1
@@ -7397,7 +7397,7 @@ __metadata:
     sass-loader: ^12.6.0
     serialize-javascript: ^6.0.0
     sweetalert2: ^11.4.8
-    sweetalert2-react-content: ^4.2.0
+    sweetalert2-react-content: ^5.0.0
     webpack-notifier: ^1.15.0
   languageName: unknown
   linkType: soft
@@ -8186,14 +8186,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sweetalert2-react-content@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "sweetalert2-react-content@npm:4.2.0"
+"sweetalert2-react-content@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "sweetalert2-react-content@npm:5.0.0"
   peerDependencies:
-    react: ^16.0.0 || ^17.0.0
-    react-dom: ^16.0.0 || ^17.0.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
     sweetalert2: ^11.0.0
-  checksum: 4ab81c2edabdf9aabeb9bb12f59f9804259382d1898ee807eedbba0088f9e0b10562c6340a5727680f110da940f2e639bf0d811f65b09525e8564486930ff6fe
+  checksum: 428cd3f09824595b4424dc3adae66edad18d634e29b83c9ad1aab8b50acf99b70e0ccf8f2a53d01035c1adf89ee6e7e9a7389fc923202084d828d49b3db31297
   languageName: node
   linkType: hard
 
