@@ -136,16 +136,16 @@
         },
         {
             "name": "comunedifirenze/bicorebundle",
-            "version": "3.0.32",
+            "version": "3.0.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ComuneFI/BiCoreBundle.git",
-                "reference": "b4cf99b6f93a62dccb19b942b39e72aaeeed6d3d"
+                "reference": "8aca16da6d2564f08b5496d3bf986354b41b163b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/b4cf99b6f93a62dccb19b942b39e72aaeeed6d3d",
-                "reference": "b4cf99b6f93a62dccb19b942b39e72aaeeed6d3d",
+                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/8aca16da6d2564f08b5496d3bf986354b41b163b",
+                "reference": "8aca16da6d2564f08b5496d3bf986354b41b163b",
                 "shasum": ""
             },
             "require": {
@@ -279,9 +279,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ComuneFI/BiCoreBundle/issues",
-                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.32"
+                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.33"
             },
-            "time": "2022-05-04T21:10:38+00:00"
+            "time": "2022-05-04T21:55:50+00:00"
         },
         {
             "name": "comunedifirenze/doctrine2-exporter",
