@@ -4,32 +4,32 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa511a7d51f261d88ce61fe5ba1b55bc",
+    "content-hash": "b887efaab8d4f065a94a98d6189a4289",
     "packages": [
         {
             "name": "cmen/google-charts-bundle",
-            "version": "4.0.0",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cmen/CMENGoogleChartsBundle.git",
-                "reference": "8bc2b9a28d8b44527d373b39e110f6ec33b8d0ed"
+                "reference": "9b5a70e4f62558a008377ab402e497c95f2482e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cmen/CMENGoogleChartsBundle/zipball/8bc2b9a28d8b44527d373b39e110f6ec33b8d0ed",
-                "reference": "8bc2b9a28d8b44527d373b39e110f6ec33b8d0ed",
+                "url": "https://api.github.com/repos/cmen/CMENGoogleChartsBundle/zipball/9b5a70e4f62558a008377ab402e497c95f2482e7",
+                "reference": "9b5a70e4f62558a008377ab402e497c95f2482e7",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.1.3",
-                "symfony/framework-bundle": "^4.0 || ^5.0",
-                "twig/twig": "^1.41 || ^2.10 || ^3.0"
+                "php": ">=7.4",
+                "symfony/framework-bundle": "^4.4 || ^5.4 || ^6.0",
+                "twig/twig": "^1.43 | ^2.13 | ^3.0.4"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "phpstan/phpstan": "^0.12.55",
-                "phpunit/phpunit": "^7.5"
+                "friendsofphp/php-cs-fixer": "^3.4",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^9.5"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -57,9 +57,9 @@
             ],
             "support": {
                 "issues": "https://github.com/cmen/CMENGoogleChartsBundle/issues",
-                "source": "https://github.com/cmen/CMENGoogleChartsBundle/tree/4.0.0"
+                "source": "https://github.com/cmen/CMENGoogleChartsBundle/tree/5.0.0"
             },
-            "time": "2020-11-15T15:42:46+00:00"
+            "time": "2021-12-25T15:49:39+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
