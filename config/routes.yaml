@@ -29,9 +29,6 @@ fi_core:
     resource: "@BiCoreBundle/Resources/config/routing.yml"
     prefix:   /
 
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
 api_login_check:
     path: /api/login_check
 
