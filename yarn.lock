@@ -3174,10 +3174,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.22.4":
-  version: 3.22.4
-  resolution: "core-js@npm:3.22.4"
-  checksum: 1d031597a61d11266343c7f9a788ad620bb8e1a15207c8ff41ee77183789f1d6592d7cbaf4931d74773be08739871c6ae1a59090a7e03f0bc5131d4443cc04d2
+"core-js@npm:^3.22.5":
+  version: 3.22.5
+  resolution: "core-js@npm:3.22.5"
+  checksum: d3d7495d7cdde01cf9ac3debc5087afc3c8dd56baa4953d9ccbb46b1a80872c79d14c1e6343c664c9c0fade288ab44c70b54dd34f879a71e6eff6fffeab84e00
   languageName: node
   linkType: hard
 
@@ -7137,7 +7137,7 @@ __metadata:
     bootbox: ^5.5.3
     bootstrap-confirmation2: ^4.2.1
     bootstrap-italia: ^1.6.2
-    core-js: ^3.22.4
+    core-js: ^3.22.5
     file-loader: ^6.2.0
     google-charts: ^2.0.0
     jquery-contextmenu: ^2.9.2
@@ -7156,7 +7156,7 @@ __metadata:
     sass: ^1.51.0
     sass-loader: ^12.6.0
     serialize-javascript: ^6.0.0
-    sweetalert2: ^11.4.13
+    sweetalert2: ^11.4.14
     sweetalert2-react-content: ^5.0.0
     webpack-notifier: ^1.15.0
   languageName: unknown
@@ -7893,10 +7893,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sweetalert2@npm:^11.4.13":
-  version: 11.4.13
-  resolution: "sweetalert2@npm:11.4.13"
-  checksum: 75f55c83465d51280ef16e0ccd51523ac90cfd1948846eba738dcb554913e96236eb504f944152fed0ac8180bc6742b0dda4ff07a43bda7b91ced60f44805fd0
+"sweetalert2@npm:^11.4.14":
+  version: 11.4.14
+  resolution: "sweetalert2@npm:11.4.14"
+  checksum: 7112936b915c06dfd80738a008d1a678cc420df485642ed1996d3e3d65a5ff90c3dc10895742aca506dcde867664e4c50c6fc5fdde0b89fb231a5b259436b6e8
   languageName: node
   linkType: hard
 
