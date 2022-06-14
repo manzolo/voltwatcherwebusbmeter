@@ -4,8 +4,6 @@ import { TailSpin } from  'react-loader-spinner'
 import React from 'react';
 import ReactDOM from "react-dom/client";
 
-import {withGetScreen} from 'react-getscreen';
-
 const Routing = require('../Routing');
 
 class ReactDeviceChart extends React.Component {
