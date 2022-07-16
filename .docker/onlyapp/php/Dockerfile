@@ -1,7 +1,7 @@
 ARG MYSQL_HOST
 ARG MYSQL_PORT
 
-FROM php:8.0.7-fpm as build
+FROM php:8.1-fpm as build
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \

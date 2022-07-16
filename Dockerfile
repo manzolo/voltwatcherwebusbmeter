@@ -36,11 +36,16 @@ ENV APP_ENV=prod
 
 COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/start-apache /usr/local/bin/
+COPY --from=build /home/wwwroot/voltwatcher/.docker/docker-entrypoint.d /docker-entrypoint.d
+COPY --from=build /home/wwwroot/voltwatcher/.docker/docker-entrypoint.sh /docker-entrypoint.sh
 
-RUN chmod +x /usr/local/bin/start-apache && \
-rm -rf /var/log/apache2/access.log && touch /var/log/apache2/access.log && \
+RUN chmod +x /docker-entrypoint.sh
+
+RUN rm -rf /var/log/apache2/access.log && touch /var/log/apache2/access.log && \
 rm -rf /var/log/apache2/error.log && touch /var/log/apache2/error.log && \
 apachectl configtest && \
 touch .env
 
-CMD ["/usr/local/bin/start-apache"]
+# https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#entrypoint
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/usr/sbin/apache2ctl", "-DFOREGROUND"]
