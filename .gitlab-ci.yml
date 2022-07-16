@@ -94,8 +94,9 @@ Publish:
   services:
     - docker:dind
   before_script:
-    - env
+    #- env
     - echo "docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY"
+    #- echo "$DOCKER_HUB_REGISTRY_PASSWORD" | docker login $DOCKER_HUB_REGISTRY --username $DOCKER_HUB_REGISTRY_USER --password-stdin
     - docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY
   script:
     - docker tag $TAG_LATEST $DOCKER_HUB_REGISTRY_IMAGE:latest .
