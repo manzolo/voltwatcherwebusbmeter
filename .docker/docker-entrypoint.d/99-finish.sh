@@ -19,9 +19,12 @@ chmod -R 777 /var/www/html/var/log
 
 #/var/www/html/bin/console --no-interaction doctrine:migrations:migrate
 #/var/www/html/bin/console --no-interaction --allow-empty-diff doctrine:migrations:diff || echo "To show difference with your database execute:\nbin/console doctrine:migrations:diff\nTo apply changes execute:\nbin/console doctrine:migrations:migrate"
+echo
 /var/www/html/bin/console --no-interaction doctrine:migrations:status
+echo
 echo "To apply database migrations execute:"
 echo "bin/console --no-interaction doctrine:migrations:migrate"
+echo
 
 # Remove temp files
 echo "+--------------------------------+"

@@ -20,9 +20,25 @@ RUN rm -rf .git && \
     mkdir var && \ 
     chmod 777 -R var && \ 
     composer install --no-dev --optimize-autoloader && \
+    rm -rf yarn.lock && \
+    rm -rf webpack.config.js && \
+    rm -rf tools && \
+    rm -rf nbproject && \
+    rm -rf docker-compose.yml && \
+    rm -rf doc && \
+    rm -rf build.xml && \
+    rm -rf assets && \
+    rm -rf Dockerfile && \
+    rm -rf .yarnrc.yml && \
+    rm -rf .yarn && \
+    rm -rf .vscode && \
+    rm -rf .php-version && \
+    rm -rf .gitlab-ci.yml && \
+    rm -rf .gitignore && \
+    rm -rf .dockerignore && \
+    rm -rf .composer_cache && \
     rm -rf .env  && \
     rm -rf .env.dist
-
 
 FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-lite:latest
 
@@ -42,6 +58,7 @@ COPY --from=build /home/wwwroot/voltwatcher/.docker/docker-entrypoint.sh /docker
 RUN chmod +x /docker-entrypoint.sh
 
 RUN rm -rf /var/log/apache2/access.log && touch /var/log/apache2/access.log && \
+rm -rf /home/wwwroot/voltwatcher/.docker && \
 rm -rf /var/log/apache2/error.log && touch /var/log/apache2/error.log && \
 apachectl configtest && \
 touch .env
