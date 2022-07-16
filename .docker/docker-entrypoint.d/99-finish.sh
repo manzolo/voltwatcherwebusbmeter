@@ -17,6 +17,8 @@ rm -rf /var/www/html/var/log/prod
 chmod -R 777 /var/www/html/var/cache
 chmod -R 777 /var/www/html/var/log
 
+/var/www/html/bin/console --no-interaction doctrine:migrations:migrate
+
 # Remove temp files
 echo "+--------------------------------+"
 echo "|   Removing not used files...   |"
