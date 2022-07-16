@@ -58,7 +58,7 @@ COPY --from=build /home/wwwroot/voltwatcher/.docker/docker-entrypoint.sh /docker
 RUN chmod +x /docker-entrypoint.sh
 
 RUN rm -rf /var/log/apache2/access.log && touch /var/log/apache2/access.log && \
-rm -rf /home/wwwroot/voltwatcher/.docker && \
+rm -rf /var/www/html/.docker && \
 rm -rf /var/log/apache2/error.log && touch /var/log/apache2/error.log && \
 apachectl configtest && \
 touch .env
