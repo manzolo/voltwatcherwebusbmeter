@@ -76,7 +76,8 @@ Deploy:
   script:
     #- docker-compose build --no-cache
     - docker-compose build
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY      
+    - echo "$CI_BUILD_TOKEN" | docker login $CI_REGISTRY --username gitlab-ci-token --password-stdin
+    #- docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY      
     - docker push $TAG_LATEST
     - docker tag $TAG_LATEST $TAG_COMMIT
     - docker push $TAG_COMMIT
@@ -95,9 +96,9 @@ Publish:
     - docker:dind
   before_script:
     #- env
-    - echo "docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY"
-    #- echo "$DOCKER_HUB_REGISTRY_PASSWORD" | docker login $DOCKER_HUB_REGISTRY --username $DOCKER_HUB_REGISTRY_USER --password-stdin
-    - docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY
+    #- echo "docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY"
+    - echo "$DOCKER_HUB_REGISTRY_PASSWORD" | docker login $DOCKER_HUB_REGISTRY --username $DOCKER_HUB_REGISTRY_USER --password-stdin
+    #- docker login -u $DOCKER_HUB_REGISTRY_USER -p $DOCKER_HUB_REGISTRY_PASSWORD $DOCKER_HUB_REGISTRY
   script:
     - docker tag $TAG_LATEST $DOCKER_HUB_REGISTRY_IMAGE:latest
     - docker push $DOCKER_HUB_REGISTRY_IMAGE:latest
