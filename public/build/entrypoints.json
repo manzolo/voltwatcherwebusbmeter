@@ -2,9 +2,9 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/755.43aadddf.js",
-        "/build/109.2384eed1.js",
+        "/build/109.e9bf3407.js",
         "/build/app.1e7d763e.js"
       ],
       "css": [
@@ -13,20 +13,20 @@
     },
     "homepage": {
       "js": [
-        "/build/runtime.d575ba56.js",
-        "/build/109.2384eed1.js",
-        "/build/946.a8349c4c.js",
-        "/build/797.ca077036.js",
-        "/build/106.4fc15ff3.js",
-        "/build/homepage.320db06d.js"
+        "/build/runtime.8d81bfbc.js",
+        "/build/109.e9bf3407.js",
+        "/build/746.841eabe6.js",
+        "/build/797.a9df8eda.js",
+        "/build/895.f8288bd7.js",
+        "/build/homepage.23027a34.js"
       ],
       "css": [
-        "/build/homepage.09a6982e.css"
+        "/build/homepage.3c8c3006.css"
       ]
     },
     "chart": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/755.43aadddf.js",
         "/build/chart.ac73f7fd.js"
       ],
@@ -36,30 +36,30 @@
     },
     "maps": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/755.43aadddf.js",
-        "/build/109.2384eed1.js",
-        "/build/797.ca077036.js",
-        "/build/maps.8a5c0c46.js"
+        "/build/109.e9bf3407.js",
+        "/build/797.a9df8eda.js",
+        "/build/maps.53787646.js"
       ],
       "css": [
-        "/build/maps.1ebfaab3.css"
+        "/build/maps.87f78b57.css"
       ]
     },
     "battery": {
       "js": [
-        "/build/runtime.d575ba56.js",
-        "/build/176.f8170066.js",
+        "/build/runtime.8d81bfbc.js",
+        "/build/176.30805621.js",
         "/build/battery.5cab2ab9.js"
       ],
       "css": [
-        "/build/803.f3107e99.css",
+        "/build/803.f6909e70.css",
         "/build/battery.2db4f960.css"
       ]
     },
     "bootstrapitalia": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/755.43aadddf.js",
         "/build/981.65349937.js",
         "/build/234.4eba1b93.js",
@@ -71,9 +71,9 @@
     },
     "bicore": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/755.43aadddf.js",
-        "/build/109.2384eed1.js",
+        "/build/109.e9bf3407.js",
         "/build/bicore.3c8a483d.js"
       ],
       "css": [
@@ -82,7 +82,7 @@
     },
     "login": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/login.b3b20015.js"
       ],
       "css": [
@@ -91,43 +91,43 @@
     },
     "bitabella": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/755.43aadddf.js",
-        "/build/109.2384eed1.js",
-        "/build/946.a8349c4c.js",
+        "/build/109.e9bf3407.js",
+        "/build/746.841eabe6.js",
         "/build/981.65349937.js",
         "/build/174.25c49352.js",
-        "/build/301.6dbf21cd.js",
-        "/build/919.7a848e56.js",
-        "/build/bitabella.d37c9d58.js"
+        "/build/79.fc54005c.js",
+        "/build/919.3dc01bb5.js",
+        "/build/bitabella.37c09278.js"
       ],
       "css": [
-        "/build/803.f3107e99.css",
+        "/build/803.f6909e70.css",
         "/build/919.28033ba2.css"
       ]
     },
     "bidemo": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/755.43aadddf.js",
-        "/build/109.2384eed1.js",
-        "/build/946.a8349c4c.js",
+        "/build/109.e9bf3407.js",
+        "/build/746.841eabe6.js",
         "/build/981.65349937.js",
         "/build/174.25c49352.js",
-        "/build/301.6dbf21cd.js",
-        "/build/919.7a848e56.js",
-        "/build/bidemo.c7273301.js"
+        "/build/79.fc54005c.js",
+        "/build/919.3dc01bb5.js",
+        "/build/bidemo.d3c8828d.js"
       ],
       "css": [
-        "/build/803.f3107e99.css",
+        "/build/803.f6909e70.css",
         "/build/919.28033ba2.css"
       ]
     },
     "adminpanel": {
       "js": [
-        "/build/runtime.d575ba56.js",
+        "/build/runtime.8d81bfbc.js",
         "/build/755.43aadddf.js",
-        "/build/109.2384eed1.js",
+        "/build/109.e9bf3407.js",
         "/build/174.25c49352.js",
         "/build/adminpanel.173769be.js"
       ],
