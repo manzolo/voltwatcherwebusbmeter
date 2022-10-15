@@ -63,6 +63,7 @@ Test:
     stage: test
     script:
       - composer config cache-files-dir .composer_cache
+      - sleep 300
       - ant
 
 Deploy:
