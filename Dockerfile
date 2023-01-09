@@ -36,6 +36,7 @@ RUN rm -rf .git && \
     rm -rf .gitlab-ci.yml && \
     rm -rf .gitignore && \
     rm -rf .dockerignore && \
+    rm -rf .docker && \
     rm -rf .composer_cache && \
     rm -rf .env  && \
     rm -rf .env.dist
@@ -57,9 +58,10 @@ COPY --from=build /home/wwwroot/voltwatcher/.docker/docker-entrypoint.sh /docker
 
 RUN chmod +x /docker-entrypoint.sh
 
-RUN rm -rf /var/log/apache2/access.log && touch /var/log/apache2/access.log && \
-rm -rf /var/www/html/.docker && \
-rm -rf /var/log/apache2/error.log && touch /var/log/apache2/error.log && \
+RUN ln -sf /dev/stdout /var/www/html/var/log/access.log && \
+ln -sf /proc/stderr /var/www/html/var/log/error.log && \
+ln -sf /dev/stdout /var/log/apache2/access.log && \
+ln -sf /proc/stderr /var/log/apache2/error.log && \
 apachectl configtest && \
 touch .env
 
