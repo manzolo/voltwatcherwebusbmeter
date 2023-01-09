@@ -36,7 +36,7 @@ RUN rm -rf .git && \
     rm -rf .gitlab-ci.yml && \
     rm -rf .gitignore && \
     rm -rf .dockerignore && \
-    rm -rf .docker && \
+    #rm -rf .docker && \
     rm -rf .composer_cache && \
     rm -rf .env  && \
     rm -rf .env.dist
@@ -62,6 +62,7 @@ RUN ln -sf /dev/stdout /var/www/html/var/log/access.log && \
 ln -sf /proc/stderr /var/www/html/var/log/error.log && \
 ln -sf /dev/stdout /var/log/apache2/access.log && \
 ln -sf /proc/stderr /var/log/apache2/error.log && \
+rm -rf /var/www/html/.docker && \
 apachectl configtest && \
 touch .env
 
