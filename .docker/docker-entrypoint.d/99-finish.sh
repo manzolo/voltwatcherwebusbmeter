@@ -22,9 +22,10 @@ chmod -R 777 /var/www/html/var/log
 echo
 /var/www/html/bin/console --no-interaction doctrine:migrations:status
 echo
-echo "To apply database migrations execute:"
-echo "bin/console --no-interaction doctrine:migrations:migrate"
-echo
+#echo "To apply database migrations execute:"
+#echo "bin/console --no-interaction doctrine:migrations:migrate"
+#echo
+/var/www/html/bin/console --no-interaction doctrine:migrations:migrate
 
 # Remove temp files
 echo "+--------------------------------+"
