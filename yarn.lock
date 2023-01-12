@@ -7134,7 +7134,7 @@ __metadata:
     sass: ^1.57.1
     sass-loader: ^13.2.0
     serialize-javascript: ^6.0.0
-    sweetalert2: ^11.6.16
+    sweetalert2: ^11.7.0
     sweetalert2-react-content: ^5.0.7
     webpack: ^5.75.0
     webpack-cli: ^5.0.1
@@ -7849,10 +7849,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sweetalert2@npm:^11.6.16":
-  version: 11.6.16
-  resolution: "sweetalert2@npm:11.6.16"
-  checksum: 7c68f01215e6eefee3162859a389a850fab64adcdb3169899a1169e3592dc5e9403e8145f9ff76ba3bc97dd9a07cc5c050fda0451fb191242fa0d1fc7993b33a
+"sweetalert2@npm:^11.7.0":
+  version: 11.7.0
+  resolution: "sweetalert2@npm:11.7.0"
+  checksum: 5c6b441290913d8c77f65c8039022386753df9efe77e52a71e2175be94cb89cb45fb2d6565ecf833198512e2970d8951ed3e3c176924d7404b0fa93ad1e0275e
   languageName: node
   linkType: hard
 
