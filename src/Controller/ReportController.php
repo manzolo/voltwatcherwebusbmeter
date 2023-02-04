@@ -91,6 +91,7 @@ class ReportController extends AbstractController
         $riepilogosheet = $spreadsheet->getActiveSheet();
         $riepilogosheet->setTitle('Riepilogo');
 
+        /** @phpstan-ignore-next-line */
         $riepilogosheet->getParent()->getDefaultStyle()->getFont()->setName('Verdana');
 
         //$letteracolonna = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(0);
