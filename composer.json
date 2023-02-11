@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name": "manzolo/voltwatcher",
+    "description": "Remote check batteries voltage",
     "license": "MIT",
     "require": {
         "php": "^8.0",
