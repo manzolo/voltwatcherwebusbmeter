@@ -11,6 +11,8 @@ env:
   MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
   MYSQL_USER: ${{ secrets.MYSQL_USER }}
   MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+  APP_ENV: ${{ env.APP_ENV }}
+  APP_SECRET: ${{ secrets.APP_SECRET }}
     
 jobs:
   symfony:
