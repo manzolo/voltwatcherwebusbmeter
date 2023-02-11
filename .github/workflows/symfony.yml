@@ -1,0 +1,92 @@
+# https://help.github.com/en/actions
+name: Voltwatcher CI process
+on:
+  push:
+    branches:
+      - master
+jobs:
+  symfony:
+    name: Symfony 5.4 (PHP ${{ matrix.php-versions }})
+    # https://hub.docker.com/_/ubuntu/
+    runs-on: ubuntu-22.04
+    services:
+      # https://docs.docker.com/samples/library/mysql/
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    strategy:
+      fail-fast: true
+      matrix:
+        php-versions: ['8.1']
+    steps:
+      # —— Setup Github actions 🐙 —————————————————————————————————————————————
+      # https://github.com/actions/checkout (official)
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # https://github.com/shivammathur/setup-php (community)
+      - name: Setup PHP, extensions and composer with shivammathur/setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json, mbstring
+        env:
+          update: true
+
+      - name: Check PHP Version
+        run: php -v
+
+      # —— Composer 🧙‍️ —————————————————————————————————————————————————————————
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
+      # —— Symfony 🎵 ——————————————————————————————————————————————————————————
+      - name: Check the Symfony console
+        run: |
+          bin/console about
+
+      ## —— Coding standards ✨ ————————————————————————————————————————————————
+      - name: Symfony Checks
+        run: |
+          bin/console lint:yaml config --parse-tags 
+          # this checks that the Twig template files contain no syntax errors
+          bin/console lint:twig templates --env=prod \
+          # this checks that the XLIFF translations contain no syntax errors
+          bin/console lint:xliff translations
+          # this checks that arguments injected into services match type declarations
+          bin/console lint:container
+          # this checks that the application doesn't use dependencies with known security vulnerabilities
+          # symfony security:check
+          # Install environment
+          bin/console bicorebundle:install admin admin admin@admin.it
+          bin/console voltwatcher:install
+          # this checks that Doctrine's mapping configurations are valid
+          bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+          
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Test with Ant
+        run: ant
+        
