@@ -5,6 +5,8 @@ on:
     branches:
       - master
       
+jobs:
+
 env:
   MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
   MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
@@ -12,7 +14,6 @@ env:
   MYSQL_USER: ${{ secrets.MYSQL_USER }}
   MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
     
-jobs:
   symfony:
     name: Symfony 5.4 (PHP ${{ matrix.php-versions }})
     # https://hub.docker.com/_/ubuntu/
