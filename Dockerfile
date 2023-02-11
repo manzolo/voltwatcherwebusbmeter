@@ -57,27 +57,7 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 RUN symfony
 
-RUN cat <<EOF >>/etc/apache2/conf-enabled/vhost.conf
-<VirtualHost *:80>
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/html/public
-
-    RemoteIPHeader X-Forwarded-For
-    LogFormat "%t %{X-Forwarded-For}i %l %u \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" forwarded
-    LogFormat "%t %a %l %u \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" notforwarded
-    SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log forwarded env=forwarded
-    CustomLog ${APACHE_LOG_DIR}/access.log notforwarded env=!forwarded
-
-    <Directory "/var/www/html/public">
-        Options Indexes FollowSymLinks
-        AllowOverride ALL
-        Require all granted
-    </Directory>
-</VirtualHost>
-EOF
-
+COPY .docker/vhost.conf /etc/apache2/conf-enabled/vhost.conf
 
 RUN a2enmod rewrite
 RUN a2enmod remoteip
