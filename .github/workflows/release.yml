@@ -44,10 +44,7 @@ jobs:
         php-versions: ['8.1']
     steps:
       - name: CreateDB
-        run: |
-             mysql --host $MYSQL_HOST --port 3306 -uroot -p$MYSQL_ROOT_PASSWORD -e "SHOW DATABASES;"
-             mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h "$MYSQL_HOST" -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';"
-             mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h "$MYSQL_HOST" "$MYSQL_DATABASE" -e "CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';"
+        uses: ./.github/createdb
 
       # —— Setup Github actions 🐙 —————————————————————————————————————————————
       # https://github.com/actions/checkout (official)
