@@ -26,6 +26,7 @@ jobs:
     steps:
       - name: CreateDB
         run: |
+             sudo systemctl start mysql
              mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h "$MYSQL_HOST" -e "SHOW DATABASES"
              echo "CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
              echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
