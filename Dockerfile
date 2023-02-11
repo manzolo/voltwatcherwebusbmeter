@@ -101,6 +101,9 @@ RUN rm -rf .git && \
     rm -rf .env  && \
     rm -rf .env.dist
 
+RUN symfony security:check
+
+
 FROM php:8.1-apache AS prod
 
 #Dependencies for php extension

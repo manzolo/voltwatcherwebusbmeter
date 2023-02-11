@@ -71,14 +71,19 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v1
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+          echo "timestamp=$(date +"%s")" >> $GITHUB_OUTPUT
+          
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
+          path: ${{ steps.composer-cache-vars.outputs.dir }}
+          key: ${{ runner.os }}-composer-2-latest-${{ steps.composer-cache-vars.outputs.timestamp }}
+          restore-keys: |
+            ${{ runner.os }}-composer-2-latest-
+            ${{ runner.os }}-composer-2-
+            ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader --no-interaction
@@ -123,6 +128,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: manzolo/voltwatcher
+          tags: latest
           registry: docker.io
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKERHUB_USERNAME }}
