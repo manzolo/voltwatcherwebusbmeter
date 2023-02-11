@@ -50,11 +50,11 @@
     "battery": {
       "js": [
         "/build/runtime.8d81bfbc.js",
-        "/build/176.a3fa8cb2.js",
+        "/build/176.524edadd.js",
         "/build/battery.5cab2ab9.js"
       ],
       "css": [
-        "/build/803.ca181125.css",
+        "/build/803.95a174b8.css",
         "/build/battery.2db4f960.css"
       ]
     },
@@ -104,7 +104,7 @@
         "/build/bitabella.d1103072.js"
       ],
       "css": [
-        "/build/803.ca181125.css",
+        "/build/803.95a174b8.css",
         "/build/919.28033ba2.css"
       ]
     },
@@ -122,7 +122,7 @@
         "/build/bidemo.c0368d48.js"
       ],
       "css": [
-        "/build/803.ca181125.css",
+        "/build/803.95a174b8.css",
         "/build/919.28033ba2.css"
       ]
     },

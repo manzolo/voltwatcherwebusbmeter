@@ -86,7 +86,7 @@ jobs:
         run: composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Scan composer.lock
-        uses: symfonycorp/security-checker-action@v3
+        uses: symfonycorp/security-checker-action@v4
         
       # —— Symfony 🎵 ——————————————————————————————————————————————————————————
       - name: Check the Symfony console
