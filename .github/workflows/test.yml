@@ -42,13 +42,13 @@ jobs:
       matrix:
         php-versions: ['8.1']
     steps:
-      - name: CreateDB
-        uses: ./.github/workflows/createdb
-
       # —— Setup Github actions 🐙 —————————————————————————————————————————————
       # https://github.com/actions/checkout (official)
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: CreateDB
+        uses: ./.github/workflows/createdb
 
       # https://github.com/shivammathur/setup-php (community)
       - name: Setup PHP, extensions and composer with shivammathur/setup-php
@@ -114,12 +114,12 @@ jobs:
           openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:$JWT_PASSPHRASE
           openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:$JWT_PASSPHRASE
 
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
+      - name: Set up ANT
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
+          
       - name: Test with Ant
         run: ant
 
