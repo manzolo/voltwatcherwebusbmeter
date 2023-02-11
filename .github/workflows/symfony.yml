@@ -25,7 +25,7 @@ env:
 jobs:
   symfony:
     environment: prod
-    name: Symfony 5.4 (PHP ${{ matrix.php-versions }})
+    name: Voltwatcher (PHP ${{ matrix.php-versions }})
     # https://hub.docker.com/_/ubuntu/
     runs-on: ubuntu-22.04
     services:
@@ -105,7 +105,10 @@ jobs:
           bin/console voltwatcher:install
           # this checks that Doctrine's mapping configurations are valid
           bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-          
+          mkdir -p config/jwt
+          openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:$JWT_PASSPHRASE
+          openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:$JWT_PASSPHRASE
+
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
