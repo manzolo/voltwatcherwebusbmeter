@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: CreateDB
         run: |
-             mysql --host 127.0.0.1 --port 3306 -uroot -p"$MYSQL_ROOT_PASSWORD" -e "SHOW DATABASES;"
+             mysql --host ${{ secrets.MYSQL_HOST }} --port 3306 -uroot -p${{ secrets.MYSQL_ROOT_PASSWORD }} -e "SHOW DATABASES;"
              mysql -uroot -p"$MYSQL_ROOT_PASSWORD" --host "$MYSQL_HOST" --port 3306 -e "SHOW DATABASES"
              echo "CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
              echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
