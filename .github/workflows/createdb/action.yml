@@ -1,6 +1,7 @@
   name: CreateDB
   description: Create database
   runs:
+    using: composite
     steps:
       - name: CreateDB
         shell: bash
