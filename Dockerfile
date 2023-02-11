@@ -88,8 +88,8 @@ ENV APP_ENV=prod
 WORKDIR /var/www/html
 
 COPY --from=build --chown=www-data /home/wwwroot/voltwatcher /var/www/html
-COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY --from=build /home/wwwroot/voltwatcher/.docker/onlyapp/apache/start-apache /usr/local/bin/
+COPY --from=build /home/wwwroot/voltwatcher/.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY --from=build /home/wwwroot/voltwatcher/.docker/apache/start-apache /usr/local/bin/
 COPY --from=build /home/wwwroot/voltwatcher/.docker/docker-entrypoint.d /docker-entrypoint.d
 COPY --from=build /home/wwwroot/voltwatcher/.docker/docker-entrypoint.sh /docker-entrypoint.sh
 
