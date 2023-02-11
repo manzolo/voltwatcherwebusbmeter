@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - master
+      
+  env:
+    MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+    MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+    MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+    MYSQL_USER: ${{ secrets.MYSQL_USER }}
+    MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+    
 jobs:
   symfony:
     name: Symfony 5.4 (PHP ${{ matrix.php-versions }})
@@ -13,9 +21,6 @@ jobs:
       # https://docs.docker.com/samples/library/mysql/
       mysql:
         image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: voltwatcher
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -26,7 +31,7 @@ jobs:
     steps:
       - name: CreateDB
         run: |
-             mysql --host ${{ secrets.MYSQL_HOST }} --port 3306 -uroot -p${{ secrets.MYSQL_ROOT_PASSWORD }} -e "SHOW DATABASES;"
+             mysql --host $MYSQL_HOST --port 3306 -uroot -p$MYSQL_ROOT_PASSWORD -e "SHOW DATABASES;"
              mysql -uroot -p"$MYSQL_ROOT_PASSWORD" --host "$MYSQL_HOST" --port 3306 -e "SHOW DATABASES"
              echo "CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
              echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h mysql "$MYSQL_DATABASE"
