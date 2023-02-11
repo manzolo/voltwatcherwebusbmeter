@@ -16,8 +16,12 @@ env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
   MAILER_USER: ${{ secrets.MAILER_USER }}
   OPENWEATHERMAP_APIKEY: ${{ secrets.OPENWEATHERMAP_APIKEY }}
+  locale: ${{ vars.LOCALE }}
+  JWT_SECRET_KEY: ${{ vars.JWT_SECRET_KEY }}
+  JWT_PUBLIC_KEY: ${{ vars.JWT_PUBLIC_KEY }}
+  JWT_PASSPHRASE: ${{ secrets.JWT_PASSPHRASE }}
+  MAILER_DSN: ${{ secrets.MAILER_DSN }}
   
-    
 jobs:
   symfony:
     environment: prod
