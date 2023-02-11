@@ -4,25 +4,50 @@ on:
   push:
     branches:
       - master
+      
+env:
+  MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+  MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+  MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+  MYSQL_USER: ${{ secrets.MYSQL_USER }}
+  MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+  APP_ENV: ${{ vars.APP_ENV }}
+  APP_SECRET: ${{ secrets.APP_SECRET }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  MAILER_USER: ${{ secrets.MAILER_USER }}
+  OPENWEATHERMAP_APIKEY: ${{ secrets.OPENWEATHERMAP_APIKEY }}
+  locale: ${{ vars.LOCALE }}
+  JWT_SECRET_KEY: ${{ vars.JWT_SECRET_KEY }}
+  JWT_PUBLIC_KEY: ${{ vars.JWT_PUBLIC_KEY }}
+  JWT_PASSPHRASE: ${{ secrets.JWT_PASSPHRASE }}
+  MAILER_DSN: ${{ secrets.MAILER_DSN }}
+  
 jobs:
   symfony:
-    name: Symfony 5.4 (PHP ${{ matrix.php-versions }})
+    environment: prod
+    name: Voltwatcher (PHP ${{ matrix.php-versions }})
     # https://hub.docker.com/_/ubuntu/
     runs-on: ubuntu-22.04
     services:
       # https://docs.docker.com/samples/library/mysql/
       mysql:
         image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     strategy:
       fail-fast: true
       matrix:
         php-versions: ['8.1']
     steps:
+      - name: CreateDB
+        run: |
+             mysql --host $MYSQL_HOST --port 3306 -uroot -p$MYSQL_ROOT_PASSWORD -e "SHOW DATABASES;"
+             mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h "$MYSQL_HOST" -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';"
+             mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -h "$MYSQL_HOST" "$MYSQL_DATABASE" -e "CREATE USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED BY '$MYSQL_PASSWORD';"
+
       # —— Setup Github actions 🐙 —————————————————————————————————————————————
       # https://github.com/actions/checkout (official)
       - name: Checkout
@@ -46,14 +71,19 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v1
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+          echo "timestamp=$(date +"%s")" >> $GITHUB_OUTPUT
+          
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
+          path: ${{ steps.composer-cache-vars.outputs.dir }}
+          key: ${{ runner.os }}-composer-2-latest-${{ steps.composer-cache-vars.outputs.timestamp }}
+          restore-keys: |
+            ${{ runner.os }}-composer-2-latest-
+            ${{ runner.os }}-composer-2-
+            ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader --no-interaction
@@ -80,7 +110,10 @@ jobs:
           bin/console voltwatcher:install
           # this checks that Doctrine's mapping configurations are valid
           bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-          
+          mkdir -p config/jwt
+          openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:$JWT_PASSPHRASE
+          openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:$JWT_PASSPHRASE
+
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -89,4 +122,14 @@ jobs:
           distribution: 'temurin'
       - name: Test with Ant
         run: ant
-        
+
+      - name: Build & push Docker image
+        id: Build-and-Push-Docker-Image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: manzolo/voltwatcher
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}        
