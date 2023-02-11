@@ -1,0 +1,25 @@
+  name: Symfony Checks
+  description: Symfony Checks
+  runs:
+    using: composite
+    steps:
+      - name: Symfony Checks
+        shell: bash
+        run: |
+          bin/console lint:yaml config --parse-tags 
+          # this checks that the Twig template files contain no syntax errors
+          bin/console lint:twig templates --env=prod \
+          # this checks that the XLIFF translations contain no syntax errors
+          bin/console lint:xliff translations
+          # this checks that arguments injected into services match type declarations
+          bin/console lint:container
+          # this checks that the application doesn't use dependencies with known security vulnerabilities
+          # symfony security:check
+          # Install environment
+          bin/console bicorebundle:install admin admin admin@admin.it
+          bin/console voltwatcher:install
+          # this checks that Doctrine's mapping configurations are valid
+          bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+          mkdir -p config/jwt
+          openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:$JWT_PASSPHRASE
+          openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:$JWT_PASSPHRASE
