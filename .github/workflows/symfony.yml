@@ -13,6 +13,10 @@ env:
   MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
   APP_ENV: ${{ vars.APP_ENV }}
   APP_SECRET: ${{ secrets.APP_SECRET }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  MAILER_USER: ${{ secrets.MAILER_USER }}
+  OPENWEATHERMAP_APIKEY: ${{ secrets.OPENWEATHERMAP_APIKEY }}
+  
     
 jobs:
   symfony:
