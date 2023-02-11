@@ -1,7 +1,87 @@
 ARG MYSQL_HOST
 ARG MYSQL_PORT
 
-FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-full:latest as build
+FROM php:8.1-apache AS build
+
+#Core
+RUN apt update -y && \
+apt install git wget unzip  -y 
+
+#Dependencies for php extension
+RUN apt update -yqq && \
+apt install -yqq  \
+#pgsql
+libpq-dev \ 
+#sqlite
+libsqlite3-dev \
+#curl
+libcurl4-gnutls-dev \
+#icu
+libicu-dev \
+#zip
+libzip-dev \
+#png - jpeg
+libjpeg-dev libpng-dev \
+#xml
+libxml2-dev \
+#bz2
+libbz2-dev \
+#ldap
+libldap2-dev \
+#mbstring
+libonig-dev
+
+
+RUN docker-php-ext-install pdo_mysql curl mbstring gd xml zip bz2 opcache intl
+
+#APCU php extension
+ENV APCU_VERSION 5.1.21
+RUN pecl install apcu-${APCU_VERSION} && docker-php-ext-enable apcu
+
+#Set Timezone Europe/Rome
+RUN echo "date.timezone=Europe/Rome" > /usr/local/etc/php/php.ini
+RUN php -m
+RUN php -i
+
+#Composer
+RUN wget https://getcomposer.org/installer -O composer-setup.php && \
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
+php -r "unlink('composer-setup.php');" && \
+composer config -g secure-http false
+
+#Clean package
+RUN apt clean && apt autoremove -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/src
+
+#Symfony CLI
+RUN wget https://get.symfony.com/cli/installer -O - | bash
+RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
+RUN symfony
+
+RUN cat <<EOF >>/etc/apache2/conf-enabled/vhost.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html/public
+
+    RemoteIPHeader X-Forwarded-For
+    LogFormat "%t %{X-Forwarded-For}i %l %u \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" forwarded
+    LogFormat "%t %a %l %u \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" notforwarded
+    SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log forwarded env=forwarded
+    CustomLog ${APACHE_LOG_DIR}/access.log notforwarded env=!forwarded
+
+    <Directory "/var/www/html/public">
+        Options Indexes FollowSymLinks
+        AllowOverride ALL
+        Require all granted
+    </Directory>
+</VirtualHost>
+EOF
+
+
+RUN a2enmod rewrite
+RUN a2enmod remoteip
+RUN a2enmod env
 
 WORKDIR /home/wwwroot/voltwatcher
 
@@ -41,7 +121,52 @@ RUN rm -rf .git && \
     rm -rf .env  && \
     rm -rf .env.dist
 
-FROM registry.gitlab.manzolo.it/manzolo/php8.1-apache-lite:latest
+FROM php:8.1-apache AS prod
+
+#Dependencies for php extension
+RUN apt update -yqq && \
+apt install -yqq  \
+#pgsql
+libpq-dev \ 
+#sqlite
+libsqlite3-dev \
+#curl
+libcurl4-gnutls-dev \
+#icu
+libicu-dev \
+#zip
+libzip-dev \
+#png - jpeg
+libjpeg-dev libpng-dev \
+#xml
+libxml2-dev \
+#bz2
+libbz2-dev \
+#ldap
+libldap2-dev \
+#mbstring
+libonig-dev
+
+RUN docker-php-ext-install pdo_mysql curl mbstring gd xml zip bz2 opcache intl
+
+#APCU php extension
+ENV APCU_VERSION 5.1.21
+RUN pecl install apcu-${APCU_VERSION} && docker-php-ext-enable apcu
+
+#Set Timezone Europe/Rome
+RUN echo "date.timezone=Europe/Rome" > /usr/local/etc/php/php.ini
+RUN php -m
+RUN php -i
+
+#Clean package
+RUN apt clean && apt autoremove -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/src
+
+#COPY ./vhost.conf /etc/apache2/conf-enabled/vhost.conf
+
+RUN a2enmod rewrite
+RUN a2enmod remoteip
+RUN a2enmod env
+
 
 WORKDIR /var/www/html
 COPY --from=build --chown=www-data /home/wwwroot/voltwatcher /var/www/html

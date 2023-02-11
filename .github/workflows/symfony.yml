@@ -117,4 +117,14 @@ jobs:
           distribution: 'temurin'
       - name: Test with Ant
         run: ant
-        
+
+      - name: Build & push Docker image
+        id: Build-and-Push-Docker-Image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: manzolo/voltwatcher
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}        
