@@ -2,8 +2,9 @@
 name: Voltwatcher CI process
 on:
   push:
-    branches:
-      - master
+    tags:        
+      # Push events to every tag not containing /
+      - '*'
       
 env:
   MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
