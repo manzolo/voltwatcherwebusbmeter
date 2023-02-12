@@ -26,7 +26,7 @@
 #### First time
 
     # From bash
-    docker pull manzolo/voltwatcher_app
+    docker pull manzolo/voltwatcher
     wget https://raw.githubusercontent.com/manzolo/voltwatcherwebusbmeter/master/docker-compose.yml
 
     mkdir -p config/jwt
