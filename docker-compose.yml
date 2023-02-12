@@ -1,15 +1,11 @@
 version: '3'
 services:
     app:
-        image: manzolo/voltwatcher
-        build: .
-        #restart: always
-        #build: 
-        #  context: .
-        #  dockerfile: .docker/onlyapp/php/Dockerfile
-        container_name: voltwatcher_app
+        image: manzolo/voltwatcher:latest
+        #image: manzolo/voltwatcher:2.0.105
+        restart: always
+        container_name: voltwatcher
         volumes:
-            - ./var/log:/var/www/html/var/log
             - ./config/jwt:/var/www/html/config/jwt
         environment:
           APP_ENV: ${APP_ENV}
@@ -18,7 +14,7 @@ services:
           MAILER_USER: ${MAILER_USER}
           OPENWEATHERMAP_APIKEY: ${OPENWEATHERMAP_APIKEY}
           MAILER_DSN: ${MAILER_DSN}
-          MYSQL_HOST: ${MYSQL_HOST}
-          MYSQL_PORT: ${MYSQL_PORT}
+        env_file:
+          - .env
         ports:
             - ${HTTP_PORT}:80
