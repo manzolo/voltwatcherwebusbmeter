@@ -37,40 +37,33 @@
 
     # Create .env file
     APP_ENV=prod
-    # http://nux.net/secret
-
-    APP_SECRET=yoursecretkeybyhttp://nux.net/secret
+    APP_SECRET=yoursecretkey by http://nux.net/secret
 
     # DATABASE INFORMATION
-    MYSQL_DATABASE=voltwatcher
-    MYSQL_USER=voltwatcher
-    MYSQL_PASSWORD=voltwatcherpassword
-    MYSQL_ROOT_PASSWORD=mysqlrootpasswordsecret
+    DATABASE_URL=mysql://voltwatcher_user:voltwatcher_pass@voltwatcher_db_host:33060/voltwatcher_db_name
 
-    # WEB SERVER LISTEN PORT
-    APACHE_PORT=8001
-    # PHPMYADMIN LISTEN PORT
-    PHPMYADMIN_PORT=8002
 
     # https://openweathermap.org/api/one-call-api
     OPENWEATHERMAP_APIKEY=""
 
-    MAILER_DNS=smtp://username:password@smtp.host.com:25
+    MAILER_DSN=smtp://username:password@smtp.host.com:25
     MAILER_USER=admin@email.com
     LOCALE=en
+    
     # Api Password certificate
     JWT_PASSPHRASE=jwtpassword
-
+    
+    # host port
+    HTTP_PORT=8080
+    
     # Start container
-    docker-compose up --no-build -d
+    docker-compose up -d
 
     # Inside container
-    docker exec -it voltwatcher_app /bin/bash
+    docker exec -it voltwatcher /bin/bash
         
     bin/console bicorebundle:install adminuser adminpassword admin@email.com
     bin/console voltwatcher:install
-    
-    #remove build section from docker-compose.yml
 
 #### How to start container
     # Start container (after removing build section from docker-compose.yml)
