@@ -3160,10 +3160,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.27.2":
-  version: 3.27.2
-  resolution: "core-js@npm:3.27.2"
-  checksum: 718debd426f55a6b97cf9b757c936be258afd6d4f7052f89d0f96c982d7013e9000b0b006df42831a0cf32adad298e34d6a19052dce9ae1c7ab87162c0c665e0
+"core-js@npm:^3.28.0":
+  version: 3.28.0
+  resolution: "core-js@npm:3.28.0"
+  checksum: 3155fd0ec16d0089106b145e9595280a4ea4bde0d7ff26aa14364cd4f1c203baf6620c3025acd284f363d08b9f21104101692766ca9a36ffeee7307bdf3e1881
   languageName: node
   linkType: hard
 
@@ -6804,7 +6804,7 @@ __metadata:
     bootbox: ^6.0.0
     bootstrap-confirmation2: ^4.2.1
     bootstrap-italia: ^1.6.4
-    core-js: ^3.27.2
+    core-js: ^3.28.0
     file-loader: ^6.2.0
     google-charts: ^2.0.0
     jquery-contextmenu: ^2.9.2
@@ -6820,10 +6820,10 @@ __metadata:
     react-router: ^6.8.1
     react-router-dom: ^6.8.1
     regenerator-runtime: ^0.13.11
-    sass: ^1.58.0
+    sass: ^1.58.3
     sass-loader: ^13.2.0
     serialize-javascript: ^6.0.1
-    sweetalert2: ^11.7.1
+    sweetalert2: ^11.7.2
     sweetalert2-react-content: ^5.0.7
     webpack: ^5.75.0
     webpack-cli: ^5.0.1
@@ -6898,16 +6898,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.58.0":
-  version: 1.58.0
-  resolution: "sass@npm:1.58.0"
+"sass@npm:^1.58.3":
+  version: 1.58.3
+  resolution: "sass@npm:1.58.3"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: a7219634881d2de6441fb619787fb1a02e3fa0333fb715be26aa335ba49d6bdb4f1105d9df70a80a67200893022b08346745783dc49046095d94fc6e044492d6
+  checksum: 35a2b98c037ef80fdc93c9b0be846e6ccc7d75596351a37ee79c397e66666d0a754c52c4696e746c0aff32327471e185343ca349e998a58340411adc9d0489a5
   languageName: node
   linkType: hard
 
@@ -7538,10 +7538,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sweetalert2@npm:^11.7.1":
-  version: 11.7.1
-  resolution: "sweetalert2@npm:11.7.1"
-  checksum: 906aea3bf73e20c4c4454aac7101af01f698b4e5006dc89ef81ada6f6c3ed9eca253c6f8c445699e7f76ffd2e4f90b6db250c954195a199fc9aa5fda1976863d
+"sweetalert2@npm:^11.7.2":
+  version: 11.7.2
+  resolution: "sweetalert2@npm:11.7.2"
+  checksum: 759c80a6998d765aabe4021bd253df6c362aa2a261b32419f98ab0313b4e5e3c18806221217a0c4c8611018fa33b5909dec8db9fe71bc63c8671ce6830b83291
   languageName: node
   linkType: hard
 
