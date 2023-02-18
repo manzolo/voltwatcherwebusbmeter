@@ -5,12 +5,12 @@ namespace App\Controller;
 use App\Entity\Device;
 use App\Entity\Settings;
 use App\Entity\Log;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as RestAnnotations;
-use FOS\RestBundle\View\View;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -23,7 +23,7 @@ use Exception;
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class ApiController extends AbstractFOSRestController
+class ApiController extends AbstractController
 {
 
     private const WEATHER_API_BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
@@ -42,24 +42,29 @@ class ApiController extends AbstractFOSRestController
         $this->em = $em;
     }
     /**
-     * @RestAnnotations\Post("api/volt/record.json")
-     * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
-     * @param array<string> $datavolt
+     * @Route("/api/volt/record.json", name="app_api_postvoltrecord", methods={"POST"})
      */
-    public function postVoltRecordAction(array $datavolt): View
+    public function postVoltRecordAction(Request $request): JsonResponse
     {
+        if (!is_string($request->getContent())) {
+            return new JsonResponse(["errcode" => -100, "errmsg" => "Dati in input errati"], 400);
+        }
+        $datavolt = json_decode($request->getContent(), true);
+
         return $this->putVoltRecordAction($datavolt);
     }
     /**
-     * @RestAnnotations\Put("api/volt/record.json")
-     * @ParamConverter("datavolt", class="array", converter="fos_rest.request_body")
-     * @param array<string> $datavolt
+     * @Route("/api/volt/record.json", name="app_api_putvoltrecord", methods={"PUT"})
      */
-    public function putVoltRecordAction(array $datavolt): View
+    public function putVoltRecordAction(Request $request): JsonResponse
     {
 //        if (0 !== strpos($request->headers->get('Content-Type'), self::CONTENT_TYPE_JSON)) {
 //            return View::create(['message' => 'Invalid content type'], Response::HTTP_BAD_REQUEST);
 //        }
+        if (!is_string($request->getContent())) {
+            return new JsonResponse(["errcode" => -101, "errmsg" => "Dati in input errati"], 400);
+        }
+        $datavolt = json_decode($request->getContent(), true);
         try {
             $device = $datavolt['device'];
             $data = $this->getDatetime($datavolt['data']);
@@ -86,10 +91,10 @@ class ApiController extends AbstractFOSRestController
             $emailStatus = $this->sendWarningEmailIfNecessary($logEntity);
             $weatherStatus = $this->fetchWeatherDataAndPersist($logEntity);
         } catch (Exception $exc) {
-            return $this->view(['errcode' => -100, 'errmsg' => $exc->getMessage()], Response::HTTP_OK);
+            return $this->json(['errcode' => -100, 'errmsg' => $exc->getMessage()], Response::HTTP_OK);
         }
 
-        return $this->view(['errcode' => 0, 'email' => $emailStatus, 'weather' => $weatherStatus, 'errmsg' => 'OK'], Response::HTTP_OK);
+        return $this->json(['errcode' => 0, 'email' => $emailStatus, 'weather' => $weatherStatus, 'errmsg' => 'OK'], Response::HTTP_OK);
     }
     /**
      * Retrieves the Device entity with the given address, or creates a new one if it doesn't exist.
@@ -148,7 +153,6 @@ class ApiController extends AbstractFOSRestController
         }
         return ['errcode' => 0, 'errmsg' => 'mail inviata'];
     }
-    
     /**
      * @return array{errcode: int, errmsg: string} Array con errcode intero e errmsg stringa
      */
@@ -159,7 +163,7 @@ class ApiController extends AbstractFOSRestController
             return ['errcode' => -1, 'errmsg' => 'Openweathermap api key non valida'];
         }
         if (!$owmappid || (!$logEntity->getLongitude() && !$logEntity->getLatitude())) {
-            return ['errcode' => -1, 'errmsg' => 'Impossibile trovare le coordinate geografiche'];
+            return ['errcode' => -2, 'errmsg' => 'Impossibile trovare le coordinate geografiche'];
         }
 
         $owmurl = self::WEATHER_API_BASE_URL . '?lon=' . $logEntity->getLongitude() . '&lat=' . $logEntity->getLatitude() . '&APPID=' . $owmappid;
@@ -171,7 +175,7 @@ class ApiController extends AbstractFOSRestController
                 !isset($weatherjson['clouds']['all']) ||
                 !isset($weatherjson['name']) ||
                 !isset($weatherjson['weather'][0]['icon'])) {
-            return ['errcode' => -2, 'errmsg' => 'Dati meteo non validi.'];
+            return ['errcode' => -3, 'errmsg' => 'Dati meteo non validi.'];
         }
         $weather = $weatherjson['weather'][0]['main'];
         $externaltemp = $weatherjson['main']['temp'] - self::ABSOLUTE_ZERO_CELSIUS;
@@ -214,21 +218,21 @@ class ApiController extends AbstractFOSRestController
         return $data;
     }
     /**
-     * @RestAnnotations\Get("api/get/settings/app.json")
+     * @Route("/api/get/settings/app.json", name="app_api_appgetsettings", methods={"GET"})
      */
-    public function appGetSettingsAction(): View
+    public function appGetSettingsAction(): JsonResponse
     {
         $settings = $this->em->getRepository(Settings::class)->findAll();
         $newsettings = array_column($settings, 'value', 'key');
-        return $this->view($newsettings);
+        return $this->json($newsettings);
     }
     /**
-     * @RestAnnotations\Get("api/get/server/datetime.json")
+     * @Route("/api/get/server/datetime.json", name="app_api_appserverdatetime", methods={"GET"})
      */
-    public function appServerDatetimeAction(): View
+    public function appServerDatetimeAction(): JsonResponse
     {
         $now = new DateTime();
-        return $this->view([
+        return $this->json([
                     'datetime' => $now->format('Y-m-d H:i:s'),
                     'date' => $now->format('Y-m-d'),
                     'time' => $now->format('H:i:s')
