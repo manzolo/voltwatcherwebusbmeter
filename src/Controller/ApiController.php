@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Device;
-use App\Entity\Settings;
 use App\Entity\Log;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -95,6 +94,11 @@ class ApiController extends AbstractController
         }
 
         return $this->json(['errcode' => 0, 'email' => $emailStatus, 'weather' => $weatherStatus, 'errmsg' => 'OK'], Response::HTTP_OK);
+    }
+    private function getDeviceName(Log $newlog): string
+    {
+        $device = $newlog->getDevice();
+        return $device->getName() ?: $device->getAddress();
     }
     /**
      * Retrieves the Device entity with the given address, or creates a new one if it doesn't exist.
@@ -216,31 +220,5 @@ class ApiController extends AbstractController
         $data->setTimeZone($timezone);
 
         return $data;
-    }
-    /**
-     * @Route("/api/get/settings/app.json", name="app_api_appgetsettings", methods={"GET"})
-     */
-    public function appGetSettingsAction(): JsonResponse
-    {
-        $settings = $this->em->getRepository(Settings::class)->findAll();
-        $newsettings = array_column($settings, 'value', 'key');
-        return $this->json($newsettings);
-    }
-    /**
-     * @Route("/api/get/server/datetime.json", name="app_api_appserverdatetime", methods={"GET"})
-     */
-    public function appServerDatetimeAction(): JsonResponse
-    {
-        $now = new DateTime();
-        return $this->json([
-                    'datetime' => $now->format('Y-m-d H:i:s'),
-                    'date' => $now->format('Y-m-d'),
-                    'time' => $now->format('H:i:s')
-        ]);
-    }
-    private function getDeviceName(Log $newlog): string
-    {
-        $device = $newlog->getDevice();
-        return $device->getName() ?: $device->getAddress();
     }
 }
