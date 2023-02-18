@@ -11,17 +11,11 @@
     "composer/xdebug-handler": {
         "version": "2.0.2"
     },
-    "comunedifirenze/bicorebundle": {
-        "version": "v0.1.0"
-    },
     "comunedifirenze/doctrine2-exporter": {
         "version": "3.0.5"
     },
     "comunedifirenze/mysql-workbench-schema-exporter": {
         "version": "v3.1.4.1"
-    },
-    "comunedifirenze/user-bundle": {
-        "version": "1.2.2.2"
     },
     "dbrekelmans/bdi": {
         "version": "0.3"
@@ -113,8 +107,8 @@
             "ref": "370bcf99b04c0dfd0b545745aad622d757af5e1b"
         }
     },
-    "hanneskod/classtools": {
-        "version": "1.2.1"
+    "friendsofsymfony/user-bundle": {
+        "version": "v3.1.0"
     },
     "jms/metadata": {
         "version": "2.1.0"
@@ -159,6 +153,9 @@
     },
     "maennchen/zipstream-php": {
         "version": "2.1.0"
+    },
+    "manzolo/bicore": {
+        "version": "1.0.0"
     },
     "markbaker/complex": {
         "version": "1.4.7"

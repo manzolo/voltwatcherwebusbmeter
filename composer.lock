@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9afbe1789d7b219f0eae60592a2ab20",
+    "content-hash": "1776191758ab553b1392019df5ae369f",
     "packages": [
         {
             "name": "cmen/google-charts-bundle",
@@ -135,155 +135,6 @@
             "time": "2022-01-17T14:14:24+00:00"
         },
         {
-            "name": "comunedifirenze/bicorebundle",
-            "version": "3.0.45",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ComuneFI/BiCoreBundle.git",
-                "reference": "45101023118742dbf2eab2981843c9c9dd001131"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ComuneFI/BiCoreBundle/zipball/45101023118742dbf2eab2981843c9c9dd001131",
-                "reference": "45101023118742dbf2eab2981843c9c9dd001131",
-                "shasum": ""
-            },
-            "require": {
-                "composer/package-versions-deprecated": "^1.11",
-                "comunedifirenze/doctrine2-exporter": "^3.0",
-                "comunedifirenze/mysql-workbench-schema-exporter": "^3.0",
-                "comunedifirenze/user-bundle": "^3.0",
-                "doctrine/doctrine-bundle": "^2.4",
-                "doctrine/doctrine-migrations-bundle": "^3.1",
-                "doctrine/orm": "^2.9",
-                "fi/osbundle": "^2.0",
-                "friendsofsymfony/jsrouting-bundle": "^3.0",
-                "hanneskod/classtools": "^1.2",
-                "php": ">=8.0",
-                "phpoffice/phpspreadsheet": "^1.4",
-                "symfony/asset": "5.4.*",
-                "symfony/cache": "5.4.*",
-                "symfony/console": "5.4.*",
-                "symfony/dotenv": "5.4.*",
-                "symfony/error-handler": "5.4.*",
-                "symfony/event-dispatcher": "5.4.*",
-                "symfony/flex": "^1.0|^2.0",
-                "symfony/form": "5.4.*",
-                "symfony/http-foundation": "5.4.*",
-                "symfony/http-kernel": "5.4.*",
-                "symfony/lock": "5.4.*",
-                "symfony/mailer": "5.4.*",
-                "symfony/maker-bundle": "^1.7",
-                "symfony/mime": "5.4.*",
-                "symfony/monolog-bundle": "^3.2",
-                "symfony/options-resolver": "5.4.*",
-                "symfony/password-hasher": "5.4.*",
-                "symfony/process": "5.4.*",
-                "symfony/property-access": "5.4.*",
-                "symfony/property-info": "5.4.*",
-                "symfony/proxy-manager-bridge": "5.4.*",
-                "symfony/routing": "5.4.*",
-                "symfony/runtime": "5.4.*",
-                "symfony/security-csrf": "5.4.*",
-                "symfony/string": "5.4.*",
-                "symfony/translation": "5.4.*",
-                "symfony/twig-bridge": "5.4.*",
-                "symfony/var-exporter": "5.4.*",
-                "symfony/webpack-encore-bundle": "^1.5",
-                "symfony/yaml": "5.4.*"
-            },
-            "conflict": {
-                "symfony/symfony": "*"
-            },
-            "replace": {
-                "paragonie/random_compat": "2.*",
-                "symfony/polyfill-ctype": "*",
-                "symfony/polyfill-iconv": "*",
-                "symfony/polyfill-php56": "*",
-                "symfony/polyfill-php70": "*",
-                "symfony/polyfill-php71": "*"
-            },
-            "require-dev": {
-                "dbrekelmans/bdi": "^1.0.0",
-                "phpmd/phpmd": "^2.6",
-                "phpstan/phpstan": "^1.0.0",
-                "phpstan/phpstan-doctrine": "^1.0",
-                "phpunit/phpunit": "^9.5",
-                "scrutinizer/ocular": "^1.8",
-                "squizlabs/php_codesniffer": "^3.3",
-                "symfony/browser-kit": "5.4.*",
-                "symfony/css-selector": "5.4.*",
-                "symfony/framework-bundle": "5.4.*",
-                "symfony/panther": "^1.0.0|^2.0.0",
-                "symfony/phpunit-bridge": "^5.0",
-                "symfony/stopwatch": "5.4.*",
-                "symfony/var-dumper": "5.4.*",
-                "symfony/web-profiler-bundle": "5.4.*"
-            },
-            "suggest": {
-                "ext-apcu": "The extension required to use cache"
-            },
-            "bin": [
-                "check-src"
-            ],
-            "type": "symfony-bundle",
-            "extra": {
-                "symfony": {
-                    "allow-contrib": false,
-                    "require": "5.4.*"
-                },
-                "public-dir": "tests/public",
-                "conf-dir": "tests/conf",
-                "config-dir": "tests/config",
-                "branch-alias": {
-                    "dev-master": "5.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "App\\": "tests/src",
-                    "Cdf\\BiCoreBundle\\": "src/Cdf/BiCoreBundle",
-                    "Cdf\\PannelloAmministrazioneBundle\\": "src/Cdf/PannelloAmministrazioneBundle"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andrea Manzi",
-                    "email": "andrea.manzi@comune.fi.it"
-                },
-                {
-                    "name": "Emidio Picariello",
-                    "email": "emidio.picariello@comune.fi.it"
-                },
-                {
-                    "name": "Angela Bianchi",
-                    "email": "angela.bianchi@comune.fi.it"
-                },
-                {
-                    "name": "Lisa Pescini",
-                    "email": "lisa.pescini@comune.fi.it"
-                },
-                {
-                    "name": "Paolo Pescini",
-                    "email": "paolo.pescini@comune.fi.it"
-                }
-            ],
-            "description": "Bootstrap italia CoreBundle by Comune Di Firenze",
-            "homepage": "https://github.com/ComuneFI/BiCoreBundle",
-            "keywords": [
-                "bicorebundle bootstrapitalia jquery bootstrap"
-            ],
-            "support": {
-                "issues": "https://github.com/ComuneFI/BiCoreBundle/issues",
-                "source": "https://github.com/ComuneFI/BiCoreBundle/tree/3.0.45"
-            },
-            "time": "2022-11-24T09:50:45+00:00"
-        },
-        {
             "name": "comunedifirenze/doctrine2-exporter",
             "version": "3.0.5",
             "source": {
@@ -408,78 +259,6 @@
                 "source": "https://github.com/ComuneFI/mysql-workbench-schema-exporter/tree/v3.1.4.1"
             },
             "time": "2021-09-29T12:50:56+00:00"
-        },
-        {
-            "name": "comunedifirenze/user-bundle",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ComuneFI/user-bundle.git",
-                "reference": "800c6af2a66d7f5525577dbcabaa2afcf9be31e7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ComuneFI/user-bundle/zipball/800c6af2a66d7f5525577dbcabaa2afcf9be31e7",
-                "reference": "800c6af2a66d7f5525577dbcabaa2afcf9be31e7",
-                "shasum": ""
-            },
-            "require": {
-                "paragonie/random_compat": "^1 || ^2 || ^9",
-                "php": ">=7.3",
-                "symfony/form": "^4.4|^5.3",
-                "symfony/framework-bundle": "^4.4|^5.3",
-                "symfony/security-bundle": "^4.4|^5.3",
-                "symfony/translation": "^4.4|^5.3",
-                "symfony/twig-bundle": "^4.4|^5.3",
-                "symfony/validator": "^4.4|^5.3"
-            },
-            "require-dev": {
-                "doctrine/doctrine-bundle": "^2.0",
-                "phpunit/phpunit": "^4.8.35 || ^5.7.11 || ^6.5 || ^8.0 || ^9.0",
-                "swiftmailer/swiftmailer": "^4.3 || ^5.3 || ^6.0",
-                "symfony/console": "^4.4|^5.3",
-                "symfony/yaml": "^4.4|^5.3"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "FOS\\UserBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christophe Coevoet",
-                    "email": "stof@notk.org"
-                },
-                {
-                    "name": "Thibault Duplessis"
-                },
-                {
-                    "name": "FriendsOfSymfony Community",
-                    "homepage": "https://github.com/friendsofsymfony/FOSUserBundle/contributors"
-                },
-                {
-                    "name": "Kevin Papst",
-                    "homepage": "https://www.kevinpapst.de"
-                },
-                {
-                    "name": "Andrea Manzi",
-                    "homepage": "https://github.com/manzolo"
-                }
-            ],
-            "description": "Comune di Firenze Symfony UserBundle",
-            "homepage": "https://github.com/ComuneFI",
-            "support": {
-                "source": "https://github.com/ComuneFI/user-bundle/tree/3.0.0"
-            },
-            "time": "2021-12-01T17:10:04+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -2201,53 +1980,95 @@
             "time": "2022-07-01T11:50:22+00:00"
         },
         {
-            "name": "hanneskod/classtools",
-            "version": "1.2.1",
+            "name": "friendsofsymfony/user-bundle",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hanneskod/classtools.git",
-                "reference": "d365ddac0e602027c0471ea292f4ba2afcb49394"
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
+                "reference": "89c18b6944adb12541f5b3b1ab39287b5336b375"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hanneskod/classtools/zipball/d365ddac0e602027c0471ea292f4ba2afcb49394",
-                "reference": "d365ddac0e602027c0471ea292f4ba2afcb49394",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/89c18b6944adb12541f5b3b1ab39287b5336b375",
+                "reference": "89c18b6944adb12541f5b3b1ab39287b5336b375",
                 "shasum": ""
             },
             "require": {
-                "nikic/php-parser": "^4",
-                "php": ">=7.1",
-                "symfony/finder": "^4|^5"
+                "ext-dom": "*",
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0",
+                "symfony/config": "^4.4 || ^5.0 || ^6.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0 || ^6.0",
+                "symfony/event-dispatcher": "^4.4 || ^5.0 || ^6.0",
+                "symfony/event-dispatcher-contracts": "^1.1 || ^2.0 || ^3.0",
+                "symfony/form": "^4.4 || ^5.0 || ^6.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-foundation": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
+                "symfony/options-resolver": "^4.4 || ^5.0 || ^6.0",
+                "symfony/routing": "^4.4 || ^5.0 || ^6.0",
+                "symfony/security-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/security-core": "^4.4 || ^5.0 || ^6.0",
+                "symfony/translation": "^4.4 || ^5.0 || ^6.0",
+                "symfony/twig-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/validator": "^4.4 || ^5.0 || ^6.0",
+                "twig/twig": "^1.34 || ^2.4 || ^3.0"
             },
-            "type": "library",
+            "conflict": {
+                "doctrine/doctrine-bundle": "<1.3",
+                "doctrine/persistence": "<1.3",
+                "symfony/doctrine-bridge": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "^1.3 || ^2",
+                "friendsofphp/php-cs-fixer": "^3.0.2, !=3.5.0",
+                "swiftmailer/swiftmailer": "^4.3 || ^5.0 || ^6.0",
+                "symfony/console": "^4.4 || ^5.0 || ^6.0",
+                "symfony/phpunit-bridge": "^6.1",
+                "symfony/yaml": "^4.4 || ^5.0 || ^6.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "hanneskod\\classtools\\": "src/"
-                }
+                    "FOS\\UserBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "WTFPL"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Hannes Forsgård",
-                    "email": "hannes.forsgard@fripost.org"
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Thibault Duplessis"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSUserBundle/contributors"
                 }
             ],
-            "description": "Find, extract and process classes from file system",
-            "homepage": "https://github.com/hanneskod/classtools",
+            "description": "Symfony FOSUserBundle",
+            "homepage": "http://friendsofsymfony.github.com",
             "keywords": [
-                "class finder",
-                "code generator",
-                "metaprogramming",
-                "minimizer"
+                "User management"
             ],
             "support": {
-                "issues": "https://github.com/hanneskod/classtools/issues",
-                "source": "https://github.com/hanneskod/classtools/tree/1.0"
+                "docs": "https://symfony.com/doc/master/bundles/FOSUserBundle/index.html",
+                "issues": "https://github.com/FriendsOfSymfony/FOSUserBundle/issues",
+                "source": "https://github.com/FriendsOfSymfony/FOSUserBundle/tree/v3.1.0"
             },
-            "time": "2020-03-05T20:41:28+00:00"
+            "time": "2022-10-26T09:10:52+00:00"
         },
         {
             "name": "jms/metadata",
@@ -2892,6 +2713,154 @@
                 }
             ],
             "time": "2022-12-08T12:29:14+00:00"
+        },
+        {
+            "name": "manzolo/bicore",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/manzolo/BiCore.git",
+                "reference": "9a62f7ea20b3f193616de265d455c37e2beee630"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/manzolo/BiCore/zipball/9a62f7ea20b3f193616de265d455c37e2beee630",
+                "reference": "9a62f7ea20b3f193616de265d455c37e2beee630",
+                "shasum": ""
+            },
+            "require": {
+                "composer/package-versions-deprecated": "^1.11",
+                "comunedifirenze/doctrine2-exporter": "^3.0",
+                "comunedifirenze/mysql-workbench-schema-exporter": "^3.0",
+                "doctrine/annotations": "^2.0",
+                "doctrine/doctrine-bundle": "^2.4",
+                "doctrine/doctrine-migrations-bundle": "^3.1",
+                "doctrine/orm": "^2.9",
+                "fi/osbundle": "^2.0",
+                "friendsofsymfony/jsrouting-bundle": "^3.0",
+                "friendsofsymfony/user-bundle": "^3.0",
+                "php": ">=8.0",
+                "phpoffice/phpspreadsheet": "^1.4",
+                "symfony/asset": "5.4.*",
+                "symfony/cache": "5.4.*",
+                "symfony/console": "5.4.*",
+                "symfony/dotenv": "5.4.*",
+                "symfony/error-handler": "5.4.*",
+                "symfony/event-dispatcher": "5.4.*",
+                "symfony/flex": "^1.0|^2.0",
+                "symfony/form": "5.4.*",
+                "symfony/http-foundation": "5.4.*",
+                "symfony/http-kernel": "5.4.*",
+                "symfony/lock": "5.4.*",
+                "symfony/mailer": "5.4.*",
+                "symfony/maker-bundle": "^1.7",
+                "symfony/mime": "5.4.*",
+                "symfony/monolog-bundle": "^3.2",
+                "symfony/options-resolver": "5.4.*",
+                "symfony/password-hasher": "5.4.*",
+                "symfony/process": "5.4.*",
+                "symfony/property-access": "5.4.*",
+                "symfony/property-info": "5.4.*",
+                "symfony/proxy-manager-bridge": "5.4.*",
+                "symfony/routing": "5.4.*",
+                "symfony/runtime": "5.4.*",
+                "symfony/security-csrf": "5.4.*",
+                "symfony/string": "5.4.*",
+                "symfony/translation": "5.4.*",
+                "symfony/twig-bridge": "5.4.*",
+                "symfony/var-exporter": "5.4.*",
+                "symfony/webpack-encore-bundle": "^1.5",
+                "symfony/yaml": "5.4.*"
+            },
+            "conflict": {
+                "symfony/symfony": "*"
+            },
+            "replace": {
+                "paragonie/random_compat": "2.*",
+                "symfony/polyfill-ctype": "*",
+                "symfony/polyfill-iconv": "*",
+                "symfony/polyfill-php56": "*",
+                "symfony/polyfill-php70": "*",
+                "symfony/polyfill-php71": "*"
+            },
+            "require-dev": {
+                "dbrekelmans/bdi": "^1.0.0",
+                "phpmd/phpmd": "^2.6",
+                "phpstan/phpstan": "^1.0.0",
+                "phpstan/phpstan-doctrine": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "scrutinizer/ocular": "^1.8",
+                "squizlabs/php_codesniffer": "^3.3",
+                "symfony/browser-kit": "5.4.*",
+                "symfony/css-selector": "5.4.*",
+                "symfony/framework-bundle": "5.4.*",
+                "symfony/panther": "^1.0.0|^2.0.0",
+                "symfony/phpunit-bridge": "^5.0",
+                "symfony/stopwatch": "5.4.*",
+                "symfony/var-dumper": "5.4.*",
+                "symfony/web-profiler-bundle": "5.4.*"
+            },
+            "suggest": {
+                "ext-apcu": "The extension required to use cache"
+            },
+            "bin": [
+                "check-src"
+            ],
+            "type": "symfony-bundle",
+            "extra": {
+                "symfony": {
+                    "allow-contrib": false,
+                    "require": "5.4.*"
+                },
+                "public-dir": "tests/public",
+                "conf-dir": "tests/conf",
+                "config-dir": "tests/config",
+                "branch-alias": {
+                    "dev-master": "5.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "App\\": "tests/src",
+                    "Cdf\\BiCoreBundle\\": "src/Cdf/BiCoreBundle",
+                    "Cdf\\PannelloAmministrazioneBundle\\": "src/Cdf/PannelloAmministrazioneBundle"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrea Manzi",
+                    "email": "andrea.manzi@comune.fi.it"
+                },
+                {
+                    "name": "Emidio Picariello",
+                    "email": "emidio.picariello@comune.fi.it"
+                },
+                {
+                    "name": "Angela Bianchi",
+                    "email": "angela.bianchi@comune.fi.it"
+                },
+                {
+                    "name": "Lisa Pescini",
+                    "email": "lisa.pescini@comune.fi.it"
+                },
+                {
+                    "name": "Paolo Pescini",
+                    "email": "paolo.pescini@comune.fi.it"
+                }
+            ],
+            "description": "Bootstrap italia CoreBundle by Comune Di Firenze",
+            "homepage": "https://github.com/ComuneFI/BiCoreBundle",
+            "keywords": [
+                "bicorebundle bootstrapitalia jquery bootstrap"
+            ],
+            "support": {
+                "source": "https://github.com/manzolo/BiCore/tree/1.0.0"
+            },
+            "time": "2023-02-18T23:21:23+00:00"
         },
         {
             "name": "markbaker/complex",

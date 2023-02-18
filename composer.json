@@ -6,10 +6,11 @@
     "require": {
         "php": "^8.0",
         "cmen/google-charts-bundle": "^5.0",
-        "comunedifirenze/bicorebundle": "^3.0",
         "doctrine/doctrine-migrations-bundle": "^3.0",
+        "friendsofsymfony/user-bundle": "^3.0",
         "jms/serializer-bundle": "^5.0",
         "lexik/jwt-authentication-bundle": "^2.6",
+        "manzolo/bicore": "^1.0",
         "phpstan/phpstan-doctrine": "^1.0",
         "symfony/apache-pack": "^1.0",
         "symfony/console": "^5.4",
