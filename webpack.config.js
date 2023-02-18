@@ -30,12 +30,12 @@ Encore
         .addEntry('maps', './assets/js/maps.js')
         .addEntry('battery', './assets/js/battery.js')
 
-        .addEntry('bootstrapitalia', './vendor/comunedifirenze/bicorebundle/assets/js/bootstrapitalia.js')
-        .addEntry('bicore', './vendor/comunedifirenze/bicorebundle/assets/js/bicore.js')
-        .addEntry('login', './vendor/comunedifirenze/bicorebundle/assets/js/login.js')
-        .addEntry('bitabella', './vendor/comunedifirenze/bicorebundle/assets/js/bitabella.js')
-        .addEntry('bidemo', './vendor/comunedifirenze/bicorebundle/assets/js/bidemo.js')
-        .addEntry('adminpanel', './vendor/comunedifirenze/bicorebundle/assets/js/adminpanel.js')
+        .addEntry('bootstrapitalia', './vendor/manzolo/bicore/assets/js/bootstrapitalia.js')
+        .addEntry('bicore', './vendor/manzolo/bicore/assets/js/bicore.js')
+        .addEntry('login', './vendor/manzolo/bicore/assets/js/login.js')
+        .addEntry('bitabella', './vendor/manzolo/bicore/assets/js/bitabella.js')
+        .addEntry('bidemo', './vendor/manzolo/bicore/assets/js/bidemo.js')
+        .addEntry('adminpanel', './vendor/manzolo/bicore/assets/js/adminpanel.js')
 
         //.addEntry('page1', './assets/js/page1.js')
         //.addEntry('page2', './assets/js/page2.js')
