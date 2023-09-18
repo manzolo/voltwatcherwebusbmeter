@@ -31,7 +31,7 @@
         "google-charts": "^2.0.0",
         "jquery-contextmenu": "^2.9.2",
         "moment": "2.29.4",
-        "ol": "^7.5.2",
+        "ol": "^8.1.0",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
