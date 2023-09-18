@@ -4,8 +4,8 @@
       "js": [
         "/build/runtime.8d81bfbc.js",
         "/build/755.3e6cf52d.js",
-        "/build/109.c803fc1b.js",
-        "/build/app.999ddd8f.js"
+        "/build/109.1f58cd0a.js",
+        "/build/app.f99af24a.js"
       ],
       "css": [
         "/build/app.2eea1a51.css"
@@ -14,15 +14,15 @@
     "homepage": {
       "js": [
         "/build/runtime.8d81bfbc.js",
-        "/build/109.c803fc1b.js",
-        "/build/687.f2873356.js",
-        "/build/606.9eb1a618.js",
-        "/build/704.5224a3c1.js",
-        "/build/421.4dab8005.js",
-        "/build/homepage.0e944d38.js"
+        "/build/109.1f58cd0a.js",
+        "/build/687.b328999f.js",
+        "/build/606.df4a7f64.js",
+        "/build/354.d71763a0.js",
+        "/build/380.43a72d4e.js",
+        "/build/homepage.47aedbe5.js"
       ],
       "css": [
-        "/build/homepage.ed5f9348.css"
+        "/build/homepage.ad20b898.css"
       ]
     },
     "chart": {
@@ -39,22 +39,22 @@
       "js": [
         "/build/runtime.8d81bfbc.js",
         "/build/755.3e6cf52d.js",
-        "/build/109.c803fc1b.js",
-        "/build/704.5224a3c1.js",
-        "/build/maps.6014e4db.js"
+        "/build/109.1f58cd0a.js",
+        "/build/354.d71763a0.js",
+        "/build/maps.2141e32a.js"
       ],
       "css": [
-        "/build/maps.d7fa2d0b.css"
+        "/build/maps.f3095fe7.css"
       ]
     },
     "battery": {
       "js": [
         "/build/runtime.8d81bfbc.js",
-        "/build/176.3b699188.js",
+        "/build/176.99e9a3f2.js",
         "/build/battery.5cab2ab9.js"
       ],
       "css": [
-        "/build/803.d31e6258.css",
+        "/build/803.7fc1b24c.css",
         "/build/battery.2db4f960.css"
       ]
     },
@@ -67,15 +67,15 @@
         "/build/bootstrapitalia.922cc320.js"
       ],
       "css": [
-        "/build/234.b68949cb.css"
+        "/build/234.94eda6b0.css"
       ]
     },
     "bicore": {
       "js": [
         "/build/runtime.8d81bfbc.js",
         "/build/755.3e6cf52d.js",
-        "/build/109.c803fc1b.js",
-        "/build/bicore.b2293236.js"
+        "/build/109.1f58cd0a.js",
+        "/build/bicore.1d2d2a63.js"
       ],
       "css": [
         "/build/bicore.e7c900e9.css"
@@ -94,17 +94,17 @@
       "js": [
         "/build/runtime.8d81bfbc.js",
         "/build/755.3e6cf52d.js",
-        "/build/109.c803fc1b.js",
-        "/build/687.f2873356.js",
-        "/build/606.9eb1a618.js",
+        "/build/109.1f58cd0a.js",
+        "/build/687.b328999f.js",
+        "/build/606.df4a7f64.js",
         "/build/981.6cd25f3f.js",
-        "/build/895.5a2ccc38.js",
-        "/build/79.2da28904.js",
-        "/build/818.fafd13bf.js",
-        "/build/bitabella.9bf6c423.js"
+        "/build/895.b0b98e13.js",
+        "/build/568.37b7a47c.js",
+        "/build/818.e892a559.js",
+        "/build/bitabella.a990c0d2.js"
       ],
       "css": [
-        "/build/803.d31e6258.css",
+        "/build/803.7fc1b24c.css",
         "/build/818.28033ba2.css"
       ]
     },
@@ -112,17 +112,17 @@
       "js": [
         "/build/runtime.8d81bfbc.js",
         "/build/755.3e6cf52d.js",
-        "/build/109.c803fc1b.js",
-        "/build/687.f2873356.js",
-        "/build/606.9eb1a618.js",
+        "/build/109.1f58cd0a.js",
+        "/build/687.b328999f.js",
+        "/build/606.df4a7f64.js",
         "/build/981.6cd25f3f.js",
-        "/build/895.5a2ccc38.js",
-        "/build/79.2da28904.js",
-        "/build/818.fafd13bf.js",
-        "/build/bidemo.2d9d04dc.js"
+        "/build/895.b0b98e13.js",
+        "/build/568.37b7a47c.js",
+        "/build/818.e892a559.js",
+        "/build/bidemo.e619ed93.js"
       ],
       "css": [
-        "/build/803.d31e6258.css",
+        "/build/803.7fc1b24c.css",
         "/build/818.28033ba2.css"
       ]
     },
@@ -130,9 +130,9 @@
       "js": [
         "/build/runtime.8d81bfbc.js",
         "/build/755.3e6cf52d.js",
-        "/build/109.c803fc1b.js",
-        "/build/687.f2873356.js",
-        "/build/895.5a2ccc38.js",
+        "/build/109.1f58cd0a.js",
+        "/build/687.b328999f.js",
+        "/build/895.b0b98e13.js",
         "/build/adminpanel.abd627c1.js"
       ],
       "css": [
